@@ -93,6 +93,7 @@ public class ClientGameController implements Initializable {
         comboBoxInitialization();
 
         System.out.println("DA FARE");
+        System.out.println("PROVA");
 
     }
 
