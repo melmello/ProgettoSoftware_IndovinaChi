@@ -92,6 +92,8 @@ public class ClientGameController implements Initializable {
         informationComboBox.setItems(informationPossibility);
         comboBoxInitialization();
 
+        System.out.println("DA FARE");
+
     }
 
     public void clientWantsToQuery(){
