@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Client.ClientClass.ClientChoiceController">
+   <children>
+      <Pane prefHeight="1080.0" prefWidth="1920.0">
+         <children>
+            <ImageView fx:id="imageWorldScoreboard" fitHeight="282.0" fitWidth="286.0" layoutX="1620.0" layoutY="380.0" onMouseClicked="#onClickOnWorldScoreboard" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ClientImage/ScoreboardMondiale.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imagePersonalScoreboard" fitHeight="282.0" fitWidth="286.0" layoutX="1620.0" layoutY="15.0" onMouseClicked="#onClickOnPersonalScoreboard" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ClientImage/ScoreboardPersonale.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imagePlayGame" fitHeight="282.0" fitWidth="286.0" layoutX="1620.0" layoutY="745.0" onMouseClicked="#onClickOnPlayImage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ClientImage/PlayAGame.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="1643.0" layoutY="309.0" text="SCOREBOARD PERSONALE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="1656.0" layoutY="668.0" text="SCOREBOARD MONDIALE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="1693.0" layoutY="1012.0" text="PLAY A GAME">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imageSingle" fitHeight="300.0" fitWidth="300.0" layoutX="196.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ClientImage/Singleplayer.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageMulti" fitHeight="150.0" fitWidth="400.0" layoutX="788.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ClientImage/Mutliplayer.png" />
+               </image>
+            </ImageView>
+            <JFXListView fx:id="clientConnectedListView" layoutX="740.0" layoutY="675.0" prefHeight="234.0" prefWidth="488.0" />
+            <JFXToggleButton layoutX="230.0" layoutY="189.0" onAction="#continueOnGameScreen" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

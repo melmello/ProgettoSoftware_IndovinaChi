@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="backgroundPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Client.ClientClass.ClientGameController">
+   <children>
+      <GridPane prefHeight="1080.0" prefWidth="1500.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView id="Baggio" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Baggio.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Beckham" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Beckham.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Bergkamp" fitHeight="216.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Bergkamp.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Best" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Best.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Cantona" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Cantona.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Carlos" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Carlos.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Charlton" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Charlton.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Cruijff" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Cruijff.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Davids" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Davids.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="DelPiero" fitHeight="216.0" fitWidth="150.0" layoutX="1210.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9">
+               <image>
+                  <Image url="@../../Utilities/Stickers/DelPiero.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Deschamps" fitHeight="216.0" fitWidth="150.0" layoutX="1060.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Deschamps.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Figo" fitHeight="216.0" fitWidth="150.0" layoutX="910.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Figo.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Francescoli" fitHeight="216.0" fitWidth="150.0" layoutX="610.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Francescoli.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Gattuso" fitHeight="216.0" fitWidth="150.0" layoutX="460.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Gattuso.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Gerrard" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Gerrard.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Giggs" fitHeight="216.0" fitWidth="150.0" layoutX="1360.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Giggs.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Guardiola" fitHeight="216.0" fitWidth="150.0" layoutX="760.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Guardiola.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Gullit" fitHeight="216.0" fitWidth="150.0" layoutX="1210.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Gullit.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Henry" fitHeight="216.0" fitWidth="150.0" layoutX="310.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Henry.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Hierro" fitHeight="216.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Hierro.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Juninho" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Juninho.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Keane" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Keane.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Klinsmann" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Klinsmann.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="Lampard" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Lampard.jpg" />
+               </image></ImageView>
+            <ImageView id="Maldini" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Maldini.jpg" />
+               </image></ImageView>
+            <ImageView id="Maradona" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Maradona.jpg" />
+               </image></ImageView>
+            <ImageView id="Nakata" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Nakata.jpg" />
+               </image></ImageView>
+            <ImageView id="Papin" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Papin.jpg" />
+               </image></ImageView>
+            <ImageView id="Pelè" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Pelè.jpg" />
+               </image></ImageView>
+            <ImageView id="Pirlo" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Pirlo.jpg" />
+               </image></ImageView>
+            <ImageView id="Platini" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Platini.jpg" />
+               </image></ImageView>
+            <ImageView id="Puyol" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Puyol.jpg" />
+               </image></ImageView>
+            <ImageView id="Raul" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Raul.jpg" />
+               </image></ImageView>
+            <ImageView id="Redondo" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Redondo.jpg" />
+               </image></ImageView>
+            <ImageView id="Rijkaard" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Rijkaard.jpg" />
+               </image></ImageView>
+            <ImageView id="Riquelme" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Riquelme.jpg" />
+               </image></ImageView>
+            <ImageView id="Rivaldo" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Rivaldo.jpg" />
+               </image></ImageView>
+            <ImageView id="Romario" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Romario.jpg" />
+               </image></ImageView>
+            <ImageView id="Ronaldinho" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Ronaldinho.jpg" />
+               </image></ImageView>
+            <ImageView id="Ronaldo" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Ronaldo.jpg" />
+               </image></ImageView>
+            <ImageView id="Scholes" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Scholes.jpg" />
+               </image></ImageView>
+            <ImageView id="Sevcenko" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Sevcenko.jpg" />
+               </image></ImageView>
+            <ImageView id="Socrates" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Socrates.jpg" />
+               </image></ImageView>
+            <ImageView id="Suker" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Suker.jpg" />
+               </image></ImageView>
+            <ImageView id="Totti" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Totti.jpg" />
+               </image></ImageView>
+            <ImageView id="Valderrama" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Valderrama.jpg" />
+               </image></ImageView>
+            <ImageView id="VanBasten" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../../Utilities/Stickers/VanBasten.jpg" />
+               </image></ImageView>
+            <ImageView id="VanNistelrooij" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../../Utilities/Stickers/VanNistelrooij.jpg" />
+               </image></ImageView>
+            <ImageView id="Xavi" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Xavi.jpg" />
+               </image></ImageView>
+            <ImageView id="Zidane" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../../Utilities/Stickers/Zidane.jpg" />
+               </image></ImageView>
+         </children>
+      </GridPane>
+      <ImageView fitHeight="305.0" fitWidth="394.0" layoutX="1512.0" layoutY="782.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Utilities/Stickers/AllModified.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="myStickerImage" fitHeight="216.0" fitWidth="150.0" layoutX="1512.0" layoutY="566.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="hisStickerImage" fitHeight="216.0" fitWidth="150.0" layoutX="1756.0" layoutY="566.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Utilities/Stickers/Question.png" />
+         </image></ImageView>
+      <Label layoutX="1581.0" layoutY="532.0" text="IO" />
+      <Label layoutX="1824.0" layoutY="532.0" text="TU" />
+      <JFXToggleButton fx:id="enableChangingSticker" layoutX="1563.0" layoutY="472.0" />
+      <ToolBar fx:id="toolBar" layoutX="1577.0" layoutY="134.0" nodeOrientation="LEFT_TO_RIGHT" orientation="VERTICAL" prefHeight="195.0" prefWidth="264.0" style="-fx-background-color: transparent;">
+        <items>
+            <JFXComboBox fx:id="hairComboBox" onMouseClicked="#reinitializeComboBox" prefHeight="31.0" prefWidth="250.0" promptText="Capelli" />
+            <JFXComboBox fx:id="beardComboBox" onMouseClicked="#reinitializeComboBox" prefHeight="31.0" prefWidth="250.0" promptText="Barba" />
+            <JFXComboBox fx:id="faceComboBox" layoutX="10.0" layoutY="10.0" prefHeight="31.0" prefWidth="250.0" promptText="Viso" />
+            <JFXComboBox fx:id="accessoriesComboBox" layoutX="10.0" layoutY="82.0" prefHeight="31.0" prefWidth="250.0" promptText="Accessori" />
+            <JFXComboBox fx:id="informationComboBox" layoutX="10.0" layoutY="118.0" prefHeight="31.0" prefWidth="250.0" promptText="Informazioni" />
+        </items>
+      </ToolBar>
+      <GridPane layoutX="1511.0" layoutY="769.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="39.1" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="39.1" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="39.1" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="39.1" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="39.1" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="39.1" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="39.1" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="39.1" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="39.1" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="39.1" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <JFXTextField fx:id="settingQuestionForSticker" layoutX="1518.0" layoutY="363.0" minWidth="336.0" onKeyPressed="#clientWantsToQuery" prefHeight="31.0" prefWidth="383.0" />
+   </children>
+</AnchorPane>

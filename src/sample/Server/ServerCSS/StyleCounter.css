@@ -1,0 +1,5 @@
+#paneCounter{
+    -fx-background-image: url("/sample/Server/ServerImage/StartBackgroundCounter.png");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center center;
+}
