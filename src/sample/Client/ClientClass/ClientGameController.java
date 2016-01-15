@@ -91,6 +91,7 @@ public class ClientGameController implements Initializable {
         accessoriesComboBox.setItems(accessoriesPossibility);
         informationComboBox.setItems(informationPossibility);
         comboBoxInitialization();
+        System.out.println("ehi");
     }
 
     public void clientWantsToQuery(){
