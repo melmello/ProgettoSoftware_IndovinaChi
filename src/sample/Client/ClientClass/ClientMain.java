@@ -12,8 +12,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import sample.Utilities.Class.StickerQuery;
 import sample.Utilities.Class.User;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -222,11 +226,14 @@ public class ClientMain extends Application {
     //metodo che comunica al server che il Client ha scelto lo sticker e vuole mandargli quale
     public void settingMySticker(){
         writer.println(clientReadyToGiveStickerInfo);
+        notification("IndovinaChi", "Hai scelto il personaggio!", NotificationType.SUCCESS);
+
     }
 
     //metodo che comunica al server il path dell'immagine scelta
     public void comunicateStickerInfo() {
         writer.println(clientGameController.getImagePath());
+        clientGameController.abilitateMaskerPane();
     }
 
     //metodo che dice al Server che il client è pronto per mandare la query
@@ -246,6 +253,19 @@ public class ClientMain extends Application {
     }
 
     public void readyToAbilitateClientScreen() {
+        notification("IndovinaChi", "Sta a te!", NotificationType.SUCCESS);
         clientGameController.readyToAbilitateClientScreen();
     }
+
+    public void notification(String titleOfTheMoment, String messageOfTheMoment, NotificationType typeOfTheMoment){
+        Image icona = new Image("/sample/Client/ClientImage/Icona.png");
+        String titleOfNotification = titleOfTheMoment;
+        String messageOfNotification = messageOfTheMoment;
+        NotificationType typeOfModification = typeOfTheMoment;
+        TrayNotification tray = new TrayNotification(titleOfNotification, messageOfNotification, typeOfModification);
+        tray.setImage(icona);
+        tray.showAndWait();
+        tray.showAndDismiss(Duration.seconds(3));
+    }
+
 }

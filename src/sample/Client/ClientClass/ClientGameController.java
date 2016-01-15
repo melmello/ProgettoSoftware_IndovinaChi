@@ -4,9 +4,9 @@ import static sample.Utilities.Class.ConstantCodes.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.textfield.TextFields;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXComboBox;
@@ -24,7 +24,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import java.net.URL;
-import java.sql.Array;
 import java.util.*;
 
 public class ClientGameController implements Initializable {
@@ -43,6 +42,7 @@ public class ClientGameController implements Initializable {
     @FXML JFXComboBox<String> accessoriesComboBox;
     @FXML JFXComboBox<String> informationComboBox;
     @FXML JFXTextField settingQuestionForSticker;
+    @FXML MaskerPane maskerPaneWaitingOtherPlayerChoice;
 
     public static final ObservableList hairPossibility = FXCollections.observableArrayList();
     public static final ObservableList beardPossibility = FXCollections.observableArrayList();
@@ -91,7 +91,7 @@ public class ClientGameController implements Initializable {
         accessoriesComboBox.setItems(accessoriesPossibility);
         informationComboBox.setItems(informationPossibility);
         comboBoxInitialization();
-        System.out.println("ehi");
+        maskerPaneWaitingOtherPlayerChoice.setVisible(false);
     }
 
     public void clientWantsToQuery(){
@@ -292,13 +292,6 @@ public class ClientGameController implements Initializable {
         }
     }
 
-    /*
-    //metodo che serve per segnalare al server che il client vuole fare una query
-    public void clientWantsToQuery() {
-        main.clientWantsToQuery();
-    }
-    */
-
     //metodo che serve per rimuovere gli sticker dalla mio schermata del client
     public void modifySticker(ArrayList<String> newStickers) {
         for (int i = 0; i < newStickers.size(); i++) {
@@ -328,6 +321,20 @@ public class ClientGameController implements Initializable {
     }
 
     public void readyToAbilitateClientScreen() {
-        settingQuestionForSticker.setDisable(true);
+        disableForChangingRound(false);
+        //settingQuestionForSticker.setDisable(false);
+    }
+
+    public void abilitateMaskerPane() {
+        maskerPaneWaitingOtherPlayerChoice.setVisible(true);
+        disableForChangingRound(true);
+    }
+    public void disableForChangingRound(Boolean bool){
+        settingQuestionForSticker.setDisable(bool);
+        hairComboBox.setDisable(bool);
+        beardComboBox.setDisable(bool);
+        faceComboBox.setDisable(bool);
+        accessoriesComboBox.setDisable(bool);
+        informationComboBox.setDisable(bool);
     }
 }
