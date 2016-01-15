@@ -95,7 +95,6 @@ public class ClientGameController implements Initializable {
         System.out.println("DA FARE");
         System.out.println("PROVA");
         System.out.println("NOVITA");
-
     }
 
     public void clientWantsToQuery(){
