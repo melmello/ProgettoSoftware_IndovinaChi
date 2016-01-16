@@ -64,11 +64,53 @@ public class ClientThread extends Thread {
                     }
                     case (changingRound):{
                         readyToAbilitateClientScreen();
+                        break;
                     }
-
+                    case (serverReadyToSendClientConnected):{
+                        serverComunicateClientConnected();
+                        break;
+                    }
+                    case (serverWantsToRefreshClientConnected):{
+                        serverReadyToComunicateClientsConnectedList();
+                        break;
+                    }
+                    case (serverWantsNameOfClientDisconnecting):{
+                        serverWantsNameClientOff();
+                        break;
+                    }
+                    case (userNotFound):{
+                        notificationToUserNotFound();
+                    }
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void notificationToUserNotFound() {
+        main.notification("Utente " + main.getUser().getUserUsername() + " con password " + main.getUser().getUserPassword() + " non trovato");
+    }
+
+    private void serverWantsNameClientOff() {
+        writer.println(main.getUser().getUserUsername());
+    }
+
+    private void serverReadyToComunicateClientsConnectedList() {
+        gson = new Gson();
+        writer.println(wantsToKnowClientConnected);
+    }
+
+    private void serverComunicateClientConnected() {
+        gson = new Gson();
+        try {
+            writer.println(clientReadyToReceiveClientsConnected);
+            String clientConnectedGson = reader.readLine();
+            ArrayList<String> clientConnected = gson.fromJson(clientConnectedGson, new TypeToken<ArrayList<String>>() {
+            }.getType());
+            System.out.println(clientConnected);
+            main.displayClientConnected(clientConnected);
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -107,7 +149,7 @@ public class ClientThread extends Thread {
 
     //metodo che mi cambia la schermata da login a choice
     private void continueOnChoiceScreen() {
-        main.continueOnChoiceScreen();
+        main.notificationForNewUser();
     }
 
     //metodo per l'autenticazione, la creazione del gson e l'invio di esso

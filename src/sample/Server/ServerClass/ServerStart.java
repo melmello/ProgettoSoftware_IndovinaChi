@@ -1,9 +1,9 @@
 package sample.Server.ServerClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
+import static sample.Utilities.Class.SecurityClass.*;
 import javafx.concurrent.Task;
 import sample.Utilities.Class.Sticker;
-
 import java.net.Inet4Address;
 import java.net.Socket;
 import java.net.ServerSocket;
@@ -20,8 +20,7 @@ public class ServerStart extends Task {
     private ServerMain serverMain;
     private Connection connection;
     private ArrayList<ServerThread> threadsArrayList;
-
-    //private ServerStartingController serverStartingController;
+    private ArrayList<String> listOfClientConnected = new ArrayList<>();
 
     //costruttore
     public ServerStart(ServerMain serverMain) {
@@ -35,9 +34,8 @@ public class ServerStart extends Task {
         assignedPort=8080;//assegno il numero della porta
         try {
             socketExchange = new ServerSocket(assignedPort);//istanzio il socket sulla tal porta su cui comunicherò
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            connectionURL = "jdbc:mysql://localhost:3306/indovinachi?useSSL=false";//url del database
-            connection = DriverManager.getConnection(connectionURL, "root", "RTrododentro14");//mi collego al database
+            Class.forName(driverMySql).newInstance();
+            connection = DriverManager.getConnection(urlConnection, "root", rootPasswordMYSQL);//mi collego al database
             System.out.println("Database connesso");
             assignedIp = Inet4Address.getLocalHost().getHostAddress();//ricavo l'IP globale del Server per stamparlo poi
             serverMain.initialConfiguration(assignedIp); //chiamo il metodo che mi permette di collegarmi al Controller
@@ -61,11 +59,13 @@ public class ServerStart extends Task {
     }
 
     //metodo usato quando un client di disconnette
-    public void changeClientNumber(){
+    public void changeClientNumber(String nameToRemove){
         clientNumber--;
         serverMain.printNumberOfClient(Integer.toString(clientNumber));
         System.out.println("Numero di client connessi: " + clientNumber);
         System.out.println("Il client #" + clientNumber + " si è disconnesso");
+        listOfClientConnected.remove(nameToRemove);
+
     }
 
     //metodo per il cambio di turno
@@ -75,6 +75,33 @@ public class ServerStart extends Task {
 
     public void setOpponentSticker(Sticker mySticker, int positionInArrayList) {
         threadsArrayList.get((positionInArrayList + 1) % 2).setOpponentSticker(mySticker);
+    }
+
+    public void startGameWithRandomChoice(boolean numberOfFirstPlayer) {
+        System.out.println(castingBooleanToInt(numberOfFirstPlayer));
+        threadsArrayList.get(castingBooleanToInt(numberOfFirstPlayer)).getWriter().println(changingRound);
+    }
+
+    public int castingBooleanToInt(Boolean myBoolean){
+        int myInt = (myBoolean) ? 1 : 0;
+        return myInt;
+    }
+
+    public void insertNameInArrayList(String userSQLName) {
+        listOfClientConnected.add(userSQLName);
+    }
+
+    public void refreshClientConnected(String username) {
+        for (int cont = 0; cont < threadsArrayList.size(); cont++){
+            if (threadsArrayList.get(cont).getUser().getUserUsername()!=null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(username)) {
+                threadsArrayList.get(cont).getWriter().println(serverWantsToRefreshClientConnected);
+            }
+        }
+    }
+
+    //getter
+    public ArrayList<String> getListOfClientConnected() {
+        return listOfClientConnected;
     }
 
 }

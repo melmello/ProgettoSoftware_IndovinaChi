@@ -4,11 +4,17 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,9 +29,8 @@ public class ClientLoginController implements Initializable {//serve per avere l
     @FXML   private JFXTextField textWithUsername;
     @FXML   private JFXPasswordField textWithPassword;
     @FXML   private JFXPasswordField textWithPasswordConfirm;
-    @FXML   private JFXButton buttonLogin;
-    @FXML   private JFXButton buttonNewUser;
     @FXML   private JFXButton buttonUserScreen;
+    @FXML   private JFXButton buttonToContinue;
     @FXML   private JFXToggleButton toggleContinue;//TODO eliminarlo
 
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
@@ -34,13 +39,12 @@ public class ClientLoginController implements Initializable {//serve per avere l
         textWithUsername.setVisible(false);
         textWithPassword.setVisible(false);
         textWithPasswordConfirm.setVisible(false);
-        buttonLogin.setVisible(false);
-        buttonNewUser.setVisible(false);
-        buttonNewUser.setVisible(false);
+        buttonToContinue.setVisible(false);
         buttonUserScreen.setVisible(false);
         labelLoginTitle.setVisible(false);
         labelLoginTitle.setFocusTraversable(true);//focus sul titolo così non sono già dentro un campo nello scrivere
         loginNewUser = true;//entro nella schermata di login
+        loginScreenShow();
     }
 
     //metodo che serve per far conoscere main e controller
@@ -49,18 +53,34 @@ public class ClientLoginController implements Initializable {//serve per avere l
     }
 
     //metodo che permette di proseguire e vedere la schermata di login cliccando sul background
-    public void clickOnBackground(){
-        System.out.println("Sto cliccando il background");
-        textWithUsername.setVisible(true);
-        textWithPassword.setVisible(true);
-        textWithPasswordConfirm.setVisible(false);
-        labelLoginTitle.setVisible(true);
-        buttonLogin.setVisible(true);
-        buttonNewUser.setVisible(false);
-        buttonUserScreen.setVisible(true);
-        anchorPane.setOnMouseClicked(null);//inibisce il background click
+    public void loginScreenShow(){
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        fadeTransitionEffect(loginVBox, 0, 1, 3000);
+                        textWithUsername.setVisible(true);
+                        textWithPassword.setVisible(true);
+                        textWithPasswordConfirm.setVisible(false);
+                        labelLoginTitle.setVisible(true);
+                        buttonToContinue.setVisible(true);
+                        buttonUserScreen.setVisible(true);
+                        anchorPane.setOnMouseClicked(null);//inibisce il background click
+                    }
+                },
+                3000
+        );
     }
 
+    public void fadeTransitionEffect(Node nodeToEffect, float fromValue, float toValue, int duration){
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(duration), nodeToEffect);
+        fadeTransition.setFromValue(fromValue);
+        fadeTransition.setToValue(toValue);
+        fadeTransition.setAutoReverse(true);
+        fadeTransition.play();
+    }
+
+    /*
     //metodo per il passaggio da fullscreen a window screen
     public void updateWithConstraints(double width, double height) {
         //anchorPane.setRightAnchor(loginPane, anchorPane.getWidth()*4/100 );
@@ -68,6 +88,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
         anchorPane.setTopAnchor(loginVBox, anchorPane.getHeight()*25/100);
         //anchorPane.setBottomAnchor(loginPane, anchorPane.getHeight()*4/100);
     }
+    */
 
     //metodo per creare un nuovo account
     public void confirmLoginScreen(){
@@ -96,18 +117,30 @@ public class ClientLoginController implements Initializable {//serve per avere l
         if(loginNewUser==true){
             labelLoginTitle.setText("NEW USER");
             buttonUserScreen.setText("HAI GIA' UN ACCOUNT?");
-            buttonLogin.setVisible(false);
-            buttonNewUser.setVisible(true);
+            buttonToContinue.setText("SIGN UP");
+            buttonToContinue.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    newUserLogin();
+                }
+            });
+            fadeTransitionEffect(textWithPasswordConfirm, 0, 1, 1000);
             textWithPasswordConfirm.setVisible(true);
-            loginNewUser=false;
+            loginNewUser = false;
         }
         else{
             labelLoginTitle.setText("LOGIN");
             buttonUserScreen.setText("SEI UN NUOVO UTENTE?");
-            buttonLogin.setVisible(true);
-            buttonNewUser.setVisible(false);
-            textWithPasswordConfirm.setVisible(false);
-            loginNewUser=true;
+            buttonToContinue.setText("LOGIN");
+            buttonToContinue.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    confirmLoginScreen();
+                }
+            });
+            fadeTransitionEffect(textWithPasswordConfirm, 1, 0, 1000);
+            //textWithPasswordConfirm.setVisible(false);
+            loginNewUser = true;
         }
         textWithPassword.setText(null); //quando cambio schermata azzero i tre campi
         textWithUsername.setText(null);
@@ -119,4 +152,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
         main.continueOnChoiceScreen();
     }
 
+    public void setLoginNewUser(boolean loginNewUser) {
+        this.loginNewUser = loginNewUser;
+    }
 }

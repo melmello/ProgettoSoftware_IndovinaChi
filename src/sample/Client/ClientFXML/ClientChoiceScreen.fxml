@@ -7,52 +7,57 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Client.ClientClass.ClientChoiceController">
+<AnchorPane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Client.ClientClass.ClientChoiceController">
    <children>
       <Pane prefHeight="1080.0" prefWidth="1920.0">
          <children>
-            <ImageView fx:id="imageWorldScoreboard" fitHeight="282.0" fitWidth="286.0" layoutX="1620.0" layoutY="380.0" onMouseClicked="#onClickOnWorldScoreboard" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../ClientImage/ScoreboardMondiale.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="imagePersonalScoreboard" fitHeight="282.0" fitWidth="286.0" layoutX="1620.0" layoutY="15.0" onMouseClicked="#onClickOnPersonalScoreboard" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../ClientImage/ScoreboardPersonale.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="imagePlayGame" fitHeight="282.0" fitWidth="286.0" layoutX="1620.0" layoutY="745.0" onMouseClicked="#onClickOnPlayImage" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../ClientImage/PlayAGame.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="1643.0" layoutY="309.0" text="SCOREBOARD PERSONALE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="1656.0" layoutY="668.0" text="SCOREBOARD MONDIALE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="1693.0" layoutY="1012.0" text="PLAY A GAME">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="imageSingle" fitHeight="300.0" fitWidth="300.0" layoutX="196.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageSingle" fitHeight="300.0" fitWidth="300.0" layoutX="468.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../ClientImage/Singleplayer.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imageMulti" fitHeight="150.0" fitWidth="400.0" layoutX="788.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageMulti" fitHeight="150.0" fitWidth="400.0" layoutX="1012.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../ClientImage/Mutliplayer.png" />
                </image>
             </ImageView>
-            <JFXListView fx:id="clientConnectedListView" layoutX="740.0" layoutY="675.0" prefHeight="234.0" prefWidth="488.0" />
-            <JFXToggleButton layoutX="230.0" layoutY="189.0" onAction="#continueOnGameScreen" />
+            <JFXListView fx:id="clientConnectedListView" layoutX="946.0" layoutY="677.0" prefHeight="234.0" prefWidth="488.0" />
+            <JFXToggleButton fx:id="temporaryButton" layoutX="846.0" layoutY="148.0" onAction="#continueOnGameScreen" prefHeight="30.0" prefWidth="74.0" />
+            <ImageView fx:id="imagePersonalScoreboard" fitHeight="282.0" fitWidth="286.0" layoutX="1611.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ClientImage/ScoreboardPersonale.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="1633.0" layoutY="345.0" text="SCOREBOARD PERSONALE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imageWorldScoreboard" fitHeight="282.0" fitWidth="286.0" layoutX="1589.0" layoutY="665.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ClientImage/ScoreboardMondiale.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="1622.0" layoutY="970.0" text="SCOREBOARD MONDIALE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imagePlayGame" fitHeight="282.0" fitWidth="286.0" layoutX="75.0" layoutY="31.0" onMouseClicked="#onClickOnPlayImage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ClientImage/PlayAGame.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="127.0" layoutY="300.0" text="PLAY A GAME">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="282.0" fitWidth="286.0" layoutX="71.0" layoutY="710.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ClientImage/Rating.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

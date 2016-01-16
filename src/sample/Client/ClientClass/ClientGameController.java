@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import org.controlsfx.control.MaskerPane;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXComboBox;
@@ -50,6 +51,7 @@ public class ClientGameController implements Initializable {
     public static final ObservableList accessoriesPossibility = FXCollections.observableArrayList();
     public static final ObservableList informationPossibility = FXCollections.observableArrayList();
 
+    AutoCompletionBinding<String> autoCompletionBinding;
     String[] questionCanBeChoosen = {};
     Set<String> questionCanBeChoosenArray = new HashSet<>(Arrays.asList(questionCanBeChoosen));
     ArrayList<String> questionToSendToServer = new ArrayList<>();
@@ -80,11 +82,11 @@ public class ClientGameController implements Initializable {
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        hairPossibility.addAll("Lunghezza", "Colore", "Tipo");
-        beardPossibility.addAll("Lunghezza", "Colore", "Tipo");
-        facePossibility.addAll("Colore degli occhi", "Dimensione del naso", "Sta sorridendo", "Carnagione");
-        accessoriesPossibility.addAll("Orecchini", "Occhiali", "Fascia", "Nei", "Lentiggini");
-        informationPossibility.addAll("Maglia della nazionale", "Continente", "Campionato", "Fascia da capitano");
+        hairPossibility.addAll(lenghtCB, colorCB, typeCB);
+        beardPossibility.addAll(lenghtCB, colorCB, typeCB);
+        facePossibility.addAll(eyesColorCB, noseDimensionCB, smileCB, complexionCB);
+        accessoriesPossibility.addAll(earringsCB, glassesCB, headbandCB, moleCB, frecklesCB);
+        informationPossibility.addAll(nationalShirtCB, continentCB, championshipCB, captainBandCB);
         hairComboBox.setItems(hairPossibility);
         beardComboBox.setItems(beardPossibility);
         faceComboBox.setItems(facePossibility);
@@ -106,8 +108,11 @@ public class ClientGameController implements Initializable {
                             indexToTakeSqlParameter = i;
                         }
                     }
-                    secondParameter = questionToSendToServer.get(indexToTakeSqlParameter);
-                    main.clientWantsToQuery();
+                    if (indexToTakeSqlParameter != -1){
+                        secondParameter = questionToSendToServer.get(indexToTakeSqlParameter);
+                        main.clientWantsToQuery();
+                    } else {
+                    }
                 } else {
                     System.out.println("Errore nella scrittura della query");
                     //NOTIFICA
@@ -123,6 +128,10 @@ public class ClientGameController implements Initializable {
             accessoriesComboBox.setValue(null);
             informationComboBox.setValue(null);
             settingQuestionForSticker.setText(null);
+            settingQuestionForSticker.clear();
+            questionCanBeChoosenArray.clear();
+            questionToSendToServer.clear();
+
     }
 
     private void comboBoxInitialization() {
@@ -130,8 +139,7 @@ public class ClientGameController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 switch (hairPossibility.get(observable.getValue().intValue()).toString()){
-                    case ("Lunghezza"):{
-                        //reinitializeComboBox();
+                    case (lenghtCB):{
                         questionCanBeChoosenArray.clear();
                         questionCanBeChoosenArray.addAll(Arrays.asList("Ha i capelli lunghi?", "Ha i capelli corti?", "E' pelato?"));
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, questionCanBeChoosenArray);
@@ -140,8 +148,7 @@ public class ClientGameController implements Initializable {
                         questionToSendToServer.addAll(Arrays.asList("long", "short", "bald"));
                         break;
                     }
-                    case ("Colore"):{
-                        //reinitializeComboBox();
+                    case (colorCB):{
                         questionCanBeChoosenArray.clear();
                         questionCanBeChoosenArray.addAll(Arrays.asList("Ha i capelli scuri?", "Ha i capelli chiari?"));
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, questionCanBeChoosenArray);
@@ -150,8 +157,7 @@ public class ClientGameController implements Initializable {
                         questionToSendToServer.addAll(Arrays.asList("true", "false"));
                         break;
                     }
-                    case ("Tipo"):{
-                        //reinitializeComboBox();
+                    case (typeCB):{
                         questionCanBeChoosenArray.clear();
                         questionCanBeChoosenArray.addAll(Arrays.asList("Ha i capelli mossi?", "Ha i capelli lisci?"));
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, questionCanBeChoosenArray);
@@ -168,9 +174,7 @@ public class ClientGameController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 switch (beardPossibility.get(observable.getValue().intValue()).toString()){
-                    case ("Lunghezza"):{
-                        //reinitializeComboBox();
-                       // reinitializeComboBox();
+                    case (lenghtCB):{
                         questionCanBeChoosenArray.clear();
                         questionCanBeChoosenArray.addAll(Arrays.asList("Ha la barba lunga?", "Ha la barba corta?", "E' rasato?"));
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, questionCanBeChoosenArray);
@@ -179,13 +183,11 @@ public class ClientGameController implements Initializable {
                         questionToSendToServer.addAll(Arrays.asList("long", "short", "shaved"));
                         break;
                     }
-                    case ("Colore"):{
-                        //reinitializeComboBox();
+                    case (colorCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Ha la barba scura?", "Ha la barba chiara?");
                         break;
                     }
-                    case ("Tipo"):{
-                        //reinitializeComboBox();
+                    case (typeCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Ha i baffi?", "Ha il pizzetto?", "Ha la barba intera");
                         break;
                     }
@@ -197,20 +199,20 @@ public class ClientGameController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 switch (facePossibility.get(observable.getValue().intValue()).toString()){
-                    case ("Colore degli occhi"):{
+                    case (eyesColorCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Ha gli occhi scuri?", "Ha gli occhi chiari?");
                         settingQuestionForSticker.getText();
                         break;
                     }
-                    case ("Dimensione del naso"):{
+                    case (noseDimensionCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Ha il naso grosso?", "Ha il naso piccolo?");
                         break;
                     }
-                    case ("Sta sorridendo"):{
+                    case (smileCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Sta sorridendo?", "E' serio?");
                         break;
                     }
-                    case ("Carnagione"): {
+                    case (complexionCB): {
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "E' chiaro di carnagione?", "E' scuro di carnagione?");
                         break;
                     }
@@ -222,23 +224,23 @@ public class ClientGameController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 switch (accessoriesPossibility.get(observable.getValue().intValue()).toString()){
-                    case ("Orecchini"):{
+                    case (earringsCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Porta almeno un orecchino?", "Non indossa orecchini?");
                         break;
                     }
-                    case ("Occhiali"):{
+                    case (glassesCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Porta gli occhiali?", "Non indossa gli occhiali?");
                         break;
                     }
-                    case ("Fascia"):{
+                    case (headbandCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Indossa una fascia in testa?", "Non porta una fascia in testa?");
                         break;
                     }
-                    case ("Nei"):{
+                    case (moleCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Ha almeno un neo?", "Non ha nei?");
                         break;
                     }
-                    case ("Lentiggini"):{
+                    case (frecklesCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Ha le lentiggini?", "Non ha le lentiggini?");
                         break;
                     }
@@ -250,19 +252,19 @@ public class ClientGameController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 switch (informationPossibility.get(observable.getValue().intValue()).toString()){
-                    case ("Maglia della nazionale"):{
+                    case (nationalShirtCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Indossa la maglia della nazionale?", "Indossa la maglia di un club?");
                         break;
                     }
-                    case ("Continente"):{
+                    case (continentCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "E' europea la nazionale in cui ha giocato?", "E' americana la nazionale in cui ha giocato?", "E' asiatica la nazionale in cui ha giocato?");
                         break;
                     }
-                    case ("Campionato"):{
+                    case (championshipCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "E' della Serie A il club con cui giocava?", "E' della Premier League il club con cui giocava?", "E' della Ligue il club con cui giocava?", "E' della BBVA il club con cui giocava?", "E' della Liga Argentina il club con cui giocava?");
                         break;
                     }
-                    case ("Fascia da capitano"):{
+                    case (captainBandCB):{
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, "Indossa la fascia da capitano?", "Non indossa la fascia da capitano?");
                         break;
                     }
@@ -300,6 +302,7 @@ public class ClientGameController implements Initializable {
                 scaleTransition(stickerToBeRemovedImage);
             }
         }
+        disableForChangingRound(true);
     }
 
     //metodo stilistico che serve per la transizione zoomOut degli stickers
@@ -330,6 +333,7 @@ public class ClientGameController implements Initializable {
         disableForChangingRound(true);
     }
     public void disableForChangingRound(Boolean bool){
+        maskerPaneWaitingOtherPlayerChoice.setVisible(bool);
         settingQuestionForSticker.setDisable(bool);
         hairComboBox.setDisable(bool);
         beardComboBox.setDisable(bool);

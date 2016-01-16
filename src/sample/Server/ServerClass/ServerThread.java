@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.sql.*;
 import java.util.ArrayList;
 import org.apache.commons.io.FilenameUtils;
+import java.util.Random;
 
 public class ServerThread extends Thread{
 
@@ -25,7 +26,15 @@ public class ServerThread extends Thread{
     private Sticker mySticker;
     private Sticker opponentSticker;
     private ArrayList<String> sqlNicknameToBeRemoved = new ArrayList<>();
+    private User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     //costruttore
     public ServerThread(Socket socket, int clientNumberId, ServerStart serverStart, Connection connection, int positionInArrayList){
@@ -46,7 +55,8 @@ public class ServerThread extends Thread{
                     switch (code){
                         //Il client manda il segnale che si è disconesso.
                         case (clientDisconnected):{
-                            serverStart.changeClientNumber();
+                            serverStart.changeClientNumber(user.getUserUsername());
+                            serverStart.refreshClientConnected(user.getUserUsername());
                             break;
                         }
                         //Sto provando far loggare un utente nel login
@@ -77,11 +87,50 @@ public class ServerThread extends Thread{
                         case (changeMySticker):{
                             break;
                         }
+                        case (wantsToKnowClientConnected):{
+                            sendingClientConnected();
+                            break;
+                        }
+                        case (clientReadyToReceiveClientsConnected):{
+                            communicateClientConnected();
+                            break;
+                        }
+                        case (clientIsGivingHisName):{
+                            waitingForClientName();
+                        }
                     }
                 }
         } catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    private void waitingForClientName() {
+    }
+
+    private void clientIsGoingOff() {
+        try {
+            writer.println(serverWantsNameOfClientDisconnecting);
+            String clientNameOff = reader.readLine();
+            serverStart.refreshClientConnected(clientNameOff);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void communicateClientConnected() {
+        gson = new Gson();
+        String clientConnectedGson = gson.toJson(serverStart.getListOfClientConnected());
+        System.out.println(clientConnectedGson);
+        writer.println(clientConnectedGson);
+    }
+
+    private void sendingClientConnected() {
+        writer.println(serverReadyToSendClientConnected);
+        gson = new Gson();
+        String clientConnectedGson = gson.toJson(serverStart.getListOfClientConnected());
+        System.out.println(clientConnectedGson);
+        writer.println(clientConnectedGson);
     }
 
 
@@ -104,7 +153,7 @@ public class ServerThread extends Thread{
             StickerQuery stickerQuery = gson.fromJson(userQuery, StickerQuery.class);
             switch (stickerQuery.getFirstParameter()) {
                 //switch con case(primo parametro passato) e all'interno controllo se corrisponde o no il secondo parametro allo sticker scelto
-                case ("hairColorBrown"): {
+                case (hairColorBrown): {
                     if (opponentSticker.isHairColorBrown() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -112,7 +161,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("hairLenght"): {
+                case (hairLenght): {
                         if (opponentSticker.getHairLenght().equals(stickerQuery.getSecondParameter())) {
                             choice = true;
                             settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
@@ -122,7 +171,7 @@ public class ServerThread extends Thread{
                         }
                     break;
                 }
-                case ("beardColorBrown"): {
+                case (beardColorBrown): {
                     if (opponentSticker.isBeardColorBrown() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -130,7 +179,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("eyesColorBrown"): {
+                case (eyesColorBrown): {
                     if (opponentSticker.isEyesColorBrown() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -138,7 +187,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("complexionBrown"): {
+                case (complexionBrown): {
                     if (opponentSticker.isComplexionBrown() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -146,7 +195,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("earrings"): {
+                case (earrings): {
                     if (opponentSticker.isEarrings() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -154,7 +203,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("glasses"): {
+                case (glasses): {
                     if (opponentSticker.isGlasses() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -162,7 +211,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("headband"): {
+                case (headband): {
                     if (opponentSticker.isHeadband() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -170,7 +219,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("mole"): {
+                case (mole): {
                     if (opponentSticker.isMole() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -178,7 +227,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("beardType"): {
+                case (beardType): {
                         if (opponentSticker.getBeardType().equals(stickerQuery.getSecondParameter())) {
                             choice = true;
                             settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
@@ -188,7 +237,7 @@ public class ServerThread extends Thread{
                         }
                     break;
                 }
-                case ("freckles"): {
+                case (freckles): {
                     if (opponentSticker.isFreeckles() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -196,7 +245,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("nationalShirt"): {
+                case (nationalShirt): {
                     if (opponentSticker.isNationalShirt() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -204,7 +253,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("continent"): {
+                case (continent): {
                         if (opponentSticker.getContinent().equals(stickerQuery.getSecondParameter())) {
                             choice = true;
                             settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
@@ -214,7 +263,7 @@ public class ServerThread extends Thread{
                         }
                     break;
                 }
-                case ("championship"): {
+                case (championship): {
                         if (opponentSticker.getChampionship().equals(stickerQuery.getSecondParameter())) {
                             choice = true;
                             settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
@@ -224,15 +273,15 @@ public class ServerThread extends Thread{
                         }
                     break;
                 }
-                case ("captainband"): {
-                    if (opponentSticker.isBeardColorBrown() == stringToBool(stickerQuery.getSecondParameter())) {
+                case (captainBand): {
+                    if (opponentSticker.isCaptainBand() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), !stringToBool(stickerQuery.getSecondParameter()));
                     }
                     break;
                 }
-                case ("noseDimensionBig"): {
+                case (noseDimensionBig): {
                     if (opponentSticker.isNoseDimensionBig() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -240,7 +289,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("smile"): {
+                case (smile): {
                     if (opponentSticker.isSmile() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -248,7 +297,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("hairTypeStraight"): {
+                case (hairTypeStraight): {
                     if (opponentSticker.isHairTypeStraight() == stringToBool(stickerQuery.getSecondParameter())) {
                         settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                     } else {
@@ -256,7 +305,7 @@ public class ServerThread extends Thread{
                     }
                     break;
                 }
-                case ("beardLenght"): {
+                case (beardLenght): {
                     if (opponentSticker.getBeardLenght().equals(stickerQuery.getSecondParameter())) {
                         choice = true;
                         settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
@@ -330,31 +379,32 @@ public class ServerThread extends Thread{
             ResultSet resultSet = statement.executeQuery("SELECT * FROM stickers WHERE nickname='" + stickerName + "'");//faccio la query con il nome ricevuto per creare la figurina
             mySticker = new Sticker(null);//creo un elemento sticker vuoto
             while(resultSet.next()){//popolo il mio oggetto mySticker con i campi che ho trovato nel database con chiave quella passata dal client
-                mySticker.setName(resultSet.getString("name"));
-                mySticker.setNickname(resultSet.getString("nickname"));
-                mySticker.setSurname(resultSet.getString("surname"));
-                mySticker.setHairColorBrown(resultSet.getBoolean("hairColorBrown"));
-                mySticker.setHairLenght(resultSet.getString("hairLenght"));
-                mySticker.setBeardColorBrown(resultSet.getBoolean("beardColorBrown"));
-                mySticker.setEyesColorBrown(resultSet.getBoolean("eyesColorBrown"));
-                mySticker.setComplexionBrown(resultSet.getBoolean("complexionBrown"));
-                mySticker.setEarrings(resultSet.getBoolean("earrings"));
-                mySticker.setGlasses(resultSet.getBoolean("glasses"));
-                mySticker.setHeadband(resultSet.getBoolean("headband"));
-                mySticker.setMole(resultSet.getBoolean("mole"));
-                mySticker.setBeardType(resultSet.getString("beardType"));
-                mySticker.setFreeckles(resultSet.getBoolean("freckles"));
-                mySticker.setNationalShirt(resultSet.getBoolean("nationalShirt"));
-                mySticker.setContinent(resultSet.getString("continent"));
-                mySticker.setChampionship(resultSet.getString("championship"));
-                mySticker.setCaptainBand(resultSet.getBoolean("captainBand"));
-                mySticker.setNoseDimensionBig(resultSet.getBoolean("noseDimensionBig"));
-                mySticker.setSmile(resultSet.getBoolean("smile"));
-                mySticker.setHairTypeStraight(resultSet.getBoolean("hairTypeStraight"));
-                mySticker.setBeardLenght(resultSet.getString("beardLenght"));
+                mySticker.setName(resultSet.getString(name));
+                mySticker.setNickname(resultSet.getString(nickname));
+                mySticker.setSurname(resultSet.getString(surname));
+                mySticker.setHairColorBrown(resultSet.getBoolean(hairColorBrown));
+                mySticker.setHairLenght(resultSet.getString(hairLenght));
+                mySticker.setBeardColorBrown(resultSet.getBoolean(beardColorBrown));
+                mySticker.setEyesColorBrown(resultSet.getBoolean(eyesColorBrown));
+                mySticker.setComplexionBrown(resultSet.getBoolean(complexionBrown));
+                mySticker.setEarrings(resultSet.getBoolean(earrings));
+                mySticker.setGlasses(resultSet.getBoolean(glasses));
+                mySticker.setHeadband(resultSet.getBoolean(headband));
+                mySticker.setMole(resultSet.getBoolean(mole));
+                mySticker.setBeardType(resultSet.getString(beardType));
+                mySticker.setFreeckles(resultSet.getBoolean(freckles));
+                mySticker.setNationalShirt(resultSet.getBoolean(nationalShirt));
+                mySticker.setContinent(resultSet.getString(continent));
+                mySticker.setChampionship(resultSet.getString(championship));
+                mySticker.setCaptainBand(resultSet.getBoolean(captainBand));
+                mySticker.setNoseDimensionBig(resultSet.getBoolean(noseDimensionBig));
+                mySticker.setSmile(resultSet.getBoolean(smile));
+                mySticker.setHairTypeStraight(resultSet.getBoolean(hairTypeStraight));
+                mySticker.setBeardLenght(resultSet.getString(beardLenght));
             }
             System.out.println(mySticker);
             serverStart.setOpponentSticker(mySticker, positionInArrayList);
+            changeFirstPlayerInGame();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -371,13 +421,13 @@ public class ServerThread extends Thread{
             writer.println(serverReadyToReceiveUserInfo);//server manda a client che è pronto e in ascolto del gson
             String userString = reader.readLine();
             System.out.println(userString);
-            User user = gson.fromJson(userString, User.class);//deserializzo il gson
+            user = gson.fromJson(userString, User.class);//deserializzo il gson
             System.out.println(user);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE username='" + user.getUserUsername() + "' AND password='" + user.getUserPassword() + "'");//query per verificare se un utente è già presente
             while(resultSet.next()){
-                userSQLName = resultSet.getString("username");
-                userSQLPassword = resultSet.getString("password");
+                userSQLName = resultSet.getString(username);
+                userSQLPassword = resultSet.getString(password);
             }
             if (userSQLName != null) {
                 System.out.println("Utente di nome " + userSQLName + " e password " + userSQLPassword + " già presente\nImmettere nuovo utente");
@@ -401,19 +451,22 @@ public class ServerThread extends Thread{
             writer.println(serverReadyToReceiveUserInfo);//Il server manda ClientThread che è pronto per la registrazione
             String userString = reader.readLine();
             System.out.println(userString);
-            User user = gson.fromJson(userString, User.class);//deserializzo il gson
+            user = gson.fromJson(userString, User.class);//deserializzo il gson
             System.out.println(user);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE username='" + user.getUserUsername() + "' AND password='" + user.getUserPassword() + "'");
             while(resultSet.next()){
-                userSQLName = resultSet.getString("username");
-                userSQLPassword = resultSet.getString("password");
+                userSQLName = resultSet.getString(username);
+                userSQLPassword = resultSet.getString(password);
             }
             if (userSQLName != null && userSQLPassword != null){
                 System.out.println("Utente di nome " + userSQLName + " e password " + userSQLPassword + " trovato\nLogin effettuato con successo");
                 writer.println(successfulAuthentication);
+                serverStart.insertNameInArrayList(userSQLName);
+                serverStart.refreshClientConnected(userSQLName);
             } else {
                 System.out.println("Utente non trovato");
+                writer.println(userNotFound);
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -422,55 +475,17 @@ public class ServerThread extends Thread{
         }
     }
 
+    public void changeFirstPlayerInGame(){
+        System.out.println(mySticker);
+        System.out.println(opponentSticker);
+        if (mySticker != null && opponentSticker != null) {
+            Random randomNumber = new Random();
+            boolean numberOfFirstPlayer = randomNumber.nextBoolean();
+            serverStart.startGameWithRandomChoice(numberOfFirstPlayer);
+        }
+    }
+
     //getter and setter
-    public int getClientNumberId() {
-        return clientNumberId;
-    }
-
-    public void setClientNumberId(int clientNumberId) {
-        this.clientNumberId = clientNumberId;
-    }
-
-    public int getPositionInArrayList() {
-        return positionInArrayList;
-    }
-
-    public void setPositionInArrayList(int positionInArrayList) {
-        this.positionInArrayList = positionInArrayList;
-    }
-
-    public String getServerIP() {
-        return serverIP;
-    }
-
-    public void setServerIP(String serverIP) {
-        this.serverIP = serverIP;
-    }
-
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
-
-    public ServerStart getServerStart() {
-        return serverStart;
-    }
-
-    public void setServerStart(ServerStart serverStart) {
-        this.serverStart = serverStart;
-    }
-
-    public Socket getSocket() {
-        return socket;
-    }
-
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
-
     public BufferedReader getReader() {
         return reader;
     }
@@ -487,35 +502,8 @@ public class ServerThread extends Thread{
         this.writer = writer;
     }
 
-    public Gson getGson() {
-        return gson;
-    }
-
-    public void setGson(Gson gson) {
-        this.gson = gson;
-    }
-
-    public Sticker getMySticker() {
-        return mySticker;
-    }
-
-    public void setMySticker(Sticker mySticker) {
-        this.mySticker = mySticker;
-    }
-
-    public ArrayList<String> getSqlNicknameToBeRemoved() {
-        return sqlNicknameToBeRemoved;
-    }
-
-    public void setSqlNicknameToBeRemoved(ArrayList<String> sqlNicknameToBeRemoved) {
-        this.sqlNicknameToBeRemoved = sqlNicknameToBeRemoved;
-    }
-
-    public Sticker getOpponentSticker() {
-        return opponentSticker;
-    }
-
     public void setOpponentSticker(Sticker opponentSticker) {
         this.opponentSticker = opponentSticker;
     }
+
 }
