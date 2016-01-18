@@ -39,14 +39,13 @@ public class ClientMain extends Application {
     @Override
     public void start(Stage loginStage) throws Exception {
         this.loginStage = loginStage;
-        //this.loginStage.setFullScreen(true);//parte in fullscreen
         FXMLLoader loaderClientLoginScreen = new FXMLLoader(getClass().getResource(loginScreenFXML));//carico il .fxml
         Parent screenLogin = loaderClientLoginScreen.load();//creo una nuova loadscreen
         clientLoginController = loaderClientLoginScreen.getController();//collego il controller
         loginStage.getIcons().add(new Image(loginScreenIcon));//aggiungo icona per la finestra
         loginStage.setTitle("LOGIN SCREEN");//aggiungo titolo per la finestra
         clientLoginController.setMain(this);//collegare main e controller
-        Scene loginScene = new Scene(screenLogin, 1800, 950); //dimensioni quando esco dal fullscreen
+        Scene loginScene = new Scene(screenLogin, 1850, 1000); //dimensioni quando esco dal fullscreen
         loginStage.setScene(loginScene);
         loginStage.setResizable(false);
         loginScene.getStylesheets().add(getClass().getResource(loginScreenCSS).toExternalForm());//collegare il .css (ad esempio) per l'aggiunta del background
@@ -100,10 +99,9 @@ public class ClientMain extends Application {
                     Parent screenChoice = loaderClientChoiceScreen.load();//creo un nuovo Parent
                     clientChoiceController = loaderClientChoiceScreen.getController(); //bindo il Controller
                     gamingStage = new Stage(); //uso un nuovo stage che mi servirà in futuro (infatti è attributo della classe) siccome manterrò la stessa finestra
-                    //gamingStage.setFullScreen(true);//parte in fullscreen
                     gamingStage.getIcons().add(new Image(choiceScreenIcon));//icona della finestra
                     gamingStage.setTitle("IN GIOCO");//titolo finestra
-                    Scene choiceScene = new Scene(screenChoice, 1800, 950);
+                    Scene choiceScene = new Scene(screenChoice, 1850, 1000);
                     gamingStage.setScene(choiceScene);
                     gamingStage.setResizable(false);
                     choiceScene.getStylesheets().add(getClass().getResource(choiceScreenCSS).toExternalForm());//collegare il .css (ad esempio) per l'aggiunta del background
@@ -134,11 +132,10 @@ public class ClientMain extends Application {
                     FXMLLoader loaderClientGameScreen = new FXMLLoader(getClass().getResource(gameScreenFXML));//carico .fxml
                     Parent screenGame = loaderClientGameScreen.load();//creo un nuovo Parent
                     clientGameController = loaderClientGameScreen.getController(); //bindo il Controller
-                    //gamingStage.setFullScreen(true);//parte in fullscreen
                     gamingStage.getIcons().add(new Image(gameScreenIcon));//icona della finestra
                     gamingStage.setTitle("INDOVINA CHI");//titolo finestra
                     //clientGameController.setMain(ClientMain.this, gamingScene.this);//collegare main e controller
-                    Scene gamingScene = new Scene(screenGame, 1800, 950);
+                    Scene gamingScene = new Scene(screenGame, 1850, 1000);
                     gamingStage.setScene(gamingScene);
                     clientGameController.setMain(ClientMain.this, gamingScene);//collegare main e controller
                     gamingStage.setResizable(false);

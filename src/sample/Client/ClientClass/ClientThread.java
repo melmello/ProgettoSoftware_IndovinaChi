@@ -80,6 +80,7 @@ public class ClientThread extends Thread {
                     }
                     case (userNotFound):{
                         notificationToUserNotFound();
+                        break;
                     }
                 }
             }

@@ -1,0 +1,5 @@
+#backgroundPane{
+    -fx-background-image: url("/sample/Client/ClientImage/StartBackground.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center center;
+}

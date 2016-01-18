@@ -50,56 +50,57 @@ public class ServerThread extends Thread{
         try{
             reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));//input sul socket
             writer = new PrintWriter(this.socket.getOutputStream(),true);//output sul socket
-                while (true) {
-                    String code = reader.readLine();
-                    switch (code){
-                        //Il client manda il segnale che si è disconesso.
-                        case (clientDisconnected):{
-                            serverStart.changeClientNumber(user.getUserUsername());
-                            serverStart.refreshClientConnected(user.getUserUsername());
-                            break;
-                        }
-                        //Sto provando far loggare un utente nel login
-                        case (clientReadyToLogin):{
-                            readyToVerifyUser();
-                            break;
-                        }
-                        //Nuovo utente nel database
-                        case (clientReadyToCreateNewUser):{
-                            readyToCreateNewUser();
-                            break;
-                        }
-                        //Server pronto per ricevere informazioni sugli sticker
-                        case (clientReadyToGiveStickerInfo):{
-                            readyToKnowStickerInfo();
-                            break;
-                        }
-                        //Client vuole mandare la query riguardo ad uno sticker
-                        case (clientReadyToGiveQuery):{
-                            readyToKnowQuery();
-                            break;
-                        }
-                        //Client è pronto per ricevere dal server gli sticker da eliminare
-                        case (readyToReceiveNewSticker):{
-                            sendingNewSticker();
-                            break;
-                        }
-                        case (changeMySticker):{
-                            break;
-                        }
-                        case (wantsToKnowClientConnected):{
-                            sendingClientConnected();
-                            break;
-                        }
-                        case (clientReadyToReceiveClientsConnected):{
-                            communicateClientConnected();
-                            break;
-                        }
-                        case (clientIsGivingHisName):{
-                            waitingForClientName();
-                        }
+            while (true) {
+                String code = reader.readLine();
+                switch (code){
+                    //Il client manda il segnale che si è disconesso.
+                    case (clientDisconnected):{
+                        serverStart.changeClientNumber(user.getUserUsername());
+                        serverStart.refreshClientConnected(user.getUserUsername());
+                        break;
+                    }
+                    //Sto provando far loggare un utente nel login
+                    case (clientReadyToLogin):{
+                        readyToVerifyUser();
+                        break;
+                    }
+                    //Nuovo utente nel database
+                    case (clientReadyToCreateNewUser):{
+                        readyToCreateNewUser();
+                        break;
+                    }
+                    //Server pronto per ricevere informazioni sugli sticker
+                    case (clientReadyToGiveStickerInfo):{
+                        readyToKnowStickerInfo();
+                        break;
+                    }
+                    //Client vuole mandare la query riguardo ad uno sticker
+                    case (clientReadyToGiveQuery):{
+                        readyToKnowQuery();
+                        break;
+                    }
+                    //Client è pronto per ricevere dal server gli sticker da eliminare
+                    case (readyToReceiveNewSticker):{
+                        sendingNewSticker();
+                        break;
+                    }
+                    case (changeMySticker):{
+                        break;
+                    }
+                    case (wantsToKnowClientConnected):{
+                        sendingClientConnected();
+                        break;
+                    }
+                    case (clientReadyToReceiveClientsConnected):{
+                        communicateClientConnected();
+                        break;
+                    }
+                    case (clientIsGivingHisName):{
+                        waitingForClientName();
+                        break;
                     }
                 }
+            }
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -162,13 +163,13 @@ public class ServerThread extends Thread{
                     break;
                 }
                 case (hairLenght): {
-                        if (opponentSticker.getHairLenght().equals(stickerQuery.getSecondParameter())) {
-                            choice = true;
-                            settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
-                        } else {
-                            choice = false;
-                            settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
-                        }
+                    if (opponentSticker.getHairLenght().equals(stickerQuery.getSecondParameter())) {
+                        choice = true;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    } else {
+                        choice = false;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    }
                     break;
                 }
                 case (beardColorBrown): {
@@ -228,13 +229,13 @@ public class ServerThread extends Thread{
                     break;
                 }
                 case (beardType): {
-                        if (opponentSticker.getBeardType().equals(stickerQuery.getSecondParameter())) {
-                            choice = true;
-                            settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
-                        } else {
-                            choice = false;
-                            settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
-                        }
+                    if (opponentSticker.getBeardType().equals(stickerQuery.getSecondParameter())) {
+                        choice = true;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    } else {
+                        choice = false;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    }
                     break;
                 }
                 case (freckles): {
@@ -254,23 +255,23 @@ public class ServerThread extends Thread{
                     break;
                 }
                 case (continent): {
-                        if (opponentSticker.getContinent().equals(stickerQuery.getSecondParameter())) {
-                            choice = true;
-                            settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
-                        } else {
-                            choice = false;
-                            settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
-                        }
+                    if (opponentSticker.getContinent().equals(stickerQuery.getSecondParameter())) {
+                        choice = true;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    } else {
+                        choice = false;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    }
                     break;
                 }
                 case (championship): {
-                        if (opponentSticker.getChampionship().equals(stickerQuery.getSecondParameter())) {
-                            choice = true;
-                            settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
-                        } else {
-                            choice = false;
-                            settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
-                        }
+                    if (opponentSticker.getChampionship().equals(stickerQuery.getSecondParameter())) {
+                        choice = true;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    } else {
+                        choice = false;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    }
                     break;
                 }
                 case (captainBand): {

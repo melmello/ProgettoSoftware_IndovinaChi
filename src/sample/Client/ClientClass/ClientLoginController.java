@@ -14,7 +14,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import sample.Utilities.Class.Utilities;
 
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,6 +34,8 @@ public class ClientLoginController implements Initializable {//serve per avere l
     @FXML   private JFXButton buttonUserScreen;
     @FXML   private JFXButton buttonToContinue;
     @FXML   private JFXToggleButton toggleContinue;//TODO eliminarlo
+    private Utilities utilities;
+
 
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
@@ -45,6 +49,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
         labelLoginTitle.setFocusTraversable(true);//focus sul titolo così non sono già dentro un campo nello scrivere
         loginNewUser = true;//entro nella schermata di login
         loginScreenShow();
+        utilities = new Utilities();
     }
 
     //metodo che serve per far conoscere main e controller
@@ -92,6 +97,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
 
     //metodo per creare un nuovo account
     public void confirmLoginScreen(){
+        utilities.playSomeSound();
         if (textWithUsername.getText().isEmpty() || textWithPassword.getText().isEmpty()){ //se ho lasciato qualche campo vuoto mi fermo
             System.out.println("Dati non corretti");
         } else {
@@ -101,11 +107,13 @@ public class ClientLoginController implements Initializable {//serve per avere l
 
     //metodo che permette ad un utente nuovo di creare il proprio account
     public void newUserLogin (){
+        utilities.playSomeSound();
         if (textWithUsername.getText().isEmpty() || textWithPassword.getText().isEmpty()) { //se ho lasciato qualche campo vuoto mi fermo
             System.out.println("Dati non corretti");
+
         } else {
             if (textWithPassword.getText().equals(textWithPasswordConfirm.getText())){
-            main.readyForCreateNewUser(textWithUsername.getText(), textWithPassword.getText());//chiamo funzione passando parametri username e password
+                main.readyForCreateNewUser(textWithUsername.getText(), textWithPassword.getText());//chiamo funzione passando parametri username e password
             } else {
                 System.out.println("Password non corrispondenti, reinserire password");
             }
@@ -114,6 +122,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
 
     //metodo per settare la schermata di login nel caso in cui sia NEW USER o LOGIN
     public void setNewUserScreen(){
+        utilities.playSomeSound();
         if(loginNewUser==true){
             labelLoginTitle.setText("NEW USER");
             buttonUserScreen.setText("HAI GIA' UN ACCOUNT?");

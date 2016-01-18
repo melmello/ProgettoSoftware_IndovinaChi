@@ -122,15 +122,15 @@ public class ClientGameController implements Initializable {
     }
 
     public void reinitializeComboBox(){
-            hairComboBox.setValue(null);
-            beardComboBox.setValue(null);
-            faceComboBox.setValue(null);
-            accessoriesComboBox.setValue(null);
-            informationComboBox.setValue(null);
-            settingQuestionForSticker.setText(null);
-            settingQuestionForSticker.clear();
-            questionCanBeChoosenArray.clear();
-            questionToSendToServer.clear();
+        hairComboBox.setValue(null);
+        beardComboBox.setValue(null);
+        faceComboBox.setValue(null);
+        accessoriesComboBox.setValue(null);
+        informationComboBox.setValue(null);
+        settingQuestionForSticker.setText(null);
+        settingQuestionForSticker.clear();
+        questionCanBeChoosenArray.clear();
+        questionToSendToServer.clear();
 
     }
 
