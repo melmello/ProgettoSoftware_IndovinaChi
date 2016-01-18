@@ -28,14 +28,6 @@ public class ServerThread extends Thread{
     private ArrayList<String> sqlNicknameToBeRemoved = new ArrayList<>();
     private User user;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     //costruttore
     public ServerThread(Socket socket, int clientNumberId, ServerStart serverStart, Connection connection, int positionInArrayList){
         this.socket = socket;
@@ -55,7 +47,6 @@ public class ServerThread extends Thread{
                 switch (code){
                     //Il client manda il segnale che si è disconesso.
                     case (clientDisconnected):{
-                        serverStart.changeClientNumber(user.getUserUsername());
                         serverStart.refreshClientConnected(user.getUserUsername());
                         break;
                     }
@@ -95,26 +86,9 @@ public class ServerThread extends Thread{
                         communicateClientConnected();
                         break;
                     }
-                    case (clientIsGivingHisName):{
-                        waitingForClientName();
-                        break;
-                    }
                 }
             }
         } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    private void waitingForClientName() {
-    }
-
-    private void clientIsGoingOff() {
-        try {
-            writer.println(serverWantsNameOfClientDisconnecting);
-            String clientNameOff = reader.readLine();
-            serverStart.refreshClientConnected(clientNameOff);
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -505,6 +479,14 @@ public class ServerThread extends Thread{
 
     public void setOpponentSticker(Sticker opponentSticker) {
         this.opponentSticker = opponentSticker;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

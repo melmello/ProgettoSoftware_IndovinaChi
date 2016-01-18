@@ -22,8 +22,9 @@ import java.util.TimerTask;
 
 public class ClientLoginController implements Initializable {//serve per avere l'implementazione del metodo initialize
 
-    ClientMain main;
-    boolean loginNewUser;
+    private ClientMain main;
+    private boolean loginNewUser;
+    private Utilities utilities;
 
     @FXML   private AnchorPane anchorPane;
     @FXML   private VBox loginVBox;
@@ -34,8 +35,6 @@ public class ClientLoginController implements Initializable {//serve per avere l
     @FXML   private JFXButton buttonUserScreen;
     @FXML   private JFXButton buttonToContinue;
     @FXML   private JFXToggleButton toggleContinue;//TODO eliminarlo
-    private Utilities utilities;
-
 
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
@@ -74,6 +73,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
         );
     }
 
+    //metodo per effetto fade
     public void fadeTransitionEffect(Node nodeToEffect, float fromValue, float toValue, int duration){
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(duration), nodeToEffect);
         fadeTransition.setFromValue(fromValue);
@@ -150,4 +150,5 @@ public class ClientLoginController implements Initializable {//serve per avere l
     public void setLoginNewUser(boolean loginNewUser) {
         this.loginNewUser = loginNewUser;
     }
+
 }

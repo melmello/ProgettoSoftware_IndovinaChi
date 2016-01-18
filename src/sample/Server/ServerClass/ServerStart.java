@@ -59,16 +59,6 @@ public class ServerStart extends Task {
         }
     }
 
-    //metodo usato quando un client di disconnette
-    public void changeClientNumber(String nameToRemove){
-        //clientNumber--;
-        //serverMain.printNumberOfClient(Integer.toString(clientNumber));
-        //System.out.println("Numero di client connessi: " + clientNumber);
-        //System.out.println("Il client #" + clientNumber + " si è disconnesso");
-        listOfClientConnected.remove(nameToRemove);
-
-    }
-
     //metodo per il cambio di turno
     public void changingRoundOfClient(int positionInArrayList){
         threadsArrayList.get((positionInArrayList + 1) % 2).getWriter().println(changingRound);
@@ -93,6 +83,7 @@ public class ServerStart extends Task {
     }
 
     public void refreshClientConnected(String username) {
+        listOfClientConnected.remove(username);
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
             if (threadsArrayList.get(cont).getUser().getUserUsername()!=null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(username)) {
                 threadsArrayList.get(cont).getWriter().println(serverWantsToRefreshClientConnected);

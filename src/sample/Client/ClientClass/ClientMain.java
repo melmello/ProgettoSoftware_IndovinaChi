@@ -5,11 +5,9 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
@@ -17,7 +15,6 @@ import sample.Utilities.Class.StickerQuery;
 import sample.Utilities.Class.User;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -51,9 +48,8 @@ public class ClientMain extends Application {
         loginScene.getStylesheets().add(getClass().getResource(loginScreenCSS).toExternalForm());//collegare il .css (ad esempio) per l'aggiunta del background
         loginStage.show();//mostra
         //clientLoginController.updateWithConstraints(loginScene.getWidth(), loginScene.getHeight());//modifica width e height della finestra quando passo da fullscreen a window screen
-        assignedPort = 8080;//inizializzo la porta
         try {
-            clientSocket = new Socket("localhost", assignedPort);//TODO localhost -> ip
+            clientSocket = new Socket(localhost, assignedPort);//TODO localhost -> ip
             ClientThread clientThread = new ClientThread(clientSocket, this);//creazione di un Thread sul socket passandogli l'istanza
             clientThread.start();//lo faccio partire
         } catch (IOException e) {
@@ -159,7 +155,6 @@ public class ClientMain extends Application {
     public void settingMySticker(){
         writer.println(clientReadyToGiveStickerInfo);
         notification("Hai scelto il personaggio!");
-
     }
 
     //metodo che comunica al server il path dell'immagine scelta
@@ -222,6 +217,12 @@ public class ClientMain extends Application {
         clientChoiceController.displayClientConnected(clientConnected);
     }
 
+    public void notificationForNewUser() {
+        notification("Registrazione avvenuta con successo " + user.getUserUsername());
+        clientLoginController.setLoginNewUser(false);
+        clientLoginController.setNewUserScreen();
+    }
+
     //getter dell'User
     public User getUser() {
         return user;
@@ -230,12 +231,6 @@ public class ClientMain extends Application {
     //setter dell'User
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public void notificationForNewUser() {
-        notification("Registrazione avvenuta con successo " + user.getUserUsername());
-        clientLoginController.setLoginNewUser(false);
-        clientLoginController.setNewUserScreen();
     }
 
 }

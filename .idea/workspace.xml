@@ -3,12 +3,26 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Merge remote-tracking branch 'IndovinaChi/FirstBrench-15/01/16' into FirstBrench-15/01/16&#10;&#10;# Conflicts:&#10;#&#9;src/sample/Client/ClientClass/ClientGameController.java&#10;">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sample/Utilities/Class/SecurityClass.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientChoiceController.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientChoiceController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$1.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$2.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$3.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread$1.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread$2.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerStart.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerStart.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerThread.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Utilities/Class/ConstantCodes.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Utilities/Class/ConstantCodes.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientChoiceController.java" afterPath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientChoiceController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientFXML/ClientChoiceScreen.fxml" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientFXML/ClientChoiceScreen.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Utilities/GenericFile/TODO" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Utilities/GenericFile/TODO" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientGameController.java" afterPath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientGameController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java" afterPath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java" afterPath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientThread.java" afterPath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientChoiceScreen.fxml" afterPath="$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientChoiceScreen.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java" afterPath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java" afterPath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java" afterPath="$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Utilities/GenericFile/TODO" afterPath="$PROJECT_DIR$/src/sample/Utilities/GenericFile/TODO" />
     </list>
@@ -88,26 +102,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="ConstantCodes.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="70" selection-start-line="26" selection-start-column="70" selection-end-line="26" selection-end-column="70" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ClientThread.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientThread.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="92" column="20" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
+              <caret line="74" column="30" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
               <folding>
-                <element signature="e#3741#3742#0" expanded="true" />
-                <element signature="e#3786#3787#0" expanded="true" />
-                <element signature="e#6319#6320#0" expanded="true" />
-                <element signature="e#6364#6365#0" expanded="true" />
+                <element signature="e#3570#3571#0" expanded="true" />
+                <element signature="e#3615#3616#0" expanded="true" />
+                <element signature="e#6037#6038#0" expanded="true" />
+                <element signature="e#6082#6083#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -117,9 +121,11 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
+              <caret line="223" column="5" selection-start-line="223" selection-start-column="5" selection-end-line="223" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3364#3365#0" expanded="true" />
+                <element signature="e#3392#3393#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -129,11 +135,11 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
+              <caret line="145" column="10" selection-start-line="145" selection-start-column="10" selection-end-line="145" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5947#5948#0" expanded="true" />
-                <element signature="e#5995#5996#0" expanded="true" />
+                <element signature="e#5992#5993#0" expanded="true" />
+                <element signature="e#6040#6041#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,16 +149,16 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+              <caret line="482" column="0" selection-start-line="482" selection-start-column="0" selection-end-line="482" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1453105935211" expanded="true" signature="16308:16388" placeholder="SELECT * FRO... stickers" />
-                <marker date="1453105935211" expanded="true" signature="16526:16605" placeholder="SELECT * FRO... stickers" />
-                <marker date="1453105935211" expanded="true" signature="17411:17523" placeholder="SELECT * FRO... stickers" />
-                <marker date="1453105935211" expanded="true" signature="19031:19090" placeholder="SELECT * FRO... stickers" />
-                <marker date="1453105935211" expanded="true" signature="22076:22188" placeholder="SELECT * FRO... user" />
-                <marker date="1453105935211" expanded="true" signature="22660:22770" placeholder="INSERT INTO USER... " />
-                <marker date="1453105935211" expanded="true" signature="23693:23805" placeholder="SELECT * FRO... user" />
+                <marker date="1453132370938" expanded="true" signature="15582:15662" placeholder="SELECT * FRO... stickers" />
+                <marker date="1453132370938" expanded="true" signature="15800:15879" placeholder="SELECT * FRO... stickers" />
+                <marker date="1453132370938" expanded="true" signature="16685:16797" placeholder="SELECT * FRO... stickers" />
+                <marker date="1453132370938" expanded="true" signature="18305:18364" placeholder="SELECT * FRO... stickers" />
+                <marker date="1453132370938" expanded="true" signature="21350:21462" placeholder="SELECT * FRO... user" />
+                <marker date="1453132370938" expanded="true" signature="21934:22044" placeholder="INSERT INTO USER... " />
+                <marker date="1453132370938" expanded="true" signature="22967:23079" placeholder="SELECT * FRO... user" />
               </folding>
             </state>
           </provider>
@@ -162,7 +168,7 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="38" column="34" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
+              <caret line="0" column="34" selection-start-line="0" selection-start-column="34" selection-end-line="0" selection-end-column="34" />
               <folding>
                 <element signature="e#672#686#0" expanded="true" />
               </folding>
@@ -170,14 +176,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServerMain.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ServerMain.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0652819">
-              <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConstantCodes.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.89180326">
+              <caret line="54" column="31" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -186,7 +200,7 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientGameController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+              <caret line="182" column="105" selection-start-line="182" selection-start-column="105" selection-end-line="182" selection-end-column="105" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -287,20 +301,20 @@
         <option value="$PROJECT_DIR$/src/sample/Utilities/Class/HelloAutoComplete.java" />
         <option value="$PROJECT_DIR$/src/sample/Utilities/Class/SecurityClass.java" />
         <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStartingController.java" />
-        <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientGameController.java" />
         <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerMain.java" />
         <option value="$PROJECT_DIR$/m3dvclvi.dbm.txt" />
-        <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java" />
-        <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java" />
         <option value="$PROJECT_DIR$/src/sample/Utilities/Class/Utilities.java" />
         <option value="$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientChoiceScreen.fxml" />
         <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientChoiceController.java" />
-        <option value="$PROJECT_DIR$/src/sample/Utilities/GenericFile/TODO" />
         <option value="$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientGameScreen.fxml" />
-        <option value="$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java" />
-        <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java" />
         <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientThread.java" />
+        <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java" />
         <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java" />
+        <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java" />
+        <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java" />
+        <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientGameController.java" />
+        <option value="$PROJECT_DIR$/src/sample/Utilities/GenericFile/TODO" />
+        <option value="$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java" />
       </list>
     </option>
   </component>
@@ -1244,7 +1258,7 @@
       <workItem from="1453071719495" duration="260000" />
       <workItem from="1453072750173" duration="166000" />
       <workItem from="1453101663628" duration="4718000" />
-      <workItem from="1453127496122" duration="3431000" />
+      <workItem from="1453127496122" duration="5080000" />
     </task>
     <task id="LOCAL-00001" summary="1.0">
       <created>1452814180525</created>
@@ -1324,11 +1338,17 @@
       <option name="project" value="LOCAL" />
       <updated>1453107184738</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Merge remote-tracking branch 'IndovinaChi/FirstBrench-15/01/16' into FirstBrench-15/01/16&#10;&#10;# Conflicts:&#10;#&#9;src/sample/Client/ClientClass/ClientGameController.java&#10;">
+      <created>1453130978184</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1453130978184</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="350838000" />
+    <option name="totallyTimeSpent" value="352487000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1350,7 +1370,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32792208" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21320346" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20382883" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2759009" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32792208" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20525187" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
@@ -1721,14 +1741,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Utilities/GenericFile/TODO">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62481314">
-          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
@@ -1761,69 +1773,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
+          <caret line="145" column="10" selection-start-line="145" selection-start-column="10" selection-end-line="145" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#5992#5993#0" expanded="true" />
+            <element signature="e#6040#6041#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientGameController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="34" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
-          <folding>
-            <element signature="e#672#686#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="70" selection-start-line="26" selection-start-column="70" selection-end-line="26" selection-end-column="70" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <caret line="482" column="0" selection-start-line="482" selection-start-column="0" selection-end-line="482" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1453105935211" expanded="true" signature="16308:16388" placeholder="SELECT * FRO... stickers" />
-            <marker date="1453105935211" expanded="true" signature="16526:16605" placeholder="SELECT * FRO... stickers" />
-            <marker date="1453105935211" expanded="true" signature="17411:17523" placeholder="SELECT * FRO... stickers" />
-            <marker date="1453105935211" expanded="true" signature="19031:19090" placeholder="SELECT * FRO... stickers" />
-            <marker date="1453105935211" expanded="true" signature="22076:22188" placeholder="SELECT * FRO... user" />
-            <marker date="1453105935211" expanded="true" signature="22660:22770" placeholder="INSERT INTO USER... " />
-            <marker date="1453105935211" expanded="true" signature="23693:23805" placeholder="SELECT * FRO... user" />
+            <marker date="1453132370938" expanded="true" signature="15582:15662" placeholder="SELECT * FRO... stickers" />
+            <marker date="1453132370938" expanded="true" signature="15800:15879" placeholder="SELECT * FRO... stickers" />
+            <marker date="1453132370938" expanded="true" signature="16685:16797" placeholder="SELECT * FRO... stickers" />
+            <marker date="1453132370938" expanded="true" signature="18305:18364" placeholder="SELECT * FRO... stickers" />
+            <marker date="1453132370938" expanded="true" signature="21350:21462" placeholder="SELECT * FRO... user" />
+            <marker date="1453132370938" expanded="true" signature="21934:22044" placeholder="INSERT INTO USER... " />
+            <marker date="1453132370938" expanded="true" signature="22967:23079" placeholder="SELECT * FRO... user" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
+          <caret line="223" column="5" selection-start-line="223" selection-start-column="5" selection-end-line="223" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5947#5948#0" expanded="true" />
-            <element signature="e#5995#5996#0" expanded="true" />
+            <element signature="e#3364#3365#0" expanded="true" />
+            <element signature="e#3392#3393#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1831,23 +1817,57 @@
     <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="20" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
+          <caret line="74" column="30" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
           <folding>
-            <element signature="e#3741#3742#0" expanded="true" />
-            <element signature="e#3786#3787#0" expanded="true" />
-            <element signature="e#6319#6320#0" expanded="true" />
-            <element signature="e#6364#6365#0" expanded="true" />
+            <element signature="e#3570#3571#0" expanded="true" />
+            <element signature="e#3615#3616#0" expanded="true" />
+            <element signature="e#6037#6038#0" expanded="true" />
+            <element signature="e#6082#6083#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="34" selection-start-line="0" selection-start-column="34" selection-end-line="0" selection-end-column="34" />
+          <folding>
+            <element signature="e#672#686#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0652819">
-          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Utilities/GenericFile/TODO">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3967213">
+          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientGameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="182" column="105" selection-start-line="182" selection-start-column="105" selection-end-line="182" selection-end-column="105" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.89180326">
+          <caret line="54" column="31" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>

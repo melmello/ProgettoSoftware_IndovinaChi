@@ -145,7 +145,7 @@ public class ClientGameController implements Initializable {
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, questionCanBeChoosenArray);
                         firstParameter = hairLenght;
                         questionToSendToServer.clear();
-                        questionToSendToServer.addAll(Arrays.asList("long", "short", "bald"));
+                        questionToSendToServer.addAll(Arrays.asList(longAnswer, shortAnswer, baldAnswer));
                         break;
                     }
                     case (colorCB):{
@@ -154,7 +154,7 @@ public class ClientGameController implements Initializable {
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, questionCanBeChoosenArray);
                         firstParameter = hairColorBrown;
                         questionToSendToServer.clear();
-                        questionToSendToServer.addAll(Arrays.asList("true", "false"));
+                        questionToSendToServer.addAll(Arrays.asList(trueAnswer, falseAnswer));
                         break;
                     }
                     case (typeCB):{
@@ -163,7 +163,7 @@ public class ClientGameController implements Initializable {
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, questionCanBeChoosenArray);
                         firstParameter = hairTypeStraight;
                         questionToSendToServer.clear();
-                        questionToSendToServer.addAll(Arrays.asList("true", "false"));
+                        questionToSendToServer.addAll(Arrays.asList(trueAnswer, falseAnswer));
                         break;
                     }
                 }
@@ -180,7 +180,7 @@ public class ClientGameController implements Initializable {
                         TextFields.bindAutoCompletion((TextField) settingQuestionForSticker, questionCanBeChoosenArray);
                         firstParameter = beardLenght;
                         questionToSendToServer.clear();
-                        questionToSendToServer.addAll(Arrays.asList("long", "short", "shaved"));
+                        questionToSendToServer.addAll(Arrays.asList(longAnswer, shortAnswer, shavedAnswer));
                         break;
                     }
                     case (colorCB):{

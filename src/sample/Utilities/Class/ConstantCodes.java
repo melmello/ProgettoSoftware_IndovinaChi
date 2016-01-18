@@ -52,6 +52,23 @@ public final class ConstantCodes {
     public static final String championship = "championship";
     public static final String captainBand = "captainBand";
 
+    //costanti da passare al db
+    public static final String longAnswer = "long";
+    public static final String shortAnswer = "short";
+    public static final String baldAnswer = "bald";
+    public static final String trueAnswer = "true";
+    public static final String falseAnswer = "false";
+    public static final String shavedAnswer = "shaved";
+    //public static final String ;
+    //public static final String ;
+    //public static final String ;
+    //public static final String ;
+    //public static final String ;
+    //public static final String ;
+    //public static final String ;
+    //public static final String ;
+    //public static final String ;
+
     //costanti stringhe per database user
     public static final String username = "username";
     public static final String password = "password";
@@ -82,6 +99,7 @@ public final class ConstantCodes {
 
     //server utility
     public static final int assignedPort = 8080;
+    public static final String localhost = "localhost";
 
     //comboBox utility
     public static final String lenghtCB = "Lunghezza";

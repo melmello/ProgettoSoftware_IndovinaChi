@@ -74,10 +74,6 @@ public class ClientThread extends Thread {
                         serverReadyToComunicateClientsConnectedList();
                         break;
                     }
-                    case (serverWantsNameOfClientDisconnecting):{
-                        serverWantsNameClientOff();
-                        break;
-                    }
                     case (userNotFound):{
                         notificationToUserNotFound();
                         break;
@@ -95,10 +91,6 @@ public class ClientThread extends Thread {
 
     private void notificationToUserNotFound() {
         main.notification("Utente " + main.getUser().getUserUsername() + " con password " + main.getUser().getUserPassword() + " non trovato");
-    }
-
-    private void serverWantsNameClientOff() {
-        writer.println(main.getUser().getUserUsername());
     }
 
     private void serverReadyToComunicateClientsConnectedList() {

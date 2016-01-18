@@ -31,62 +31,39 @@
                         <Image url="@../ClientImage/FootballDoor.png" />
                      </image>
                   </ImageView>
-                  <GridPane layoutX="139.0" layoutY="83.0" prefHeight="642.0" prefWidth="1148.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-                           <image>
-                              <Image url="@../ClientImage/Rating.png" />
-                           </image>
-                           <GridPane.margin>
-                              <Insets right="20.0" top="20.0" />
-                           </GridPane.margin>
-                        </ImageView>
-                        <ImageView fx:id="imageWorldScoreboard" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                           <image>
-                              <Image url="@../ClientImage/ScoreboardMondiale.png" />
-                           </image>
-                           <GridPane.margin>
-                              <Insets bottom="-3.0" />
-                           </GridPane.margin>
-                        </ImageView>
-                        <ImageView fx:id="imagePersonalScoreboard" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                           <image>
-                              <Image url="@../ClientImage/ScoreboardPersonale.png" />
-                           </image>
-                           <GridPane.margin>
-                              <Insets bottom="-3.0" />
-                           </GridPane.margin>
-                        </ImageView>
-                        <ImageView fx:id="imagePlayGame" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#onClickOnPlayImage" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-                           <image>
-                              <Image url="@../ClientImage/PlayAGame.png" />
-                           </image>
-                           <GridPane.margin>
-                              <Insets top="-10.0" />
-                           </GridPane.margin>
-                        </ImageView>
-                     </children>
-                  </GridPane>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="1067.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ClientImage/Rating.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imageWorldScoreboard" fitHeight="200.0" fitWidth="200.0" layoutX="1087.0" layoutY="528.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ClientImage/ScoreboardMondiale.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imagePersonalScoreboard" fitHeight="200.0" fitWidth="200.0" layoutX="139.0" layoutY="528.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ClientImage/ScoreboardPersonale.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="playGameImage" fitHeight="200.0" fitWidth="200.0" layoutX="139.0" layoutY="73.0" onMouseClicked="#onClickOnPlayImage" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ClientImage/PlayAGame.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
-            <ImageView fitHeight="626.0" fitWidth="468.0" layoutX="648.0" layoutY="465.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../ClientImage/FootballPlayerDark.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="124.0" fitWidth="130.0" layoutX="1035.0" layoutY="916.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ballImage" fitHeight="100.0" fitWidth="100.0" layoutX="1026.0" layoutY="837.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../ClientImage/Ball.png" />
                </image>
             </ImageView>
+            <ImageView fitHeight="492.0" fitWidth="366.0" layoutX="730.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ClientImage/FootballPlayerDark.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="161.0" layoutY="302.0" mnemonicParsing="false" onAction="#goAction" text="Button" />
          </children>
       </Pane>
    </children>
