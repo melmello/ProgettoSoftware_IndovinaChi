@@ -80,6 +80,9 @@ public final class ConstantCodes {
     public static final String driverMySql = "com.mysql.jdbc.Driver";
     public static final String urlConnection = "jdbc:mysql://localhost:3306/indovinachi?useSSL=false";
 
+    //server utility
+    public static final int assignedPort = 8080;
+
     //comboBox utility
     public static final String lenghtCB = "Lunghezza";
     public static final String colorCB = "Colore";

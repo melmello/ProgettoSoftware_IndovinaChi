@@ -13,13 +13,12 @@ import java.util.ArrayList;
 
 public class ServerStart extends Task {
 
-    private int assignedPort;
     private int clientNumber = 0;
     private String assignedIp;
     private ServerSocket socketExchange;
     private ServerMain serverMain;
     private Connection connection;
-    private ArrayList<ServerThread> threadsArrayList;
+    private ArrayList<ServerThread> threadsArrayList  = new ArrayList<ServerThread>();
     private ArrayList<String> listOfClientConnected = new ArrayList<>();
 
     //costruttore
@@ -30,8 +29,6 @@ public class ServerStart extends Task {
     @Override
     protected Object call() throws Exception {
         System.out.println("Il server è connesso");//se sono qui vuol dire che si è connesso il server e ha generato un thread
-        String connectionURL;
-        assignedPort=8080;//assegno il numero della porta
         try {
             socketExchange = new ServerSocket(assignedPort);//istanzio il socket sulla tal porta su cui comunicherò
             Class.forName(driverMySql).newInstance();
@@ -39,18 +36,14 @@ public class ServerStart extends Task {
             System.out.println("Database connesso");
             assignedIp = Inet4Address.getLocalHost().getHostAddress();//ricavo l'IP globale del Server per stamparlo poi
             serverMain.initialConfiguration(assignedIp); //chiamo il metodo che mi permette di collegarmi al Controller
-            serverMain.printNumberOfClient(Integer.toString(clientNumber));//chiamo metodo che mi permette di stampare quanti client sono connessi (CASTING)
+            printNumberOfClient();
             System.out.println("Sono il Server.\nIl mio indirizzo IP è: " + assignedIp + "\nLa mia porta è: " + assignedPort);
-            threadsArrayList = new ArrayList<ServerThread>();
+            //threadsArrayList  = new ArrayList<ServerThread>()
             while (true) {//while true del Thread in cui istanzia un thread per ogni client che si connette
                 Socket serverSocket = socketExchange.accept();
                 threadsArrayList.add(new ServerThread(serverSocket, clientNumber, this, connection, threadsArrayList.size()));//ogni volta che creo un Thread lo inserisco nell'ultimo posto dell'array
                 Thread threadTask = new Thread(threadsArrayList.get(threadsArrayList.size()-1));//creo un threadTask con l'ultimo elemento dell'array
                 threadTask.start();//faccio partire l'ultimo thread inserito
-                clientNumber++;
-                serverMain.printNumberOfClient(Integer.toString(clientNumber));//vedi prima
-                System.out.println("Numero di client connessi: " + clientNumber);
-                System.out.println("Il client #" + clientNumber + " si è connesso");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,12 +51,20 @@ public class ServerStart extends Task {
         return null;
     }
 
+    private void printNumberOfClient() {
+        if (listOfClientConnected.size() == 0){
+            serverMain.printNumberOfClient(Integer.toString(0));
+        } else {
+            serverMain.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
+        }
+    }
+
     //metodo usato quando un client di disconnette
     public void changeClientNumber(String nameToRemove){
-        clientNumber--;
-        serverMain.printNumberOfClient(Integer.toString(clientNumber));
-        System.out.println("Numero di client connessi: " + clientNumber);
-        System.out.println("Il client #" + clientNumber + " si è disconnesso");
+        //clientNumber--;
+        //serverMain.printNumberOfClient(Integer.toString(clientNumber));
+        //System.out.println("Numero di client connessi: " + clientNumber);
+        //System.out.println("Il client #" + clientNumber + " si è disconnesso");
         listOfClientConnected.remove(nameToRemove);
 
     }

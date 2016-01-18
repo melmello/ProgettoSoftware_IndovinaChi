@@ -15,10 +15,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import sample.Utilities.Class.Utilities;
-
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ClientLoginController implements Initializable {//serve per avere l'implementazione del metodo initialize
 
@@ -40,16 +40,18 @@ public class ClientLoginController implements Initializable {//serve per avere l
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        textWithUsername.setVisible(false);
-        textWithPassword.setVisible(false);
-        textWithPasswordConfirm.setVisible(false);
-        buttonToContinue.setVisible(false);
-        buttonUserScreen.setVisible(false);
-        labelLoginTitle.setVisible(false);
+        loginVBox.setVisible(false);
         labelLoginTitle.setFocusTraversable(true);//focus sul titolo così non sono già dentro un campo nello scrivere
-        loginNewUser = true;//entro nella schermata di login
         loginScreenShow();
         utilities = new Utilities();
+        loginNewUser = true;
+        buttonToContinue.setText("LOGIN");
+        buttonToContinue.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                confirmLoginScreen();
+            }
+        });
     }
 
     //metodo che serve per far conoscere main e controller
@@ -59,18 +61,13 @@ public class ClientLoginController implements Initializable {//serve per avere l
 
     //metodo che permette di proseguire e vedere la schermata di login cliccando sul background
     public void loginScreenShow(){
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
+        new Timer().schedule(
+                new TimerTask() {
                     @Override
                     public void run() {
                         fadeTransitionEffect(loginVBox, 0, 1, 3000);
-                        textWithUsername.setVisible(true);
-                        textWithPassword.setVisible(true);
+                        loginVBox.setVisible(true);
                         textWithPasswordConfirm.setVisible(false);
-                        labelLoginTitle.setVisible(true);
-                        buttonToContinue.setVisible(true);
-                        buttonUserScreen.setVisible(true);
-                        anchorPane.setOnMouseClicked(null);//inibisce il background click
                     }
                 },
                 3000
@@ -84,16 +81,6 @@ public class ClientLoginController implements Initializable {//serve per avere l
         fadeTransition.setAutoReverse(true);
         fadeTransition.play();
     }
-
-    /*
-    //metodo per il passaggio da fullscreen a window screen
-    public void updateWithConstraints(double width, double height) {
-        //anchorPane.setRightAnchor(loginPane, anchorPane.getWidth()*4/100 );
-        anchorPane.setLeftAnchor(loginVBox, anchorPane.getWidth()*25/100);
-        anchorPane.setTopAnchor(loginVBox, anchorPane.getHeight()*25/100);
-        //anchorPane.setBottomAnchor(loginPane, anchorPane.getHeight()*4/100);
-    }
-    */
 
     //metodo per creare un nuovo account
     public void confirmLoginScreen(){
@@ -148,7 +135,6 @@ public class ClientLoginController implements Initializable {//serve per avere l
                 }
             });
             fadeTransitionEffect(textWithPasswordConfirm, 1, 0, 1000);
-            //textWithPasswordConfirm.setVisible(false);
             loginNewUser = true;
         }
         textWithPassword.setText(null); //quando cambio schermata azzero i tre campi

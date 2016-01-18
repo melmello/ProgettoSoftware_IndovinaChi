@@ -44,7 +44,7 @@ public class ClientThread extends Thread {
                     }
                     //Il Server risponde che ora si può cambiare l'interfaccia
                     case (successfulUserCreation):{
-                        continueOnChoiceScreen();
+                        comeBackToLogin();
                         break;
                     }
                     //Il Server comunica che è pronto per ricevere le informazioni sullo Sticker scelto
@@ -87,6 +87,10 @@ public class ClientThread extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void continueOnChoiceScreen() {
+        main.continueOnChoiceScreen();
     }
 
     private void notificationToUserNotFound() {
@@ -149,7 +153,7 @@ public class ClientThread extends Thread {
     }
 
     //metodo che mi cambia la schermata da login a choice
-    private void continueOnChoiceScreen() {
+    private void comeBackToLogin() {
         main.notificationForNewUser();
     }
 
