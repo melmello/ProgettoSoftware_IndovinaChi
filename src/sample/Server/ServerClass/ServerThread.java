@@ -10,6 +10,11 @@ import java.net.Socket;
 import java.sql.*;
 import java.util.ArrayList;
 import org.apache.commons.io.FilenameUtils;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 import java.util.Random;
 
 public class ServerThread extends Thread{
@@ -86,8 +91,26 @@ public class ServerThread extends Thread{
                         communicateClientConnected();
                         break;
                     }
+                    case (clientWantsToSendRatingCode):{
+                        communicateClientRating();
+                        break;
+                    }
                 }
             }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void communicateClientRating() {
+        System.out.println("MESSAGGIO RICEVUTO");
+        try {
+            writer.println(readyToReceiveClientRating);
+            String clientRatingString = reader.readLine();
+            double clientRatingDouble = Double.parseDouble(clientRatingString);
+            System.out.println(clientRatingDouble + " -> RATING NEL SERVER");
+            System.out.println(getUser().getUserUsername() + " -> USER CHE SPEDISCE");
+            serverStart.sendRating(clientRatingDouble, getUser().getUserUsername());
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -102,10 +125,16 @@ public class ServerThread extends Thread{
 
     private void sendingClientConnected() {
         writer.println(serverReadyToSendClientConnected);
-        gson = new Gson();
-        String clientConnectedGson = gson.toJson(serverStart.getListOfClientConnected());
-        System.out.println(clientConnectedGson);
-        writer.println(clientConnectedGson);
+        try {
+            if (reader.readLine().equals(clientReadyToReceiveClientsConnected)) {
+                gson = new Gson();
+                String clientConnectedGson = gson.toJson(serverStart.getListOfClientConnected());
+                System.out.println(clientConnectedGson);
+                writer.println(clientConnectedGson);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

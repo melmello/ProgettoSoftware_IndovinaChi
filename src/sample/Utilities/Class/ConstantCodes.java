@@ -14,6 +14,7 @@ public final class ConstantCodes {
     public static final String readyToReceiveClientConnected = "READY TO RECEIVE CLIENT CONNECTED";
     public static final String clientReadyToReceiveClientsConnected = "CLIENT READY TO RECEIVE CLIENTS CONNECTED";
     public static final String clientIsGivingHisName = "CLIENT IS GIVING HIS NAME";
+    public static final String clientWantsToSendRatingCode = "CLIENT WANTS TO SEND RATING CODE";
 
     //from server to client
     public static final String serverReadyToReceiveUserInfo = "READY TO RECEIVE USER INFO";
@@ -27,6 +28,7 @@ public final class ConstantCodes {
     public static final String serverWantsToRefreshClientConnected = "SERVER WANTS TO REFRESH CLIENT CONNECTED";
     public static final String serverWantsNameOfClientDisconnecting = "SERVER WANTS NAME OF CLIENT DISCONNECTING";
     public static final String userNotFound = "USER NOT FOUND";
+    public static final String readyToReceiveClientRating = "SERVER READY TO RECEIVE CLIENT RATING";
 
     //costanti stringhe per primo e secondo parametro nelle query
     public static final String name = "name";

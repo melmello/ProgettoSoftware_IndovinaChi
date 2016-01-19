@@ -31,6 +31,7 @@ public class ClientMain extends Application {
     private ClientChoiceController clientChoiceController;
     private ClientLoginController clientLoginController;
     private StickerQuery stickerQuery;
+    private String wantsToKnowClientConnected;
 
     @Override
     public void start(Stage loginStage) throws Exception {
@@ -103,6 +104,7 @@ public class ClientMain extends Application {
                     gamingStage.show();//mostro
                     clientChoiceController.setMain(ClientMain.this);//collegare main e controller
                     loginStage.close();
+                    clientWantsClientConnected();
                     gamingStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//handle per quando accade che disconnetto un client. Comunico DISCONNESSO con la writer
                         public void handle(WindowEvent we) {
                             writer.println(clientDisconnected);
@@ -232,4 +234,11 @@ public class ClientMain extends Application {
         this.user = user;
     }
 
+    public void clientWantsToSendRating() {
+        writer.println(clientWantsToSendRatingCode);
+    }
+
+    public void sendClientRating() {
+        writer.println(Double.toString(clientChoiceController.clientRating));
+    }
 }

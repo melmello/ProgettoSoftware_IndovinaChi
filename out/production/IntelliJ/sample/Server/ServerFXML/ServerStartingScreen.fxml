@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Server.ServerClass.ServerStartingController">
+<Pane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Server.ServerClass.ServerStartingController">
    <children>
-      <Text fx:id="labelTitle" fill="WHITE" layoutX="223.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SERVER INTERFACE" textAlignment="CENTER">
+      <Text fx:id="labelTitle" fill="WHITE" layoutX="219.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SERVER INTERFACE" textAlignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Text>
-      <Text fx:id="labelDescription" fill="WHITE" layoutX="184.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ora sei connesso e i tuoi dati sono:">
+      <Text fx:id="labelDescription" fill="WHITE" layoutX="180.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ora sei connesso e i tuoi dati sono:">
          <font>
             <Font name="System Italic" size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="textWithServerIp" alignment="CENTER" editable="false" layoutX="226.0" layoutY="188.0" />
-      <TextField fx:id="textWithServerPort" alignment="CENTER" editable="false" layoutX="226.0" layoutY="232.0" />
-      <Button fx:id="buttonStartingScreen" layoutX="283.0" layoutY="286.0" mnemonicParsing="false" onAction="#clickButton" text="RUN" />
       <Text fx:id="labelPort" fill="WHITE" layoutX="409.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Porta" />
       <Text fx:id="labelIP" fill="WHITE" layoutX="418.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IP" />
+      <VBox alignment="TOP_CENTER" layoutX="189.0" layoutY="146.0" prefHeight="216.0" prefWidth="222.0">
+         <children>
+            <JFXTextField fx:id="textWithServerIp" />
+            <JFXTextField fx:id="textWithServerPort" focusColor="#405aa8" />
+            <JFXButton fx:id="buttonStartingScreen" alignment="TOP_CENTER" onAction="#clickButton" text="RUN SERVER" textAlignment="CENTER" />
+         </children>
+      </VBox>
    </children>
 </Pane>

@@ -1,5 +1,6 @@
 package sample.Client.ClientClass;
 
+import static sample.Utilities.Class.Utilities.*;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.animation.*;
@@ -19,24 +20,29 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import org.controlsfx.control.Rating;
+import sample.Utilities.Class.Utilities;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class ClientChoiceController implements Initializable {
 
     ClientMain main;
+    double clientRating;
+    Utilities utilities = new Utilities();
 
-    @FXML
-    AnchorPane anchorPane;
+    @FXML AnchorPane anchorPane;
     @FXML ImageView imageSingle;
     @FXML ImageView imageMulti;
     @FXML JFXListView<String> clientConnectedListView;
     @FXML JFXToggleButton temporaryButton;  //TODO eliminarlo
     @FXML ImageView ballImage;
-    @FXML
-    Rating ratingBox;
+    @FXML Rating ratingBox;
 
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
@@ -49,15 +55,7 @@ public class ClientChoiceController implements Initializable {
     //metodo che serve per far conoscere main e controller
     public void setMain(ClientMain main) {
         this.main = main;
-        main.clientWantsClientConnected();
-    }
-
-    //metodo che mi mostra quando clicco sul Play le modalità di gioco
-    public void onClickOnPlayImage(){
-        imageSingle.setVisible(true);
-        imageMulti.setVisible(true);
-        clientConnectedListView.setVisible(true);
-
+        //main.clientWantsClientConnected();
     }
 
     //metodo che collega Choice screen e Game screen
@@ -87,10 +85,9 @@ public class ClientChoiceController implements Initializable {
             ArcTo arcTo = new ArcTo(50, 50, 100, imageChoosen.getLayoutX() - ballImage.getLayoutX() + anchorPane.getLayoutX() + imageChoosen.getFitWidth() / 2, imageChoosen.getLayoutY() + -ballImage.getLayoutY() + anchorPane.getLayoutY() + imageChoosen.getFitHeight() / 2, false, false);
             path.getElements().add(arcTo);
             if (imageChoosen.getId().equals("imageRating")){
-                ratingGame();
             } else {
-                fadeTransitionEffect(imageSingle, 0, 1, 1000);
-                fadeTransitionEffect(imageMulti, 0, 1, 1000);
+                utilities.fadeTransitionEffect(imageSingle, 0, 1, 1000);
+                utilities.fadeTransitionEffect(imageMulti, 0, 1, 1000);
             }
         } else {
             if (imageChoosen.getId().equals("imagePersonalScoreboard") || imageChoosen.getId().equals("imageWorldScoreboard")){
@@ -107,34 +104,19 @@ public class ClientChoiceController implements Initializable {
                 .cycleCount(1)
                 .build();
         pathTransition.playFromStart();
-        fadeTransitionEffect(imageChoosen, 1, 0.3f, 1000);
-        scaleTransition(ballImage, 0.5f, 0.5f, 1000);
+        utilities.fadeTransitionEffect(imageChoosen, 1, 0.3f, 1000);
+        utilities.scaleTransition(ballImage, 0.5f, 0.5f, 1000);
     }
 
-    private void ratingGame() {
-        ratingBox.getRating();
-
+    public void ratingGame() {
+        clientRating = ratingBox.getRating();
+        System.out.println(clientRating + " -> CLIENT RATING");
+        main.clientWantsToSendRating();
     }
 
-    //metodo per effetto fade
-    public void fadeTransitionEffect(Node nodeToEffect, float fromValue, float toValue, int duration){
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(duration), nodeToEffect);
-        fadeTransition.setFromValue(fromValue);
-        fadeTransition.setToValue(toValue);
-        fadeTransition.setAutoReverse(true);
-        fadeTransition.play();
-    }
 
-    //metodo stilistico che serve per la transizione zoomOut degli stickers
-    public void scaleTransition(Node node, float toValueX, float toValueY, int duration) {
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(duration), node);
-        scaleTransition.setCycleCount(1);
-        scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
-        scaleTransition.setFromX(node.getScaleX());
-        scaleTransition.setFromY(node.getScaleY());
-        scaleTransition.setToX(toValueX);
-        scaleTransition.setToY(toValueY);
-        scaleTransition.playFromStart();
-    }
 
+    public double getClientRating() {
+        return clientRating;
+    }
 }

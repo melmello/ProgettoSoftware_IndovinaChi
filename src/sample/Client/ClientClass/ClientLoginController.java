@@ -66,7 +66,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
                 new TimerTask() {
                     @Override
                     public void run() {
-                        fadeTransitionEffect(loginVBox, 0, 1, 3000);
+                        utilities.fadeTransitionEffect(loginVBox, 0, 1, 3000);
                         loginVBox.setVisible(true);
                         textWithPasswordConfirm.setVisible(false);
                     }
@@ -75,14 +75,6 @@ public class ClientLoginController implements Initializable {//serve per avere l
         );
     }
 
-    //metodo per effetto fade
-    public void fadeTransitionEffect(Node nodeToEffect, float fromValue, float toValue, int duration){
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(duration), nodeToEffect);
-        fadeTransition.setFromValue(fromValue);
-        fadeTransition.setToValue(toValue);
-        fadeTransition.setAutoReverse(true);
-        fadeTransition.play();
-    }
 
     //metodo per creare un nuovo account
     public void confirmLoginScreen(){
@@ -122,8 +114,8 @@ public class ClientLoginController implements Initializable {//serve per avere l
                     newUserLogin();
                 }
             });
-            fadeTransitionEffect(textWithPasswordConfirm, 0, 1, 1000);
-            textWithPasswordConfirm.setVisible(true);
+            utilities.fadeTransitionEffect(textWithPasswordConfirm, 0, 1, 1000);
+            //textWithPasswordConfirm.setVisible(true);
             loginNewUser = false;
         }
         else{
@@ -136,7 +128,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
                     confirmLoginScreen();
                 }
             });
-            fadeTransitionEffect(textWithPasswordConfirm, 1, 0, 1000);
+            utilities.fadeTransitionEffect(textWithPasswordConfirm, 1, 0, 1000);
             loginNewUser = true;
         }
         textWithPassword.setText(null); //quando cambio schermata azzero i tre campi

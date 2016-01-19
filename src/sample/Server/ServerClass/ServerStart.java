@@ -4,12 +4,18 @@ import static sample.Utilities.Class.ConstantCodes.*;
 import static sample.Utilities.Class.SecurityClass.*;
 import javafx.concurrent.Task;
 import sample.Utilities.Class.Sticker;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Socket;
 import java.net.ServerSocket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class ServerStart extends Task {
 
@@ -32,12 +38,12 @@ public class ServerStart extends Task {
         try {
             socketExchange = new ServerSocket(assignedPort);//istanzio il socket sulla tal porta su cui comunicherò
             Class.forName(driverMySql).newInstance();
-            connection = DriverManager.getConnection(urlConnection, "root", rootPasswordMYSQL);//mi collego al database
+            connection = DriverManager.getConnection(urlConnection, mySQLUsername, mySQLPassword);//mi collego al database
             System.out.println("Database connesso");
             assignedIp = Inet4Address.getLocalHost().getHostAddress();//ricavo l'IP globale del Server per stamparlo poi
             serverMain.initialConfiguration(assignedIp); //chiamo il metodo che mi permette di collegarmi al Controller
-            printNumberOfClient();
             System.out.println("Sono il Server.\nIl mio indirizzo IP è: " + assignedIp + "\nLa mia porta è: " + assignedPort);
+            printNumberOfClient();
             while (true) {//while true del Thread in cui istanzia un thread per ogni client che si connette
                 Socket serverSocket = socketExchange.accept();
                 threadsArrayList.add(new ServerThread(serverSocket, clientNumber, this, connection, threadsArrayList.size()));//ogni volta che creo un Thread lo inserisco nell'ultimo posto dell'array
@@ -74,6 +80,7 @@ public class ServerStart extends Task {
     }
 
     public void insertNameInArrayList(String userSQLName) {
+        System.out.println(userSQLName);
         listOfClientConnected.add(userSQLName);
     }
 
@@ -88,10 +95,11 @@ public class ServerStart extends Task {
     }
 
 
-    public void refreshClientConnected(String usernamePa) {
-        System.out.println(usernamePa);
+    public void refreshClientConnected(String usernameConnected) {
+        printNumberOfClient();
+        System.out.println(usernameConnected);
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
-            if (threadsArrayList.get(cont).getUser().getUserUsername()!=null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(username)) {
+            if (threadsArrayList.get(cont).getUser().getUserUsername()!=null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(usernameConnected)) {
                 threadsArrayList.get(cont).getWriter().println(serverWantsToRefreshClientConnected);
             }
         }
@@ -101,5 +109,37 @@ public class ServerStart extends Task {
     public ArrayList<String> getListOfClientConnected() {
         return listOfClientConnected;
     }
+
+    public void sendRating(Double clientRating, String clientUsername) {
+        final String username = googleMail;
+        final String password = googlePassword;
+
+        Properties props = new Properties();
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("giulio.development.melloni@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse("mellonigiulio@gmail.com"));
+            message.setSubject("RATING PROGETTO SOFTWARE");
+            message.setText("Ciao, il tuo voto ricevuto è: " + clientRating + " \n Inviato da user: " + clientUsername);
+            Transport.send(message);
+            System.out.println("Done");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

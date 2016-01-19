@@ -65,6 +65,7 @@
                </image>
             </ImageView>
             <Rating fx:id="ratingBox" layoutX="1605.0" layoutY="69.0" updateOnHover="true" />
+            <Button layoutX="1707.0" layoutY="379.0" mnemonicParsing="false" onAction="#ratingGame" text="Button" />
          </children>
       </Pane>
    </children>

@@ -1,7 +1,7 @@
 package sample.Client.ClientClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
-
+import static sample.Utilities.Class.Utilities.*;
 import com.jfoenix.controls.JFXListView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +21,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import sample.Utilities.Class.Utilities;
+
 import java.net.URL;
 import java.util.*;
 
@@ -29,6 +31,8 @@ public class ClientGameController implements Initializable {
     private ClientMain main;
     private Scene gamingScene;
     private String imagePath;
+    private Utilities utilities = new Utilities();
+
 
     @FXML ImageView stickerImage;
     @FXML ImageView myStickerImage;
@@ -379,28 +383,10 @@ public class ClientGameController implements Initializable {
         for (int i = 0; i < newStickers.size(); i++) {
             ImageView stickerToBeRemovedImage = (ImageView) gamingScene.lookup("#" + newStickers.get(i));
             if (stickerToBeRemovedImage != null) {
-                scaleTransition(stickerToBeRemovedImage);
+                utilities.scaleTransition(stickerToBeRemovedImage, 0, 0, 500);
             }
         }
         disableForChangingRound(true);
-    }
-
-    //metodo stilistico che serve per la transizione zoomOut degli stickers
-    public void scaleTransition(ImageView imageView) {
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(500), imageView);
-        scaleTransition.setCycleCount(1);
-        scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
-        scaleTransition.setFromX(imageView.getScaleX());
-        scaleTransition.setFromY(imageView.getScaleY());
-        scaleTransition.setToX(0);
-        scaleTransition.setToY(0);
-        scaleTransition.playFromStart();
-        scaleTransition.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                imageView.setVisible(false);
-            }
-        });
     }
 
     public void readyToAbilitateClientScreen() {

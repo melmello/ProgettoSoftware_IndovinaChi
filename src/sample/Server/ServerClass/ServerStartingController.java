@@ -1,9 +1,9 @@
 package sample.Server.ServerClass;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,12 +11,13 @@ import java.util.ResourceBundle;
 public class ServerStartingController implements Initializable{//così posso implementare la visibilità iniziale o meno degli elementi
 
     ServerMain main;
-    @FXML   TextField textWithServerIp;
-    @FXML   TextField textWithServerPort;
-    @FXML   Text labelIP;
-    @FXML   Text labelDescription;
-    @FXML   Button buttonStartingScreen;
-    @FXML   Text labelTitle;
+    @FXML JFXTextField textWithServerIp;
+    @FXML JFXTextField textWithServerPort;
+    @FXML Text labelIP;
+    @FXML Text labelDescription;
+    @FXML Text labelTitle;
+    @FXML JFXButton buttonStartingScreen;
+
 
     //metodo per inizializzare ciò che si vede o no nella mia schermata
     @Override

@@ -31,6 +31,7 @@ public class ClientThread extends Thread {
             writer = new PrintWriter(this.clientSocket.getOutputStream(),true);//output sul socket
             while (true) {
                 String code = reader.readLine();
+                System.out.println(code);
                 switch (code) {
                     //Il Server è pronto per il Login e aspetta che io gli mandi il gson con username, password e porta
                     case (serverReadyToReceiveUserInfo): {
@@ -78,11 +79,20 @@ public class ClientThread extends Thread {
                         notificationToUserNotFound();
                         break;
                     }
+                    case (readyToReceiveClientRating):{
+                        System.out.println("rating");
+                        sendClientRating();
+                        break;
+                    }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void sendClientRating() {
+        main.sendClientRating();
     }
 
     private void continueOnChoiceScreen() {
