@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import org.controlsfx.control.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -12,41 +13,41 @@
    <children>
       <Pane prefHeight="1000.0" prefWidth="1850.0">
          <children>
-            <ImageView fx:id="imageSingle" fitHeight="300.0" fitWidth="300.0" layoutX="-59.0" layoutY="304.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageSingle" fitHeight="200.0" fitWidth="183.0" layoutX="50.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../ClientImage/Singleplayer.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imageMulti" fitHeight="150.0" fitWidth="400.0" layoutX="239.0" layoutY="883.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageMulti" fitHeight="150.0" fitWidth="400.0" layoutX="72.0" layoutY="579.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../ClientImage/Mutliplayer.png" />
                </image>
             </ImageView>
             <JFXToggleButton fx:id="temporaryButton" layoutX="1739.0" layoutY="159.0" onAction="#continueOnGameScreen" prefHeight="30.0" prefWidth="74.0" />
-            <JFXListView fx:id="clientConnectedListView" layoutX="1603.0" layoutY="747.0" prefHeight="234.0" prefWidth="488.0" />
-            <AnchorPane layoutX="258.0">
+            <JFXListView fx:id="clientConnectedListView" layoutX="37.0" layoutY="735.0" prefHeight="234.0" prefWidth="488.0" />
+            <AnchorPane fx:id="anchorPane" layoutX="244.0" prefHeight="757.0" prefWidth="1446.0">
                <children>
-                  <ImageView fitHeight="797.0" fitWidth="1432.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="797.0" fitWidth="802.0" layoutX="314.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../ClientImage/FootballDoor.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="1067.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="imageRating" fitHeight="100.0" fitWidth="100.0" layoutX="921.0" layoutY="81.0" onMouseClicked="#ballMovement" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../ClientImage/Rating.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imageWorldScoreboard" fitHeight="200.0" fitWidth="200.0" layoutX="1087.0" layoutY="528.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="imageWorldScoreboard" fitHeight="100.0" fitWidth="100.0" layoutX="936.0" layoutY="321.0" onMouseClicked="#ballMovement" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../ClientImage/ScoreboardMondiale.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imagePersonalScoreboard" fitHeight="200.0" fitWidth="200.0" layoutX="139.0" layoutY="528.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="imagePersonalScoreboard" fitHeight="100.0" fitWidth="100.0" layoutX="388.0" layoutY="321.0" onMouseClicked="#ballMovement" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../ClientImage/ScoreboardPersonale.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="playGameImage" fitHeight="200.0" fitWidth="200.0" layoutX="139.0" layoutY="73.0" onMouseClicked="#onClickOnPlayImage" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="imagePlayAGame" fitHeight="100.0" fitWidth="100.0" layoutX="390.0" layoutY="59.0" onMouseClicked="#ballMovement" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../ClientImage/PlayAGame.png" />
                      </image>
@@ -63,7 +64,7 @@
                   <Image url="@../ClientImage/FootballPlayerDark.png" />
                </image>
             </ImageView>
-            <Button layoutX="161.0" layoutY="302.0" mnemonicParsing="false" onAction="#goAction" text="Button" />
+            <Rating fx:id="ratingBox" layoutX="1605.0" layoutY="69.0" updateOnHover="true" />
          </children>
       </Pane>
    </children>

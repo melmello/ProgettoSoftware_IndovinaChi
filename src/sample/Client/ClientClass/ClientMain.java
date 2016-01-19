@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 public class ClientMain extends Application {
 
-    private int assignedPort;
     private Socket clientSocket;
     private Stage loginStage;
     private Stage gamingStage;
@@ -49,7 +48,7 @@ public class ClientMain extends Application {
         loginStage.show();//mostra
         //clientLoginController.updateWithConstraints(loginScene.getWidth(), loginScene.getHeight());//modifica width e height della finestra quando passo da fullscreen a window screen
         try {
-            clientSocket = new Socket(localhost, assignedPort);//TODO localhost -> ip
+            clientSocket = new Socket("127.0.0.1", assignedPort);//TODO localhost -> ip
             ClientThread clientThread = new ClientThread(clientSocket, this);//creazione di un Thread sul socket passandogli l'istanza
             clientThread.start();//lo faccio partire
         } catch (IOException e) {

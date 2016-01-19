@@ -47,7 +47,7 @@ public class ServerThread extends Thread{
                 switch (code){
                     //Il client manda il segnale che si è disconesso.
                     case (clientDisconnected):{
-                        serverStart.refreshClientConnected(user.getUserUsername());
+                        serverStart.removeClientDisconnected(user.getUserUsername());
                         break;
                     }
                     //Sto provando far loggare un utente nel login

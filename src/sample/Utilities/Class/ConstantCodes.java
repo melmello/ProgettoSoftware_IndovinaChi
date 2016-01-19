@@ -59,15 +59,18 @@ public final class ConstantCodes {
     public static final String trueAnswer = "true";
     public static final String falseAnswer = "false";
     public static final String shavedAnswer = "shaved";
-    //public static final String ;
-    //public static final String ;
-    //public static final String ;
-    //public static final String ;
-    //public static final String ;
-    //public static final String ;
-    //public static final String ;
-    //public static final String ;
-    //public static final String ;
+    public static final String goateeAnswer = "goatee";
+    public static final String mustacheAnswer = "mustache";
+    public static final String wholeAnswer = "whole";
+    public static final String europeAnswer = "europe";
+    public static final String americaAnswer = "america";
+    public static final String asiaAnswer = "asia";
+    public static final String serieaAnswer = "serieA";
+    public static final String premierAnswer = "premier";
+    public static final String ligueAnswer = "ligue";
+    public static final String bbvaAnswer = "bbva";
+    public static final String ligaAnswer = "liga";
+
 
     //costanti stringhe per database user
     public static final String username = "username";

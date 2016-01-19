@@ -262,8 +262,8 @@
          </image></ImageView>
       <Label layoutX="1575.0" layoutY="683.0" text="IO" />
       <Label layoutX="1752.0" layoutY="683.0" text="TU" />
-      <JFXToggleButton fx:id="enableChangingSticker" layoutX="1646.0" layoutY="627.0" />
-      <ToolBar fx:id="toolBar" layoutX="1539.0" layoutY="23.0" nodeOrientation="LEFT_TO_RIGHT" orientation="VERTICAL" prefHeight="195.0" prefWidth="265.0" style="-fx-background-color: transparent;">
+      <JFXToggleButton fx:id="enableChangingSticker" layoutX="1623.0" layoutY="653.0" />
+      <ToolBar fx:id="toolBar" layoutX="1534.0" layoutY="261.0" nodeOrientation="LEFT_TO_RIGHT" orientation="VERTICAL" prefHeight="195.0" prefWidth="265.0" style="-fx-background-color: transparent;">
          <items>
             <JFXComboBox fx:id="hairComboBox" onMouseClicked="#reinitializeComboBox" prefHeight="31.0" prefWidth="250.0" promptText="Capelli" />
             <JFXComboBox fx:id="beardComboBox" onMouseClicked="#reinitializeComboBox" prefHeight="31.0" prefWidth="250.0" promptText="Barba" />
@@ -272,8 +272,8 @@
             <JFXComboBox fx:id="informationComboBox" layoutX="10.0" layoutY="118.0" prefHeight="31.0" prefWidth="250.0" promptText="Informazioni" />
          </items>
       </ToolBar>
-      <JFXTextField fx:id="settingQuestionForSticker" layoutX="1503.0" layoutY="273.0" minWidth="336.0" onKeyPressed="#clientWantsToQuery" prefHeight="31.0" prefWidth="300.0" />
-      <MaskerPane fx:id="maskerPaneWaitingOtherPlayerChoice" layoutX="1600.0" layoutY="226.0" />
-      <JFXListView layoutX="1609.0" layoutY="369.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="265.0" />
+      <JFXListView fx:id="questionThatCouldBeChoosen" layoutX="1525.0" layoutY="450.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clientWantsToQuery" prefHeight="195.0" prefWidth="265.0" style="-fx-background-color: transparent;" />
+      <MaskerPane fx:id="maskerPaneWaitingOtherPlayerChoice" layoutX="1586.0" layoutY="481.0" />
+      <JFXListView fx:id="questionChoosenListView" layoutX="1534.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="265.0" />
    </children>
 </AnchorPane>

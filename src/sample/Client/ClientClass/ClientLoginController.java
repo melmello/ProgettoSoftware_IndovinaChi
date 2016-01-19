@@ -5,20 +5,22 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import sample.Utilities.Class.Utilities;
 import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class ClientLoginController implements Initializable {//serve per avere l'implementazione del metodo initialize
 
@@ -26,21 +28,21 @@ public class ClientLoginController implements Initializable {//serve per avere l
     private boolean loginNewUser;
     private Utilities utilities;
 
-    @FXML   private AnchorPane anchorPane;
-    @FXML   private VBox loginVBox;
-    @FXML   private Text labelLoginTitle;
-    @FXML   private JFXTextField textWithUsername;
-    @FXML   private JFXPasswordField textWithPassword;
-    @FXML   private JFXPasswordField textWithPasswordConfirm;
-    @FXML   private JFXButton buttonUserScreen;
-    @FXML   private JFXButton buttonToContinue;
-    @FXML   private JFXToggleButton toggleContinue;//TODO eliminarlo
+    @FXML   AnchorPane anchorPane;
+    @FXML   VBox loginVBox;
+    @FXML   Text labelLoginTitle;
+    @FXML   JFXTextField textWithUsername;
+    @FXML   JFXPasswordField textWithPassword;
+    @FXML   JFXPasswordField textWithPasswordConfirm;
+    @FXML   JFXButton buttonUserScreen;
+    @FXML   JFXButton buttonToContinue;
+    @FXML   JFXToggleButton toggleContinue;//TODO eliminarlo
 
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loginVBox.setVisible(false);
-        labelLoginTitle.setFocusTraversable(true);//focus sul titolo così non sono già dentro un campo nello scrivere
+        //labelLoginTitle.setFocusTraversable(true);//focus sul titolo così non sono già dentro un campo nello scrivere
         loginScreenShow();
         utilities = new Utilities();
         loginNewUser = true;
@@ -139,7 +141,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
         }
         textWithPassword.setText(null); //quando cambio schermata azzero i tre campi
         textWithUsername.setText(null);
-        textWithPasswordConfirm.setText(null);
+        //textWithPasswordConfirm.setText(null);
     }
 
     //metodo che mi permette di proseguire dalla schermata di Login a quella di Choice

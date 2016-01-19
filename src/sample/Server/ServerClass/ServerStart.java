@@ -38,7 +38,6 @@ public class ServerStart extends Task {
             serverMain.initialConfiguration(assignedIp); //chiamo il metodo che mi permette di collegarmi al Controller
             printNumberOfClient();
             System.out.println("Sono il Server.\nIl mio indirizzo IP è: " + assignedIp + "\nLa mia porta è: " + assignedPort);
-            //threadsArrayList  = new ArrayList<ServerThread>()
             while (true) {//while true del Thread in cui istanzia un thread per ogni client che si connette
                 Socket serverSocket = socketExchange.accept();
                 threadsArrayList.add(new ServerThread(serverSocket, clientNumber, this, connection, threadsArrayList.size()));//ogni volta che creo un Thread lo inserisco nell'ultimo posto dell'array
@@ -51,12 +50,8 @@ public class ServerStart extends Task {
         return null;
     }
 
-    private void printNumberOfClient() {
-        if (listOfClientConnected.size() == 0){
-            serverMain.printNumberOfClient(Integer.toString(0));
-        } else {
-            serverMain.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
-        }
+    public void printNumberOfClient() {
+        serverMain.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
     }
 
     //metodo per il cambio di turno
@@ -82,8 +77,19 @@ public class ServerStart extends Task {
         listOfClientConnected.add(userSQLName);
     }
 
-    public void refreshClientConnected(String username) {
-        listOfClientConnected.remove(username);
+    public void removeClientDisconnected(String usern) {
+        listOfClientConnected.remove(usern);
+        for (int counter = 0; counter < threadsArrayList.size(); counter++){
+            if (threadsArrayList.get(counter).getUser().getUserUsername().equals(usern)){
+                threadsArrayList.remove(counter);
+            }
+        }
+        refreshClientConnected(usern);
+    }
+
+
+    public void refreshClientConnected(String usernamePa) {
+        System.out.println(usernamePa);
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
             if (threadsArrayList.get(cont).getUser().getUserUsername()!=null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(username)) {
                 threadsArrayList.get(cont).getWriter().println(serverWantsToRefreshClientConnected);
