@@ -24,7 +24,8 @@ public class ServerStart extends Task {
     private ServerSocket socketExchange;
     private ServerMain serverMain;
     private Connection connection;
-    private ArrayList<ServerThread> threadsArrayList  = new ArrayList<ServerThread>();
+    private ArrayList<ServerThread> threadsPlaying = new ArrayList<>();
+    private ArrayList<ServerThread> threadsArrayList  = new ArrayList<>();
     private ArrayList<String> listOfClientConnected = new ArrayList<>();
 
     //costruttore
@@ -84,23 +85,27 @@ public class ServerStart extends Task {
         listOfClientConnected.add(userSQLName);
     }
 
-    public void removeClientDisconnected(String usern) {
-        listOfClientConnected.remove(usern);
+    public void removeClientDisconnected(String usernameDisconnected) {
+        listOfClientConnected.remove(usernameDisconnected);
         for (int counter = 0; counter < threadsArrayList.size(); counter++){
-            if (threadsArrayList.get(counter).getUser().getUserUsername().equals(usern)){
+            if (threadsArrayList.get(counter).getUser().getUserUsername().equals(usernameDisconnected)){
                 threadsArrayList.remove(counter);
             }
         }
-        refreshClientConnected(usern);
+        refreshClientConnected(usernameDisconnected);
+        System.out.println("Client disconnesso");
     }
 
 
     public void refreshClientConnected(String usernameConnected) {
         printNumberOfClient();
         System.out.println(usernameConnected);
-        for (int cont = 0; cont < threadsArrayList.size(); cont++){
-            if (threadsArrayList.get(cont).getUser().getUserUsername()!=null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(usernameConnected)) {
-                threadsArrayList.get(cont).getWriter().println(serverWantsToRefreshClientConnected);
+        System.out.println(threadsArrayList.size());
+        if (threadsArrayList.size() != 1) {
+            for (int cont = 0; cont < threadsArrayList.size(); cont++) {
+                if (threadsArrayList.get(cont).getUser().getUserUsername() != null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(usernameConnected)) {
+                    threadsArrayList.get(cont).getWriter().println(serverWantsToRefreshClientConnected);
+                }
             }
         }
     }
@@ -129,9 +134,9 @@ public class ServerStart extends Task {
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("giulio.development.melloni@gmail.com"));
+            message.setFrom(new InternetAddress(googleMail));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("mellonigiulio@gmail.com"));
+                    InternetAddress.parse(googleTrueMail));
             message.setSubject("RATING PROGETTO SOFTWARE");
             message.setText("Ciao, il tuo voto ricevuto è: " + clientRating + " \n Inviato da user: " + clientUsername);
             Transport.send(message);
@@ -142,4 +147,33 @@ public class ServerStart extends Task {
     }
 
 
+    public void removeClientDisconnectedFromLoginScreen() {
+        System.out.println("Un client non ha loggato");
+    }
+
+    public void sendingRequest(String opponent, String userRequest) {
+        for (int cont = 0; cont < threadsArrayList.size(); cont++){
+            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(opponent)){
+                threadsArrayList.get(cont).getWriter().println(receivedGameRequest);
+            }
+            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userRequest)){
+                threadsPlaying.add(threadsArrayList.get(cont));
+            }
+        }
+    }
+
+    public ArrayList<ServerThread> getThreadsPlaying() {
+        return threadsPlaying;
+    }
+
+    public void createTheGame(String userWhoAccepted) {
+        for(int cont = 0; cont < threadsArrayList.size(); cont++){
+            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userWhoAccepted)) {
+                threadsPlaying.add(threadsArrayList.get(cont));
+            }
+        }
+        for(int cont = 0; cont < threadsPlaying.size(); cont++){
+            threadsPlaying.get(cont).getWriter().println(goToGameScreen);
+        }
+    }
 }

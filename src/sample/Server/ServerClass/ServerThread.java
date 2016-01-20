@@ -10,11 +10,6 @@ import java.net.Socket;
 import java.sql.*;
 import java.util.ArrayList;
 import org.apache.commons.io.FilenameUtils;
-
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
 import java.util.Random;
 
 public class ServerThread extends Thread{
@@ -22,6 +17,7 @@ public class ServerThread extends Thread{
     private int clientNumberId;
     private int positionInArrayList;
     private String serverIP = null;
+
     private Connection connection;
     private ServerStart serverStart;
     private Socket socket;
@@ -49,10 +45,15 @@ public class ServerThread extends Thread{
             writer = new PrintWriter(this.socket.getOutputStream(),true);//output sul socket
             while (true) {
                 String code = reader.readLine();
+                System.out.println(code);
                 switch (code){
                     //Il client manda il segnale che si è disconesso.
                     case (clientDisconnected):{
                         serverStart.removeClientDisconnected(user.getUserUsername());
+                        break;
+                    }
+                    case (clientDisconnectedFromLoginScreen):{
+                        serverStart.removeClientDisconnectedFromLoginScreen();
                         break;
                     }
                     //Sto provando far loggare un utente nel login
@@ -95,9 +96,31 @@ public class ServerThread extends Thread{
                         communicateClientRating();
                         break;
                     }
+                    case (clientWantsToPlay):{
+                        readyToReceiveOtherClientName();
+                        break;
+                    }
+                    case (okForPlaying):{
+                        readyToCreateTheGame();
+                        break;
+                    }
                 }
             }
         } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void readyToCreateTheGame() {
+        serverStart.createTheGame(getUser().getUserUsername());
+    }
+
+    private void readyToReceiveOtherClientName() {
+        try {
+            writer.println(readyToReceiveTheName);
+            String opponent = reader.readLine();
+            serverStart.sendingRequest(opponent, getUser().getUserUsername());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -451,6 +474,7 @@ public class ServerThread extends Thread{
         gson = new Gson();
         String userSQLName = null;
         String userSQLPassword = null;
+        Boolean userAlreadyLogged = false;
         try {
             writer.println(serverReadyToReceiveUserInfo);//Il server manda ClientThread che è pronto per la registrazione
             String userString = reader.readLine();
@@ -463,14 +487,23 @@ public class ServerThread extends Thread{
                 userSQLName = resultSet.getString(username);
                 userSQLPassword = resultSet.getString(password);
             }
-            if (userSQLName != null && userSQLPassword != null){
+            for (int contatore = 0; contatore < serverStart.getListOfClientConnected().size(); contatore++){
+                if (serverStart.getListOfClientConnected().get(contatore).equals(userSQLName)){
+                    userAlreadyLogged = true;
+                }
+            }
+            if (userSQLName != null && userSQLPassword != null && userAlreadyLogged == false){
                 System.out.println("Utente di nome " + userSQLName + " e password " + userSQLPassword + " trovato\nLogin effettuato con successo");
                 writer.println(successfulAuthentication);
                 serverStart.insertNameInArrayList(userSQLName);
                 serverStart.refreshClientConnected(userSQLName);
             } else {
-                System.out.println("Utente non trovato");
-                writer.println(userNotFound);
+                if (userAlreadyLogged == false) {
+                    System.out.println("Utente non trovato");
+                    writer.println(userNotFound);
+                } else {
+                    System.out.println("Utente già connesso");
+                }
             }
         } catch (SQLException e){
             e.printStackTrace();

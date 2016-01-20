@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane id="paneCounter" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="163.0" prefWidth="281.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Server.ServerClass.ServerClientCounterController">
+<Pane id="paneCounter" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="163.0" prefWidth="281.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Server.ServerClass.ServerClientCounterController">
    <children>
       <Text fill="WHITE" layoutX="46.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero Client connessi">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="textWithClientNumber" alignment="CENTER" editable="false" layoutX="119.0" layoutY="94.0" prefHeight="31.0" prefWidth="53.0" />
+      <JFXTextField fx:id="textWithClientNumber" alignment="CENTER" editable="false" layoutX="110.0" layoutY="82.0" maxWidth="85.0" minWidth="52.0" prefHeight="37.0" prefWidth="72.0" unFocusColor="WHITE" />
    </children>
 </Pane>

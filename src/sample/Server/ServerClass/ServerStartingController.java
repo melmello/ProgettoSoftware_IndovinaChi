@@ -1,15 +1,19 @@
 package sample.Server.ServerClass;
 
+import static sample.Utilities.Class.ConstantCodes.*;
+import sample.Utilities.Class.Utilities;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ServerStartingController implements Initializable{//così posso implementare la visibilità iniziale o meno degli elementi
 
+    Utilities utilities = new Utilities();
     ServerMain main;
     @FXML JFXTextField textWithServerIp;
     @FXML JFXTextField textWithServerPort;
@@ -36,6 +40,7 @@ public class ServerStartingController implements Initializable{//così posso imp
 
     //metodo per quando clicco il Button che voglio connettere il server su quella porta e mostrare IP e popup con client connessi
     public void clickButton () {
+        utilities.playSomeSound(buttonClickSound);
         if (textWithServerPort.getText().isEmpty()) {//se il testo è vuoto
             System.out.println("Errore: porta non inserita");
             labelDescription.setVisible(false);

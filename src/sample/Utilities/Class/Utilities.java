@@ -1,5 +1,6 @@
 package sample.Utilities.Class;
 
+import static sample.Utilities.Class.ConstantCodes.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
@@ -10,9 +11,9 @@ import javafx.util.Duration;
 
 public class Utilities {
 
-    public void playSomeSound(){
+    public void playSomeSound(String path){
         try{
-            Media buttonSound = new Media(getClass().getResource("/sample/Utilities/Sound/ButtonClick.wav").toString());
+            Media buttonSound = new Media(getClass().getResource(path).toString());
             MediaPlayer mediaPlayer = new MediaPlayer(buttonSound);
             mediaPlayer.play();
         }catch(Exception e){

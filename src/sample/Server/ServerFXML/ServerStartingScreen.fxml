@@ -21,13 +21,25 @@
             <Font name="System Italic" size="16.0" />
          </font>
       </Text>
-      <Text fx:id="labelPort" fill="WHITE" layoutX="409.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Porta" />
-      <Text fx:id="labelIP" fill="WHITE" layoutX="418.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IP" />
-      <VBox alignment="TOP_CENTER" layoutX="189.0" layoutY="146.0" prefHeight="216.0" prefWidth="222.0">
+      <VBox alignment="TOP_CENTER" layoutX="147.0" layoutY="145.0" prefHeight="216.0" prefWidth="305.0">
          <children>
-            <JFXTextField fx:id="textWithServerIp" />
-            <JFXTextField fx:id="textWithServerPort" focusColor="#405aa8" />
-            <JFXButton fx:id="buttonStartingScreen" alignment="TOP_CENTER" onAction="#clickButton" text="RUN SERVER" textAlignment="CENTER" />
+            <GridPane alignment="CENTER" prefWidth="323.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="230.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="53.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <JFXTextField fx:id="textWithServerIp" alignment="CENTER" editable="false" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXTextField fx:id="textWithServerPort" alignment="CENTER" editable="false" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Text fx:id="labelIP" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="IP" GridPane.columnIndex="1" />
+                  <Text fx:id="labelPort" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Porta" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <JFXButton fx:id="buttonStartingScreen" alignment="TOP_CENTER" onAction="#clickButton" text="RUN SERVER" textAlignment="CENTER" textFill="WHITE" />
          </children>
       </VBox>
    </children>

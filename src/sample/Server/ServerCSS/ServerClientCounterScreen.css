@@ -3,3 +3,7 @@
     -fx-background-repeat: stretch;
     -fx-background-position: center center;
 }
+#textWithClientNumber{
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+}

@@ -82,7 +82,6 @@ public class ClientGameController implements Initializable {
 
     public void clientWantsToQuery() {
         int indexToTakeSqlParameter = -1;
-        questionThatCouldBeChoosen.getSelectionModel().getSelectedItems();
         if (questionCanBeChoosenArray.contains(questionThatCouldBeChoosen.getSelectionModel().getSelectedItems())) {
             ArrayList<String> temporaryArrayFromList = new ArrayList<String>();
             temporaryArrayFromList.addAll(questionCanBeChoosenArray);

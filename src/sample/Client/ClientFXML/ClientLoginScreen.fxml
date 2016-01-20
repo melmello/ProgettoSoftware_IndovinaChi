@@ -37,7 +37,6 @@
             </JFXPasswordField>
             <JFXButton fx:id="buttonToContinue" text="LOGIN" textAlignment="CENTER" textFill="WHITE" />
             <JFXButton fx:id="buttonUserScreen" onAction="#setNewUserScreen" text="SEI UN NUOVO UTENTE?" textAlignment="CENTER" textFill="WHITE" />
-            <JFXToggleButton fx:id="toggleContinue" onAction="#continueOnChoiceScreen" />
          </children>
       </VBox>
    </children>

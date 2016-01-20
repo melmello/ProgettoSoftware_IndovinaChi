@@ -15,6 +15,9 @@ public final class ConstantCodes {
     public static final String clientReadyToReceiveClientsConnected = "CLIENT READY TO RECEIVE CLIENTS CONNECTED";
     public static final String clientIsGivingHisName = "CLIENT IS GIVING HIS NAME";
     public static final String clientWantsToSendRatingCode = "CLIENT WANTS TO SEND RATING CODE";
+    public static final String clientDisconnectedFromLoginScreen = "CLIENT DISCONNECTED FROM LOGIN SCREEN";
+    public static final String clientWantsToPlay = "CLIENT WANTS TO PLAY";
+    public static final String okForPlaying = "OK FOR PLAYING";
 
     //from server to client
     public static final String serverReadyToReceiveUserInfo = "READY TO RECEIVE USER INFO";
@@ -29,6 +32,9 @@ public final class ConstantCodes {
     public static final String serverWantsNameOfClientDisconnecting = "SERVER WANTS NAME OF CLIENT DISCONNECTING";
     public static final String userNotFound = "USER NOT FOUND";
     public static final String readyToReceiveClientRating = "SERVER READY TO RECEIVE CLIENT RATING";
+    public static final String readyToReceiveTheName = "READY TO RECEIVE THE NAME";
+    public static final String receivedGameRequest = "RECEIVED GAME REQUEST";
+    public static final String goToGameScreen = "GO TO GAME SCREEN";
 
     //costanti stringhe per primo e secondo parametro nelle query
     public static final String name = "name";
@@ -124,7 +130,13 @@ public final class ConstantCodes {
     public static final String championshipCB = "Campionato della maglia";
     public static final String captainBandCB = "Fascia da capitano";
 
+    //text per notifica
     public static final String indovinaChiText = "Indovina Chi";
+
+    //path per i suoni
+    public static final String buttonClickSound = "/sample/Utilities/Sound/ButtonClick.wav";
+    public static final String goalSound = "/sample/Utilities/Sound/Goal.wav";
+    public static final String ballShotSound = "/sample/Utilities/Sound/BallShot.wav";
 
     //metodo costruito per le eccezioni
     private ConstantCodes(){

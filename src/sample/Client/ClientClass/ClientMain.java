@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -31,7 +32,6 @@ public class ClientMain extends Application {
     private ClientChoiceController clientChoiceController;
     private ClientLoginController clientLoginController;
     private StickerQuery stickerQuery;
-    private String wantsToKnowClientConnected;
 
     @Override
     public void start(Stage loginStage) throws Exception {
@@ -49,7 +49,7 @@ public class ClientMain extends Application {
         loginStage.show();//mostra
         //clientLoginController.updateWithConstraints(loginScene.getWidth(), loginScene.getHeight());//modifica width e height della finestra quando passo da fullscreen a window screen
         try {
-            clientSocket = new Socket("127.0.0.1", assignedPort);//TODO localhost -> ip
+            clientSocket = new Socket(localhost, assignedPort);//TODO localhost -> ip
             ClientThread clientThread = new ClientThread(clientSocket, this);//creazione di un Thread sul socket passandogli l'istanza
             clientThread.start();//lo faccio partire
         } catch (IOException e) {
@@ -59,7 +59,7 @@ public class ClientMain extends Application {
         writer = new PrintWriter(clientSocket.getOutputStream(), true);
         this.loginStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//handle per quando accade che disconnetto un client. Comunico DISCONNESSO con la writer
             public void handle(WindowEvent we) {
-                writer.println(clientDisconnected);
+                writer.println(clientDisconnectedFromLoginScreen);
                 System.out.println("Client disconnesso");
                 Platform.exit();
                 System.exit(0);
@@ -131,7 +131,6 @@ public class ClientMain extends Application {
                     clientGameController = loaderClientGameScreen.getController(); //bindo il Controller
                     gamingStage.getIcons().add(new Image(gameScreenIcon));//icona della finestra
                     gamingStage.setTitle("INDOVINA CHI");//titolo finestra
-                    //clientGameController.setMain(ClientMain.this, gamingScene.this);//collegare main e controller
                     Scene gamingScene = new Scene(screenGame, 1850, 1000);
                     gamingStage.setScene(gamingScene);
                     clientGameController.setMain(ClientMain.this, gamingScene);//collegare main e controller
@@ -240,5 +239,26 @@ public class ClientMain extends Application {
 
     public void sendClientRating() {
         writer.println(Double.toString(clientChoiceController.clientRating));
+    }
+
+    public void clientWantsToPlayAGameWith() {
+        writer.println(clientWantsToPlay);
+    }
+
+    public void sendClientNameOfOpponent() {
+        writer.println(clientChoiceController.getOpponentChoosen());
+    }
+
+    public void playGameRequest() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                clientChoiceController.playGameRequest();
+            }
+        });
+    }
+
+    public void sendServerOkForPlaying() {
+        writer.println(okForPlaying);
     }
 }

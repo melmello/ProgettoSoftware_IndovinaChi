@@ -3,8 +3,11 @@
     -fx-background-repeat: stretch;
     -fx-background-position: center center;
 }
-
-@font-face {
-    font-family: Exo-Medium;
-    src: url("/sample/Utilities/Fonts/Exo-Medium.otf") format("opentype");
+#textWithServerIp{
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+}
+#textWithServerPort{
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
 }

@@ -1,19 +1,14 @@
 package sample.Client.ClientClass;
 
+import static sample.Utilities.Class.ConstantCodes.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
-import javafx.animation.FadeTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -36,13 +31,12 @@ public class ClientLoginController implements Initializable {//serve per avere l
     @FXML   JFXPasswordField textWithPasswordConfirm;
     @FXML   JFXButton buttonUserScreen;
     @FXML   JFXButton buttonToContinue;
-    @FXML   JFXToggleButton toggleContinue;//TODO eliminarlo
 
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loginVBox.setVisible(false);
-        //labelLoginTitle.setFocusTraversable(true);//focus sul titolo così non sono già dentro un campo nello scrivere
+        labelLoginTitle.setFocusTraversable(true);//focus sul titolo così non sono già dentro un campo nello scrivere
         loginScreenShow();
         utilities = new Utilities();
         loginNewUser = true;
@@ -78,7 +72,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
 
     //metodo per creare un nuovo account
     public void confirmLoginScreen(){
-        utilities.playSomeSound();
+        utilities.playSomeSound(buttonClickSound);
         if (textWithUsername.getText().isEmpty() || textWithPassword.getText().isEmpty()){ //se ho lasciato qualche campo vuoto mi fermo
             System.out.println("Dati non corretti");
         } else {
@@ -88,7 +82,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
 
     //metodo che permette ad un utente nuovo di creare il proprio account
     public void newUserLogin (){
-        utilities.playSomeSound();
+        utilities.playSomeSound(buttonClickSound);
         if (textWithUsername.getText().isEmpty() || textWithPassword.getText().isEmpty()) { //se ho lasciato qualche campo vuoto mi fermo
             System.out.println("Dati non corretti");
 
@@ -103,19 +97,21 @@ public class ClientLoginController implements Initializable {//serve per avere l
 
     //metodo per settare la schermata di login nel caso in cui sia NEW USER o LOGIN
     public void setNewUserScreen(){
-        utilities.playSomeSound();
+        utilities.playSomeSound(buttonClickSound);
         if(loginNewUser==true){
             labelLoginTitle.setText("NEW USER");
             buttonUserScreen.setText("HAI GIA' UN ACCOUNT?");
             buttonToContinue.setText("SIGN UP");
+
             buttonToContinue.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     newUserLogin();
                 }
             });
+
             utilities.fadeTransitionEffect(textWithPasswordConfirm, 0, 1, 1000);
-            //textWithPasswordConfirm.setVisible(true);
+            textWithPasswordConfirm.setVisible(true);
             loginNewUser = false;
         }
         else{
@@ -131,9 +127,9 @@ public class ClientLoginController implements Initializable {//serve per avere l
             utilities.fadeTransitionEffect(textWithPasswordConfirm, 1, 0, 1000);
             loginNewUser = true;
         }
-        textWithPassword.setText(null); //quando cambio schermata azzero i tre campi
-        textWithUsername.setText(null);
-        //textWithPasswordConfirm.setText(null);
+        textWithPassword.setText(""); //quando cambio schermata azzero i tre campi
+        textWithUsername.setText("");
+        textWithPasswordConfirm.setText("");
     }
 
     //metodo che mi permette di proseguire dalla schermata di Login a quella di Choice

@@ -1,6 +1,9 @@
 package sample.Client.ClientClass;
 
+import static sample.Utilities.Class.ConstantCodes.*;
 import static sample.Utilities.Class.Utilities.*;
+
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.animation.*;
@@ -12,6 +15,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.ArcTo;
@@ -21,24 +26,19 @@ import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import org.controlsfx.control.Rating;
 import sample.Utilities.Class.Utilities;
-
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ClientChoiceController implements Initializable {
 
     ClientMain main;
     double clientRating;
     Utilities utilities = new Utilities();
+    String opponentChoosen;
 
     @FXML AnchorPane anchorPane;
-    @FXML ImageView imageSingle;
-    @FXML ImageView imageMulti;
+    @FXML JFXListView<String> personalScoreboardListView;
+    @FXML JFXListView<String> worldScoreboardListView;
     @FXML JFXListView<String> clientConnectedListView;
     @FXML JFXToggleButton temporaryButton;  //TODO eliminarlo
     @FXML ImageView ballImage;
@@ -47,15 +47,15 @@ public class ClientChoiceController implements Initializable {
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        imageMulti.setVisible(false);
-        imageSingle.setVisible(false);
+        personalScoreboardListView.setVisible(false);
+        worldScoreboardListView.setVisible(false);
         clientConnectedListView.setVisible(false);
+        ratingBox.setVisible(false);
     }
 
     //metodo che serve per far conoscere main e controller
     public void setMain(ClientMain main) {
         this.main = main;
-        //main.clientWantsClientConnected();
     }
 
     //metodo che collega Choice screen e Game screen
@@ -75,7 +75,14 @@ public class ClientChoiceController implements Initializable {
         clientConnectedListView.setItems(clientConnectedObsWithoutMe);
     }
 
+    public void clientWantsToPlayAGameWith(){
+        opponentChoosen = clientConnectedListView.getSelectionModel().getSelectedItem();
+        System.out.println(opponentChoosen);
+        main.clientWantsToPlayAGameWith();
+    }
+
     public void ballMovement(Event event){
+        utilities.playSomeSound(ballShotSound);
         ballImage.setScaleX(1);
         ballImage.setScaleY(1);
         ImageView imageChoosen = (ImageView) event.getTarget();
@@ -85,14 +92,23 @@ public class ClientChoiceController implements Initializable {
             ArcTo arcTo = new ArcTo(50, 50, 100, imageChoosen.getLayoutX() - ballImage.getLayoutX() + anchorPane.getLayoutX() + imageChoosen.getFitWidth() / 2, imageChoosen.getLayoutY() + -ballImage.getLayoutY() + anchorPane.getLayoutY() + imageChoosen.getFitHeight() / 2, false, false);
             path.getElements().add(arcTo);
             if (imageChoosen.getId().equals("imageRating")){
+                utilities.playSomeSound(goalSound);
+                seeImageContext(ratingBox, anchorPane.lookup("imageRating"));
             } else {
-                utilities.fadeTransitionEffect(imageSingle, 0, 1, 1000);
-                utilities.fadeTransitionEffect(imageMulti, 0, 1, 1000);
+                utilities.playSomeSound(goalSound);
+                seeImageContext(clientConnectedListView, anchorPane.lookup("imagePlayAGame"));
             }
         } else {
             if (imageChoosen.getId().equals("imagePersonalScoreboard") || imageChoosen.getId().equals("imageWorldScoreboard")){
                 LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - ballImage.getLayoutX() + anchorPane.getLayoutX() + imageChoosen.getFitWidth()/2, imageChoosen.getLayoutY() + - ballImage.getLayoutY() + anchorPane.getLayoutY() + imageChoosen.getFitHeight()/2);
                 path.getElements().add(lineTo);
+                if (imageChoosen.getId().equals("imageWorldScoreboard")){
+                    utilities.playSomeSound(goalSound);
+                    seeImageContext(worldScoreboardListView, anchorPane.lookup("imageWorldScoreboard"));
+                } else {
+                    utilities.playSomeSound(goalSound);
+                    seeImageContext(personalScoreboardListView, anchorPane.lookup("imagePersonalScoreboard"));
+                }
             }
         }
         path.setStrokeWidth(1);
@@ -108,15 +124,45 @@ public class ClientChoiceController implements Initializable {
         utilities.scaleTransition(ballImage, 0.5f, 0.5f, 1000);
     }
 
+    private void seeImageContext(Node node, Node nodeSelected) {
+        utilities.fadeTransitionEffect(node, 0, 1, 1000);
+        node.setVisible(true);
+        new Timer().schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        disableImageContext(node, nodeSelected);
+                    }
+                },
+                3000
+        );
+    }
+
+    private void disableImageContext(Node nodeToHide, Node nodeToScreen){
+        utilities.fadeTransitionEffect(nodeToHide, 1, 0, 3000);
+        utilities.fadeTransitionEffect(nodeToScreen, 0.3f, 1, 1000);
+    }
+
     public void ratingGame() {
         clientRating = ratingBox.getRating();
         System.out.println(clientRating + " -> CLIENT RATING");
         main.clientWantsToSendRating();
     }
 
+    public String getOpponentChoosen() {
+        return opponentChoosen;
+    }
 
-
-    public double getClientRating() {
-        return clientRating;
+    public void playGameRequest() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("ACCETTA LA SFIDA");
+        alert.setHeaderText(null);
+        alert.setContentText("Un giocatore ti ha inviato una richiesta di gioco.");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            main.sendServerOkForPlaying();
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
     }
 }

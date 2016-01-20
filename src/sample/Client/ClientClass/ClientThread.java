@@ -80,8 +80,19 @@ public class ClientThread extends Thread {
                         break;
                     }
                     case (readyToReceiveClientRating):{
-                        System.out.println("rating");
                         sendClientRating();
+                        break;
+                    }
+                    case (readyToReceiveTheName):{
+                        sendClientNameOfOpponent();
+                        break;
+                    }
+                    case (receivedGameRequest):{
+                        playGameRequest();
+                        break;
+                    }
+                    case (goToGameScreen):{
+                        main.continueOnGameScreen();
                         break;
                     }
                 }
@@ -89,6 +100,14 @@ public class ClientThread extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void playGameRequest() {
+        main.playGameRequest();
+    }
+
+    private void sendClientNameOfOpponent() {
+        main.sendClientNameOfOpponent();
     }
 
     private void sendClientRating() {
