@@ -4,37 +4,32 @@ public final class ConstantCodes {
 
     //from client to server
     public static final String clientDisconnected = "CLIENT DISCONNECTED";
-    public static final String clientReadyToLogin = "CLIENT READY TO LOGIN";
-    public static final String clientReadyToCreateNewUser = "CLIENT READY TO CREATE NEW USER";
+    public static final String clientWantsToLogIn = "CLIENT READY TO LOGIN";
+    public static final String clientWantsToCreateNewUser = "CLIENT READY TO CREATE NEW USER";
     public static final String clientReadyToGiveStickerInfo = "CLIENT READY TO GIVE STICKER INFO";
     public static final String clientReadyToGiveQuery = "CLIENT READY TO GIVE QUERY";
     public static final String readyToReceiveNewSticker = "READY TO RECEIVE NEW STICKER";
     public static final String changeMySticker = "CHANGE MY STICKER";
     public static final String wantsToKnowClientConnected = "WANTS TO KNOW CLIENT CONNECTED";
-    public static final String readyToReceiveClientConnected = "READY TO RECEIVE CLIENT CONNECTED";
     public static final String clientReadyToReceiveClientsConnected = "CLIENT READY TO RECEIVE CLIENTS CONNECTED";
-    public static final String clientIsGivingHisName = "CLIENT IS GIVING HIS NAME";
     public static final String clientWantsToSendRatingCode = "CLIENT WANTS TO SEND RATING CODE";
     public static final String clientDisconnectedFromLoginScreen = "CLIENT DISCONNECTED FROM LOGIN SCREEN";
     public static final String clientWantsToPlay = "CLIENT WANTS TO PLAY";
     public static final String okForPlaying = "OK FOR PLAYING";
 
     //from server to client
-    public static final String serverReadyToReceiveUserInfo = "READY TO RECEIVE USER INFO";
     public static final String successfulAuthentication = "SUCCESSFUL AUTHENTICATION";
     public static final String successfulUserCreation = "SUCCESSFUL USER CREATION";
     public static final String readyToReceiveStickerInfo = "READY TO RECEIVE STICKER INFO";
     public static final String readyToReceiveQueryInfo = "READY TO RECEIVE QUERY INFO";
     public static final String serverReadyToSentStickersMustBeRemoved = "SERVER READY TO SENT STICKERS MUST BE REMOVED";
     public static final String changingRound = "CHANGING ROUND";
-    public static final String serverReadyToSendClientConnected = "SERVER READY TO SEND CLIENT CONNECTED";
+    public static final String serverSendingClientConnected = "SERVER READY TO SEND CLIENT CONNECTED";
     public static final String serverWantsToRefreshClientConnected = "SERVER WANTS TO REFRESH CLIENT CONNECTED";
-    public static final String serverWantsNameOfClientDisconnecting = "SERVER WANTS NAME OF CLIENT DISCONNECTING";
     public static final String userNotFound = "USER NOT FOUND";
-    public static final String readyToReceiveClientRating = "SERVER READY TO RECEIVE CLIENT RATING";
-    public static final String readyToReceiveTheName = "READY TO RECEIVE THE NAME";
     public static final String receivedGameRequest = "RECEIVED GAME REQUEST";
     public static final String goToGameScreen = "GO TO GAME SCREEN";
+    public static final String userLogged = "USER LOGGED";
 
     //costanti stringhe per primo e secondo parametro nelle query
     public static final String name = "name";

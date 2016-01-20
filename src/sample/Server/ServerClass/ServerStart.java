@@ -3,12 +3,11 @@ package sample.Server.ServerClass;
 import static sample.Utilities.Class.ConstantCodes.*;
 import static sample.Utilities.Class.SecurityClass.*;
 import javafx.concurrent.Task;
+import sample.Utilities.Class.CodeAndInformation;
 import sample.Utilities.Class.Sticker;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Socket;
 import java.net.ServerSocket;
@@ -19,18 +18,17 @@ import java.util.Properties;
 
 public class ServerStart extends Task {
 
-    private int clientNumber = 0;
     private String assignedIp;
     private ServerSocket socketExchange;
-    private ServerMain serverMain;
+    private ServerMain main;
     private Connection connection;
     private ArrayList<ServerThread> threadsPlaying = new ArrayList<>();
     private ArrayList<ServerThread> threadsArrayList  = new ArrayList<>();
     private ArrayList<String> listOfClientConnected = new ArrayList<>();
 
     //costruttore
-    public ServerStart(ServerMain serverMain) {
-        this.serverMain = serverMain;
+    public ServerStart(ServerMain main) {
+        this.main = main;
     }
 
     @Override
@@ -42,12 +40,12 @@ public class ServerStart extends Task {
             connection = DriverManager.getConnection(urlConnection, mySQLUsername, mySQLPassword);//mi collego al database
             System.out.println("Database connesso");
             assignedIp = Inet4Address.getLocalHost().getHostAddress();//ricavo l'IP globale del Server per stamparlo poi
-            serverMain.initialConfiguration(assignedIp); //chiamo il metodo che mi permette di collegarmi al Controller
+            main.initialConfiguration(assignedIp); //chiamo il metodo che mi permette di collegarmi al Controller
             System.out.println("Sono il Server.\nIl mio indirizzo IP è: " + assignedIp + "\nLa mia porta è: " + assignedPort);
-            printNumberOfClient();
+            main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
             while (true) {//while true del Thread in cui istanzia un thread per ogni client che si connette
                 Socket serverSocket = socketExchange.accept();
-                threadsArrayList.add(new ServerThread(serverSocket, clientNumber, this, connection, threadsArrayList.size()));//ogni volta che creo un Thread lo inserisco nell'ultimo posto dell'array
+                threadsArrayList.add(new ServerThread(serverSocket, this, connection, threadsArrayList.size()));//ogni volta che creo un Thread lo inserisco nell'ultimo posto dell'array
                 Thread threadTask = new Thread(threadsArrayList.get(threadsArrayList.size()-1));//creo un threadTask con l'ultimo elemento dell'array
                 threadTask.start();//faccio partire l'ultimo thread inserito
             }
@@ -55,10 +53,6 @@ public class ServerStart extends Task {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public void printNumberOfClient() {
-        serverMain.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
     }
 
     //metodo per il cambio di turno
@@ -93,27 +87,21 @@ public class ServerStart extends Task {
             }
         }
         refreshClientConnected(usernameDisconnected);
-        System.out.println("Client disconnesso");
+        System.out.println("Il client " + usernameDisconnected + " si è disconnesso");
     }
 
 
     public void refreshClientConnected(String usernameConnected) {
-        printNumberOfClient();
-        System.out.println(usernameConnected);
-        System.out.println(threadsArrayList.size());
+        main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
         if (threadsArrayList.size() != 1) {
             for (int cont = 0; cont < threadsArrayList.size(); cont++) {
                 if (threadsArrayList.get(cont).getUser().getUserUsername() != null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(usernameConnected)) {
-                    threadsArrayList.get(cont).getWriter().println(serverWantsToRefreshClientConnected);
+                    threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(serverWantsToRefreshClientConnected, null));
                 }
             }
         }
     }
 
-    //getter
-    public ArrayList<String> getListOfClientConnected() {
-        return listOfClientConnected;
-    }
 
     public void sendRating(Double clientRating, String clientUsername) {
         final String username = googleMail;
@@ -131,39 +119,33 @@ public class ServerStart extends Task {
                         return new PasswordAuthentication(username, password);
                     }
                 });
-
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(googleMail));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(googleTrueMail));
             message.setSubject("RATING PROGETTO SOFTWARE");
-            message.setText("Ciao, il tuo voto ricevuto è: " + clientRating + " \n Inviato da user: " + clientUsername);
+            message.setText("Ciao, il tuo voto ricevuto è: " + clientRating + " \nInviato da user: " + clientUsername);
             Transport.send(message);
-            System.out.println("Done");
+            System.out.println("Messaggio inviato");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
 
-
     public void removeClientDisconnectedFromLoginScreen() {
-        System.out.println("Un client non ha loggato");
+        System.out.println("Un client non ha loggato: è uscito dalla schermata di login");
     }
 
     public void sendingRequest(String opponent, String userRequest) {
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
             if (threadsArrayList.get(cont).getUser().getUserUsername().equals(opponent)){
-                threadsArrayList.get(cont).getWriter().println(receivedGameRequest);
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(receivedGameRequest, userRequest));
             }
             if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userRequest)){
                 threadsPlaying.add(threadsArrayList.get(cont));
             }
         }
-    }
-
-    public ArrayList<ServerThread> getThreadsPlaying() {
-        return threadsPlaying;
     }
 
     public void createTheGame(String userWhoAccepted) {
@@ -176,4 +158,14 @@ public class ServerStart extends Task {
             threadsPlaying.get(cont).getWriter().println(goToGameScreen);
         }
     }
+
+    //getter
+    public ArrayList<String> getListOfClientConnected() {
+        return listOfClientConnected;
+    }
+
+    public ArrayList<ServerThread> getThreadsPlaying() {
+        return threadsPlaying;
+    }
+
 }

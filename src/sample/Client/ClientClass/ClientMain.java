@@ -1,17 +1,19 @@
 package sample.Client.ClientClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import sample.Utilities.Class.CodeAndInformation;
 import sample.Utilities.Class.StickerQuery;
 import sample.Utilities.Class.User;
 import tray.notification.NotificationType;
@@ -26,12 +28,18 @@ public class ClientMain extends Application {
     private Socket clientSocket;
     private Stage loginStage;
     private Stage gamingStage;
-    private PrintWriter writer = null;
+    private PrintWriter writer;
     private User user;
     private ClientGameController clientGameController;
     private ClientChoiceController clientChoiceController;
     private ClientLoginController clientLoginController;
     private StickerQuery stickerQuery;
+    private Gson gson;
+
+    //main che parte in caso la grafica non vada
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage loginStage) throws Exception {
@@ -47,7 +55,6 @@ public class ClientMain extends Application {
         loginStage.setResizable(false);
         loginScene.getStylesheets().add(getClass().getResource(loginScreenCSS).toExternalForm());//collegare il .css (ad esempio) per l'aggiunta del background
         loginStage.show();//mostra
-        //clientLoginController.updateWithConstraints(loginScene.getWidth(), loginScene.getHeight());//modifica width e height della finestra quando passo da fullscreen a window screen
         try {
             clientSocket = new Socket(localhost, assignedPort);//TODO localhost -> ip
             ClientThread clientThread = new ClientThread(clientSocket, this);//creazione di un Thread sul socket passandogli l'istanza
@@ -59,30 +66,12 @@ public class ClientMain extends Application {
         writer = new PrintWriter(clientSocket.getOutputStream(), true);
         this.loginStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//handle per quando accade che disconnetto un client. Comunico DISCONNESSO con la writer
             public void handle(WindowEvent we) {
-                writer.println(clientDisconnectedFromLoginScreen);
-                System.out.println("Client disconnesso");
+                writer.println(CodeAndInformation.serializeToJson(clientDisconnectedFromLoginScreen, null));
+                System.out.println("Un client ha chiuso la schermata di login");
                 Platform.exit();
                 System.exit(0);
             }
         });
-    }
-
-    //main che parte in caso la grafica non vada
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    //metodo che comunica che i campi sono compilati, invio il segnale al Server che voglio inviargli il gson
-    public void readyForLoginUser(String textWithUsername, String textWithPassword) {
-        writer.println(clientReadyToLogin);  //Mando segnale login e aspetto che ServerThread nel while(true) lo riceva
-        this.user = new User(textWithUsername, textWithPassword); //istanzio un oggetto User
-        notification("Autenticazione avvenuta con successo " + user.getUserUsername());
-    }
-
-    //metodo che comunica che i campi sono compilati, invio il segnale al Server che voglio inviargli il gson
-    public void readyForCreateNewUser(String textWithUsername, String textWithPassword) {
-        writer.println(clientReadyToCreateNewUser);//mando segnale al server e aspetto
-        this.user = new User(textWithUsername, textWithPassword);
     }
 
     //metodo che mi permette di cambiare schermata passando dal login al choiseScreen
@@ -107,7 +96,7 @@ public class ClientMain extends Application {
                     clientWantsClientConnected();
                     gamingStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//handle per quando accade che disconnetto un client. Comunico DISCONNESSO con la writer
                         public void handle(WindowEvent we) {
-                            writer.println(clientDisconnected);
+                            writer.println(CodeAndInformation.serializeToJson(clientDisconnected, null));
                             System.out.println("Client disconnesso");
                             Platform.exit();
                             System.exit(0);
@@ -138,7 +127,7 @@ public class ClientMain extends Application {
                     gamingScene.getStylesheets().add(getClass().getResource(gameScreenCSS).toExternalForm());//collegare il .css (ad esempio) per l'aggiunta del background
                     ClientMain.this.gamingStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//handle per quando accade che disconnetto un client. Comunico DISCONNESSO con la writer
                         public void handle(WindowEvent we) {
-                            writer.println(clientDisconnected);
+                            writer.println(CodeAndInformation.serializeToJson(clientDisconnected, null));
                             System.out.println("Client disconnesso");
                             Platform.exit();
                             System.exit(0);
@@ -149,6 +138,21 @@ public class ClientMain extends Application {
                 }
             }
         });
+    }
+
+    //metodo che comunica che i campi sono compilati, invio il segnale al Server che voglio inviargli il gson
+    public void loginOrNewUser(String textWithUsername, String textWithPassword, Boolean login) {
+        String codeToSend;
+        gson = new Gson(); //creo un oggetto gson per serializzare e deserializzare
+        user = new User(textWithUsername, textWithPassword);//istanzio un oggetto User
+        String userString = gson.toJson(user);  //serializzo i campi dello User
+        System.out.println(userString);
+        if (login == true) {
+            codeToSend = CodeAndInformation.serializeToJson(clientWantsToLogIn, userString);
+        } else {
+            codeToSend = CodeAndInformation.serializeToJson(clientWantsToCreateNewUser, userString);
+        }
+        writer.println(codeToSend);  //Mando segnale login e aspetto che ServerThread nel while(true) lo riceva
     }
 
     //metodo che comunica al server che il Client ha scelto lo sticker e vuole mandargli quale
@@ -184,7 +188,7 @@ public class ClientMain extends Application {
         });
     }
 
-    public void readyToAbilitateClientScreen() {        //TODO manu (doppio Platform.runLater)
+    public void readyToAbilitateClientScreen() {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -210,17 +214,47 @@ public class ClientMain extends Application {
     }
 
     public void clientWantsClientConnected() {
-        writer.println(wantsToKnowClientConnected);
+        writer.println(CodeAndInformation.serializeToJson(wantsToKnowClientConnected, null));
     }
 
-    public void displayClientConnected(ArrayList<String> clientConnected) {
+    public void displayClientConnected(String information) {
+        gson = new Gson();
+        ArrayList<String> clientConnected = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
+        System.out.println(clientConnected);
         clientChoiceController.displayClientConnected(clientConnected);
     }
 
     public void notificationForNewUser() {
-        notification("Registrazione avvenuta con successo " + user.getUserUsername());
-        clientLoginController.setLoginNewUser(false);
-        clientLoginController.setNewUserScreen();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                notification("Registrazione avvenuta con successo " + user.getUserUsername());
+                clientLoginController.setLoginNewUser(false);
+                clientLoginController.setNewUserScreen();
+            }
+        });
+    }
+
+    public void clientWantsToSendRating() {
+        writer.println(CodeAndInformation.serializeToJson(clientWantsToSendRatingCode, Double.toString(clientChoiceController.getClientRating())));
+    }
+
+    //metodo che informa il server che il client vuole giocare una partita con questo utente
+    public void clientWantsToPlayAGameWith() {
+        writer.println(CodeAndInformation.serializeToJson(clientWantsToPlay, clientChoiceController.getOpponentChoosen()));
+    }
+
+    public void playGameRequest(String information) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                clientChoiceController.playGameRequest(information);
+            }
+        });
+    }
+
+    public void sendServerOkForPlaying() {
+        writer.println(CodeAndInformation.serializeToJson(okForPlaying, null));
     }
 
     //getter dell'User
@@ -233,32 +267,4 @@ public class ClientMain extends Application {
         this.user = user;
     }
 
-    public void clientWantsToSendRating() {
-        writer.println(clientWantsToSendRatingCode);
-    }
-
-    public void sendClientRating() {
-        writer.println(Double.toString(clientChoiceController.clientRating));
-    }
-
-    public void clientWantsToPlayAGameWith() {
-        writer.println(clientWantsToPlay);
-    }
-
-    public void sendClientNameOfOpponent() {
-        writer.println(clientChoiceController.getOpponentChoosen());
-    }
-
-    public void playGameRequest() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                clientChoiceController.playGameRequest();
-            }
-        });
-    }
-
-    public void sendServerOkForPlaying() {
-        writer.println(okForPlaying);
-    }
 }

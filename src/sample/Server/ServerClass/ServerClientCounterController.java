@@ -2,11 +2,10 @@ package sample.Server.ServerClass;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 
 public class ServerClientCounterController {
 
-    ServerMain main;
+    private ServerMain main;
 
     @FXML JFXTextField textWithClientNumber;
 

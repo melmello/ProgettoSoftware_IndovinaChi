@@ -3,14 +3,15 @@ package sample.Client.ClientClass;
 import static sample.Utilities.Class.ConstantCodes.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import sample.Utilities.Class.CodeAndInformation;
 import sample.Utilities.Class.StickerQuery;
-import sample.Utilities.Class.User;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
 public class ClientThread extends Thread {
 
+    private CodeAndInformation codeAndInformation;
     private String clientIp = null;
     private ClientMain main;
     private Socket clientSocket = null;
@@ -30,22 +31,19 @@ public class ClientThread extends Thread {
             reader = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));//input sul socket
             writer = new PrintWriter(this.clientSocket.getOutputStream(),true);//output sul socket
             while (true) {
+                gson = new Gson();
                 String code = reader.readLine();
-                System.out.println(code);
-                switch (code) {
-                    //Il Server è pronto per il Login e aspetta che io gli mandi il gson con username, password e porta
-                    case (serverReadyToReceiveUserInfo): {
-                        readyForAuthentication();//chiamata a metodo locale
-                        break;
-                    }
+                codeAndInformation = gson.fromJson(code, CodeAndInformation.class);
+                System.out.println(codeAndInformation.getCode());
+                switch (codeAndInformation.getCode()) {
                     //Il Server risponde che l'autenticazione è avvenuta con successo e si può proseguire cambiando schermata
                     case (successfulAuthentication):{
-                        continueOnChoiceScreen();
+                        main.continueOnChoiceScreen();
                         break;
                     }
                     //Il Server risponde che ora si può cambiare l'interfaccia
                     case (successfulUserCreation):{
-                        comeBackToLogin();
+                        main.notificationForNewUser();
                         break;
                     }
                     //Il Server comunica che è pronto per ricevere le informazioni sullo Sticker scelto
@@ -67,8 +65,8 @@ public class ClientThread extends Thread {
                         readyToAbilitateClientScreen();
                         break;
                     }
-                    case (serverReadyToSendClientConnected):{
-                        serverComunicateClientConnected();
+                    case (serverSendingClientConnected):{
+                        main.displayClientConnected(codeAndInformation.getInformation());
                         break;
                     }
                     case (serverWantsToRefreshClientConnected):{
@@ -76,23 +74,19 @@ public class ClientThread extends Thread {
                         break;
                     }
                     case (userNotFound):{
-                        notificationToUserNotFound();
-                        break;
-                    }
-                    case (readyToReceiveClientRating):{
-                        sendClientRating();
-                        break;
-                    }
-                    case (readyToReceiveTheName):{
-                        sendClientNameOfOpponent();
+                        main.notification("Utente " + main.getUser().getUserUsername() + " con password " + main.getUser().getUserPassword() + " non trovato");
                         break;
                     }
                     case (receivedGameRequest):{
-                        playGameRequest();
+                        main.playGameRequest(codeAndInformation.getInformation());
                         break;
                     }
                     case (goToGameScreen):{
                         main.continueOnGameScreen();
+                        break;
+                    }
+                    case (userLogged):{
+                        main.notification("Utente " + main.getUser().getUserUsername() + " con password " + main.getUser().getUserPassword() + " già loggato");
                         break;
                     }
                 }
@@ -102,43 +96,9 @@ public class ClientThread extends Thread {
         }
     }
 
-    private void playGameRequest() {
-        main.playGameRequest();
-    }
-
-    private void sendClientNameOfOpponent() {
-        main.sendClientNameOfOpponent();
-    }
-
-    private void sendClientRating() {
-        main.sendClientRating();
-    }
-
-    private void continueOnChoiceScreen() {
-        main.continueOnChoiceScreen();
-    }
-
-    private void notificationToUserNotFound() {
-        main.notification("Utente " + main.getUser().getUserUsername() + " con password " + main.getUser().getUserPassword() + " non trovato");
-    }
-
     private void serverReadyToComunicateClientsConnectedList() {
         gson = new Gson();
         writer.println(wantsToKnowClientConnected);
-    }
-
-    private void serverComunicateClientConnected() {
-        gson = new Gson();
-        try {
-            writer.println(clientReadyToReceiveClientsConnected);
-            String clientConnectedGson = reader.readLine();
-            ArrayList<String> clientConnected = gson.fromJson(clientConnectedGson, new TypeToken<ArrayList<String>>() {
-            }.getType());
-            System.out.println(clientConnected);
-            main.displayClientConnected(clientConnected);
-        } catch (IOException e){
-            e.printStackTrace();
-        }
     }
 
     private void readyToAbilitateClientScreen() {
@@ -171,20 +131,6 @@ public class ClientThread extends Thread {
     //metodo che serve per comunicare le informazioni dello Sticker
     private void comunicateStickerInfo() {
         main.comunicateStickerInfo();
-    }
-
-    //metodo che mi cambia la schermata da login a choice
-    private void comeBackToLogin() {
-        main.notificationForNewUser();
-    }
-
-    //metodo per l'autenticazione, la creazione del gson e l'invio di esso
-    private void readyForAuthentication() {
-        gson = new Gson(); //creo un oggetto gson per serializzare e deserializzare
-        User user = main.getUser(); //ripesco lo User dal ClientMain
-        String userString = gson.toJson(user);  //serializzo i campi dello User
-        System.out.println(userString);
-        writer.println(userString);    //mando al ServerThread (CHE E' FERMO IN ASCOLTO) il gson
     }
 
 }

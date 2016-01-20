@@ -1,6 +1,8 @@
 package sample.Server.ServerClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
+
+import sample.Utilities.Class.CodeAndInformation;
 import sample.Utilities.Class.Sticker;
 import sample.Utilities.Class.StickerQuery;
 import sample.Utilities.Class.User;
@@ -14,15 +16,14 @@ import java.util.Random;
 
 public class ServerThread extends Thread{
 
-    private int clientNumberId;
     private int positionInArrayList;
-    private String serverIP = null;
-
+    private String serverIP;
+    private CodeAndInformation codeAndInformation = new CodeAndInformation();
     private Connection connection;
     private ServerStart serverStart;
     private Socket socket;
-    private BufferedReader reader = null;
-    private PrintWriter writer = null;
+    private BufferedReader reader;
+    private PrintWriter writer;
     private Gson gson;
     private Sticker mySticker;
     private Sticker opponentSticker;
@@ -30,9 +31,8 @@ public class ServerThread extends Thread{
     private User user;
 
     //costruttore
-    public ServerThread(Socket socket, int clientNumberId, ServerStart serverStart, Connection connection, int positionInArrayList){
+    public ServerThread(Socket socket, ServerStart serverStart, Connection connection, int positionInArrayList){
         this.socket = socket;
-        this.clientNumberId = clientNumberId;
         this.serverIP = socket.getInetAddress().getHostAddress();
         this.serverStart = serverStart;
         this.connection = connection;
@@ -44,9 +44,11 @@ public class ServerThread extends Thread{
             reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));//input sul socket
             writer = new PrintWriter(this.socket.getOutputStream(),true);//output sul socket
             while (true) {
+                gson = new Gson();
                 String code = reader.readLine();
-                System.out.println(code);
-                switch (code){
+                codeAndInformation = gson.fromJson(code, CodeAndInformation.class);
+                System.out.println(codeAndInformation.getCode());
+                switch (codeAndInformation.getCode()){
                     //Il client manda il segnale che si è disconesso.
                     case (clientDisconnected):{
                         serverStart.removeClientDisconnected(user.getUserUsername());
@@ -57,13 +59,13 @@ public class ServerThread extends Thread{
                         break;
                     }
                     //Sto provando far loggare un utente nel login
-                    case (clientReadyToLogin):{
-                        readyToVerifyUser();
+                    case (clientWantsToLogIn):{
+                        readyToVerifyUser(codeAndInformation.getInformation());
                         break;
                     }
                     //Nuovo utente nel database
-                    case (clientReadyToCreateNewUser):{
-                        readyToCreateNewUser();
+                    case (clientWantsToCreateNewUser):{
+                        readyToCreateNewUser(codeAndInformation.getInformation());
                         break;
                     }
                     //Server pronto per ricevere informazioni sugli sticker
@@ -93,15 +95,15 @@ public class ServerThread extends Thread{
                         break;
                     }
                     case (clientWantsToSendRatingCode):{
-                        communicateClientRating();
+                        communicateClientRating(codeAndInformation.getInformation());
                         break;
                     }
                     case (clientWantsToPlay):{
-                        readyToReceiveOtherClientName();
+                        readyToReceiveOtherClientName(codeAndInformation.getInformation());
                         break;
                     }
                     case (okForPlaying):{
-                        readyToCreateTheGame();
+                        serverStart.createTheGame(getUser().getUserPassword());
                         break;
                     }
                 }
@@ -111,32 +113,13 @@ public class ServerThread extends Thread{
         }
     }
 
-    private void readyToCreateTheGame() {
-        serverStart.createTheGame(getUser().getUserUsername());
+    private void readyToReceiveOtherClientName(String information) {
+        serverStart.sendingRequest(information, getUser().getUserUsername());
     }
 
-    private void readyToReceiveOtherClientName() {
-        try {
-            writer.println(readyToReceiveTheName);
-            String opponent = reader.readLine();
-            serverStart.sendingRequest(opponent, getUser().getUserUsername());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void communicateClientRating() {
-        System.out.println("MESSAGGIO RICEVUTO");
-        try {
-            writer.println(readyToReceiveClientRating);
-            String clientRatingString = reader.readLine();
-            double clientRatingDouble = Double.parseDouble(clientRatingString);
-            System.out.println(clientRatingDouble + " -> RATING NEL SERVER");
-            System.out.println(getUser().getUserUsername() + " -> USER CHE SPEDISCE");
-            serverStart.sendRating(clientRatingDouble, getUser().getUserUsername());
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+    private void communicateClientRating(String information) {
+        System.out.println(information + " è il voto dello user " + getUser().getUserUsername());
+        serverStart.sendRating(Double.parseDouble(information), getUser().getUserUsername());
     }
 
     private void communicateClientConnected() {
@@ -147,17 +130,10 @@ public class ServerThread extends Thread{
     }
 
     private void sendingClientConnected() {
-        writer.println(serverReadyToSendClientConnected);
-        try {
-            if (reader.readLine().equals(clientReadyToReceiveClientsConnected)) {
-                gson = new Gson();
-                String clientConnectedGson = gson.toJson(serverStart.getListOfClientConnected());
-                System.out.println(clientConnectedGson);
-                writer.println(clientConnectedGson);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        gson = new Gson();
+        String clientConnectedGson = gson.toJson(serverStart.getListOfClientConnected());
+        System.out.println(clientConnectedGson);
+        writer.println(CodeAndInformation.serializeToJson(serverSendingClientConnected, clientConnectedGson));
     }
 
 
@@ -390,7 +366,7 @@ public class ServerThread extends Thread{
             return true;
         if (stringConvertion.equals("false"))
             return false;
-        throw new IllegalArgumentException(stringConvertion + " is not a bool. Only 1 and 0 are.");
+        throw new IllegalArgumentException(stringConvertion + " non è booleano");
     }
 
     //metodo che serve per sapere che sticker ha scelto l'utente
@@ -440,15 +416,12 @@ public class ServerThread extends Thread{
     }
 
     //metodo che serve per la creazione di un nuovo utente
-    private void readyToCreateNewUser() {
+    private void readyToCreateNewUser(String information) {
         gson = new Gson();
         String userSQLName = null;//username tratto dalla query
         String userSQLPassword = null;//password tratta dalla query
         try{
-            writer.println(serverReadyToReceiveUserInfo);//server manda a client che è pronto e in ascolto del gson
-            String userString = reader.readLine();
-            System.out.println(userString);
-            user = gson.fromJson(userString, User.class);//deserializzo il gson
+            user = gson.fromJson(information, User.class);
             System.out.println(user);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE username='" + user.getUserUsername() + "' AND password='" + user.getUserPassword() + "'");//query per verificare se un utente è già presente
@@ -460,54 +433,48 @@ public class ServerThread extends Thread{
                 System.out.println("Utente di nome " + userSQLName + " e password " + userSQLPassword + " già presente\nImmettere nuovo utente");
             } else {
                 statement.execute("INSERT INTO USER(username,password) VALUES ('" + user.getUserUsername() + "','" + user.getUserPassword() + "')");
-                writer.println(successfulUserCreation);
+                writer.println(CodeAndInformation.serializeToJson(successfulUserCreation, null));
             }
-        } catch (IOException e){
-            e.printStackTrace();
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
 
     //metodo che serve per verificare se ho già un utente con tal nome e password nel db
-    public void readyToVerifyUser() {
+    public void readyToVerifyUser(String information) {
         gson = new Gson();
         String userSQLName = null;
         String userSQLPassword = null;
         Boolean userAlreadyLogged = false;
         try {
-            writer.println(serverReadyToReceiveUserInfo);//Il server manda ClientThread che è pronto per la registrazione
-            String userString = reader.readLine();
-            System.out.println(userString);
-            user = gson.fromJson(userString, User.class);//deserializzo il gson
+            user = gson.fromJson(information, User.class);
             System.out.println(user);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE username='" + user.getUserUsername() + "' AND password='" + user.getUserPassword() + "'");
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 userSQLName = resultSet.getString(username);
                 userSQLPassword = resultSet.getString(password);
             }
-            for (int contatore = 0; contatore < serverStart.getListOfClientConnected().size(); contatore++){
-                if (serverStart.getListOfClientConnected().get(contatore).equals(userSQLName)){
+            for (int cont = 0; cont < serverStart.getListOfClientConnected().size(); cont++) {
+                if (serverStart.getListOfClientConnected().get(cont).equals(userSQLName)) {
                     userAlreadyLogged = true;
                 }
             }
-            if (userSQLName != null && userSQLPassword != null && userAlreadyLogged == false){
+            if (userSQLName != null && userSQLPassword != null && userAlreadyLogged == false) {
                 System.out.println("Utente di nome " + userSQLName + " e password " + userSQLPassword + " trovato\nLogin effettuato con successo");
-                writer.println(successfulAuthentication);
+                writer.println(CodeAndInformation.serializeToJson(successfulAuthentication, null));
                 serverStart.insertNameInArrayList(userSQLName);
                 serverStart.refreshClientConnected(userSQLName);
             } else {
                 if (userAlreadyLogged == false) {
-                    System.out.println("Utente non trovato");
-                    writer.println(userNotFound);
+                    System.out.println("Utente " + user.getUserUsername() + "non trovato");
+                    writer.println(CodeAndInformation.serializeToJson(userNotFound, userSQLName));
                 } else {
-                    System.out.println("Utente già connesso");
+                    System.out.println("Utente " + user.getUserUsername() + "già connesso");
+                    writer.println(CodeAndInformation.serializeToJson(userLogged, userSQLName));
                 }
             }
-        } catch (SQLException e){
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sample/Utilities/Class/CodeAndInformation.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread$2.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/sample/Utilities/Class/GoogleMail.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientChoiceController.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientChoiceController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$1.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$2.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$3.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$4.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$5.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientGameController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$1.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$2.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$3.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$3.class" />
@@ -24,38 +19,23 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientMain$6.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientMain$6.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientMain.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientMain.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread$1.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread$2.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientClass/ClientThread.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerClientCounterController.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerClientCounterController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerMain$1.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerMain$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerMain.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerMain.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerStart.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerStart.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerStartingController.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerStartingController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerThread.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerClass/ServerThread.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Utilities/Class/ConstantCodes.class" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Utilities/Class/ConstantCodes.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientFXML/ClientChoiceScreen.fxml" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientFXML/ClientChoiceScreen.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientFXML/ClientLoginScreen.fxml" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Client/ClientFXML/ClientLoginScreen.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerCSS/ServerClientCounterScreen.css" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerCSS/ServerClientCounterScreen.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerCSS/ServerStartingScreen.css" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerCSS/ServerStartingScreen.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerFXML/ServerClientCounterScreen.fxml" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerFXML/ServerClientCounterScreen.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerFXML/ServerStartingScreen.fxml" afterPath="$PROJECT_DIR$/out/production/IntelliJ/sample/Server/ServerFXML/ServerStartingScreen.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientChoiceController.java" afterPath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientChoiceController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientGameController.java" afterPath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientGameController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java" afterPath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java" afterPath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientThread.java" afterPath="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientChoiceScreen.fxml" afterPath="$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientChoiceScreen.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientLoginScreen.fxml" afterPath="$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientLoginScreen.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Server/ServerCSS/ServerClientCounterScreen.css" afterPath="$PROJECT_DIR$/src/sample/Server/ServerCSS/ServerClientCounterScreen.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Server/ServerCSS/ServerStartingScreen.css" afterPath="$PROJECT_DIR$/src/sample/Server/ServerCSS/ServerStartingScreen.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerClientCounterController.java" afterPath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerClientCounterController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerMain.java" afterPath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerMain.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java" afterPath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStartingController.java" afterPath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStartingController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java" afterPath="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Server/ServerFXML/ServerClientCounterScreen.fxml" afterPath="$PROJECT_DIR$/src/sample/Server/ServerFXML/ServerClientCounterScreen.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Server/ServerFXML/ServerStartingScreen.fxml" afterPath="$PROJECT_DIR$/src/sample/Server/ServerFXML/ServerStartingScreen.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java" afterPath="$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Utilities/Class/SecurityClass.java" afterPath="$PROJECT_DIR$/src/sample/Utilities/Class/SecurityClass.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Utilities/Class/Utilities.java" afterPath="$PROJECT_DIR$/src/sample/Utilities/Class/Utilities.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -137,23 +117,19 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="68" selection-start-line="36" selection-start-column="68" selection-end-line="36" selection-end-column="68" />
+              <caret line="31" column="58" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="58" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientThread.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClientThread.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.623639">
-              <caret line="94" column="38" selection-start-line="94" selection-start-column="38" selection-end-line="94" selection-end-column="38" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="80" column="40" selection-start-line="80" selection-start-column="40" selection-end-line="80" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4209#4210#0" expanded="true" />
-                <element signature="e#4247#4248#0" expanded="true" />
-                <element signature="e#4294#4295#0" expanded="true" />
-                <element signature="e#4341#4342#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -163,17 +139,13 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="132" column="74" selection-start-line="132" selection-start-column="74" selection-end-line="132" selection-end-column="74" />
+              <caret line="159" column="32" selection-start-line="159" selection-start-column="32" selection-end-line="159" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#11590#11591#0" expanded="true" />
-                <element signature="e#11639#11640#0" expanded="true" />
-                <element signature="e#11685#11686#0" expanded="true" />
-                <element signature="e#11760#11761#0" expanded="true" />
-                <element signature="e#11894#11895#0" expanded="true" />
-                <element signature="e#11966#11967#0" expanded="true" />
-                <element signature="e#12028#12029#0" expanded="true" />
-                <element signature="e#12072#12073#0" expanded="true" />
+                <element signature="e#12184#12185#0" expanded="true" />
+                <element signature="e#12267#12268#0" expanded="true" />
+                <element signature="e#12329#12330#0" expanded="true" />
+                <element signature="e#12415#12416#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -183,26 +155,13 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientChoiceController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="62" column="13" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
+              <caret line="102" column="13" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2094#2095#0" expanded="true" />
-                <element signature="e#2137#2138#0" expanded="true" />
+                <element signature="e#6867#6868#0" expanded="true" />
+                <element signature="e#6902#6903#0" expanded="true" />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientChoiceScreen.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientChoiceScreen.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.6307693">
-              <caret line="55" column="97" selection-start-line="55" selection-start-column="97" selection-end-line="55" selection-end-column="97" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
           </provider>
         </entry>
       </file>
@@ -210,32 +169,44 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="114" column="30" selection-start-line="114" selection-start-column="30" selection-end-line="114" selection-end-column="30" />
+              <caret line="105" column="40" selection-start-line="105" selection-start-column="40" selection-end-line="105" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4356#4357#0" expanded="true" />
-                <element signature="e#4426#4427#0" expanded="true" />
-                <marker date="1453295012770" expanded="true" signature="17580:17660" placeholder="SELECT * FRO... stickers" />
-                <marker date="1453295012770" expanded="true" signature="17798:17877" placeholder="SELECT * FRO... stickers" />
-                <marker date="1453295012770" expanded="true" signature="18683:18795" placeholder="SELECT * FRO... stickers" />
-                <marker date="1453295012770" expanded="true" signature="20303:20362" placeholder="SELECT * FRO... stickers" />
-                <marker date="1453295012770" expanded="true" signature="23348:23460" placeholder="SELECT * FRO... user" />
-                <marker date="1453295012770" expanded="true" signature="23932:24042" placeholder="INSERT INTO USER... " />
-                <marker date="1453295012770" expanded="true" signature="25008:25120" placeholder="SELECT * FRO... user" />
+                <element signature="e#26090#26091#0" expanded="true" />
+                <element signature="e#26119#26120#0" expanded="true" />
+                <element signature="e#26171#26172#0" expanded="true" />
+                <element signature="e#26207#26208#0" expanded="true" />
+                <element signature="e#26245#26246#0" expanded="true" />
+                <element signature="e#26274#26275#0" expanded="true" />
+                <element signature="e#26323#26324#0" expanded="true" />
+                <element signature="e#26359#26360#0" expanded="true" />
+                <element signature="e#26422#26423#0" expanded="true" />
+                <element signature="e#26476#26477#0" expanded="true" />
+                <element signature="e#26505#26506#0" expanded="true" />
+                <element signature="e#26532#26533#0" expanded="true" />
+                <element signature="e#26570#26571#0" expanded="true" />
+                <element signature="e#26602#26603#0" expanded="true" />
+                <marker date="1453314166217" expanded="true" signature="17055:17135" placeholder="SELECT * FRO... stickers" />
+                <marker date="1453314166217" expanded="true" signature="17273:17352" placeholder="SELECT * FRO... stickers" />
+                <marker date="1453314166217" expanded="true" signature="18158:18270" placeholder="SELECT * FRO... stickers" />
+                <marker date="1453314166217" expanded="true" signature="19760:19819" placeholder="SELECT * FRO... stickers" />
+                <marker date="1453314166217" expanded="true" signature="22591:22703" placeholder="SELECT * FRO... user" />
+                <marker date="1453314166217" expanded="true" signature="23175:23285" placeholder="INSERT INTO USER... " />
+                <marker date="1453314166217" expanded="true" signature="24007:24119" placeholder="SELECT * FRO... user" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServerStart.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ServerStart.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="175" column="73" selection-start-line="175" selection-start-column="73" selection-end-line="175" selection-end-column="73" />
+            <state vertical-scroll-proportion="4.695179">
+              <caret line="150" column="16" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7099#7100#0" expanded="true" />
-                <element signature="e#7136#7137#0" expanded="true" />
+                <element signature="e#7548#7549#0" expanded="true" />
+                <element signature="e#7585#7586#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -245,9 +216,11 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerMain.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="59" column="24" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+              <caret line="75" column="46" selection-start-line="75" selection-start-column="46" selection-end-line="75" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#681#682#0" expanded="true" />
+                <element signature="e#709#710#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -299,7 +272,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientConstantCode.java" />
         <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerConstantCode.java" />
         <option value="$PROJECT_DIR$/src/sample/Utilities/ConstantCodes.java" />
         <option value="$PROJECT_DIR$/src/sample/Server/ServerCSS/Style.css" />
@@ -324,7 +296,6 @@
         <option value="$PROJECT_DIR$/src/sample/Utilities/Class/AutocompleteText.java" />
         <option value="$PROJECT_DIR$/src/sample/Utilities/Class/AutocompleteTextField.java" />
         <option value="$PROJECT_DIR$/src/sample/Utilities/Class/HelloAutoComplete.java" />
-        <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerMain.java" />
         <option value="$PROJECT_DIR$/m3dvclvi.dbm.txt" />
         <option value="$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientChoiceScreen.fxml" />
         <option value="$PROJECT_DIR$/src/sample/Utilities/GenericFile/TODO" />
@@ -336,20 +307,22 @@
         <option value="$PROJECT_DIR$/src/sample/Server/ServerFXML/ServerStartingScreen.fxml" />
         <option value="$PROJECT_DIR$/src/sample/Utilities/Class/SecurityClass.java" />
         <option value="$PROJECT_DIR$/src/sample/Server/ServerFXML/ServerClientCounterScreen.fxml" />
-        <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerClientCounterController.java" />
         <option value="$PROJECT_DIR$/src/sample/Server/ServerCSS/ServerClientCounterScreen.css" />
         <option value="$PROJECT_DIR$/src/sample/Server/ServerCSS/ServerStartingScreen.css" />
         <option value="$PROJECT_DIR$/src/sample/Client/ClientCSS/ClientLoginScreen.css" />
         <option value="$PROJECT_DIR$/src/sample/Utilities/Class/Utilities.java" />
         <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStartingController.java" />
-        <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java" />
         <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientGameController.java" />
-        <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java" />
-        <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientChoiceController.java" />
+        <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerMain.java" />
+        <option value="$PROJECT_DIR$/src/sample/Utilities/Class/CodeAndInformation.java" />
+        <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java" />
+        <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerClientCounterController.java" />
         <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java" />
-        <option value="$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java" />
         <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientThread.java" />
+        <option value="$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java" />
         <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java" />
+        <option value="$PROJECT_DIR$/src/sample/Client/ClientClass/ClientChoiceController.java" />
+        <option value="$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java" />
       </list>
     </option>
   </component>
@@ -489,26 +462,8 @@
               <option name="myItemId" value="sample" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="IndovinaChi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IndovinaChi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Client" />
+              <option name="myItemId" value="Utilities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -530,11 +485,51 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Client" />
+              <option name="myItemId" value="Utilities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ClientFXML" />
+              <option name="myItemId" value="Class" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IndovinaChi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IndovinaChi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IndovinaChi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IndovinaChi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Client" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1183,7 +1178,7 @@
       <workItem from="1453187602742" duration="14706000" />
       <workItem from="1453214068001" duration="9505000" />
       <workItem from="1453277575610" duration="10838000" />
-      <workItem from="1453292985073" duration="5206000" />
+      <workItem from="1453292985073" duration="21483000" />
     </task>
     <task id="LOCAL-00001" summary="1.0">
       <created>1452814180525</created>
@@ -1287,11 +1282,17 @@
       <option name="project" value="LOCAL" />
       <updated>1453223647094</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Merge remote-tracking branch 'IndovinaChi/FirstBrench-15/01/16' into FirstBrench-15/01/16&#10;&#10;# Conflicts:&#10;#&#9;src/sample/Client/ClientClass/ClientGameController.java&#10;">
+      <created>1453298321941</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1453298321941</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="405678000" />
+    <option name="totallyTimeSpent" value="421955000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1317,7 +1318,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32792208" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1977492" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3949625" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3949625" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265766" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24889381" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973205" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1332,41 +1333,10 @@
       <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5247748" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32792208" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3949625" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24889381" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973205" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3975225" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3141892" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21320346" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2668919" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32792208" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5247748" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21543409" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265766" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13397641" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -1396,13 +1366,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerClientCounterController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerImage/StartBackgroundCounter.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1432,13 +1395,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.18011697">
           <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Utilities/Class/Sticker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.025730994">
-          <caret line="30" column="33" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -1491,18 +1447,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33226836">
           <caret line="58" column="19" selection-start-line="58" selection-start-column="19" selection-end-line="58" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/b6e9fc6d/cfa114e2-4d9f-4731-847e-7822d7a73dd8/indovinachi.user">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -1576,18 +1520,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/b6e9fc6d/cfa114e2-4d9f-4731-847e-7822d7a73dd8/indovinachi.stickers">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientLoginScreen.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.68">
@@ -1603,6 +1535,7 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="-16.709677">
           <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
@@ -1613,6 +1546,7 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
@@ -1623,6 +1557,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.677419">
           <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1630,6 +1565,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.43137255">
           <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1645,13 +1581,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerClientCounterController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5474339">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1685,6 +1614,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44479004">
           <caret line="42" column="48" selection-start-line="42" selection-start-column="48" selection-end-line="42" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1699,16 +1631,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientGameController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1717,10 +1639,90 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerMain.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientChoiceScreen.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.52076125">
+          <caret line="55" column="97" selection-start-line="55" selection-start-column="97" selection-end-line="55" selection-end-column="97" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Utilities/Class/Sticker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.976672">
+          <caret line="30" column="33" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+          <folding>
+            <element signature="e#672#673#0" expanded="true" />
+            <element signature="e#712#713#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Utilities/Class/CodeAndInformation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="24" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/b6e9fc6d/cfa114e2-4d9f-4731-847e-7822d7a73dd8/indovinachi.stickers">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/b6e9fc6d/cfa114e2-4d9f-4731-847e-7822d7a73dd8/indovinachi.user">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientLoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4696734">
+          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerClientCounterController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.102643855">
+          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#421#422#0" expanded="true" />
+            <element signature="e#479#480#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="80" column="40" selection-start-line="80" selection-start-column="40" selection-end-line="80" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1730,61 +1732,42 @@
     <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="114" column="30" selection-start-line="114" selection-start-column="30" selection-end-line="114" selection-end-column="30" />
+          <caret line="105" column="40" selection-start-line="105" selection-start-column="40" selection-end-line="105" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4356#4357#0" expanded="true" />
-            <element signature="e#4426#4427#0" expanded="true" />
-            <marker date="1453295012770" expanded="true" signature="17580:17660" placeholder="SELECT * FRO... stickers" />
-            <marker date="1453295012770" expanded="true" signature="17798:17877" placeholder="SELECT * FRO... stickers" />
-            <marker date="1453295012770" expanded="true" signature="18683:18795" placeholder="SELECT * FRO... stickers" />
-            <marker date="1453295012770" expanded="true" signature="20303:20362" placeholder="SELECT * FRO... stickers" />
-            <marker date="1453295012770" expanded="true" signature="23348:23460" placeholder="SELECT * FRO... user" />
-            <marker date="1453295012770" expanded="true" signature="23932:24042" placeholder="INSERT INTO USER... " />
-            <marker date="1453295012770" expanded="true" signature="25008:25120" placeholder="SELECT * FRO... user" />
+            <element signature="e#26090#26091#0" expanded="true" />
+            <element signature="e#26119#26120#0" expanded="true" />
+            <element signature="e#26171#26172#0" expanded="true" />
+            <element signature="e#26207#26208#0" expanded="true" />
+            <element signature="e#26245#26246#0" expanded="true" />
+            <element signature="e#26274#26275#0" expanded="true" />
+            <element signature="e#26323#26324#0" expanded="true" />
+            <element signature="e#26359#26360#0" expanded="true" />
+            <element signature="e#26422#26423#0" expanded="true" />
+            <element signature="e#26476#26477#0" expanded="true" />
+            <element signature="e#26505#26506#0" expanded="true" />
+            <element signature="e#26532#26533#0" expanded="true" />
+            <element signature="e#26570#26571#0" expanded="true" />
+            <element signature="e#26602#26603#0" expanded="true" />
+            <marker date="1453314166217" expanded="true" signature="17055:17135" placeholder="SELECT * FRO... stickers" />
+            <marker date="1453314166217" expanded="true" signature="17273:17352" placeholder="SELECT * FRO... stickers" />
+            <marker date="1453314166217" expanded="true" signature="18158:18270" placeholder="SELECT * FRO... stickers" />
+            <marker date="1453314166217" expanded="true" signature="19760:19819" placeholder="SELECT * FRO... stickers" />
+            <marker date="1453314166217" expanded="true" signature="22591:22703" placeholder="SELECT * FRO... user" />
+            <marker date="1453314166217" expanded="true" signature="23175:23285" placeholder="INSERT INTO USER... " />
+            <marker date="1453314166217" expanded="true" signature="24007:24119" placeholder="SELECT * FRO... user" />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="68" selection-start-line="36" selection-start-column="68" selection-end-line="36" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="175" column="73" selection-start-line="175" selection-start-column="73" selection-end-line="175" selection-end-column="73" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7099#7100#0" expanded="true" />
-            <element signature="e#7136#7137#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientFXML/ClientChoiceScreen.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.6307693">
-          <caret line="55" column="97" selection-start-line="55" selection-start-column="97" selection-end-line="55" selection-end-column="97" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientChoiceController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="13" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
+          <caret line="102" column="13" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2094#2095#0" expanded="true" />
-            <element signature="e#2137#2138#0" expanded="true" />
+            <element signature="e#6867#6868#0" expanded="true" />
+            <element signature="e#6902#6903#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1792,31 +1775,45 @@
     <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="132" column="74" selection-start-line="132" selection-start-column="74" selection-end-line="132" selection-end-column="74" />
+          <caret line="159" column="32" selection-start-line="159" selection-start-column="32" selection-end-line="159" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#11590#11591#0" expanded="true" />
-            <element signature="e#11639#11640#0" expanded="true" />
-            <element signature="e#11685#11686#0" expanded="true" />
-            <element signature="e#11760#11761#0" expanded="true" />
-            <element signature="e#11894#11895#0" expanded="true" />
-            <element signature="e#11966#11967#0" expanded="true" />
-            <element signature="e#12028#12029#0" expanded="true" />
-            <element signature="e#12072#12073#0" expanded="true" />
+            <element signature="e#12184#12185#0" expanded="true" />
+            <element signature="e#12267#12268#0" expanded="true" />
+            <element signature="e#12329#12330#0" expanded="true" />
+            <element signature="e#12415#12416#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Client/ClientClass/ClientThread.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/Utilities/Class/ConstantCodes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.623639">
-          <caret line="94" column="38" selection-start-line="94" selection-start-column="38" selection-end-line="94" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="58" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="75" column="46" selection-start-line="75" selection-start-column="46" selection-end-line="75" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4209#4210#0" expanded="true" />
-            <element signature="e#4247#4248#0" expanded="true" />
-            <element signature="e#4294#4295#0" expanded="true" />
-            <element signature="e#4341#4342#0" expanded="true" />
+            <element signature="e#681#682#0" expanded="true" />
+            <element signature="e#709#710#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Server/ServerClass/ServerStart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="4.695179">
+          <caret line="150" column="16" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7548#7549#0" expanded="true" />
+            <element signature="e#7585#7586#0" expanded="true" />
           </folding>
         </state>
       </provider>

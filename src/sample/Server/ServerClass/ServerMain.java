@@ -17,6 +17,11 @@ public class ServerMain extends Application {
     private ServerStartingController serverStartingController;
     private ServerClientCounterController serverClientCounterController;
 
+    //main che parte in caso la grafica non vada
+    public static void main(String[] args){
+        launch(args);
+    }
+
     //metodo main per la grafica
     public void start(Stage startingStage) throws Exception {
         FXMLLoader loaderServerStartingScreen = new FXMLLoader(getClass().getResource(startingScreenFXML));//creo un nuovo FMXLLoader passandogli il .fxml
@@ -39,28 +44,6 @@ public class ServerMain extends Application {
         });
     }
 
-    //main che parte in caso la grafica non vada
-    public static void main(String[] args){
-        launch(args);
-    }
-
-    //metodo che fa partire il server quando clicco il button
-    public void startingServer(){
-        ServerStart serverStart = new ServerStart(this);//creo un nuovo ServerStart
-        Thread thread = new Thread (serverStart);//creo un thread
-        thread.start();//lo faccio partire
-    }
-
-    //metodo per far stampare l'IP del Server in un TextField del Server
-    public void initialConfiguration(String assignedIp){
-        serverStartingController.initialConfiguration(assignedIp);
-    }
-
-    //metodo per stampare il numero dei client connessi nel popup del Server
-    public void printNumberOfClient(String clientNumber){
-        serverClientCounterController.printNumberOfClient(clientNumber);
-    }
-
     //metodo per creare il popup
     public void openNewWindow(){
         try{
@@ -81,6 +64,23 @@ public class ServerMain extends Application {
         } catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    //metodo per far stampare l'IP del Server in un TextField del Server
+    public void initialConfiguration(String assignedIp){
+        serverStartingController.initialConfiguration(assignedIp);
+    }
+
+    //metodo per stampare il numero dei client connessi nel popup del Server
+    public void printNumberOfClient(String clientNumber){
+        serverClientCounterController.printNumberOfClient(clientNumber);
+    }
+
+    //metodo che fa partire il server quando clicco il button
+    public void startingServer(){
+        ServerStart serverStart = new ServerStart(this);//creo un nuovo ServerStart
+        Thread thread = new Thread (serverStart);//creo un thread
+        thread.start();//lo faccio partire
     }
 
 }

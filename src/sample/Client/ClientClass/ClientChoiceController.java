@@ -1,17 +1,11 @@
 package sample.Client.ClientClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
-import static sample.Utilities.Class.Utilities.*;
-
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXToggleButton;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -31,16 +25,14 @@ import java.util.*;
 
 public class ClientChoiceController implements Initializable {
 
-    ClientMain main;
-    double clientRating;
-    Utilities utilities = new Utilities();
-    String opponentChoosen;
-
+    private double clientRating;
+    private String opponentChoosen;
+    private Utilities utilities = new Utilities();
+    private ClientMain main;
     @FXML AnchorPane anchorPane;
     @FXML JFXListView<String> personalScoreboardListView;
     @FXML JFXListView<String> worldScoreboardListView;
     @FXML JFXListView<String> clientConnectedListView;
-    @FXML JFXToggleButton temporaryButton;  //TODO eliminarlo
     @FXML ImageView ballImage;
     @FXML Rating ratingBox;
 
@@ -70,7 +62,6 @@ public class ClientChoiceController implements Initializable {
                 clientConnectedListWithoutMe.add(clientConnectedList.get(cont));
             }
         }
-        ObservableList<String> clientConnectedObs = FXCollections.observableArrayList(clientConnectedList);
         ObservableList<String> clientConnectedObsWithoutMe = FXCollections.observableArrayList(clientConnectedListWithoutMe);
         clientConnectedListView.setItems(clientConnectedObsWithoutMe);
     }
@@ -143,21 +134,18 @@ public class ClientChoiceController implements Initializable {
         utilities.fadeTransitionEffect(nodeToScreen, 0.3f, 1, 1000);
     }
 
+    //metodo che permette di comunicare il voto dell'applicazione
     public void ratingGame() {
         clientRating = ratingBox.getRating();
         System.out.println(clientRating + " -> CLIENT RATING");
         main.clientWantsToSendRating();
     }
 
-    public String getOpponentChoosen() {
-        return opponentChoosen;
-    }
-
-    public void playGameRequest() {
+    public void playGameRequest(String information) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("ACCETTA LA SFIDA");
         alert.setHeaderText(null);
-        alert.setContentText("Un giocatore ti ha inviato una richiesta di gioco.");
+        alert.setContentText("Il giocatore " + information + "ti ha inviato una richiesta di gioco.");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             main.sendServerOkForPlaying();
@@ -165,4 +153,13 @@ public class ClientChoiceController implements Initializable {
             // ... user chose CANCEL or closed the dialog
         }
     }
+
+    public double getClientRating() {
+        return clientRating;
+    }
+
+    public String getOpponentChoosen() {
+        return opponentChoosen;
+    }
+
 }

@@ -4,26 +4,21 @@ import static sample.Utilities.Class.ConstantCodes.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import sample.Utilities.Class.Utilities;
 import java.net.URL;
 import java.util.*;
 
 public class ClientLoginController implements Initializable {//serve per avere l'implementazione del metodo initialize
 
-    private ClientMain main;
     private boolean loginNewUser;
+    private ClientMain main;
     private Utilities utilities;
-
-    @FXML   AnchorPane anchorPane;
     @FXML   VBox loginVBox;
     @FXML   Text labelLoginTitle;
     @FXML   JFXTextField textWithUsername;
@@ -69,14 +64,13 @@ public class ClientLoginController implements Initializable {//serve per avere l
         );
     }
 
-
     //metodo per creare un nuovo account
     public void confirmLoginScreen(){
         utilities.playSomeSound(buttonClickSound);
         if (textWithUsername.getText().isEmpty() || textWithPassword.getText().isEmpty()){ //se ho lasciato qualche campo vuoto mi fermo
-            System.out.println("Dati non corretti");
+            main.notification("Dati non corretti");
         } else {
-            main.readyForLoginUser(textWithUsername.getText(), textWithPassword.getText());//chiamata di funzione passando username, password
+            main.loginOrNewUser(textWithUsername.getText(), textWithPassword.getText(), true);//chiamata di funzione passando username, password
         }
     }
 
@@ -84,13 +78,12 @@ public class ClientLoginController implements Initializable {//serve per avere l
     public void newUserLogin (){
         utilities.playSomeSound(buttonClickSound);
         if (textWithUsername.getText().isEmpty() || textWithPassword.getText().isEmpty()) { //se ho lasciato qualche campo vuoto mi fermo
-            System.out.println("Dati non corretti");
-
+            main.notification("Dati non corretti");
         } else {
             if (textWithPassword.getText().equals(textWithPasswordConfirm.getText())){
-                main.readyForCreateNewUser(textWithUsername.getText(), textWithPassword.getText());//chiamo funzione passando parametri username e password
+                main.loginOrNewUser(textWithUsername.getText(), textWithPassword.getText(), false);//chiamo funzione passando parametri username e password
             } else {
-                System.out.println("Password non corrispondenti, reinserire password");
+                main.notification("Password non corrispondenti, reinserire password");
             }
         }
     }
@@ -102,14 +95,12 @@ public class ClientLoginController implements Initializable {//serve per avere l
             labelLoginTitle.setText("NEW USER");
             buttonUserScreen.setText("HAI GIA' UN ACCOUNT?");
             buttonToContinue.setText("SIGN UP");
-
             buttonToContinue.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     newUserLogin();
                 }
             });
-
             utilities.fadeTransitionEffect(textWithPasswordConfirm, 0, 1, 1000);
             textWithPasswordConfirm.setVisible(true);
             loginNewUser = false;
@@ -132,11 +123,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
         textWithPasswordConfirm.setText("");
     }
 
-    //metodo che mi permette di proseguire dalla schermata di Login a quella di Choice
-    public void continueOnChoiceScreen (){
-        main.continueOnChoiceScreen();
-    }
-
+    //setter
     public void setLoginNewUser(boolean loginNewUser) {
         this.loginNewUser = loginNewUser;
     }
