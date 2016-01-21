@@ -73,6 +73,8 @@ public class ClientMain extends Application {
         });
     }
 
+    //ciao
+
     //metodo che mi permette di cambiare schermata passando dal login al choiseScreen
     public void continueOnChoiceScreen() {
         Platform.runLater(new Runnable() {//metodo che mi permette di aprire una nuova finestra sfruttando la concorrenza dei Thread
