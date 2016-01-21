@@ -3,33 +3,33 @@ package sample.Utilities.Class;
 public final class ConstantCodes {
 
     //from client to server
-    public static final String clientDisconnected = "CLIENT DISCONNECTED";
-    public static final String clientWantsToLogIn = "CLIENT READY TO LOGIN";
-    public static final String clientWantsToCreateNewUser = "CLIENT READY TO CREATE NEW USER";
-    public static final String clientReadyToGiveStickerInfo = "CLIENT READY TO GIVE STICKER INFO";
-    public static final String clientReadyToGiveQuery = "CLIENT READY TO GIVE QUERY";
-    public static final String readyToReceiveNewSticker = "READY TO RECEIVE NEW STICKER";
-    public static final String changeMySticker = "CHANGE MY STICKER";
-    public static final String wantsToKnowClientConnected = "WANTS TO KNOW CLIENT CONNECTED";
-    public static final String clientReadyToReceiveClientsConnected = "CLIENT READY TO RECEIVE CLIENTS CONNECTED";
-    public static final String clientWantsToSendRatingCode = "CLIENT WANTS TO SEND RATING CODE";
-    public static final String clientDisconnectedFromLoginScreen = "CLIENT DISCONNECTED FROM LOGIN SCREEN";
-    public static final String clientWantsToPlay = "CLIENT WANTS TO PLAY";
-    public static final String okForPlaying = "OK FOR PLAYING";
+    public static final String CLIENT_DISCONNECTING = "CLIENT_DISCONNECTING";
+    public static final String CLIENT_DISCONNECTING_FROM_LOGIN_SCREEN = "CLIENT_DISCONNECTING_FROM_LOGIN_SCREEN";
+    public static final String CLIENT_WANTS_TO_LOGIN = "CLIENT_WANTS_TO_LOGIN";
+    public static final String CLIENT_WANTS_TO_SIGNUP = "CLIENT_WANTS_TO_SIGNUP";
+    public static final String CLIENT_GIVES_STICKER_INFO = "CLIENT_GIVES_STICKER_INFO";
+    public static final String CLIENT_GIVES_QUERY = "CLIENT_GIVES_QUERY";
+    public static final String CLIENT_RECEIVES_NEW_STICLER = "CLIENT_RECEIVES_NEW_STICLER";
+    public static final String CLIENT_CHANGES_STICKER = "CLIENT_CHANGES_STICKER";
+    public static final String CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT = "CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT";
+    public static final String CLIENT_WANTS_TO_SEND_RATING = "CLIENT_WANTS_TO_SEND_RATING";
+    public static final String CLIENT_WANTS_TO_PLAY = "CLIENT_WANTS_TO_PLAY";
+    public static final String CLIENT_SAYS_OK_FOR_PLAYING = "CLIENT_SAYS_OK_FOR_PLAYING";
 
     //from server to client
-    public static final String successfulAuthentication = "SUCCESSFUL AUTHENTICATION";
-    public static final String successfulUserCreation = "SUCCESSFUL USER CREATION";
-    public static final String readyToReceiveStickerInfo = "READY TO RECEIVE STICKER INFO";
-    public static final String readyToReceiveQueryInfo = "READY TO RECEIVE QUERY INFO";
-    public static final String serverReadyToSentStickersMustBeRemoved = "SERVER READY TO SENT STICKERS MUST BE REMOVED";
-    public static final String changingRound = "CHANGING ROUND";
-    public static final String serverSendingClientConnected = "SERVER READY TO SEND CLIENT CONNECTED";
-    public static final String serverWantsToRefreshClientConnected = "SERVER WANTS TO REFRESH CLIENT CONNECTED";
-    public static final String userNotFound = "USER NOT FOUND";
-    public static final String receivedGameRequest = "RECEIVED GAME REQUEST";
-    public static final String goToGameScreen = "GO TO GAME SCREEN";
-    public static final String userLogged = "USER LOGGED";
+    public static final String SERVER_CLIENT_SUCCESSFUL_LOGIN = "SERVER_CLIENT_SUCCESSFUL_LOGIN";
+    public static final String SERVER_CLIENT_SUCCESSFUL_SIGNUP = "SERVER_CLIENT_SUCCESSFUL_SIGNUP";
+    public static final String SERVER_RECEIVES_STICKER_INFO = "SERVER_RECEIVES_STICKER_INFO";
+    public static final String SERVER_RECEIVES_QUERY_INFO = "SERVER_RECEIVES_QUERY_INFO";
+    public static final String SERVER_SENDS_STICKER_MUST_BE_REMOVED = "SERVER_SENDS_STICKER_MUST_BE_REMOVED";
+    public static final String SERVER_CHANGES_ROUND = "SERVER_CHANGES_ROUND";
+    public static final String SERVER_SENDS_CONNECTED_CLIENT = "SERVER_SENDS_CONNECTED_CLIENT";
+    public static final String SERVER_REFRESHES_CONNECTED_CLIENT = "SERVER_REFRESHES_CONNECTED_CLIENT";
+    public static final String SERVER_CLIENT_NOT_FOUND = "SERVER_CLIENT_NOT_FOUND";
+    public static final String SERVER_RECEIVED_GAME_REQUEST = "SERVER_RECEIVED_GAME_REQUEST";
+    public static final String SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN = "SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN";
+    public static final String SERVER_CLIENT_ALREADY_LOGGED = "SERVER_CLIENT_ALREADY_LOGGED";
+    public static final String SERVER_CLIENT_ALREADY_IN_THE_DATABASE = "SERVER_CLIENT_ALREADY_IN_THE_DATABASE";
 
     //costanti stringhe per primo e secondo parametro nelle query
     public static final String name = "name";

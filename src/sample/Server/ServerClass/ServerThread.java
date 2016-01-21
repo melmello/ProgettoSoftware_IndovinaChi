@@ -50,59 +50,55 @@ public class ServerThread extends Thread{
                 System.out.println(codeAndInformation.getCode());
                 switch (codeAndInformation.getCode()){
                     //Il client manda il segnale che si è disconesso.
-                    case (clientDisconnected):{
-                        serverStart.removeClientDisconnected(user.getUserUsername());
+                    case (CLIENT_DISCONNECTING):{
+                        serverStart.removeClientDisconnected(user.getUserUsername());/** ok */
                         break;
                     }
-                    case (clientDisconnectedFromLoginScreen):{
-                        serverStart.removeClientDisconnectedFromLoginScreen();
+                    case (CLIENT_DISCONNECTING_FROM_LOGIN_SCREEN):{
+                        serverStart.removeClientDisconnectedFromLoginScreen();/** ok */
                         break;
                     }
                     //Sto provando far loggare un utente nel login
-                    case (clientWantsToLogIn):{
+                    case (CLIENT_WANTS_TO_LOGIN):{/** ok */
                         readyToVerifyUser(codeAndInformation.getInformation());
                         break;
                     }
                     //Nuovo utente nel database
-                    case (clientWantsToCreateNewUser):{
+                    case (CLIENT_WANTS_TO_SIGNUP):{/** ok */    //TODO
                         readyToCreateNewUser(codeAndInformation.getInformation());
                         break;
                     }
                     //Server pronto per ricevere informazioni sugli sticker
-                    case (clientReadyToGiveStickerInfo):{
+                    case (CLIENT_GIVES_STICKER_INFO):{
                         readyToKnowStickerInfo();
                         break;
                     }
                     //Client vuole mandare la query riguardo ad uno sticker
-                    case (clientReadyToGiveQuery):{
+                    case (CLIENT_GIVES_QUERY):{
                         readyToKnowQuery();
                         break;
                     }
                     //Client è pronto per ricevere dal server gli sticker da eliminare
-                    case (readyToReceiveNewSticker):{
+                    case (CLIENT_RECEIVES_NEW_STICLER):{
                         sendingNewSticker();
                         break;
                     }
-                    case (changeMySticker):{
+                    case (CLIENT_CHANGES_STICKER):{
                         break;
                     }
-                    case (wantsToKnowClientConnected):{
-                        sendingClientConnected();
+                    case (CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT):{ /** ok */
+                        serverStart.refreshClientConnected(codeAndInformation.getInformation());
                         break;
                     }
-                    case (clientReadyToReceiveClientsConnected):{
-                        communicateClientConnected();
-                        break;
-                    }
-                    case (clientWantsToSendRatingCode):{
+                    case (CLIENT_WANTS_TO_SEND_RATING):{/** ok */
                         communicateClientRating(codeAndInformation.getInformation());
                         break;
                     }
-                    case (clientWantsToPlay):{
+                    case (CLIENT_WANTS_TO_PLAY):{
                         readyToReceiveOtherClientName(codeAndInformation.getInformation());
                         break;
                     }
-                    case (okForPlaying):{
+                    case (CLIENT_SAYS_OK_FOR_PLAYING):{
                         serverStart.createTheGame(getUser().getUserPassword());
                         break;
                     }
@@ -117,25 +113,11 @@ public class ServerThread extends Thread{
         serverStart.sendingRequest(information, getUser().getUserUsername());
     }
 
+    /** ok */
     private void communicateClientRating(String information) {
         System.out.println(information + " è il voto dello user " + getUser().getUserUsername());
         serverStart.sendRating(Double.parseDouble(information), getUser().getUserUsername());
     }
-
-    private void communicateClientConnected() {
-        gson = new Gson();
-        String clientConnectedGson = gson.toJson(serverStart.getListOfClientConnected());
-        System.out.println(clientConnectedGson);
-        writer.println(clientConnectedGson);
-    }
-
-    private void sendingClientConnected() {
-        gson = new Gson();
-        String clientConnectedGson = gson.toJson(serverStart.getListOfClientConnected());
-        System.out.println(clientConnectedGson);
-        writer.println(CodeAndInformation.serializeToJson(serverSendingClientConnected, clientConnectedGson));
-    }
-
 
     //metodo che crea un gson con tutti  i nickname da eliminare
     private void sendingNewSticker() {
@@ -151,7 +133,7 @@ public class ServerThread extends Thread{
         gson = new Gson();
         Boolean choice;
         try {
-            writer.println(readyToReceiveQueryInfo);
+            writer.println(SERVER_RECEIVES_QUERY_INFO);
             String userQuery = reader.readLine();
             StickerQuery stickerQuery = gson.fromJson(userQuery, StickerQuery.class);
             switch (stickerQuery.getFirstParameter()) {
@@ -341,7 +323,7 @@ public class ServerThread extends Thread{
             e.printStackTrace();
         }
         System.out.println(sqlNicknameToBeRemoved);
-        writer.println(serverReadyToSentStickersMustBeRemoved);
+        writer.println(SERVER_SENDS_STICKER_MUST_BE_REMOVED);
     }
 
     //creo la query con due parametri, uno stringa e uno booleano e cerco = o ! non più in questo metodo ma nella chiamata
@@ -357,7 +339,7 @@ public class ServerThread extends Thread{
             e.printStackTrace();
         }
         System.out.println(sqlNicknameToBeRemoved);
-        writer.println(serverReadyToSentStickersMustBeRemoved);
+        writer.println(SERVER_SENDS_STICKER_MUST_BE_REMOVED);
     }
 
     //metodo di casting da Stringa a Boolean
@@ -372,7 +354,7 @@ public class ServerThread extends Thread{
     //metodo che serve per sapere che sticker ha scelto l'utente
     private void readyToKnowStickerInfo() {
         try {
-            writer.println(readyToReceiveStickerInfo);//comunico che sono pronto al client
+            writer.println(SERVER_RECEIVES_STICKER_INFO);//comunico che sono pronto al client
             String stickerStringPath = reader.readLine();//sono in attesa che il client mi comunichi che sticker ha scelto
             System.out.println(stickerStringPath);
             String stickerName = FilenameUtils.getName(stickerStringPath);//prendo l'ultima parte del path
@@ -424,28 +406,30 @@ public class ServerThread extends Thread{
             user = gson.fromJson(information, User.class);
             System.out.println(user);
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE username='" + user.getUserUsername() + "' AND password='" + user.getUserPassword() + "'");//query per verificare se un utente è già presente
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE username='" + user.getUserUsername() + "'");//query per verificare se un utente è già presente
             while(resultSet.next()){
                 userSQLName = resultSet.getString(username);
                 userSQLPassword = resultSet.getString(password);
-            }
+            }//TODO
             if (userSQLName != null) {
                 System.out.println("Utente di nome " + userSQLName + " e password " + userSQLPassword + " già presente\nImmettere nuovo utente");
+                writer.println(CodeAndInformation.serializeToJson(SERVER_CLIENT_ALREADY_IN_THE_DATABASE, user.getUserUsername()));
             } else {
                 statement.execute("INSERT INTO USER(username,password) VALUES ('" + user.getUserUsername() + "','" + user.getUserPassword() + "')");
-                writer.println(CodeAndInformation.serializeToJson(successfulUserCreation, null));
+                writer.println(CodeAndInformation.serializeToJson(SERVER_CLIENT_SUCCESSFUL_SIGNUP, null));
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
 
+    /** ok */
     //metodo che serve per verificare se ho già un utente con tal nome e password nel db
     public void readyToVerifyUser(String information) {
         gson = new Gson();
         String userSQLName = null;
         String userSQLPassword = null;
-        Boolean userAlreadyLogged = false;
+        Boolean userAlreadyLoggedBoolean = false;
         try {
             user = gson.fromJson(information, User.class);
             System.out.println(user);
@@ -457,21 +441,21 @@ public class ServerThread extends Thread{
             }
             for (int cont = 0; cont < serverStart.getListOfClientConnected().size(); cont++) {
                 if (serverStart.getListOfClientConnected().get(cont).equals(userSQLName)) {
-                    userAlreadyLogged = true;
+                    userAlreadyLoggedBoolean = true;
                 }
             }
-            if (userSQLName != null && userSQLPassword != null && userAlreadyLogged == false) {
-                System.out.println("Utente di nome " + userSQLName + " e password " + userSQLPassword + " trovato\nLogin effettuato con successo");
-                writer.println(CodeAndInformation.serializeToJson(successfulAuthentication, null));
-                serverStart.insertNameInArrayList(userSQLName);
-                serverStart.refreshClientConnected(userSQLName);
+            if (userSQLName != null && userSQLPassword != null && userAlreadyLoggedBoolean == false) {
+                System.out.println("Utente di nome " + user.getUserUsername() + " e password " + user.getUserPassword() + " trovato\nLogin effettuato con successo");
+                writer.println(CodeAndInformation.serializeToJson(SERVER_CLIENT_SUCCESSFUL_LOGIN, null));
+                serverStart.insertNameInArrayList(user.getUserUsername());
+                serverStart.refreshClientConnected(user.getUserUsername());//TODO
             } else {
-                if (userAlreadyLogged == false) {
+                if (userAlreadyLoggedBoolean == false) {
                     System.out.println("Utente " + user.getUserUsername() + "non trovato");
-                    writer.println(CodeAndInformation.serializeToJson(userNotFound, userSQLName));
+                    writer.println(CodeAndInformation.serializeToJson(SERVER_CLIENT_NOT_FOUND, user.getUserUsername()));
                 } else {
                     System.out.println("Utente " + user.getUserUsername() + "già connesso");
-                    writer.println(CodeAndInformation.serializeToJson(userLogged, userSQLName));
+                    writer.println(CodeAndInformation.serializeToJson(SERVER_CLIENT_ALREADY_LOGGED, user.getUserUsername()));
                 }
             }
         } catch (SQLException e) {

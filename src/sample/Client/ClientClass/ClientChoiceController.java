@@ -64,6 +64,11 @@ public class ClientChoiceController implements Initializable {
         }
         ObservableList<String> clientConnectedObsWithoutMe = FXCollections.observableArrayList(clientConnectedListWithoutMe);
         clientConnectedListView.setItems(clientConnectedObsWithoutMe);
+        setListViewHeight(clientConnectedListWithoutMe);
+    }
+
+    private void setListViewHeight(ArrayList<String> clientConnectedListWithoutMe) {
+        clientConnectedListView.setPrefHeight((clientConnectedListWithoutMe.size()+4)*17);
     }
 
     public void clientWantsToPlayAGameWith(){
@@ -134,6 +139,7 @@ public class ClientChoiceController implements Initializable {
         utilities.fadeTransitionEffect(nodeToScreen, 0.3f, 1, 1000);
     }
 
+    /** ok */
     //metodo che permette di comunicare il voto dell'applicazione
     public void ratingGame() {
         clientRating = ratingBox.getRating();

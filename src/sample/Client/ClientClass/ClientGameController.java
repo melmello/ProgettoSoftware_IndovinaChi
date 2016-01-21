@@ -160,7 +160,7 @@ public class ClientGameController implements Initializable {
                             questionCanBeChoosenArray.clear();
                             questionToSendToServer.clear();
                             questionCanBeChoosenArray.addAll(Arrays.asList("Ha la barba lunga?", "Ha la barba corta?", "E' rasato?"));
-                            questionToSendToServer.addAll(Arrays.asList(longAnswer, shortAnswer, baldAnswer));
+                            questionToSendToServer.addAll(Arrays.asList(longAnswer, shortAnswer, shavedAnswer));
                             questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
                             setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
                             firstParameter = beardLenght;

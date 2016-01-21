@@ -37,68 +37,67 @@ public class ClientThread extends Thread {
                 System.out.println(codeAndInformation.getCode());
                 switch (codeAndInformation.getCode()) {
                     //Il Server risponde che l'autenticazione è avvenuta con successo e si può proseguire cambiando schermata
-                    case (successfulAuthentication):{
+                    case (SERVER_CLIENT_SUCCESSFUL_LOGIN):{/** ok */
                         main.continueOnChoiceScreen();
+                        main.notification("Benvenuto " + main.getUser().getUserUsername() + "!");
                         break;
                     }
                     //Il Server risponde che ora si può cambiare l'interfaccia
-                    case (successfulUserCreation):{
+                    case (SERVER_CLIENT_SUCCESSFUL_SIGNUP):{/** ok */
                         main.notificationForNewUser();
                         break;
                     }
                     //Il Server comunica che è pronto per ricevere le informazioni sullo Sticker scelto
-                    case (readyToReceiveStickerInfo):{
+                    case (SERVER_RECEIVES_STICKER_INFO):{
                         comunicateStickerInfo();
                         break;
                     }
                     //Il Server comunica che è pronto per ricevere le informazioni sulla query
-                    case (readyToReceiveQueryInfo):{
+                    case (SERVER_RECEIVES_QUERY_INFO):{
                         comunicateQueryInfo();
                         break;
                     }
                     //Il Server comunica che è pronto per mandare gli sticker che vanno rimossi
-                    case (serverReadyToSentStickersMustBeRemoved):{
+                    case (SERVER_SENDS_STICKER_MUST_BE_REMOVED):{
                         readyToReceiveStickerMustBeRemoved();
                         break;
                     }
-                    case (changingRound):{
+                    case (SERVER_CHANGES_ROUND):{
                         readyToAbilitateClientScreen();
                         break;
                     }
-                    case (serverSendingClientConnected):{
+                    case (SERVER_SENDS_CONNECTED_CLIENT):{/** ok */
                         main.displayClientConnected(codeAndInformation.getInformation());
                         break;
                     }
-                    case (serverWantsToRefreshClientConnected):{
-                        serverReadyToComunicateClientsConnectedList();
+                    case (SERVER_REFRESHES_CONNECTED_CLIENT):{/** ok */
+                        main.displayClientConnected(codeAndInformation.getInformation());
                         break;
                     }
-                    case (userNotFound):{
+                    case (SERVER_CLIENT_NOT_FOUND):{/** ok */
                         main.notification("Utente " + main.getUser().getUserUsername() + " con password " + main.getUser().getUserPassword() + " non trovato");
                         break;
                     }
-                    case (receivedGameRequest):{
+                    case (SERVER_RECEIVED_GAME_REQUEST):{
                         main.playGameRequest(codeAndInformation.getInformation());
                         break;
                     }
-                    case (goToGameScreen):{
+                    case (SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN):{/** ok */
                         main.continueOnGameScreen();
                         break;
                     }
-                    case (userLogged):{
+                    case (SERVER_CLIENT_ALREADY_LOGGED):{/** ok */
                         main.notification("Utente " + main.getUser().getUserUsername() + " con password " + main.getUser().getUserPassword() + " già loggato");
                         break;
+                    }
+                    case (SERVER_CLIENT_ALREADY_IN_THE_DATABASE):{/** ok */
+                        main.notification("Utente " + codeAndInformation.getInformation() + " già presente");
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void serverReadyToComunicateClientsConnectedList() {
-        gson = new Gson();
-        writer.println(wantsToKnowClientConnected);
     }
 
     private void readyToAbilitateClientScreen() {
@@ -109,7 +108,7 @@ public class ClientThread extends Thread {
     private void readyToReceiveStickerMustBeRemoved() {
         gson = new Gson();
         try {
-            writer.println(readyToReceiveNewSticker);//comunico al Server che sono pronto a ricevere gli sticker nuovi
+            writer.println(CLIENT_RECEIVES_NEW_STICLER);//comunico al Server che sono pronto a ricevere gli sticker nuovi
             String newStickerGson = reader.readLine();//aspetto la risposta del Server
             ArrayList<String> newStickers = gson.fromJson(newStickerGson, new TypeToken<ArrayList<String>>(){}.getType());//deserializzo il gson in un ArrayList
             System.out.println(newStickers);

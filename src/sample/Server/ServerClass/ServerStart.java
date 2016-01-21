@@ -2,6 +2,8 @@ package sample.Server.ServerClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
 import static sample.Utilities.Class.SecurityClass.*;
+
+import com.google.gson.Gson;
 import javafx.concurrent.Task;
 import sample.Utilities.Class.CodeAndInformation;
 import sample.Utilities.Class.Sticker;
@@ -25,6 +27,7 @@ public class ServerStart extends Task {
     private ArrayList<ServerThread> threadsPlaying = new ArrayList<>();
     private ArrayList<ServerThread> threadsArrayList  = new ArrayList<>();
     private ArrayList<String> listOfClientConnected = new ArrayList<>();
+    private Gson gson;
 
     //costruttore
     public ServerStart(ServerMain main) {
@@ -57,8 +60,9 @@ public class ServerStart extends Task {
 
     //metodo per il cambio di turno
     public void changingRoundOfClient(int positionInArrayList){
-        threadsArrayList.get((positionInArrayList + 1) % 2).getWriter().println(changingRound);
+        threadsArrayList.get((positionInArrayList + 1) % 2).getWriter().println(SERVER_CHANGES_ROUND);
     }
+
 
     public void setOpponentSticker(Sticker mySticker, int positionInArrayList) {
         threadsArrayList.get((positionInArrayList + 1) % 2).setOpponentSticker(mySticker);
@@ -66,7 +70,7 @@ public class ServerStart extends Task {
 
     public void startGameWithRandomChoice(boolean numberOfFirstPlayer) {
         System.out.println(castingBooleanToInt(numberOfFirstPlayer));
-        threadsArrayList.get(castingBooleanToInt(numberOfFirstPlayer)).getWriter().println(changingRound);
+        threadsArrayList.get(castingBooleanToInt(numberOfFirstPlayer)).getWriter().println(SERVER_CHANGES_ROUND);
     }
 
     public int castingBooleanToInt(Boolean myBoolean){
@@ -74,11 +78,13 @@ public class ServerStart extends Task {
         return myInt;
     }
 
+    /** ok */
     public void insertNameInArrayList(String userSQLName) {
         System.out.println(userSQLName);
         listOfClientConnected.add(userSQLName);
     }
 
+    /** ok */
     public void removeClientDisconnected(String usernameDisconnected) {
         listOfClientConnected.remove(usernameDisconnected);
         for (int counter = 0; counter < threadsArrayList.size(); counter++){
@@ -91,18 +97,21 @@ public class ServerStart extends Task {
     }
 
 
+    /** ok */
     public void refreshClientConnected(String usernameConnected) {
         main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
-        if (threadsArrayList.size() != 1) {
+        //if (threadsArrayList.size() != 1) {
             for (int cont = 0; cont < threadsArrayList.size(); cont++) {
                 if (threadsArrayList.get(cont).getUser().getUserUsername() != null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(usernameConnected)) {
-                    threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(serverWantsToRefreshClientConnected, null));
+                    gson = new Gson();
+                    String clientConnectedGson = gson.toJson(listOfClientConnected);
+                    threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT, clientConnectedGson));
                 }
             }
-        }
+        //}
     }
 
-
+    /** ok */
     public void sendRating(Double clientRating, String clientUsername) {
         final String username = googleMail;
         final String password = googlePassword;
@@ -133,6 +142,7 @@ public class ServerStart extends Task {
         }
     }
 
+    /** ok */
     public void removeClientDisconnectedFromLoginScreen() {
         System.out.println("Un client non ha loggato: è uscito dalla schermata di login");
     }
@@ -140,7 +150,7 @@ public class ServerStart extends Task {
     public void sendingRequest(String opponent, String userRequest) {
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
             if (threadsArrayList.get(cont).getUser().getUserUsername().equals(opponent)){
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(receivedGameRequest, userRequest));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_RECEIVED_GAME_REQUEST, userRequest));
             }
             if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userRequest)){
                 threadsPlaying.add(threadsArrayList.get(cont));
@@ -155,7 +165,7 @@ public class ServerStart extends Task {
             }
         }
         for(int cont = 0; cont < threadsPlaying.size(); cont++){
-            threadsPlaying.get(cont).getWriter().println(goToGameScreen);
+            threadsPlaying.get(cont).getWriter().println(SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN);
         }
     }
 

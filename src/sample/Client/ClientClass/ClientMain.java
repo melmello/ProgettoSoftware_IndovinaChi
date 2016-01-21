@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Duration;
 import sample.Utilities.Class.CodeAndInformation;
 import sample.Utilities.Class.StickerQuery;
 import sample.Utilities.Class.User;
@@ -66,7 +65,7 @@ public class ClientMain extends Application {
         writer = new PrintWriter(clientSocket.getOutputStream(), true);
         this.loginStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//handle per quando accade che disconnetto un client. Comunico DISCONNESSO con la writer
             public void handle(WindowEvent we) {
-                writer.println(CodeAndInformation.serializeToJson(clientDisconnectedFromLoginScreen, null));
+                writer.println(CodeAndInformation.serializeToJson(CLIENT_DISCONNECTING_FROM_LOGIN_SCREEN, null));
                 System.out.println("Un client ha chiuso la schermata di login");
                 Platform.exit();
                 System.exit(0);
@@ -93,10 +92,10 @@ public class ClientMain extends Application {
                     gamingStage.show();//mostro
                     clientChoiceController.setMain(ClientMain.this);//collegare main e controller
                     loginStage.close();
-                    clientWantsClientConnected();
+                    writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT, null));
                     gamingStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//handle per quando accade che disconnetto un client. Comunico DISCONNESSO con la writer
                         public void handle(WindowEvent we) {
-                            writer.println(CodeAndInformation.serializeToJson(clientDisconnected, null));
+                            writer.println(CodeAndInformation.serializeToJson(CLIENT_DISCONNECTING, null));
                             System.out.println("Client disconnesso");
                             Platform.exit();
                             System.exit(0);
@@ -127,7 +126,7 @@ public class ClientMain extends Application {
                     gamingScene.getStylesheets().add(getClass().getResource(gameScreenCSS).toExternalForm());//collegare il .css (ad esempio) per l'aggiunta del background
                     ClientMain.this.gamingStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//handle per quando accade che disconnetto un client. Comunico DISCONNESSO con la writer
                         public void handle(WindowEvent we) {
-                            writer.println(CodeAndInformation.serializeToJson(clientDisconnected, null));
+                            writer.println(CodeAndInformation.serializeToJson(CLIENT_DISCONNECTING, null));
                             System.out.println("Client disconnesso");
                             Platform.exit();
                             System.exit(0);
@@ -140,6 +139,7 @@ public class ClientMain extends Application {
         });
     }
 
+    /** ok */
     //metodo che comunica che i campi sono compilati, invio il segnale al Server che voglio inviargli il gson
     public void loginOrNewUser(String textWithUsername, String textWithPassword, Boolean login) {
         String codeToSend;
@@ -148,16 +148,16 @@ public class ClientMain extends Application {
         String userString = gson.toJson(user);  //serializzo i campi dello User
         System.out.println(userString);
         if (login == true) {
-            codeToSend = CodeAndInformation.serializeToJson(clientWantsToLogIn, userString);
+            codeToSend = CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_LOGIN, userString);
         } else {
-            codeToSend = CodeAndInformation.serializeToJson(clientWantsToCreateNewUser, userString);
+            codeToSend = CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_SIGNUP, userString);
         }
         writer.println(codeToSend);  //Mando segnale login e aspetto che ServerThread nel while(true) lo riceva
     }
 
     //metodo che comunica al server che il Client ha scelto lo sticker e vuole mandargli quale
     public void settingMySticker(){
-        writer.println(clientReadyToGiveStickerInfo);
+        writer.println(CLIENT_GIVES_STICKER_INFO);
         notification("Hai scelto il personaggio!");
     }
 
@@ -169,7 +169,7 @@ public class ClientMain extends Application {
 
     //metodo che dice al Server che il client è pronto per mandare la query
     public void clientWantsToQuery(){
-        writer.println(clientReadyToGiveQuery);
+        writer.println(CLIENT_GIVES_QUERY);
     }
 
     //getter dell'oggetto stickerQuery
@@ -208,20 +208,21 @@ public class ClientMain extends Application {
                 TrayNotification tray = new TrayNotification(indovinaChiText, messageOfNotification, NotificationType.SUCCESS);
                 tray.setImage(icona);
                 tray.showAndWait();
-                tray.showAndDismiss(Duration.seconds(1));
+                //tray.showAndDismiss(Duration.seconds(1));
             }
         });
-    }
-
-    public void clientWantsClientConnected() {
-        writer.println(CodeAndInformation.serializeToJson(wantsToKnowClientConnected, null));
     }
 
     public void displayClientConnected(String information) {
         gson = new Gson();
         ArrayList<String> clientConnected = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
         System.out.println(clientConnected);
-        clientChoiceController.displayClientConnected(clientConnected);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                clientChoiceController.displayClientConnected(clientConnected);
+            }
+        });
     }
 
     public void notificationForNewUser() {
@@ -235,13 +236,14 @@ public class ClientMain extends Application {
         });
     }
 
+    /** ok */
     public void clientWantsToSendRating() {
-        writer.println(CodeAndInformation.serializeToJson(clientWantsToSendRatingCode, Double.toString(clientChoiceController.getClientRating())));
+        writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_SEND_RATING, Double.toString(clientChoiceController.getClientRating())));
     }
 
     //metodo che informa il server che il client vuole giocare una partita con questo utente
     public void clientWantsToPlayAGameWith() {
-        writer.println(CodeAndInformation.serializeToJson(clientWantsToPlay, clientChoiceController.getOpponentChoosen()));
+        writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_PLAY, clientChoiceController.getOpponentChoosen()));
     }
 
     public void playGameRequest(String information) {
@@ -254,7 +256,7 @@ public class ClientMain extends Application {
     }
 
     public void sendServerOkForPlaying() {
-        writer.println(CodeAndInformation.serializeToJson(okForPlaying, null));
+        writer.println(CodeAndInformation.serializeToJson(CLIENT_SAYS_OK_FOR_PLAYING, null));
     }
 
     //getter dell'User
