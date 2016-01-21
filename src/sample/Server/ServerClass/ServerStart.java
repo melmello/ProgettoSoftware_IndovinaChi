@@ -2,7 +2,6 @@ package sample.Server.ServerClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
 import static sample.Utilities.Class.SecurityClass.*;
-
 import com.google.gson.Gson;
 import javafx.concurrent.Task;
 import sample.Utilities.Class.CodeAndInformation;

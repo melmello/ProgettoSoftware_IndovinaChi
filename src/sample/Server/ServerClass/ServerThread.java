@@ -1,7 +1,6 @@
 package sample.Server.ServerClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
-
 import sample.Utilities.Class.CodeAndInformation;
 import sample.Utilities.Class.Sticker;
 import sample.Utilities.Class.StickerQuery;
