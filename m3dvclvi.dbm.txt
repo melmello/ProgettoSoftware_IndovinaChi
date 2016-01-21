@@ -1,0 +1,154 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch FirstBrench-15/01/16
+# Your branch is up-to-date with 'IndovinaChi/FirstBrench-15/01/16'.
+#
+ Changes to be committed:
+	new file:   .idea/dataSources.local.xml
+	new file:   .idea/workspace.xml
+	modified:   IntelliJ.iml
+	new file:   out/production/IntelliJ/sample/Client/ClientCSS/ClientChoiceScreen.css
+	new file:   out/production/IntelliJ/sample/Client/ClientCSS/ClientLoginScreen.css
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientChoiceController.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$1.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$2.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$3.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$4.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$5.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientGameController$6.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientGameController.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$1.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$2.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController$3.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientLoginController.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientMain$1.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientMain$2$1.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientMain$2.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientMain$3$1.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientMain$3.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientMain$4.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientMain$5.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientMain$6.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientMain.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientThread$1.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientThread$2.class
+	new file:   out/production/IntelliJ/sample/Client/ClientClass/ClientThread.class
+	new file:   out/production/IntelliJ/sample/Client/ClientFXML/ClientChoiceScreen.fxml
+	new file:   out/production/IntelliJ/sample/Client/ClientFXML/ClientGameScreen.fxml
+	new file:   out/production/IntelliJ/sample/Client/ClientFXML/ClientLoginScreen.fxml
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/Ball.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/Cross.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/FootballGate.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/FootballPlayerDark.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/FootballPlayerWhite.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/GameBackground.jpg
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/Icona.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/Mutliplayer.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/PlayAGame.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/Rating.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/ScoreboardMondiale.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/ScoreboardPersonale.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/Singleplayer.png
+	new file:   out/production/IntelliJ/sample/Client/ClientImage/StartBackground.jpg
+	new file:   out/production/IntelliJ/sample/Client/ClientSound/ButtonClick.wav
+	new file:   out/production/IntelliJ/sample/Server/ServerCSS/ServerClientCounterScreen.css
+	new file:   out/production/IntelliJ/sample/Server/ServerCSS/ServerStartingScreen.css
+	new file:   out/production/IntelliJ/sample/Server/ServerClass/ServerClientCounterController.class
+	new file:   out/production/IntelliJ/sample/Server/ServerClass/ServerMain$1.class
+	new file:   out/production/IntelliJ/sample/Server/ServerClass/ServerMain.class
+	new file:   out/production/IntelliJ/sample/Server/ServerClass/ServerStart.class
+	new file:   out/production/IntelliJ/sample/Server/ServerClass/ServerStartingController.class
+	new file:   out/production/IntelliJ/sample/Server/ServerClass/ServerThread.class
+	new file:   out/production/IntelliJ/sample/Server/ServerFXML/ServerClientCounterScreen.fxml
+	new file:   out/production/IntelliJ/sample/Server/ServerFXML/ServerStartingScreen.fxml
+	new file:   out/production/IntelliJ/sample/Server/ServerImage/Icona.png
+	new file:   out/production/IntelliJ/sample/Server/ServerImage/IconaClient.png
+	new file:   out/production/IntelliJ/sample/Server/ServerImage/StartBackground.png
+	new file:   out/production/IntelliJ/sample/Server/ServerImage/StartBackgroundCounter.png
+	new file:   out/production/IntelliJ/sample/Utilities/Class/ConstantCodes.class
+	new file:   out/production/IntelliJ/sample/Utilities/Class/SecurityClass.class
+	new file:   out/production/IntelliJ/sample/Utilities/Class/Sticker.class
+	new file:   out/production/IntelliJ/sample/Utilities/Class/StickerQuery.class
+	new file:   out/production/IntelliJ/sample/Utilities/Class/User.class
+	new file:   out/production/IntelliJ/sample/Utilities/GenericFile/TODO
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/AllModified.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Baggio.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Beckham.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Bergkamp.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Best.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Cantona.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Carlos.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Charlton.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Cruijff.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Davids.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/DelPiero.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Deschamps.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Figo.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Francescoli.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Gattuso.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Gerrard.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Giggs.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Guardiola.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Gullit.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Henry.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Hierro.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Juninho.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Keane.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Klinsmann.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Lampard.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Maldini.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Maradona.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Nakata.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Papin.jpg
+	new file:   "out/production/IntelliJ/sample/Utilities/Stickers/Pel\303\250.jpg"
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Pirlo.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Platini.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Puyol.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Question.png
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Raul.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Redondo.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Rijkaard.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Riquelme.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Rivaldo.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Romario.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Ronaldinho.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Ronaldo.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Scholes.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Sevcenko.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Socrates.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Suker.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Totti.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Valderrama.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/VanBasten.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/VanNistelrooij.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Xavi.jpg
+	new file:   out/production/IntelliJ/sample/Utilities/Stickers/Zidane.jpg
+	modified:   src/sample/Client/ClientClass/ClientChoiceController.java
+	modified:   src/sample/Client/ClientClass/ClientGameController.java
+	modified:   src/sample/Client/ClientClass/ClientLoginController.java
+	modified:   src/sample/Client/ClientClass/ClientMain.java
+	new file:   src/sample/Client/ClientClass/ClientPersonalScoreboardController.java
+	modified:   src/sample/Client/ClientClass/ClientThread.java
+	new file:   src/sample/Client/ClientClass/ClientWorldScoreboardController.java
+	modified:   src/sample/Client/ClientFXML/ClientChoiceScreen.fxml
+	modified:   src/sample/Client/ClientFXML/ClientGameScreen.fxml
+	modified:   src/sample/Client/ClientFXML/ClientLoginScreen.fxml
+	new file:   src/sample/Client/ClientFXML/ClientPersonalScoreboardScreen.fxml
+	new file:   src/sample/Client/ClientFXML/ClientWorldScoreboardScreen.fxml
+	new file:   src/sample/Client/ClientImage/Ball.png
+	new file:   src/sample/Client/ClientImage/Cross.png
+	new file:   src/sample/Client/ClientImage/FootballGate.png
+	new file:   src/sample/Client/ClientImage/FootballPlayerDark.png
+	new file:   src/sample/Client/ClientImage/FootballPlayerWhite.png
+	new file:   src/sample/Client/ClientSound/ButtonClick.wav
+	new file:   src/sample/Server/ServerCSS/Style.css
+	new file:   src/sample/Server/ServerCSS/StyleCounter.css
+	modified:   src/sample/Server/ServerClass/ServerMain.java
+	modified:   src/sample/Server/ServerClass/ServerStart.java
+	modified:   src/sample/Server/ServerClass/ServerThread.java
+	new file:   src/sample/Server/ServerFXML/ContatoreClient.fxml
+	new file:   src/sample/Server/ServerFXML/ServerGraphics.fxml
+	modified:   src/sample/Utilities/Class/ConstantCodes.java
+	new file:   src/sample/Utilities/Class/SecurityClass.java
+	modified:   src/sample/Utilities/GenericFile/TODO
