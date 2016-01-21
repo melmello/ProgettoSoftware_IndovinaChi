@@ -4,259 +4,257 @@ import java.io.Serializable;
 
 public class Sticker implements Serializable{
 
-    String name;
-    String nickname;
-    String surname;
-    boolean hairColorBrown;
-    String hairLenght;
-    boolean beardColorBrown;
-    boolean eyesColorBrown;
-    boolean complexionBrown;
-    boolean earrings;
-    boolean glasses;
-    boolean headband;
-    boolean mole;
-    String beardType;
-    boolean freeckles;
-    boolean nationalShirt;
-    String continent;
-    String championship;
-    boolean captainBand;
-    boolean noseDimensionBig;
-    boolean smile;
-    boolean hairTypeStraight;
-    String beardLenght;
+    private String nameOfSticker;
+    private String nicknameOfSticker;
+    private String surnameOfSticker;
+    private boolean hairColorBrownOfSticker;
+    private String hairLengthOfSticker;
+    private boolean beardColorBrownOfSticker;
+    private boolean eyesColorBrownOfSticker;
+    private boolean complexionBrownOfSticker;
+    private boolean earringsOfSticker;
+    private boolean glassesOfSticker;
+    private boolean headbandOfSticker;
+    private boolean moleOfSticker;
+    private String beardTypeOfSticker;
+    private boolean freecklesOfSticker;
+    private boolean nationalShirtOfSticker;
+    private String continentOfSticker;
+    private String championshipOfSticker;
+    private boolean captainBandOfSticker;
+    private boolean noseDimensionBigOfSticker;
+    private boolean smileOfSticker;
+    private boolean hairTypeStraightOfSticker;
+    private String beardLengthOfSticker;
 
     public Sticker(String nickname) {
-        this.nickname = nickname;
+        this.nicknameOfSticker = nicknameOfSticker;
     }
 
-    public Sticker(String name, String nickname, String surname, boolean hairColorBrown, String hairLenght, boolean beardColorBrown, boolean eyesColorBrown, boolean complexionBrown, boolean earrings, boolean glasses, boolean headband, boolean mole, String beardType, boolean freeckles, boolean nationalShirt, String continent, String championship, boolean captainBand, boolean noseDimensionBig, boolean smile, boolean hairTypeStraight, String beardLenght) {
-        this.name = name;
-        this.nickname = nickname;
-        this.surname = surname;
-        this.hairColorBrown = hairColorBrown;
-        this.hairLenght = hairLenght;
-        this.beardColorBrown = beardColorBrown;
-        this.eyesColorBrown = eyesColorBrown;
-        this.complexionBrown = complexionBrown;
-        this.earrings = earrings;
-        this.glasses = glasses;
-        this.headband = headband;
-        this.mole = mole;
-        this.beardType = beardType;
-        this.freeckles = freeckles;
-        this.nationalShirt = nationalShirt;
-        this.continent = continent;
-        this.championship = championship;
-        this.captainBand = captainBand;
-        this.noseDimensionBig = noseDimensionBig;
-        this.smile = smile;
-        this.hairTypeStraight = hairTypeStraight;
-        this.beardLenght = beardLenght;
+    public Sticker(String name, String nickname, String surname, boolean hairColorBrown, String hairLength, boolean beardColorBrown, boolean eyesColorBrown, boolean complexionBrown, boolean earrings, boolean glasses, boolean headband, boolean mole, String beardType, boolean freeckles, boolean nationalShirt, String continent, String championship, boolean captainBand, boolean noseDimensionBig, boolean smile, boolean hairTypeStraight, String beardLength) {
+        this.nameOfSticker = name;
+        this.nicknameOfSticker = nickname;
+        this.surnameOfSticker = surname;
+        this.hairColorBrownOfSticker = hairColorBrown;
+        this.hairLengthOfSticker = hairLength;
+        this.beardColorBrownOfSticker = beardColorBrown;
+        this.eyesColorBrownOfSticker = eyesColorBrown;
+        this.complexionBrownOfSticker = complexionBrown;
+        this.earringsOfSticker = earrings;
+        this.glassesOfSticker = glasses;
+        this.headbandOfSticker = headband;
+        this.moleOfSticker = mole;
+        this.beardTypeOfSticker = beardType;
+        this.freecklesOfSticker = freeckles;
+        this.nationalShirtOfSticker = nationalShirt;
+        this.continentOfSticker = continent;
+        this.championshipOfSticker = championship;
+        this.captainBandOfSticker = captainBand;
+        this.noseDimensionBigOfSticker = noseDimensionBig;
+        this.smileOfSticker = smile;
+        this.hairTypeStraightOfSticker = hairTypeStraight;
+        this.beardLengthOfSticker = beardLength;
     }
 
     @Override
     public String toString() {
         return "Sticker{" +
-                "name='" + name + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", surname='" + surname + '\'' +
-                ", hairColorBrown=" + hairColorBrown +
-                ", hairLenght='" + hairLenght + '\'' +
-                ", beardColorBrown=" + beardColorBrown +
-                ", eyesColorBrown=" + eyesColorBrown +
-                ", complexionBrown=" + complexionBrown +
-                ", earrings=" + earrings +
-                ", glasses=" + glasses +
-                ", headband=" + headband +
-                ", mole=" + mole +
-                ", beardType='" + beardType + '\'' +
-                ", freeckles=" + freeckles +
-                ", nationalShirt=" + nationalShirt +
-                ", continent='" + continent + '\'' +
-                ", championship='" + championship + '\'' +
-                ", captainBand=" + captainBand +
-                ", noseDimensionBig=" + noseDimensionBig +
-                ", smile=" + smile +
-                ", hairTypeStraight=" + hairTypeStraight +
-                ", beardLenght='" + beardLenght + '\'' +
+                "nameOfSticker='" + nameOfSticker + '\'' +
+                ", nicknameOfSticker='" + nicknameOfSticker + '\'' +
+                ", surnameOfSticker='" + surnameOfSticker + '\'' +
+                ", hairColorBrownOfSticker=" + hairColorBrownOfSticker +
+                ", hairLengthOfSticker='" + hairLengthOfSticker + '\'' +
+                ", beardColorBrownOfSticker=" + beardColorBrownOfSticker +
+                ", eyesColorBrownOfSticker=" + eyesColorBrownOfSticker +
+                ", complexionBrownOfSticker=" + complexionBrownOfSticker +
+                ", earringsOfSticker=" + earringsOfSticker +
+                ", glassesOfSticker=" + glassesOfSticker +
+                ", headbandOfSticker=" + headbandOfSticker +
+                ", moleOfSticker=" + moleOfSticker +
+                ", beardTypeOfSticker='" + beardTypeOfSticker + '\'' +
+                ", freecklesOfSticker=" + freecklesOfSticker +
+                ", nationalShirtOfSticker=" + nationalShirtOfSticker +
+                ", continentOfSticker='" + continentOfSticker + '\'' +
+                ", championshipOfSticker='" + championshipOfSticker + '\'' +
+                ", captainBandOfSticker=" + captainBandOfSticker +
+                ", noseDimensionBigOfSticker=" + noseDimensionBigOfSticker +
+                ", smileOfSticker=" + smileOfSticker +
+                ", hairTypeStraightOfSticker=" + hairTypeStraightOfSticker +
+                ", beardLengthOfSticker='" + beardLengthOfSticker + '\'' +
                 '}';
     }
 
-    public String getName() {
-        return name;
+    public String getNameOfSticker() {
+        return nameOfSticker;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getNicknameOfSticker() {
+        return nicknameOfSticker;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getSurnameOfSticker() {
+        return surnameOfSticker;
     }
 
-    public boolean isHairColorBrown() {
-        return hairColorBrown;
+    public boolean isHairColorBrownOfSticker() {
+        return hairColorBrownOfSticker;
     }
 
-    public String getHairLenght() {
-        return hairLenght;
+    public String getHairLengthOfSticker() {
+        return hairLengthOfSticker;
     }
 
-    public boolean isBeardColorBrown() {
-        return beardColorBrown;
+    public boolean isBeardColorBrownOfSticker() {
+        return beardColorBrownOfSticker;
     }
 
-    public boolean isEyesColorBrown() {
-        return eyesColorBrown;
+    public boolean isEyesColorBrownOfSticker() {
+        return eyesColorBrownOfSticker;
     }
 
-    public boolean isComplexionBrown() {
-        return complexionBrown;
+    public boolean isComplexionBrownOfSticker() {return complexionBrownOfSticker;}
+
+    public boolean isEarringsOfSticker() {
+        return earringsOfSticker;
     }
 
-    public boolean isEarrings() {
-        return earrings;
+    public boolean isGlassesOfSticker() {
+        return glassesOfSticker;
     }
 
-    public boolean isGlasses() {
-        return glasses;
+    public boolean isHeadbandOfSticker() {
+        return headbandOfSticker;
     }
 
-    public boolean isHeadband() {
-        return headband;
+    public boolean isMoleOfSticker() {
+        return moleOfSticker;
     }
 
-    public boolean isMole() {
-        return mole;
+    public String getBeardTypeOfSticker() {
+        return beardTypeOfSticker;
     }
 
-    public String getBeardType() {
-        return beardType;
+    public boolean isFreecklesOfSticker() {
+        return freecklesOfSticker;
     }
 
-    public boolean isFreeckles() {
-        return freeckles;
+    public boolean isNationalShirtOfSticker() {
+        return nationalShirtOfSticker;
     }
 
-    public boolean isNationalShirt() {
-        return nationalShirt;
+    public String getContinentOfSticker() {
+        return continentOfSticker;
     }
 
-    public String getContinent() {
-        return continent;
+    public String getChampionshipOfSticker() {
+        return championshipOfSticker;
     }
 
-    public String getChampionship() {
-        return championship;
+    public boolean isCaptainBandOfSticker() {
+        return captainBandOfSticker;
     }
 
-    public boolean isCaptainBand() {
-        return captainBand;
+    public boolean isNoseDimensionBigOfSticker() {
+        return noseDimensionBigOfSticker;
     }
 
-    public boolean isNoseDimensionBig() {
-        return noseDimensionBig;
+    public boolean isSmileOfSticker() {
+        return smileOfSticker;
     }
 
-    public boolean isSmile() {
-        return smile;
+    public boolean isHairTypeStraightOfSticker() {
+        return hairTypeStraightOfSticker;
     }
 
-    public boolean isHairTypeStraight() {
-        return hairTypeStraight;
+    public String getBeardLengthOfSticker() {
+        return beardLengthOfSticker;
     }
 
-    public String getBeardLenght() {
-        return beardLenght;
+    public void setNameOfSticker(String nameOfSticker) {
+        this.nameOfSticker = nameOfSticker;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNicknameOfSticker(String nicknameOfSticker) {
+        this.nicknameOfSticker = nicknameOfSticker;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setSurnameOfSticker(String surnameOfSticker) {
+        this.surnameOfSticker = surnameOfSticker;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setHairColorBrownOfSticker(boolean hairColorBrownOfSticker) {
+        this.hairColorBrownOfSticker = hairColorBrownOfSticker;
     }
 
-    public void setHairColorBrown(boolean hairColorBrown) {
-        this.hairColorBrown = hairColorBrown;
+    public void setHairLengthOfSticker(String hairLengthOfSticker) {
+        this.hairLengthOfSticker = hairLengthOfSticker;
     }
 
-    public void setHairLenght(String hairLenght) {
-        this.hairLenght = hairLenght;
+    public void setBeardColorBrownOfSticker(boolean beardColorBrownOfSticker) {
+        this.beardColorBrownOfSticker = beardColorBrownOfSticker;
     }
 
-    public void setBeardColorBrown(boolean beardColorBrown) {
-        this.beardColorBrown = beardColorBrown;
+    public void setEyesColorBrownOfSticker(boolean eyesColorBrownOfSticker) {
+        this.eyesColorBrownOfSticker = eyesColorBrownOfSticker;
     }
 
-    public void setEyesColorBrown(boolean eyesColorBrown) {
-        this.eyesColorBrown = eyesColorBrown;
+    public void setComplexionBrownOfSticker(boolean complexionBrownOfSticker) {
+        this.complexionBrownOfSticker = complexionBrownOfSticker;
     }
 
-    public void setComplexionBrown(boolean complexionBrown) {
-        this.complexionBrown = complexionBrown;
+    public void setEarringsOfSticker(boolean earringsOfSticker) {
+        this.earringsOfSticker = earringsOfSticker;
     }
 
-    public void setEarrings(boolean earrings) {
-        this.earrings = earrings;
+    public void setGlassesOfSticker(boolean glassesOfSticker) {
+        this.glassesOfSticker = glassesOfSticker;
     }
 
-    public void setGlasses(boolean glasses) {
-        this.glasses = glasses;
+    public void setHeadbandOfSticker(boolean headbandOfSticker) {
+        this.headbandOfSticker = headbandOfSticker;
     }
 
-    public void setHeadband(boolean headband) {
-        this.headband = headband;
+    public void setMoleOfSticker(boolean moleOfSticker) {
+        this.moleOfSticker = moleOfSticker;
     }
 
-    public void setMole(boolean mole) {
-        this.mole = mole;
+    public void setBeardTypeOfSticker(String beardTypeOfSticker) {
+        this.beardTypeOfSticker = beardTypeOfSticker;
     }
 
-    public void setBeardType(String beardType) {
-        this.beardType = beardType;
+    public void setFreecklesOfSticker(boolean freecklesOfSticker) {
+        this.freecklesOfSticker = freecklesOfSticker;
     }
 
-    public void setFreeckles(boolean freeckles) {
-        this.freeckles = freeckles;
+    public void setNationalShirtOfSticker(boolean nationalShirtOfSticker) {
+        this.nationalShirtOfSticker = nationalShirtOfSticker;
     }
 
-    public void setNationalShirt(boolean nationalShirt) {
-        this.nationalShirt = nationalShirt;
+    public void setContinentOfSticker(String continentOfSticker) {
+        this.continentOfSticker = continentOfSticker;
     }
 
-    public void setContinent(String continent) {
-        this.continent = continent;
+    public void setChampionshipOfSticker(String championshipOfSticker) {
+        this.championshipOfSticker = championshipOfSticker;
     }
 
-    public void setChampionship(String championship) {
-        this.championship = championship;
+    public void setCaptainBandOfSticker(boolean captainBandOfSticker) {
+        this.captainBandOfSticker = captainBandOfSticker;
     }
 
-    public void setCaptainBand(boolean captainBand) {
-        this.captainBand = captainBand;
+    public void setNoseDimensionBigOfSticker(boolean noseDimensionBigOfSticker) {
+        this.noseDimensionBigOfSticker = noseDimensionBigOfSticker;
     }
 
-    public void setNoseDimensionBig(boolean noseDimensionBig) {
-        this.noseDimensionBig = noseDimensionBig;
+    public void setSmileOfSticker(boolean smile) {
+        this.smileOfSticker = smile;
     }
 
-    public void setSmile(boolean smile) {
-        this.smile = smile;
+    public void setHairTypeStraightOfSticker(boolean hairTypeStraightOfSticker) {
+        this.hairTypeStraightOfSticker = hairTypeStraightOfSticker;
     }
 
-    public void setHairTypeStraight(boolean hairTypeStraight) {
-        this.hairTypeStraight = hairTypeStraight;
-    }
-
-    public void setBeardLenght(String beardLenght) {
-        this.beardLenght = beardLenght;
+    public void setBeardLengthOfSticker(String beardLengthOfSticker) {
+        this.beardLengthOfSticker = beardLengthOfSticker;
     }
 }

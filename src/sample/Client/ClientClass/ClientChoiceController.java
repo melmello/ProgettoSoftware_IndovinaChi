@@ -50,11 +50,6 @@ public class ClientChoiceController implements Initializable {
         this.main = main;
     }
 
-    //metodo che collega Choice screen e Game screen
-    public void continueOnGameScreen(){
-        main.continueOnGameScreen();
-    }
-
     public void displayClientConnected(ArrayList<String> clientConnectedList) {
         ArrayList<String> clientConnectedListWithoutMe = new ArrayList<>();
         for (int cont = 0; cont < clientConnectedList.size(); cont++){
@@ -78,35 +73,20 @@ public class ClientChoiceController implements Initializable {
     }
 
     public void ballMovement(Event event){
-        utilities.playSomeSound(ballShotSound);
+        utilities.playSomeSound(BALLSHOT_SOUND);
         ballImage.setScaleX(1);
         ballImage.setScaleY(1);
         ImageView imageChoosen = (ImageView) event.getTarget();
         Path path = new Path();
         path.getElements().add(new MoveTo(ballImage.getFitWidth() / 2, ballImage.getFitHeight() / 2));
-        if (imageChoosen.getId().equals("imagePlayAGame") || imageChoosen.getId().equals("imageRating")) {
+        if (imageChoosen.getId().equals(IMAGE_PLAYAGAME) || imageChoosen.getId().equals(IMAGE_RATING)) {
             ArcTo arcTo = new ArcTo(50, 50, 100, imageChoosen.getLayoutX() - ballImage.getLayoutX() + anchorPane.getLayoutX() + imageChoosen.getFitWidth() / 2, imageChoosen.getLayoutY() + -ballImage.getLayoutY() + anchorPane.getLayoutY() + imageChoosen.getFitHeight() / 2, false, false);
             path.getElements().add(arcTo);
-            if (imageChoosen.getId().equals("imageRating")){
-                utilities.playSomeSound(goalSound);
-                seeImageContext(ratingBox, anchorPane.lookup("imageRating"));
-            } else {
-                utilities.playSomeSound(goalSound);
-                seeImageContext(clientConnectedListView, anchorPane.lookup("imagePlayAGame"));
-            }
         } else {
-            if (imageChoosen.getId().equals("imagePersonalScoreboard") || imageChoosen.getId().equals("imageWorldScoreboard")){
-                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - ballImage.getLayoutX() + anchorPane.getLayoutX() + imageChoosen.getFitWidth()/2, imageChoosen.getLayoutY() + - ballImage.getLayoutY() + anchorPane.getLayoutY() + imageChoosen.getFitHeight()/2);
-                path.getElements().add(lineTo);
-                if (imageChoosen.getId().equals("imageWorldScoreboard")){
-                    utilities.playSomeSound(goalSound);
-                    seeImageContext(worldScoreboardListView, anchorPane.lookup("imageWorldScoreboard"));
-                } else {
-                    utilities.playSomeSound(goalSound);
-                    seeImageContext(personalScoreboardListView, anchorPane.lookup("imagePersonalScoreboard"));
-                }
-            }
+            LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - ballImage.getLayoutX() + anchorPane.getLayoutX() + imageChoosen.getFitWidth()/2, imageChoosen.getLayoutY() + - ballImage.getLayoutY() + anchorPane.getLayoutY() + imageChoosen.getFitHeight()/2);
+            path.getElements().add(lineTo);
         }
+        selectionOfClient(imageChoosen.getId());
         path.setStrokeWidth(1);
         final PathTransition pathTransition = PathTransitionBuilder.create()
                 .node(ballImage)
@@ -118,6 +98,31 @@ public class ClientChoiceController implements Initializable {
         pathTransition.playFromStart();
         utilities.fadeTransitionEffect(imageChoosen, 1, 0.3f, 1000);
         utilities.scaleTransition(ballImage, 0.5f, 0.5f, 1000);
+    }
+
+    private void selectionOfClient(String idOfImage) {
+        switch (idOfImage) {
+            case (IMAGE_RATING):{
+                utilities.playSomeSound(GOAL_SOUND);
+                seeImageContext(ratingBox, anchorPane.lookup(IMAGE_RATING));
+                break;
+            }
+            case (IMAGE_PLAYAGAME):{
+                utilities.playSomeSound(GOAL_SOUND);
+                seeImageContext(clientConnectedListView, anchorPane.lookup(IMAGE_PLAYAGAME));
+                break;
+            }
+            case (IMAGE_WORLDSCOREBOARD):{
+                utilities.playSomeSound(GOAL_SOUND);
+                seeImageContext(worldScoreboardListView, anchorPane.lookup(IMAGE_WORLDSCOREBOARD));
+                break;
+            }
+            case (IMAGE_PERSONALSCOREBOARD):{
+                utilities.playSomeSound(GOAL_SOUND);
+                seeImageContext(personalScoreboardListView, anchorPane.lookup(IMAGE_PERSONALSCOREBOARD));
+                break;
+            }
+        }
     }
 
     private void seeImageContext(Node node, Node nodeSelected) {
@@ -139,7 +144,6 @@ public class ClientChoiceController implements Initializable {
         utilities.fadeTransitionEffect(nodeToScreen, 0.3f, 1, 1000);
     }
 
-    /** ok */
     //metodo che permette di comunicare il voto dell'applicazione
     public void ratingGame() {
         clientRating = ratingBox.getRating();
@@ -151,15 +155,16 @@ public class ClientChoiceController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("ACCETTA LA SFIDA");
         alert.setHeaderText(null);
-        alert.setContentText("Il giocatore " + information + "ti ha inviato una richiesta di gioco.");
+        alert.setContentText("Il giocatore " + information + " ti ha inviato una richiesta di gioco.");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             main.sendServerOkForPlaying();
         } else {
-            // ... user chose CANCEL or closed the dialog
+            main.sendServerNoForPlaying();
         }
     }
 
+    //getter
     public double getClientRating() {
         return clientRating;
     }

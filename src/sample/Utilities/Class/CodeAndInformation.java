@@ -7,8 +7,6 @@ public class CodeAndInformation implements Serializable{
 
     private String code;
     private String information;
-    private String jsonString;
-    private Gson gson;
 
     public CodeAndInformation(String code, String information) {
         this.code = code;

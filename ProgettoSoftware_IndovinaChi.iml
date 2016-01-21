@@ -10,5 +10,10 @@
     <orderEntry type="library" name="commons-io-2.4" level="project" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="javax.mail:mail:1.4" level="project" />
+    <orderEntry type="library" name="controlsfx-8.40.10" level="project" />
+    <orderEntry type="library" name="TrayNotification" level="project" />
+    <orderEntry type="library" name="jfoenix" level="project" />
+    <orderEntry type="library" name="activation-1.1" level="project" />
+    <orderEntry type="library" name="mysql:mysql-connector-java:5.1.36" level="project" />
   </component>
 </module>

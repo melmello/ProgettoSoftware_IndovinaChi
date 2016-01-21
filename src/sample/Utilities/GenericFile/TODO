@@ -1,23 +1,8 @@
-//TODO gestione della schermata in cui un utente si registra
-//TODO gestione della schermata in cui un utente si logga
-//TODO gestione della porta del client
-//TODO gestione del database user
-//TODO creazione del database sticker
-//TODO controlli vari sulla schermata di login e di registrazione
+TODO:
 
-Grafica:
-//TODO Server da avere 2 descrizioni faccio 1 solo subtitle
-//TODO Server centro interfaccia
-
-//TODO domande costanti
-
-
-Finale progetto:
-//TODO Client centro grafica rispetto fullscreen e windowed
-//TODO Client in fullscreen
-
-
-PROF
-//TODO scenebuilder crash
-//TODO testo autocompletamento
-//TODO evitare uppare git una classe
+- ChooseScreen vedere leaderboard
+- Suoni in ogni schermata
+- Classe per avere più partite in contemporanea
+- Query sullo sticker
+- Selezione del proprio sticker
+- Fine partita

@@ -9,18 +9,15 @@ public final class ConstantCodes {
     public static final String CLIENT_WANTS_TO_SIGNUP = "CLIENT_WANTS_TO_SIGNUP";
     public static final String CLIENT_GIVES_STICKER_INFO = "CLIENT_GIVES_STICKER_INFO";
     public static final String CLIENT_GIVES_QUERY = "CLIENT_GIVES_QUERY";
-    public static final String CLIENT_RECEIVES_NEW_STICLER = "CLIENT_RECEIVES_NEW_STICLER";
-    public static final String CLIENT_CHANGES_STICKER = "CLIENT_CHANGES_STICKER";
     public static final String CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT = "CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT";
     public static final String CLIENT_WANTS_TO_SEND_RATING = "CLIENT_WANTS_TO_SEND_RATING";
     public static final String CLIENT_WANTS_TO_PLAY = "CLIENT_WANTS_TO_PLAY";
     public static final String CLIENT_SAYS_OK_FOR_PLAYING = "CLIENT_SAYS_OK_FOR_PLAYING";
+    public static final String CLIENT_SAYS_NO_FOR_PLAYING = "CLIENT_SAYS_NO_FOR_PLAYING";
 
     //from server to client
     public static final String SERVER_CLIENT_SUCCESSFUL_LOGIN = "SERVER_CLIENT_SUCCESSFUL_LOGIN";
     public static final String SERVER_CLIENT_SUCCESSFUL_SIGNUP = "SERVER_CLIENT_SUCCESSFUL_SIGNUP";
-    public static final String SERVER_RECEIVES_STICKER_INFO = "SERVER_RECEIVES_STICKER_INFO";
-    public static final String SERVER_RECEIVES_QUERY_INFO = "SERVER_RECEIVES_QUERY_INFO";
     public static final String SERVER_SENDS_STICKER_MUST_BE_REMOVED = "SERVER_SENDS_STICKER_MUST_BE_REMOVED";
     public static final String SERVER_CHANGES_ROUND = "SERVER_CHANGES_ROUND";
     public static final String SERVER_SENDS_CONNECTED_CLIENT = "SERVER_SENDS_CONNECTED_CLIENT";
@@ -32,106 +29,111 @@ public final class ConstantCodes {
     public static final String SERVER_CLIENT_ALREADY_IN_THE_DATABASE = "SERVER_CLIENT_ALREADY_IN_THE_DATABASE";
 
     //costanti stringhe per primo e secondo parametro nelle query
-    public static final String name = "name";
-    public static final String surname = "surname";
-    public static final String nickname = "nickname";
-    public static final String hairColorBrown = "hairColorBrown";
-    public static final String hairLenght = "hairLenght";
-    public static final String hairTypeStraight = "hairTypeStraight";
-    public static final String beardColorBrown = "beardColorBrown";
-    public static final String beardLenght = "beardLenght";
-    public static final String beardType = "beardType";
-    public static final String eyesColorBrown = "eyesColorBrown";
-    public static final String noseDimensionBig = "noseDimensionBig";
-    public static final String smile = "smile";
-    public static final String complexionBrown = "complexionBrown";
-    public static final String earrings = "earrings";
-    public static final String glasses = "glasses";
-    public static final String headband = "headband";
-    public static final String mole = "mole";
-    public static final String freckles = "freckles";
-    public static final String nationalShirt = "nationalShirt";
-    public static final String continent = "continent";
-    public static final String championship = "championship";
-    public static final String captainBand = "captainBand";
+    public static final String NAME_FOR_QUERY = "name";
+    public static final String SURNAME_FOR_QUERY = "surname";
+    public static final String NICKNAME_FOR_QUERY = "nickname";
+    public static final String HAIRCOLORBROWN_FOR_QUERY = "hairColorBrown";
+    public static final String HAIRLENGTH_FOR_QUERY = "hairLength";
+    public static final String HAIRTYPESTRAIGHT_FOR_QUERY = "hairTypeStraight";
+    public static final String BEARDCOLORBROWN_FOR_QUERY = "beardColorBrown";
+    public static final String BEARDLENGHT_FOR_QUERY = "beardLength";
+    public static final String BEARDTYPE_FOR_QUERY = "beardType";
+    public static final String EYESCOLORBROWN_FOR_QUERY = "eyesColorBrown";
+    public static final String NOSEDIMENSIONBIG_FOR_QUERY = "noseDimensionBig";
+    public static final String SMILE_FOR_QUERY = "smile";
+    public static final String COMPLEXIONBROWN_FOR_QUERY = "complexionBrown";
+    public static final String EARRINGS_FOR_QUERY = "earrings";
+    public static final String GLASSES_FOR_QUERY = "glasses";
+    public static final String HEADBAND_FOR_QUERY = "headband";
+    public static final String MOLE_FOR_QUERY = "mole";
+    public static final String FRECKLES_FOR_QUERY = "freckles";
+    public static final String NATIONALSHIRT_FOR_QUERY = "nationalShirt";
+    public static final String CONTINENT_FOR_QUERY = "continent";
+    public static final String CHAMPIONSHIP_FOR_QUERY = "championship";
+    public static final String CAPTAINBAND_FOR_QUERY = "captainBand";
 
     //costanti da passare al db
-    public static final String longAnswer = "long";
-    public static final String shortAnswer = "short";
-    public static final String baldAnswer = "bald";
-    public static final String trueAnswer = "true";
-    public static final String falseAnswer = "false";
-    public static final String shavedAnswer = "shaved";
-    public static final String goateeAnswer = "goatee";
-    public static final String mustacheAnswer = "mustache";
-    public static final String wholeAnswer = "whole";
-    public static final String europeAnswer = "europe";
-    public static final String americaAnswer = "america";
-    public static final String asiaAnswer = "asia";
-    public static final String serieaAnswer = "serieA";
-    public static final String premierAnswer = "premier";
-    public static final String ligueAnswer = "ligue";
-    public static final String bbvaAnswer = "bbva";
-    public static final String ligaAnswer = "liga";
-
+    public static final String LONGANSWER_FOR_QUERY = "long";
+    public static final String SHORTANSWER_FOR_QUERY = "short";
+    public static final String BALDANSWER_FOR_QUERY = "bald";
+    public static final String TRUEANSWER_FOR_QUERY = "true";
+    public static final String FALSEANSWER_FOR_QUERY = "false";
+    public static final String SHAVEDANSWER_FOR_QUERY = "shaved";
+    public static final String GOATEEANSWER_FOR_QUERY = "goatee";
+    public static final String MUSTACHEANSWER_FOR_QUERY = "mustache";
+    public static final String WHOLEANSWER_FOR_QUERY = "whole";
+    public static final String EUROPEANSWER_FOR_QUERY = "europe";
+    public static final String AMERICAANSWER_FOR_QUERY = "america";
+    public static final String ASIAANSWER_FOR_QUERY = "asia";
+    public static final String SERIEAANSWER_FOR_QUERY = "serieA";
+    public static final String PREMIERANSWER_FOR_QUERY = "premier";
+    public static final String LIGUEANSWER_FOR_QUERY = "ligue";
+    public static final String BBVAANSWER_FOR_QUERY = "bbva";
+    public static final String LIGAANSWER_FOR_QUERY = "liga";
 
     //costanti stringhe per database user
-    public static final String username = "username";
-    public static final String password = "password";
+    public static final String USERNAME_FOR_QUERY = "username";
+    public static final String PASSWORD_FOR_QUERY = "password";
 
     //path client
-    public static final String loginScreenFXML = "/sample/Client/ClientFXML/ClientLoginScreen.fxml";
-    public static final String loginScreenIcon = "/sample/Client/ClientImage/Icona.png";
-    public static final String loginScreenCSS = "/sample/Client/ClientCSS/ClientLoginScreen.css";
-    public static final String choiceScreenFXML = "/sample/Client/ClientFXML/ClientChoiceScreen.fxml";
-    public static final String choiceScreenIcon = "/sample/Client/ClientImage/Icona.png";
-    public static final String choiceScreenCSS = "/sample/Client/ClientCSS/ClientChoiceScreen.css";
-    public static final String gameScreenFXML = "/sample/Client/ClientFXML/ClientGameScreen.fxml";
-    public static final String gameScreenIcon = "/sample/Client/ClientImage/Icona.png";
-    public static final String gameScreenCSS = choiceScreenCSS;
-    public static final String notificationIcon = choiceScreenIcon;
+    public static final String LOGINSCREEN_FXML = "/sample/Client/ClientFXML/ClientLoginScreen.fxml";
+    public static final String LOGINSCREEN_ICON = "/sample/Client/ClientImage/IndovinaChi.png";
+    public static final String LOGINSCREEN_CSS = "/sample/Client/ClientCSS/ClientLoginScreen.css";
+    public static final String CHOICESCREEN_FXML = "/sample/Client/ClientFXML/ClientChoiceScreen.fxml";
+    public static final String CHOICESCREEN_ICON = LOGINSCREEN_ICON;
+    public static final String CHOICESCREEN_CSS = "/sample/Client/ClientCSS/ClientChoiceScreen.css";
+    public static final String GAMESCREEN_FXML = "/sample/Client/ClientFXML/ClientGameScreen.fxml";
+    public static final String GAMESCREEN_ICON = CHOICESCREEN_ICON;
+    public static final String GAMESCREEN_CSS = CHOICESCREEN_CSS;
+    public static final String NOTIFICATION_ICON = CHOICESCREEN_ICON;
 
     //path server
-    public static final String startingScreenFXML = "/sample/Server/ServerFXML/ServerStartingScreen.fxml";
-    public static final String startingScreenIcon = "/sample/Server/ServerImage/Icona.png";
-    public static final String startingScreenCSS = "/sample/Server/ServerCSS/ServerStartingScreen.css";
-    public static final String clientCounterScreenFXML = "/sample/Server/ServerFXML/ServerClientCounterScreen.fxml";
-    public static final String clientCounterScreenIcon = "/sample/Server/ServerImage/IconaClient.png";
-    public static final String clientCounterScreenCSS = "/sample/Server/ServerCSS/ServerClientCounterScreen.css";
+    public static final String STARTINGSCREEN_FXML = "/sample/Server/ServerFXML/ServerStartingScreen.fxml";
+    public static final String STARTINGSCREEN_ICON = "/sample/Server/ServerImage/Icona.png";
+    public static final String STARTINGSCREEN_CSS = "/sample/Server/ServerCSS/ServerStartingScreen.css";
+    public static final String CLIENTCOUNTERSCREEN_FXML = "/sample/Server/ServerFXML/ServerClientCounterScreen.fxml";
+    public static final String CLIENTCOUNTERSCREEN_ICON = "/sample/Server/ServerImage/IconaClient.png";
+    public static final String CLIENTCOUNTERSCREEN_CSS = "/sample/Server/ServerCSS/ServerClientCounterScreen.css";
 
     //database utility
-    public static final String driverMySql = "com.mysql.jdbc.Driver";
-    public static final String urlConnection = "jdbc:mysql://localhost:3306/indovinachi?useSSL=false";
+    public static final String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
+    public static final String CONNECTION_URL_MYSQL = "jdbc:mysql://localhost:3306/indovinachi?useSSL=false";
 
     //server utility
-    public static final int assignedPort = 8080;
-    public static final String localhost = "localhost";
+    public static final int ASSIGNED_PORT_SOCKET = 8080;
+    public static final String ASSIGNED_IP_SOCKET = "localhost";
 
     //comboBox utility
-    public static final String lenghtCB = "Lunghezza";
-    public static final String colorCB = "Colore";
-    public static final String typeCB = "Tipo";
-    public static final String eyesColorCB = "Colore degli occhi";
-    public static final String noseDimensionCB = "Dimensione del naso";
-    public static final String smileCB = "Sorriso";
-    public static final String complexionCB = "Carnagione";
-    public static final String earringsCB = "Orecchini";
-    public static final String glassesCB = "Occhiali";
-    public static final String headbandCB = "Fascia per capelli";
-    public static final String moleCB = "Nei";
-    public static final String frecklesCB = "Lentiggini";
-    public static final String nationalShirtCB = "Maglia della nazionale";
-    public static final String continentCB = "Continente della maglia";
-    public static final String championshipCB = "Campionato della maglia";
-    public static final String captainBandCB = "Fascia da capitano";
+    public static final String LENGHT_COMBO_BOX = "Lunghezza";
+    public static final String COLOR_COMBO_BOX = "Colore";
+    public static final String TYPE_COMBO_BOX = "Tipo";
+    public static final String EYESCOLOR_COMBO_BOX = "Colore degli occhi";
+    public static final String NOSEDIMENSION_COMBO_BOX = "Dimensione del naso";
+    public static final String SMILE_COMBO_BOX = "Sorriso";
+    public static final String COMPLEXION_COMBO_BOX = "Carnagione";
+    public static final String EARRINGS_COMBO_BOX = "Orecchini";
+    public static final String GLASSES_COMBO_BOX = "Occhiali";
+    public static final String HEADBAND_COMBO_BOX = "Fascia per capelli";
+    public static final String MOLE_COMBO_BOX = "Nei";
+    public static final String FRECKLES_COMBO_BOX = "Lentiggini";
+    public static final String NATIONALSHIRT_COMBO_BOX = "Maglia della nazionale";
+    public static final String CONTINENT_COMBO_BOX = "Continente della maglia";
+    public static final String CHAMPIONSHIP_COMBO_BOX = "Campionato della maglia";
+    public static final String CAPTAINBAND_COMBO_BOX = "Fascia da capitano";
 
     //text per notifica
-    public static final String indovinaChiText = "Indovina Chi";
+    public static final String NOTIFICATION_TEXT = "Indovina Chi";
 
     //path per i suoni
-    public static final String buttonClickSound = "/sample/Utilities/Sound/ButtonClick.wav";
-    public static final String goalSound = "/sample/Utilities/Sound/Goal.wav";
-    public static final String ballShotSound = "/sample/Utilities/Sound/BallShot.wav";
+    public static final String BUTTONCLICK_SOUND = "/sample/Utilities/Sound/ButtonClick.wav";
+    public static final String GOAL_SOUND = "/sample/Utilities/Sound/Goal.wav";
+    public static final String BALLSHOT_SOUND = "/sample/Utilities/Sound/BallShot.wav";
+
+    //nomi immagini
+    public static final String IMAGE_PLAYAGAME = "imagePlayAGame";
+    public static final String IMAGE_RATING = "imageRating";
+    public static final String IMAGE_PERSONALSCOREBOARD = "imagePersonalScoreboard";
+    public static final String IMAGE_WORLDSCOREBOARD = "imageWorldScoreboard";
 
     //metodo costruito per le eccezioni
     private ConstantCodes(){

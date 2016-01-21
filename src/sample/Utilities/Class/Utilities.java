@@ -1,6 +1,5 @@
 package sample.Utilities.Class;
 
-import static sample.Utilities.Class.ConstantCodes.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
@@ -10,6 +9,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 public class Utilities {
+
+    public Utilities() {
+    }
 
     public void playSomeSound(String path){
         try{
@@ -39,18 +41,6 @@ public class Utilities {
         scaleTransition.setToX(toValueX);
         scaleTransition.setToY(toValueY);
         scaleTransition.playFromStart();
-        /*
-        scaleTransition.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                imageView.setVisible(false);
-            }
-        });
-         */
     }
-
-    public Utilities() {
-    }
-
 
 }

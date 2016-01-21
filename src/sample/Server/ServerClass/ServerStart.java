@@ -37,13 +37,13 @@ public class ServerStart extends Task {
     protected Object call() throws Exception {
         System.out.println("Il server è connesso");//se sono qui vuol dire che si è connesso il server e ha generato un thread
         try {
-            socketExchange = new ServerSocket(assignedPort);//istanzio il socket sulla tal porta su cui comunicherò
-            Class.forName(driverMySql).newInstance();
-            connection = DriverManager.getConnection(urlConnection, mySQLUsername, mySQLPassword);//mi collego al database
+            socketExchange = new ServerSocket(ASSIGNED_PORT_SOCKET);//istanzio il socket sulla tal porta su cui comunicherò
+            Class.forName(DRIVER_MYSQL).newInstance();
+            connection = DriverManager.getConnection(CONNECTION_URL_MYSQL, mySQLUsername, mySQLPassword);//mi collego al database
             System.out.println("Database connesso");
             assignedIp = Inet4Address.getLocalHost().getHostAddress();//ricavo l'IP globale del Server per stamparlo poi
             main.initialConfiguration(assignedIp); //chiamo il metodo che mi permette di collegarmi al Controller
-            System.out.println("Sono il Server.\nIl mio indirizzo IP è: " + assignedIp + "\nLa mia porta è: " + assignedPort);
+            System.out.println("Sono il Server.\nIl mio indirizzo IP è: " + assignedIp + "\nLa mia porta è: " + ASSIGNED_PORT_SOCKET);
             main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
             while (true) {//while true del Thread in cui istanzia un thread per ogni client che si connette
                 Socket serverSocket = socketExchange.accept();
@@ -59,17 +59,15 @@ public class ServerStart extends Task {
 
     //metodo per il cambio di turno
     public void changingRoundOfClient(int positionInArrayList){
-        threadsArrayList.get((positionInArrayList + 1) % 2).getWriter().println(SERVER_CHANGES_ROUND);
+        threadsArrayList.get((positionInArrayList + 1) % 2).getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
     }
-
 
     public void setOpponentSticker(Sticker mySticker, int positionInArrayList) {
         threadsArrayList.get((positionInArrayList + 1) % 2).setOpponentSticker(mySticker);
     }
 
     public void startGameWithRandomChoice(boolean numberOfFirstPlayer) {
-        System.out.println(castingBooleanToInt(numberOfFirstPlayer));
-        threadsArrayList.get(castingBooleanToInt(numberOfFirstPlayer)).getWriter().println(SERVER_CHANGES_ROUND);
+        threadsArrayList.get(castingBooleanToInt(numberOfFirstPlayer)).getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
     }
 
     public int castingBooleanToInt(Boolean myBoolean){
@@ -77,13 +75,11 @@ public class ServerStart extends Task {
         return myInt;
     }
 
-    /** ok */
     public void insertNameInArrayList(String userSQLName) {
         System.out.println(userSQLName);
         listOfClientConnected.add(userSQLName);
     }
 
-    /** ok */
     public void removeClientDisconnected(String usernameDisconnected) {
         listOfClientConnected.remove(usernameDisconnected);
         for (int counter = 0; counter < threadsArrayList.size(); counter++){
@@ -95,8 +91,6 @@ public class ServerStart extends Task {
         System.out.println("Il client " + usernameDisconnected + " si è disconnesso");
     }
 
-
-    /** ok */
     public void refreshClientConnected(String usernameConnected) {
         main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
         //if (threadsArrayList.size() != 1) {
@@ -110,7 +104,6 @@ public class ServerStart extends Task {
         //}
     }
 
-    /** ok */
     public void sendRating(Double clientRating, String clientUsername) {
         final String username = googleMail;
         final String password = googlePassword;
@@ -141,7 +134,6 @@ public class ServerStart extends Task {
         }
     }
 
-    /** ok */
     public void removeClientDisconnectedFromLoginScreen() {
         System.out.println("Un client non ha loggato: è uscito dalla schermata di login");
     }
@@ -164,17 +156,18 @@ public class ServerStart extends Task {
             }
         }
         for(int cont = 0; cont < threadsPlaying.size(); cont++){
-            threadsPlaying.get(cont).getWriter().println(SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN);
+            threadsPlaying.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN, null));
         }
+    }
+
+    //TODO
+    public void cancelTheGame(String information) {
+
     }
 
     //getter
     public ArrayList<String> getListOfClientConnected() {
         return listOfClientConnected;
-    }
-
-    public ArrayList<ServerThread> getThreadsPlaying() {
-        return threadsPlaying;
     }
 
 }

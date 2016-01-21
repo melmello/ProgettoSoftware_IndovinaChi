@@ -66,7 +66,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
 
     //metodo per creare un nuovo account
     public void confirmLoginScreen(){
-        utilities.playSomeSound(buttonClickSound);
+        utilities.playSomeSound(BUTTONCLICK_SOUND);
         if (textWithUsername.getText().isEmpty() || textWithPassword.getText().isEmpty()){ //se ho lasciato qualche campo vuoto mi fermo
             main.notification("Dati non corretti");
         } else {
@@ -76,7 +76,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
 
     //metodo che permette ad un utente nuovo di creare il proprio account
     public void newUserLogin (){
-        utilities.playSomeSound(buttonClickSound);
+        utilities.playSomeSound(BUTTONCLICK_SOUND);
         if (textWithUsername.getText().isEmpty() || textWithPassword.getText().isEmpty()) { //se ho lasciato qualche campo vuoto mi fermo
             main.notification("Dati non corretti");
         } else {
@@ -90,7 +90,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
 
     //metodo per settare la schermata di login nel caso in cui sia NEW USER o LOGIN
     public void setNewUserScreen(){
-        utilities.playSomeSound(buttonClickSound);
+        utilities.playSomeSound(BUTTONCLICK_SOUND);
         if(loginNewUser==true){
             labelLoginTitle.setText("NEW USER");
             buttonUserScreen.setText("HAI GIA' UN ACCOUNT?");
