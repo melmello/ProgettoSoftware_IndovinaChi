@@ -46,7 +46,7 @@ public class ServerThread extends Thread{
                 gson = new Gson();
                 String code = reader.readLine();
                 codeAndInformation = gson.fromJson(code, CodeAndInformation.class);
-                System.out.println(codeAndInformation.getCode());
+                System.out.println(codeAndInformation.getCode() + " -> CODE");
                 switch (codeAndInformation.getCode()){
                     //Il client manda il segnale che si è disconesso.
                     case (CLIENT_DISCONNECTING):{
@@ -97,12 +97,21 @@ public class ServerThread extends Thread{
                         serverStart.cancelTheGame(codeAndInformation.getInformation());
                         break;
                     }
+                    case (CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT_FOR_THE_FIRST_TIME):{
+                        serverStart.refreshClientConnectedForTheFirstTime(codeAndInformation.getInformation());
+                        break;
+                    }
+                    case (CLIENT_GIVES_QUERY_FOR_STICKER):{
+                        readyToKnowQuerySticker(codeAndInformation.getInformation());
+                        break;
+                    }
                 }
             }
         } catch (IOException e){
             e.printStackTrace();
         }
     }
+
 
     private void readyToReceiveOtherClientName(String information) {
         serverStart.sendingRequest(information, getUser().getUserUsername());
@@ -111,6 +120,12 @@ public class ServerThread extends Thread{
     private void communicateClientRating(String information) {
         System.out.println(information + " è il voto dello user " + getUser().getUserUsername());
         serverStart.sendRating(Double.parseDouble(information), getUser().getUserUsername());
+    }
+
+    private void readyToKnowQuerySticker(String information) {
+        if(opponentSticker.getNicknameOfSticker().equals(information)){
+            serverStart.swapGameArrayList(user.getUserUsername());
+        }
     }
 
     //il server è pronto per ricevere la query dal client (il gson con parametri)
@@ -272,7 +287,7 @@ public class ServerThread extends Thread{
                 }
                 break;
             }
-            case (BEARDLENGHT_FOR_QUERY): {
+            case (BEARDLENGTH_FOR_QUERY): {
                 if (opponentSticker.getBeardLengthOfSticker().equals(stickerQuery.getSecondParameter())) {
                     choice = true;
                     settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
@@ -290,7 +305,7 @@ public class ServerThread extends Thread{
         ResultSet resultSet;
         try {
             Statement statement = connection.createStatement();
-            if (choice == true) {
+            if (choice) {
                 resultSet = statement.executeQuery("SELECT * FROM stickers WHERE " + firstParameter + " != '" + secondParameter + "'");//faccio la query con il nome ricevuto per creare la figurina
             } else {
                 resultSet = statement.executeQuery("SELECT * FROM stickers WHERE " + firstParameter + " = '" + secondParameter + "'");//faccio la query con il nome ricevuto per creare la figurina
@@ -301,7 +316,7 @@ public class ServerThread extends Thread{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(sqlNicknameToBeRemoved);
+        System.out.println(sqlNicknameToBeRemoved + " -> sqlNicknameToBeRemoved");
         gson = new Gson();
         String nicknameGson = gson.toJson(sqlNicknameToBeRemoved);
         writer.println(CodeAndInformation.serializeToJson(SERVER_SENDS_STICKER_MUST_BE_REMOVED, nicknameGson));
@@ -311,7 +326,7 @@ public class ServerThread extends Thread{
     //creo la query con due parametri, uno stringa e uno booleano e cerco = o ! non più in questo metodo ma nella chiamata
     private void settingQueryBooleanType(String firstParameter, Boolean secondParameter){
         try {
-            System.out.println(secondParameter);
+            System.out.println(secondParameter + " -> secondParameter");
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM stickers WHERE " + firstParameter + " != " + secondParameter + " || " + firstParameter + " IS NULL ");//faccio la query con il nome ricevuto per creare la figurina
             while(resultSet.next()){
@@ -320,7 +335,7 @@ public class ServerThread extends Thread{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(sqlNicknameToBeRemoved);
+        System.out.println(sqlNicknameToBeRemoved + " -> sqlNicknameToBeRemoved");
         gson = new Gson();
         String nicknameGson = gson.toJson(sqlNicknameToBeRemoved);
         writer.println(CodeAndInformation.serializeToJson(SERVER_SENDS_STICKER_MUST_BE_REMOVED, nicknameGson));
@@ -338,10 +353,10 @@ public class ServerThread extends Thread{
     //metodo che serve per sapere che sticker ha scelto l'utente
     private void readyToKnowStickerInfo(String information) {
         try {
-            System.out.println(information);
+            System.out.println(information + " -> information");
             String stickerName = FilenameUtils.getName(information);//prendo l'ultima parte del path
             stickerName = FilenameUtils.removeExtension(stickerName);//tolgo l'estensione
-            System.out.println(stickerName);
+            System.out.println(stickerName + " -> stickerName");
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM stickers WHERE nickname='" + stickerName + "'");//faccio la query con il nome ricevuto per creare la figurina
             mySticker = new Sticker(null);//creo un elemento sticker vuoto
@@ -367,9 +382,9 @@ public class ServerThread extends Thread{
                 mySticker.setNoseDimensionBigOfSticker(resultSet.getBoolean(NOSEDIMENSIONBIG_FOR_QUERY));
                 mySticker.setSmileOfSticker(resultSet.getBoolean(SMILE_FOR_QUERY));
                 mySticker.setHairTypeStraightOfSticker(resultSet.getBoolean(HAIRTYPESTRAIGHT_FOR_QUERY));
-                mySticker.setBeardLengthOfSticker(resultSet.getString(BEARDLENGHT_FOR_QUERY));
+                mySticker.setBeardLengthOfSticker(resultSet.getString(BEARDLENGTH_FOR_QUERY));
             }
-            System.out.println(mySticker);
+            System.out.println(mySticker + " -> mySticker");
             serverStart.setOpponentSticker(mySticker, positionInArrayList);
             changeFirstPlayerInGame();
         } catch (SQLException e) {
@@ -411,7 +426,7 @@ public class ServerThread extends Thread{
         Boolean userAlreadyLoggedBoolean = false;
         try {
             user = gson.fromJson(information, User.class);
-            System.out.println(user);
+            System.out.println(user + " -> user");
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE username='" + user.getUserUsername() + "' AND password='" + user.getUserPassword() + "'");
             while (resultSet.next()) {
@@ -423,15 +438,13 @@ public class ServerThread extends Thread{
                     userAlreadyLoggedBoolean = true;
                 }
             }
-            if (userSQLName != null && userSQLPassword != null && userAlreadyLoggedBoolean == false) {
+            if (userSQLName != null && userSQLPassword != null && !userAlreadyLoggedBoolean) {
                 System.out.println("Utente di nome " + user.getUserUsername() + " e password " + user.getUserPassword() + " trovato\nLogin effettuato con successo");
                 writer.println(CodeAndInformation.serializeToJson(SERVER_CLIENT_SUCCESSFUL_LOGIN, null));
                 serverStart.insertNameInArrayList(user.getUserUsername());
-                if(serverStart.getListOfClientConnected().size() > 1) {
-                    serverStart.refreshClientConnected(user.getUserUsername());
-                }
+                serverStart.refreshClientConnected(user.getUserUsername());
             } else {
-                if (userAlreadyLoggedBoolean == false) {
+                if (!userAlreadyLoggedBoolean) {
                     System.out.println("Utente " + user.getUserUsername() + "non trovato");
                     writer.println(CodeAndInformation.serializeToJson(SERVER_CLIENT_NOT_FOUND, user.getUserUsername()));
                 } else {

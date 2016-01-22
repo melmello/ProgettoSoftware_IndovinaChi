@@ -1,13 +1,14 @@
 package sample.Utilities.Class;
 
+import sample.Server.ServerClass.ServerThread;
 import java.io.Serializable;
 
 public class Game implements Serializable{
 
-    private String player1;
-    private String player2;
+    private ServerThread player1;
+    private ServerThread player2;
 
-    public Game(String player1, String player2) {
+    public Game(ServerThread player1, ServerThread player2) {
         this.player1 = player1;
         this.player2 = player2;
     }
@@ -23,20 +24,19 @@ public class Game implements Serializable{
                 '}';
     }
 
-    public String getPlayer1() {
+    public ServerThread getPlayer1() {
         return player1;
     }
 
-    public void setPlayer1(String player1) {
+    public void setPlayer1(ServerThread player1) {
         this.player1 = player1;
     }
 
-    public String getPlayer2() {
+    public ServerThread getPlayer2() {
         return player2;
     }
 
-    public void setPlayer2(String player2) {
+    public void setPlayer2(ServerThread player2) {
         this.player2 = player2;
     }
-
 }

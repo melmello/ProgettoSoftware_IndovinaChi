@@ -38,6 +38,7 @@ public class ClientGameController implements Initializable {
     public static final ObservableList informationPossibility = FXCollections.observableArrayList();
     @FXML ImageView stickerImage;
     @FXML ImageView myStickerImage;
+    @FXML ImageView hisStickerImage;
     @FXML JFXToggleButton enableChangingSticker;
     @FXML JFXComboBox<String> hairComboBox;
     @FXML JFXComboBox<String> beardComboBox;
@@ -50,8 +51,8 @@ public class ClientGameController implements Initializable {
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        hairPossibility.addAll(LENGHT_COMBO_BOX, COLOR_COMBO_BOX, TYPE_COMBO_BOX);
-        beardPossibility.addAll(LENGHT_COMBO_BOX, COLOR_COMBO_BOX, TYPE_COMBO_BOX);
+        hairPossibility.addAll(LENGTH_COMBO_BOX, COLOR_COMBO_BOX, TYPE_COMBO_BOX);
+        beardPossibility.addAll(LENGTH_COMBO_BOX, COLOR_COMBO_BOX, TYPE_COMBO_BOX);
         facePossibility.addAll(EYESCOLOR_COMBO_BOX, NOSEDIMENSION_COMBO_BOX, SMILE_COMBO_BOX, COMPLEXION_COMBO_BOX);
         accessoriesPossibility.addAll(EARRINGS_COMBO_BOX, GLASSES_COMBO_BOX, HEADBAND_COMBO_BOX, MOLE_COMBO_BOX, FRECKLES_COMBO_BOX);
         informationPossibility.addAll(NATIONALSHIRT_COMBO_BOX, CONTINENT_COMBO_BOX, CHAMPIONSHIP_COMBO_BOX, CAPTAINBAND_COMBO_BOX);
@@ -106,7 +107,7 @@ public class ClientGameController implements Initializable {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if (observable.getValue().intValue() != -1) {
                     switch (hairPossibility.get(observable.getValue().intValue()).toString()) {
-                        case (LENGHT_COMBO_BOX): {
+                        case (LENGTH_COMBO_BOX): {
                             questionCanBeChoosenArray.clear();
                             questionToSendToServer.clear();
                             questionCanBeChoosenArray.addAll(Arrays.asList("Ha i capelli lunghi?", "Ha i capelli corti?", "E' pelato?"));
@@ -146,14 +147,14 @@ public class ClientGameController implements Initializable {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if (observable.getValue().intValue() != -1) {
                     switch (beardPossibility.get(observable.getValue().intValue()).toString()) {
-                        case (LENGHT_COMBO_BOX): {
+                        case (LENGTH_COMBO_BOX): {
                             questionCanBeChoosenArray.clear();
                             questionToSendToServer.clear();
                             questionCanBeChoosenArray.addAll(Arrays.asList("Ha la barba lunga?", "Ha la barba corta?", "E' rasato?"));
                             questionToSendToServer.addAll(Arrays.asList(LONGANSWER_FOR_QUERY, SHORTANSWER_FOR_QUERY, SHAVEDANSWER_FOR_QUERY));
                             questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
                             setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
-                            firstParameter = BEARDLENGHT_FOR_QUERY;
+                            firstParameter = BEARDLENGTH_FOR_QUERY;
                             break;
                         }
                         case (COLOR_COMBO_BOX): {
@@ -346,6 +347,9 @@ public class ClientGameController implements Initializable {
 
     public void chooseYourSticker(Event event) {
         stickerImage = (ImageView) event.getTarget();
+
+
+
         stickerImage.setOnDragDetected(new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
             /* drag was detected, start drag-and-drop gesture*/
@@ -363,14 +367,14 @@ public class ClientGameController implements Initializable {
         });
 
 
-        stickerImage.setOnDragOver(new EventHandler <DragEvent>() {
+        myStickerImage.setOnDragOver(new EventHandler <DragEvent>() {
             public void handle(DragEvent event) {
                 /* data is dragged over the target */
                 System.out.println("onDragOver");
 
                 /* accept it only if it is  not dragged from the same node
                  * and if it has a string data */
-                if (event.getGestureSource() != stickerImage &&
+                if (event.getGestureSource() != myStickerImage &&
                         event.getDragboard().hasString()) {
                     /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
@@ -380,29 +384,27 @@ public class ClientGameController implements Initializable {
             }
         });
 
-        stickerImage.setOnDragEntered(new EventHandler <DragEvent>() {
+        myStickerImage.setOnDragEntered(new EventHandler <DragEvent>() {
             public void handle(DragEvent event) {
                 /* the drag-and-drop gesture entered the target */
                 System.out.println("onDragEntered");
                 /* show to the user that it is an actual gesture target */
-                if (event.getGestureSource() != stickerImage &&
+                if (event.getGestureSource() != myStickerImage &&
                         event.getDragboard().hasString()) {
-
                 }
 
                 event.consume();
             }
         });
 
-        stickerImage.setOnDragExited(new EventHandler <DragEvent>() {
+        myStickerImage.setOnDragExited(new EventHandler <DragEvent>() {
             public void handle(DragEvent event) {
                 /* mouse moved away, remove the graphical cues */
-
                 event.consume();
             }
         });
 
-        stickerImage.setOnDragDropped(new EventHandler <DragEvent>() {
+        myStickerImage.setOnDragDropped(new EventHandler <DragEvent>() {
             public void handle(DragEvent event) {
                 /* data dropped */
                 System.out.println("onDragDropped");
@@ -435,7 +437,7 @@ public class ClientGameController implements Initializable {
     }
 
     //metodo che permettere di scegliere il proprio Sticker con cui giocare
-    public void chooseYourStickera(Event event) {
+    public void chooseYourStickerFirstVersion(Event event) {
         stickerImage = (ImageView) event.getTarget();
         myStickerImage.setImage(stickerImage.getImage());
         if (!enableChangingSticker.isSelected()) {
@@ -468,6 +470,11 @@ public class ClientGameController implements Initializable {
     public void abilitateMaskerPane() {
         maskerPaneWaitingOtherPlayerChoice.setVisible(true);
         disableForChangingRound(true);
+    }
+
+    // TODO: 23/01/2016 fare parte movimento con set image e set id
+    public void clientWantsToQuerySticker(){
+        main.clientWantsToQuerySticker(hisStickerImage.getId());
     }
 
     public void disableForChangingRound(Boolean bool){

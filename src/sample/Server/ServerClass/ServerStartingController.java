@@ -50,7 +50,7 @@ public class ServerStartingController implements Initializable{//così posso imp
                 main.openNewWindow();//aprire un nuovo popup
                 textWithServerPort.setEditable(false);
             } catch (NumberFormatException e) {//il testo contiene caratteri diversi da quelli accettati
-                System.out.println(e + ": errore sulla digitazione");
+                e.printStackTrace();
             }
         }
     }

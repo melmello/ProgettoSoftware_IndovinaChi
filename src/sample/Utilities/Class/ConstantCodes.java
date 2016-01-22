@@ -10,10 +10,12 @@ public final class ConstantCodes {
     public static final String CLIENT_GIVES_STICKER_INFO = "CLIENT_GIVES_STICKER_INFO";
     public static final String CLIENT_GIVES_QUERY = "CLIENT_GIVES_QUERY";
     public static final String CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT = "CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT";
+    public static final String CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT_FOR_THE_FIRST_TIME = "CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT_FOR_THE_FIRST_TIME";
     public static final String CLIENT_WANTS_TO_SEND_RATING = "CLIENT_WANTS_TO_SEND_RATING";
     public static final String CLIENT_WANTS_TO_PLAY = "CLIENT_WANTS_TO_PLAY";
     public static final String CLIENT_SAYS_OK_FOR_PLAYING = "CLIENT_SAYS_OK_FOR_PLAYING";
     public static final String CLIENT_SAYS_NO_FOR_PLAYING = "CLIENT_SAYS_NO_FOR_PLAYING";
+    public static final String CLIENT_GIVES_QUERY_FOR_STICKER = "CLIENT_GIVES_QUERY_FOR_STICKER";
 
     //from server to client
     public static final String SERVER_CLIENT_SUCCESSFUL_LOGIN = "SERVER_CLIENT_SUCCESSFUL_LOGIN";
@@ -22,11 +24,16 @@ public final class ConstantCodes {
     public static final String SERVER_CHANGES_ROUND = "SERVER_CHANGES_ROUND";
     public static final String SERVER_SENDS_CONNECTED_CLIENT = "SERVER_SENDS_CONNECTED_CLIENT";
     public static final String SERVER_REFRESHES_CONNECTED_CLIENT = "SERVER_REFRESHES_CONNECTED_CLIENT";
+    public static final String SERVER_REFRESHES_CONNECTED_CLIENT_FOR_THE_FIRST_TIME = "SERVER_REFRESHES_CONNECTED_CLIENT_FOR_THE_FIRST_TIME";
     public static final String SERVER_CLIENT_NOT_FOUND = "SERVER_CLIENT_NOT_FOUND";
     public static final String SERVER_RECEIVED_GAME_REQUEST = "SERVER_RECEIVED_GAME_REQUEST";
     public static final String SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN = "SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN";
     public static final String SERVER_CLIENT_ALREADY_LOGGED = "SERVER_CLIENT_ALREADY_LOGGED";
     public static final String SERVER_CLIENT_ALREADY_IN_THE_DATABASE = "SERVER_CLIENT_ALREADY_IN_THE_DATABASE";
+    public static final String SERVER_FORBIDS_THE_GAME = "SERVER_FORBIDS_THE_GAME";
+    public static final String SERVER_REFRESHES_IN_GAME_CLIENT = "SERVER_REFRESHES_IN_GAME_CLIENT";
+    public static final String SERVER_HAPPY_FOR_YOUR_WIN = "SERVER_HAPPY_FOR_YOUR_WIN";
+    public static final String SERVER_SAD_FOR_YOUR_DEFEAT = "SERVER_SAD_FOR_YOUR_DEFEAT";
 
     //costanti stringhe per primo e secondo parametro nelle query
     public static final String NAME_FOR_QUERY = "name";
@@ -36,7 +43,7 @@ public final class ConstantCodes {
     public static final String HAIRLENGTH_FOR_QUERY = "hairLength";
     public static final String HAIRTYPESTRAIGHT_FOR_QUERY = "hairTypeStraight";
     public static final String BEARDCOLORBROWN_FOR_QUERY = "beardColorBrown";
-    public static final String BEARDLENGHT_FOR_QUERY = "beardLength";
+    public static final String BEARDLENGTH_FOR_QUERY = "beardLength";
     public static final String BEARDTYPE_FOR_QUERY = "beardType";
     public static final String EYESCOLORBROWN_FOR_QUERY = "eyesColorBrown";
     public static final String NOSEDIMENSIONBIG_FOR_QUERY = "noseDimensionBig";
@@ -104,7 +111,7 @@ public final class ConstantCodes {
     public static final String ASSIGNED_IP_SOCKET = "localhost";
 
     //comboBox utility
-    public static final String LENGHT_COMBO_BOX = "Lunghezza";
+    public static final String LENGTH_COMBO_BOX = "Lunghezza";
     public static final String COLOR_COMBO_BOX = "Colore";
     public static final String TYPE_COMBO_BOX = "Tipo";
     public static final String EYESCOLOR_COMBO_BOX = "Colore degli occhi";

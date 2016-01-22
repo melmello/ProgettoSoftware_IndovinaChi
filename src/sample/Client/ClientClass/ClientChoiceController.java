@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.ArcTo;
@@ -34,6 +35,7 @@ public class ClientChoiceController implements Initializable {
     @FXML JFXListView<String> personalScoreboardListView;
     @FXML JFXListView<String> worldScoreboardListView;
     @FXML JFXListView<String> clientConnectedListView;
+    @FXML JFXListView<String> clientInGameListView;
     @FXML ImageView ballImage;
     @FXML Rating ratingBox;
 
@@ -43,12 +45,19 @@ public class ClientChoiceController implements Initializable {
         personalScoreboardListView.setVisible(false);
         worldScoreboardListView.setVisible(false);
         clientConnectedListView.setVisible(false);
+        clientInGameListView.setVisible(false);
         ratingBox.setVisible(false);
     }
 
     //metodo che serve per far conoscere main e controller
     public void setMain(ClientMain main) {
         this.main = main;
+    }
+
+    public void displayClientInGame(ArrayList<String> clientInGameList){
+        ObservableList<String> clientInGameObs = FXCollections.observableArrayList(clientInGameList);
+        clientInGameListView.setItems(clientInGameObs);
+        setListViewHeight(clientInGameList, clientInGameListView);
     }
 
     public void displayClientConnected(ArrayList<String> clientConnectedList) {
@@ -60,16 +69,16 @@ public class ClientChoiceController implements Initializable {
         }
         ObservableList<String> clientConnectedObsWithoutMe = FXCollections.observableArrayList(clientConnectedListWithoutMe);
         clientConnectedListView.setItems(clientConnectedObsWithoutMe);
-        setListViewHeight(clientConnectedListWithoutMe);
+        setListViewHeight(clientConnectedListWithoutMe, clientConnectedListView);
     }
 
-    private void setListViewHeight(ArrayList<String> clientConnectedListWithoutMe) {
-        clientConnectedListView.setPrefHeight((clientConnectedListWithoutMe.size()+4)*17);
+    private void setListViewHeight(ArrayList<String> clientConnectedListWithoutMe, ListView<String> listView) {
+        listView.setPrefHeight((clientConnectedListWithoutMe.size()+4)*17);
     }
 
     public void clientWantsToPlayAGameWith(){
         opponentChoosen = clientConnectedListView.getSelectionModel().getSelectedItem();
-        System.out.println(opponentChoosen);
+        System.out.println(opponentChoosen + " -> opponentChoosen");
         main.clientWantsToPlayAGameWith(opponentChoosen);
     }
 
@@ -111,6 +120,7 @@ public class ClientChoiceController implements Initializable {
             case (IMAGE_PLAYAGAME):{
                 utilities.playSomeSound(GOAL_SOUND);
                 seeImageContext(clientConnectedListView, anchorPane.lookup(IMAGE_PLAYAGAME));
+                seeImageContext(clientInGameListView, anchorPane.lookup(IMAGE_PLAYAGAME));
                 break;
             }
             case (IMAGE_WORLDSCOREBOARD):{
@@ -159,9 +169,9 @@ public class ClientChoiceController implements Initializable {
         alert.setContentText("Il giocatore " + userAndNumber.get(0) + " ti ha inviato una richiesta di gioco.");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            main.sendServerOkForPlaying(userAndNumber.get(1));
+            main.sendServerOkForPlaying(userAndNumber);
         } else {
-            main.sendServerNoForPlaying(userAndNumber.get(1));
+            main.sendServerNoForPlaying(userAndNumber);
         }
     }
 

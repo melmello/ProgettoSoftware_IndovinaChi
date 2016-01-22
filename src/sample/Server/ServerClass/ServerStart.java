@@ -3,6 +3,7 @@ package sample.Server.ServerClass;
 import static sample.Utilities.Class.ConstantCodes.*;
 import static sample.Utilities.Class.SecurityClass.*;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.concurrent.Task;
 import sample.Utilities.Class.CodeAndInformation;
 import sample.Utilities.Class.Game;
@@ -15,6 +16,8 @@ import java.net.Socket;
 import java.net.ServerSocket;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -24,10 +27,10 @@ public class ServerStart extends Task {
     private ServerSocket socketExchange;
     private ServerMain main;
     private Connection connection;
-    //private ArrayList<ServerThread> threadsPlaying = new ArrayList<>();
+    private ArrayList<String> threadsPlaying = new ArrayList<>();
     private ArrayList<ServerThread> threadsArrayList  = new ArrayList<>();
     private ArrayList<String> listOfClientConnected = new ArrayList<>();
-    private ArrayList<Game> gameListView = new ArrayList<>();
+    private ArrayList<Game> gameArrayList = new ArrayList<>();
     private Gson gson;
 
     //costruttore
@@ -78,7 +81,7 @@ public class ServerStart extends Task {
     }
 
     public void insertNameInArrayList(String userSQLName) {
-        System.out.println(userSQLName);
+        System.out.println(userSQLName + " -> userSQLName");
         listOfClientConnected.add(userSQLName);
     }
 
@@ -93,15 +96,29 @@ public class ServerStart extends Task {
         System.out.println("Il client " + usernameDisconnected + " si è disconnesso");
     }
 
-    public void refreshClientConnected(String usernameConnected) {
+    public void refreshClientConnected(String usernameDisconnected) {
         main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
+        System.out.println(usernameDisconnected + " -> usernameDisconnected");
             for (int cont = 0; cont < threadsArrayList.size(); cont++) {
-                if (threadsArrayList.get(cont).getUser().getUserUsername() != null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(usernameConnected)) {
+                if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername() != null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(usernameDisconnected)) {
                     gson = new Gson();
                     String clientConnectedGson = gson.toJson(listOfClientConnected);
                     threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT, clientConnectedGson));
                 }
             }
+    }
+
+    public void refreshClientConnectedForTheFirstTime(String information) {
+        for (int cont = 0; cont < threadsArrayList.size(); cont++) {
+            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(information)) {
+                gson = new Gson();
+                String clientConnectedGson = gson.toJson(listOfClientConnected);
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT_FOR_THE_FIRST_TIME, clientConnectedGson));
+                gson = new Gson();
+                String clientInGameGson = gson.toJson(threadsPlaying);
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, clientInGameGson));
+            }
+        }
     }
 
     public void sendRating(Double clientRating, String clientUsername) {
@@ -139,7 +156,7 @@ public class ServerStart extends Task {
     }
 
     public void sendingRequest(String opponent, String userRequest) {
-        int matchNumber = 0;
+        int matchNumber = gameArrayList.size();
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
             if (threadsArrayList.get(cont).getUser().getUserUsername().equals(opponent)){
                 gson = new Gson();
@@ -150,25 +167,75 @@ public class ServerStart extends Task {
                 threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_RECEIVED_GAME_REQUEST, userAndMatchNumber));
             }
             if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userRequest)){
-                gameListView.add(new Game(threadsArrayList.get(cont).getUser().getUserUsername(), null));
+                gameArrayList.add(new Game(threadsArrayList.get(cont), null));
             }
         }
     }
 
-    public void createTheGame(String userWhoAccepted) {
+    public void createTheGame(String information) {
+        ArrayList<String> userAndNumber = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
+        int currentMatchNumber = Integer.parseInt(userAndNumber.get(1));
         for(int cont = 0; cont < threadsArrayList.size(); cont++){
-            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userWhoAccepted)) {
-                gameListView.add(threadsArrayList.get(cont));
+            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userAndNumber.get(0))) {
+                gameArrayList.get(currentMatchNumber).setPlayer2(threadsArrayList.get(cont));
             }
         }
-        for(int cont = 0; cont < threadsPlaying.size(); cont++){
-            gameListView.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN, null));
+        gameArrayList.get(currentMatchNumber).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN, null));
+        gameArrayList.get(currentMatchNumber).getPlayer2().getWriter().println(CodeAndInformation.serializeToJson(SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN, null));
+        threadsPlaying.add(gameArrayList.get(currentMatchNumber).getPlayer1().getUser().getUserUsername());
+        threadsPlaying.add(gameArrayList.get(currentMatchNumber).getPlayer2().getUser().getUserUsername());
+        String threadsPlayingString = gson.toJson(threadsPlaying);
+        for(int cont = 0; cont < threadsArrayList.size(); cont++){
+            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(gameArrayList.get(currentMatchNumber).getPlayer1().getUser().getUserUsername()) || threadsArrayList.get(cont).getUser().getUserUsername().equals(gameArrayList.get(currentMatchNumber).getPlayer2().getUser().getUserUsername())){
+                threadsArrayList.remove(cont);
+            } else {
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, threadsPlayingString));
+            }
+        }
+        refreshClientConnected(null);
+    }
+
+    public void swapGameArrayList(String usernameWhoWin) {
+        String winner = null;
+        String loser = null;
+        for(int cont = 0; cont < gameArrayList.size(); cont++){
+            if (gameArrayList.get(cont).getPlayer1().equals(usernameWhoWin) || gameArrayList.get(cont).getPlayer2().equals(usernameWhoWin)){
+                threadsArrayList.add(gameArrayList.get(cont).getPlayer1());
+                threadsArrayList.add(gameArrayList.get(cont).getPlayer2());
+                if (gameArrayList.get(cont).getPlayer1().equals(usernameWhoWin)){
+                    winner = gameArrayList.get(cont).getPlayer1().getName();
+                    loser = gameArrayList.get(cont).getPlayer2().getName();
+                } else {
+                    loser = gameArrayList.get(cont).getPlayer1().getName();
+                    winner = gameArrayList.get(cont).getPlayer2().getName();
+                }
+                gameArrayList.remove(cont);
+            }
+        }
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute("INSERT INTO leaderboard(winner, loser) VALUES ('" + winner + "','" + loser + "')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (int cont = 0; cont < threadsArrayList.size(); cont++){
+            if(threadsArrayList.get(cont).getUser().getUserUsername().equals(winner)){
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, null));
+            } else if (threadsArrayList.get(cont).getUser().getUserUsername().equals(loser)){
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_SAD_FOR_YOUR_DEFEAT, null));
+            }
         }
     }
 
-    //TODO
+    // TODO: 23/01/2016
     public void cancelTheGame(String information) {
-
+        ArrayList<String> userAndNumber = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
+        for(int cont = 0; cont < threadsArrayList.size(); cont++){
+            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userAndNumber.get(0))) {
+                gameArrayList.remove(Integer.parseInt(userAndNumber.get(1)));
+            }
+        }
+        gameArrayList.get(Integer.parseInt(userAndNumber.get(1))).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_FORBIDS_THE_GAME, null));
     }
 
     //getter

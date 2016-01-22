@@ -93,7 +93,7 @@ public class ClientMain extends Application {
                     gamingStage.show();//mostro
                     clientChoiceController.setMain(ClientMain.this);//collegare main e controller
                     loginStage.close();
-                    writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT, null));
+                    writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT_FOR_THE_FIRST_TIME, user.getUserUsername()));
                     gamingStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//handle per quando accade che disconnetto un client. Comunico DISCONNESSO con la writer
                         public void handle(WindowEvent we) {
                             writer.println(CodeAndInformation.serializeToJson(CLIENT_DISCONNECTING, null));
@@ -146,7 +146,7 @@ public class ClientMain extends Application {
         gson = new Gson(); //creo un oggetto gson per serializzare e deserializzare
         user = new User(textWithUsername, textWithPassword);//istanzio un oggetto User
         String userString = gson.toJson(user);  //serializzo i campi dello User
-        System.out.println(userString);
+        System.out.println(userString + " -> userString");
         if (login == true) {
             codeToSend = CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_LOGIN, userString);
         } else {
@@ -178,7 +178,7 @@ public class ClientMain extends Application {
     //funzione che serve per collegare thread e controller in modo che gli sticker vengano eliminati
     public void modifySticker(String information) {
         ArrayList<String> newStickers = gson.fromJson(information, new TypeToken<ArrayList<String>>(){}.getType());//deserializzo il gson in un ArrayList
-        System.out.println(newStickers);
+        System.out.println(newStickers + " -> newStickers");
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -215,11 +215,23 @@ public class ClientMain extends Application {
     public void displayClientConnected(String information) {
         gson = new Gson();
         ArrayList<String> clientConnected = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
-        System.out.println(clientConnected);
+        System.out.println(clientConnected + " -> clientConnected");
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 clientChoiceController.displayClientConnected(clientConnected);
+            }
+        });
+    }
+
+    public void displayClientInGame(String information) {
+        gson = new Gson();
+        ArrayList<String> clientInGame = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
+        System.out.println(clientInGame + " -> clientInGame");
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                clientChoiceController.displayClientInGame(clientInGame);
             }
         });
     }
@@ -255,13 +267,22 @@ public class ClientMain extends Application {
         });
     }
 
-    public void sendServerOkForPlaying(String number) {
-        //TODO finire giro per ricordare match number
-        writer.println(CodeAndInformation.serializeToJson(CLIENT_SAYS_OK_FOR_PLAYING, user.getUserUsername()));
+    public void sendServerOkForPlaying(ArrayList<String> userAndNumber) {
+        userAndNumber.set(0, user.getUserUsername());
+        gson = new Gson();
+        String information = gson.toJson(userAndNumber);
+        writer.println(CodeAndInformation.serializeToJson(CLIENT_SAYS_OK_FOR_PLAYING, information));
     }
 
-    public void sendServerNoForPlaying(String number) {
-        writer.println(CodeAndInformation.serializeToJson(CLIENT_SAYS_NO_FOR_PLAYING, user.getUserUsername()));
+    public void sendServerNoForPlaying(ArrayList<String> userAndNumber) {
+        userAndNumber.set(0, user.getUserUsername());
+        gson = new Gson();
+        String information = gson.toJson(userAndNumber);
+        writer.println(CodeAndInformation.serializeToJson(CLIENT_SAYS_NO_FOR_PLAYING, information));
+    }
+
+    public void clientWantsToQuerySticker(String id) {
+        writer.println(CodeAndInformation.serializeToJson(CLIENT_GIVES_QUERY_FOR_STICKER, id));
     }
 
     //getter & setter

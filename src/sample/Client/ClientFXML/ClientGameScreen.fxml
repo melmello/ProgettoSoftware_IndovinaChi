@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="backgroundPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1850.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Client.ClientClass.ClientGameController">
+<AnchorPane id="backgroundPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1850.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Client.ClientClass.ClientGameController">
    <children>
       <GridPane prefHeight="995.0" prefWidth="1500.0">
          <columnConstraints>
@@ -260,9 +260,8 @@
          <image>
             <Image url="@../../Utilities/Stickers/Question.png" />
          </image></ImageView>
-      <Label layoutX="1575.0" layoutY="683.0" text="IO" />
-      <Label layoutX="1752.0" layoutY="683.0" text="TU" />
-      <JFXToggleButton fx:id="enableChangingSticker" layoutX="1623.0" layoutY="653.0" />
+      <Label layoutX="1530.0" layoutY="694.0" text="IL MIO STICKER" />
+      <Label layoutX="1688.0" layoutY="694.0" text="STICKER AVVERSARIO" />
       <ToolBar fx:id="toolBar" layoutX="1534.0" layoutY="261.0" nodeOrientation="LEFT_TO_RIGHT" orientation="VERTICAL" prefHeight="195.0" prefWidth="265.0" style="-fx-background-color: transparent;">
          <items>
             <JFXComboBox fx:id="hairComboBox" onMouseClicked="#reinitializeComboBox" prefHeight="31.0" prefWidth="250.0" promptText="Capelli" />
@@ -274,6 +273,6 @@
       </ToolBar>
       <JFXListView fx:id="questionThatCouldBeChoosen" layoutX="1525.0" layoutY="450.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clientWantsToQuery" prefHeight="195.0" prefWidth="265.0" style="-fx-background-color: transparent;" />
       <MaskerPane fx:id="maskerPaneWaitingOtherPlayerChoice" layoutX="1586.0" layoutY="481.0" />
-      <JFXListView fx:id="questionChoosenListView" layoutX="1534.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="265.0" />
+      <JFXListView fx:id="questionChoosenListView" layoutX="1534.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="265.0" style="-fx-background-color: transparent;" />
    </children>
 </AnchorPane>
