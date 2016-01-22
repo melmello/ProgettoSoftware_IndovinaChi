@@ -427,7 +427,9 @@ public class ServerThread extends Thread{
                 System.out.println("Utente di nome " + user.getUserUsername() + " e password " + user.getUserPassword() + " trovato\nLogin effettuato con successo");
                 writer.println(CodeAndInformation.serializeToJson(SERVER_CLIENT_SUCCESSFUL_LOGIN, null));
                 serverStart.insertNameInArrayList(user.getUserUsername());
-                serverStart.refreshClientConnected(user.getUserUsername());
+                if(serverStart.getListOfClientConnected().size() > 1) {
+                    serverStart.refreshClientConnected(user.getUserUsername());
+                }
             } else {
                 if (userAlreadyLoggedBoolean == false) {
                     System.out.println("Utente " + user.getUserUsername() + "non trovato");

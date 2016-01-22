@@ -21,6 +21,7 @@ import javafx.util.Duration;
 import org.controlsfx.control.Rating;
 import sample.Utilities.Class.Utilities;
 import java.net.URL;
+import java.sql.Array;
 import java.util.*;
 
 public class ClientChoiceController implements Initializable {
@@ -69,7 +70,7 @@ public class ClientChoiceController implements Initializable {
     public void clientWantsToPlayAGameWith(){
         opponentChoosen = clientConnectedListView.getSelectionModel().getSelectedItem();
         System.out.println(opponentChoosen);
-        main.clientWantsToPlayAGameWith();
+        main.clientWantsToPlayAGameWith(opponentChoosen);
     }
 
     public void ballMovement(Event event){
@@ -148,29 +149,20 @@ public class ClientChoiceController implements Initializable {
     public void ratingGame() {
         clientRating = ratingBox.getRating();
         System.out.println(clientRating + " -> CLIENT RATING");
-        main.clientWantsToSendRating();
+        main.clientWantsToSendRating(clientRating);
     }
 
-    public void playGameRequest(String information) {
+    public void playGameRequest(ArrayList<String> userAndNumber) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("ACCETTA LA SFIDA");
         alert.setHeaderText(null);
-        alert.setContentText("Il giocatore " + information + " ti ha inviato una richiesta di gioco.");
+        alert.setContentText("Il giocatore " + userAndNumber.get(0) + " ti ha inviato una richiesta di gioco.");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            main.sendServerOkForPlaying();
+            main.sendServerOkForPlaying(userAndNumber.get(1));
         } else {
-            main.sendServerNoForPlaying();
+            main.sendServerNoForPlaying(userAndNumber.get(1));
         }
-    }
-
-    //getter
-    public double getClientRating() {
-        return clientRating;
-    }
-
-    public String getOpponentChoosen() {
-        return opponentChoosen;
     }
 
 }

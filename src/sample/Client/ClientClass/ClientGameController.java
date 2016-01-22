@@ -4,6 +4,8 @@ import static sample.Utilities.Class.ConstantCodes.*;
 import com.jfoenix.controls.JFXListView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.scene.input.*;
 import org.controlsfx.control.MaskerPane;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXToggleButton;
@@ -29,13 +31,11 @@ public class ClientGameController implements Initializable {
     private String[] questionCanBeChoosen = {};
     private Set<String> questionCanBeChoosenArray = new HashSet<>(Arrays.asList(questionCanBeChoosen));
     private ArrayList<String> questionToSendToServer = new ArrayList<>();
-
     public static final ObservableList hairPossibility = FXCollections.observableArrayList();
     public static final ObservableList beardPossibility = FXCollections.observableArrayList();
     public static final ObservableList facePossibility = FXCollections.observableArrayList();
     public static final ObservableList accessoriesPossibility = FXCollections.observableArrayList();
     public static final ObservableList informationPossibility = FXCollections.observableArrayList();
-
     @FXML ImageView stickerImage;
     @FXML ImageView myStickerImage;
     @FXML JFXToggleButton enableChangingSticker;
@@ -342,8 +342,100 @@ public class ClientGameController implements Initializable {
         });
     }
 
-    //metodo che permettere di scegliere il proprio Sticker con cui giocare
+
+
     public void chooseYourSticker(Event event) {
+        stickerImage = (ImageView) event.getTarget();
+        stickerImage.setOnDragDetected(new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent event) {
+            /* drag was detected, start drag-and-drop gesture*/
+            System.out.println("onDragDetected");
+
+            /* allow any transfer mode */
+            Dragboard db = stickerImage.startDragAndDrop(TransferMode.ANY);
+
+            /* put a string on dragboard */
+            ClipboardContent content = new ClipboardContent();
+            db.setContent(content);
+
+            event.consume();
+            }
+        });
+
+
+        stickerImage.setOnDragOver(new EventHandler <DragEvent>() {
+            public void handle(DragEvent event) {
+                /* data is dragged over the target */
+                System.out.println("onDragOver");
+
+                /* accept it only if it is  not dragged from the same node
+                 * and if it has a string data */
+                if (event.getGestureSource() != stickerImage &&
+                        event.getDragboard().hasString()) {
+                    /* allow for both copying and moving, whatever user chooses */
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                }
+
+                event.consume();
+            }
+        });
+
+        stickerImage.setOnDragEntered(new EventHandler <DragEvent>() {
+            public void handle(DragEvent event) {
+                /* the drag-and-drop gesture entered the target */
+                System.out.println("onDragEntered");
+                /* show to the user that it is an actual gesture target */
+                if (event.getGestureSource() != stickerImage &&
+                        event.getDragboard().hasString()) {
+
+                }
+
+                event.consume();
+            }
+        });
+
+        stickerImage.setOnDragExited(new EventHandler <DragEvent>() {
+            public void handle(DragEvent event) {
+                /* mouse moved away, remove the graphical cues */
+
+                event.consume();
+            }
+        });
+
+        stickerImage.setOnDragDropped(new EventHandler <DragEvent>() {
+            public void handle(DragEvent event) {
+                /* data dropped */
+                System.out.println("onDragDropped");
+                /* if there is a string data on dragboard, read it and use it */
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+                    success = true;
+                }
+                /* let the source know whether the string was successfully
+                 * transferred and used */
+                event.setDropCompleted(success);
+
+                event.consume();
+            }
+        });
+
+        stickerImage.setOnDragDone(new EventHandler <DragEvent>() {
+            public void handle(DragEvent event) {
+                /* the drag-and-drop gesture ended */
+                System.out.println("onDragDone");
+                /* if the data was successfully moved, clear it */
+                if (event.getTransferMode() == TransferMode.MOVE) {
+                }
+
+                event.consume();
+            }
+        });
+
+    }
+
+    //metodo che permettere di scegliere il proprio Sticker con cui giocare
+    public void chooseYourStickera(Event event) {
         stickerImage = (ImageView) event.getTarget();
         myStickerImage.setImage(stickerImage.getImage());
         if (!enableChangingSticker.isSelected()) {

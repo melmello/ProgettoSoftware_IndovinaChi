@@ -235,29 +235,32 @@ public class ClientMain extends Application {
         });
     }
 
-    public void clientWantsToSendRating() {
-        writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_SEND_RATING, Double.toString(clientChoiceController.getClientRating())));
+    public void clientWantsToSendRating(Double clientRating) {
+        writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_SEND_RATING, Double.toString(clientRating)));
     }
 
     //metodo che informa il server che il client vuole giocare una partita con questo utente
-    public void clientWantsToPlayAGameWith() {
-        writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_PLAY, clientChoiceController.getOpponentChoosen()));
+    public void clientWantsToPlayAGameWith(String opponentChoosen) {
+        writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_PLAY, opponentChoosen));
     }
 
     public void playGameRequest(String information) {
+        gson = new Gson();
+        ArrayList<String> userAndNumber = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                clientChoiceController.playGameRequest(information);
+                clientChoiceController.playGameRequest(userAndNumber);
             }
         });
     }
 
-    public void sendServerOkForPlaying() {
+    public void sendServerOkForPlaying(String number) {
+        //TODO finire giro per ricordare match number
         writer.println(CodeAndInformation.serializeToJson(CLIENT_SAYS_OK_FOR_PLAYING, user.getUserUsername()));
     }
 
-    public void sendServerNoForPlaying() {
+    public void sendServerNoForPlaying(String number) {
         writer.println(CodeAndInformation.serializeToJson(CLIENT_SAYS_NO_FOR_PLAYING, user.getUserUsername()));
     }
 
