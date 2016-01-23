@@ -4,11 +4,12 @@ import static sample.Utilities.Class.ConstantCodes.*;
 import com.jfoenix.controls.JFXListView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.*;
+import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.MaskerPane;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -39,7 +40,6 @@ public class ClientGameController implements Initializable {
     @FXML ImageView stickerImage;
     @FXML ImageView myStickerImage;
     @FXML ImageView hisStickerImage;
-    @FXML JFXToggleButton enableChangingSticker;
     @FXML JFXComboBox<String> hairComboBox;
     @FXML JFXComboBox<String> beardComboBox;
     @FXML JFXComboBox<String> faceComboBox;
@@ -47,6 +47,7 @@ public class ClientGameController implements Initializable {
     @FXML JFXComboBox<String> informationComboBox;
     @FXML MaskerPane maskerPaneWaitingOtherPlayerChoice;
     @FXML JFXListView<String> questionThatCouldBeChoosen;
+    @FXML AnchorPane anchorPane;
 
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
@@ -347,9 +348,6 @@ public class ClientGameController implements Initializable {
 
     public void chooseYourSticker(Event event) {
         stickerImage = (ImageView) event.getTarget();
-
-
-
         stickerImage.setOnDragDetected(new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
             /* drag was detected, start drag-and-drop gesture*/
@@ -365,8 +363,6 @@ public class ClientGameController implements Initializable {
             event.consume();
             }
         });
-
-
         myStickerImage.setOnDragOver(new EventHandler <DragEvent>() {
             public void handle(DragEvent event) {
                 /* data is dragged over the target */
@@ -383,7 +379,6 @@ public class ClientGameController implements Initializable {
                 event.consume();
             }
         });
-
         myStickerImage.setOnDragEntered(new EventHandler <DragEvent>() {
             public void handle(DragEvent event) {
                 /* the drag-and-drop gesture entered the target */
@@ -392,18 +387,15 @@ public class ClientGameController implements Initializable {
                 if (event.getGestureSource() != myStickerImage &&
                         event.getDragboard().hasString()) {
                 }
-
                 event.consume();
             }
         });
-
         myStickerImage.setOnDragExited(new EventHandler <DragEvent>() {
             public void handle(DragEvent event) {
                 /* mouse moved away, remove the graphical cues */
                 event.consume();
             }
         });
-
         myStickerImage.setOnDragDropped(new EventHandler <DragEvent>() {
             public void handle(DragEvent event) {
                 /* data dropped */
@@ -421,7 +413,6 @@ public class ClientGameController implements Initializable {
                 event.consume();
             }
         });
-
         stickerImage.setOnDragDone(new EventHandler <DragEvent>() {
             public void handle(DragEvent event) {
                 /* the drag-and-drop gesture ended */
@@ -436,19 +427,18 @@ public class ClientGameController implements Initializable {
 
     }
 
+    private void confirmSticker() {
+        imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
+        main.settingMySticker();
+        System.out.println("Hai scelto il personaggio");
+    }
+
     //metodo che permettere di scegliere il proprio Sticker con cui giocare
     public void chooseYourStickerFirstVersion(Event event) {
         stickerImage = (ImageView) event.getTarget();
         myStickerImage.setImage(stickerImage.getImage());
-        if (!enableChangingSticker.isSelected()) {
-            stickerImage = (ImageView) event.getTarget();
-            myStickerImage.setImage(stickerImage.getImage());
-        } else {
-            imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
-            main.settingMySticker();
-            System.out.println("Hai scelto il personaggio");
-            enableChangingSticker.setDisable(true);//disabilito la possibilità di riattivare il button
-        }
+        stickerImage = (ImageView) event.getTarget();
+        myStickerImage.setImage(stickerImage.getImage());
     }
 
     //metodo che serve per rimuovere gli sticker dalla mio schermata del client

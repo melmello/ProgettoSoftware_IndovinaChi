@@ -14,10 +14,7 @@ import javax.mail.internet.MimeMessage;
 import java.net.Inet4Address;
 import java.net.Socket;
 import java.net.ServerSocket;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -110,6 +107,7 @@ public class ServerStart extends Task {
 
     public void refreshClientConnectedForTheFirstTime(String information) {
         for (int cont = 0; cont < threadsArrayList.size(); cont++) {
+            String
             if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(information)) {
                 gson = new Gson();
                 String clientConnectedGson = gson.toJson(listOfClientConnected);
@@ -117,6 +115,16 @@ public class ServerStart extends Task {
                 gson = new Gson();
                 String clientInGameGson = gson.toJson(threadsPlaying);
                 threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, clientInGameGson));
+                try {
+                    Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM leaderboard WHERE winner = '" + information + "' OR loser = '" + information + "'");//faccio la query con il nome ricevuto per creare la figurina
+                    while (resultSet.next()){
+                        setNameOfSticker(resultSet.getString(NAME_FOR_QUERY));
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
     }

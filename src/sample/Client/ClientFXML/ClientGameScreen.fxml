@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="backgroundPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1850.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Client.ClientClass.ClientGameController">
+<AnchorPane id="backgroundPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1850.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Client.ClientClass.ClientGameController">
    <children>
       <GridPane prefHeight="995.0" prefWidth="1500.0">
          <columnConstraints>
@@ -274,5 +274,7 @@
       <JFXListView fx:id="questionThatCouldBeChoosen" layoutX="1525.0" layoutY="450.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clientWantsToQuery" prefHeight="195.0" prefWidth="265.0" style="-fx-background-color: transparent;" />
       <MaskerPane fx:id="maskerPaneWaitingOtherPlayerChoice" layoutX="1586.0" layoutY="481.0" />
       <JFXListView fx:id="questionChoosenListView" layoutX="1534.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="265.0" style="-fx-background-color: transparent;" />
+      <JFXButton fx:id="confirmMyStickerButton" layoutX="1576.0" layoutY="933.0" text="CONFIRM" />
+      <JFXButton fx:id="confirmHisStickerButton" layoutX="1751.0" layoutY="926.0" text="CONFIRM" />
    </children>
 </AnchorPane>
