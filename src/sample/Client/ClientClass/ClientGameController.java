@@ -422,6 +422,7 @@ public class ClientGameController implements Initializable {
                 }
 
                 event.consume();
+                System.out.println("PROVA");
             }
         });
 

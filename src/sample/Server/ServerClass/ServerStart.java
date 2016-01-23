@@ -81,6 +81,7 @@ public class ServerStart extends Task {
         System.out.println(userSQLName + " -> userSQLName");
         listOfClientConnected.add(userSQLName);
     }
+    System.out.println("PROVA");
 
     public void removeClientDisconnected(String usernameDisconnected) {
         listOfClientConnected.remove(usernameDisconnected);

@@ -390,6 +390,7 @@ public class ServerThread extends Thread{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("PROVA");
     }
 
     //metodo che serve per la creazione di un nuovo utente

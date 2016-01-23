@@ -14,6 +14,7 @@ import java.io.IOException;
 
 public class ServerMain extends Application {
 
+    System.out.println("PROVA");
     private ServerStartingController serverStartingController;
     private ServerClientCounterController serverClientCounterController;
 

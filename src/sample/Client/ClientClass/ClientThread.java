@@ -101,6 +101,7 @@ public class ClientThread extends Thread {
                         main.continueOnChoiceScreen();
                         break;
                     }
+                    System.out.println("PROVA");
                 }
             }
         } catch (Exception e) {
