@@ -120,6 +120,7 @@ public class ServerStart extends Task {
                     ResultSet resultSet = statement.executeQuery("SELECT * FROM leaderboard WHERE winner = '" + information + "' OR loser = '" + information + "'");//faccio la query con il nome ricevuto per creare la figurina
                     while (resultSet.next()){
                         setNameOfSticker(resultSet.getString(NAME_FOR_QUERY));
+                        System.out.println("ciao");
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
