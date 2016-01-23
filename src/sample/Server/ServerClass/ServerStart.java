@@ -121,6 +121,7 @@ public class ServerStart extends Task {
                     while (resultSet.next()){
                         setNameOfSticker(resultSet.getString(NAME_FOR_QUERY));
                         System.out.println("ciao");
+                        System.out.println("altrociao");
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
