@@ -2,8 +2,6 @@ package sample.Utilities.Class;
 
 public final class ConstantCodes {
 
-    è una porva
-
     //from client to server
     public static final String CLIENT_DISCONNECTING = "CLIENT_DISCONNECTING";
     public static final String CLIENT_DISCONNECTING_FROM_LOGIN_SCREEN = "CLIENT_DISCONNECTING_FROM_LOGIN_SCREEN";
