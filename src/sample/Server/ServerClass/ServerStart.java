@@ -80,8 +80,7 @@ public class ServerStart extends Task {
     public void insertNameInArrayList(String userSQLName) {
         System.out.println(userSQLName + " -> userSQLName");
         listOfClientConnected.add(userSQLName);
-    }
-    System.out.println("PROVA");
+    }sout
 
     public void removeClientDisconnected(String usernameDisconnected) {
         listOfClientConnected.remove(usernameDisconnected);

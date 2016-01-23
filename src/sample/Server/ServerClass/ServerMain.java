@@ -13,8 +13,7 @@ import javafx.stage.*;
 import java.io.IOException;
 
 public class ServerMain extends Application {
-
-    System.out.println("PROVA");
+    sout
     private ServerStartingController serverStartingController;
     private ServerClientCounterController serverClientCounterController;
 

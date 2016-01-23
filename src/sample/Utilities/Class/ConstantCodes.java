@@ -34,6 +34,7 @@ public final class ConstantCodes {
     public static final String SERVER_REFRESHES_IN_GAME_CLIENT = "SERVER_REFRESHES_IN_GAME_CLIENT";
     public static final String SERVER_HAPPY_FOR_YOUR_WIN = "SERVER_HAPPY_FOR_YOUR_WIN";
     public static final String SERVER_SAD_FOR_YOUR_DEFEAT = "SERVER_SAD_FOR_YOUR_DEFEAT";
+    sout
 
     //costanti stringhe per primo e secondo parametro nelle query
     public static final String NAME_FOR_QUERY = "name";

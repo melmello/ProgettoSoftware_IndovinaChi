@@ -71,8 +71,7 @@ public class ClientMain extends Application {
                 Platform.exit();
                 System.exit(0);
             }
-        });
-        System.out.println("PROVA");
+        });sout
     }
 
     //metodo che mi permette di cambiare schermata passando dal login al choiseScreen

@@ -100,8 +100,7 @@ public class ClientThread extends Thread {
                     case (SERVER_SAD_FOR_YOUR_DEFEAT):{
                         main.continueOnChoiceScreen();
                         break;
-                    }
-                    System.out.println("PROVA");
+                    }sout
                 }
             }
         } catch (Exception e) {
