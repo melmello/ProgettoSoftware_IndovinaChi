@@ -389,7 +389,7 @@ public class ServerThread extends Thread{
             changeFirstPlayerInGame();
         } catch (SQLException e) {
             e.printStackTrace();
-        }sout
+        }
     }
 
     //metodo che serve per la creazione di un nuovo utente

@@ -421,7 +421,7 @@ public class ClientGameController implements Initializable {
                 if (event.getTransferMode() == TransferMode.MOVE) {
                 }
 
-                event.consume();sout
+                event.consume();
             }
         });
 
