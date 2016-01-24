@@ -103,6 +103,7 @@ public class ServerStart extends Task {
                 insertNewMatchInLeaderboard(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername(), information);
                 gameArrayList.get(cont).getPlayer2().getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, information));
                 refreshLeaderboardSearchingUsername();
+                threadsArrayList.add(gameArrayList.get(cont).getPlayer2());
                 threadsPlaying.remove(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername());
                 threadsPlaying.remove(information);
                 gameArrayList.remove(cont);
@@ -110,6 +111,7 @@ public class ServerStart extends Task {
                 insertNewMatchInLeaderboard(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername(), information);
                 gameArrayList.get(cont).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, information));
                 refreshLeaderboardSearchingUsername();
+                threadsArrayList.add(gameArrayList.get(cont).getPlayer1());
                 threadsPlaying.remove(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername());
                 threadsPlaying.remove(information);
                 gameArrayList.remove(cont);
