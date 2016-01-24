@@ -96,26 +96,56 @@ public class ServerStart extends Task {
 
     public void refreshClientConnected(String usernameDisconnected) {
         main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
-        System.out.println(usernameDisconnected + " -> usernameDisconnected");
-            for (int cont = 0; cont < threadsArrayList.size(); cont++) {
-                if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername() != null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(usernameDisconnected)) {
-                    gson = new Gson();
-                    String clientConnectedGson = gson.toJson(listOfClientConnected);
-                    threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT, clientConnectedGson));
-                }
+        gson = new Gson();
+        String clientConnectedGson = gson.toJson(listOfClientConnected);
+        gson = new Gson();
+        String clientInGameGson = gson.toJson(threadsPlaying);
+        for (int cont = 0; cont < threadsArrayList.size(); cont++) {
+            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername() != null && !threadsArrayList.get(cont).getUser().getUserUsername().equals(usernameDisconnected)) {
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT, clientConnectedGson));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, clientInGameGson));
             }
+        }
+    }
+
+    public void refreshLeaderboardSearchingUsername(){
+        for (int cont = 0; cont < threadsArrayList.size(); cont++){
+            refreshLeaderboard(threadsArrayList.get(cont).getUser().getUserUsername());
+        }
+    }
+
+    public void refreshLeaderboard(String information){
+        ArrayList<String> leaderboardArray = queryingForLeaderboard(information);
+        for (int cont = 0; cont < threadsArrayList.size(); cont++) {
+            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(information)) {
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_PERSONAL_LEADERBOARD, leaderboardArray.get(0)));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_WORLD_LEADERBOARD, leaderboardArray.get(1)));
+            }
+        }
     }
 
     public void refreshClientConnectedForTheFirstTime(String information) {
+        gson = new Gson();
+        String clientConnectedGson = gson.toJson(listOfClientConnected);
+        gson = new Gson();
+        String clientInGameGson = gson.toJson(threadsPlaying);
+        ArrayList<String> leaderboardArray = queryingForLeaderboard(information);
+        for (int cont = 0; cont < threadsArrayList.size(); cont++) {
+            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(information)) {
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT_FOR_THE_FIRST_TIME, clientConnectedGson));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, clientInGameGson));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_PERSONAL_LEADERBOARD, leaderboardArray.get(0)));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_WORLD_LEADERBOARD, leaderboardArray.get(1)));
+            }
+        }
+    }
+
+    private ArrayList<String> queryingForLeaderboard(String information) {
         ArrayList<String> personalMatchWon = new ArrayList<>();
         ArrayList<String> personalMatchLost = new ArrayList<>();
         ArrayList<String> worldMatch = new ArrayList<>();
         String personalMatchString = null;
         String worldMatchString = null;
-        gson = new Gson();
-        String clientConnectedGson = gson.toJson(listOfClientConnected);
-        gson = new Gson();
-        String clientInGameGson = gson.toJson(threadsPlaying);
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM leaderboard WHERE winner = '" + information + "' OR loser = '" + information + "'");//faccio la query con il nome ricevuto per creare la figurina
@@ -149,15 +179,12 @@ public class ServerStart extends Task {
         } catch (SQLException e){
             e.printStackTrace();
         }
-        for (int cont = 0; cont < threadsArrayList.size(); cont++) {
-            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(information)) {
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT_FOR_THE_FIRST_TIME, clientConnectedGson));
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, clientInGameGson));
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_PERSONAL_LEADERBOARD, personalMatchString));
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_WORLD_LEADERBOARD, worldMatchString));
-            }
-        }
+        ArrayList<String> returnArrayList = new ArrayList<>();
+        returnArrayList.add(personalMatchString);
+        returnArrayList.add(worldMatchString);
+        return returnArrayList;
     }
+
 
     /*
     public void refreshAll(ChoiceListView choiceListView, String information) {

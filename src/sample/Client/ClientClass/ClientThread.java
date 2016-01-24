@@ -53,10 +53,6 @@ public class ClientThread extends Thread {
                         main.readyToAbilitateClientScreen();
                         break;
                     }
-                    case (SERVER_SENDS_CONNECTED_CLIENT):{
-                        main.displayClientConnected(codeAndInformation.getInformation());
-                        break;
-                    }
                     case (SERVER_REFRESHES_CONNECTED_CLIENT):{
                         main.displayClientConnected(codeAndInformation.getInformation());
                         break;

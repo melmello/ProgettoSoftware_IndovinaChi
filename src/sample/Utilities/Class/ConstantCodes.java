@@ -22,7 +22,6 @@ public final class ConstantCodes {
     public static final String SERVER_CLIENT_SUCCESSFUL_SIGNUP = "SERVER_CLIENT_SUCCESSFUL_SIGNUP";
     public static final String SERVER_SENDS_STICKER_MUST_BE_REMOVED = "SERVER_SENDS_STICKER_MUST_BE_REMOVED";
     public static final String SERVER_CHANGES_ROUND = "SERVER_CHANGES_ROUND";
-    public static final String SERVER_SENDS_CONNECTED_CLIENT = "SERVER_SENDS_CONNECTED_CLIENT";
     public static final String SERVER_REFRESHES_CONNECTED_CLIENT = "SERVER_REFRESHES_CONNECTED_CLIENT";
     public static final String SERVER_REFRESHES_CONNECTED_CLIENT_FOR_THE_FIRST_TIME = "SERVER_REFRESHES_CONNECTED_CLIENT_FOR_THE_FIRST_TIME";
     public static final String SERVER_CLIENT_NOT_FOUND = "SERVER_CLIENT_NOT_FOUND";
@@ -85,8 +84,8 @@ public final class ConstantCodes {
     public static final String PASSWORD_FOR_QUERY = "password";
 
     //costanti stringhe per database leaderboard
-    public static final String WINNER_FOR_QUERY = "WINNER_FOR_QUERY";
-    public static final String LOSER_FOR_QUERY = "LOSER_FOR_QUERY";
+    public static final String WINNER_FOR_QUERY = "winner";
+    public static final String LOSER_FOR_QUERY = "loser";
 
     //path client
     public static final String LOGINSCREEN_FXML = "/sample/Client/ClientFXML/ClientLoginScreen.fxml";
