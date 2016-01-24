@@ -96,7 +96,7 @@ public class ClientMain extends Application {
                     writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_KNOW_CONNECTED_CLIENT_FOR_THE_FIRST_TIME, user.getUserUsername()));
                     gamingStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//handle per quando accade che disconnetto un client. Comunico DISCONNESSO con la writer
                         public void handle(WindowEvent we) {
-                            writer.println(CodeAndInformation.serializeToJson(CLIENT_DISCONNECTING, null));
+                            writer.println(CodeAndInformation.serializeToJson(CLIENT_DISCONNECTING_FROM_CHOICE_SCREEN, null));
                             System.out.println("Client disconnesso");
                             Platform.exit();
                             System.exit(0);
@@ -127,8 +127,8 @@ public class ClientMain extends Application {
                     gamingScene.getStylesheets().add(getClass().getResource(GAMESCREEN_CSS).toExternalForm());//collegare il .css (ad esempio) per l'aggiunta del background
                     ClientMain.this.gamingStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//handle per quando accade che disconnetto un client. Comunico DISCONNESSO con la writer
                         public void handle(WindowEvent we) {
-                            writer.println(CodeAndInformation.serializeToJson(CLIENT_DISCONNECTING, null));
-                            System.out.println("Client disconnesso");
+                            writer.println(CodeAndInformation.serializeToJson(CLIENT_DISCONNECTING_FROM_GAME_SCREEN, user.getUserUsername()));
+                            System.out.println("Un client ha quittato");
                             Platform.exit();
                             System.exit(0);
                         }

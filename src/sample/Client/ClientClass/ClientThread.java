@@ -99,10 +99,12 @@ public class ClientThread extends Thread {
                     }
                     case (SERVER_HAPPY_FOR_YOUR_WIN):{
                         main.continueOnChoiceScreen();
+                        main.notification("Hai vinto la partita contro " + codeAndInformation.getInformation() + ". Complimenti!");
                         break;
                     }
                     case (SERVER_SAD_FOR_YOUR_DEFEAT):{
                         main.continueOnChoiceScreen();
+                        main.notification("Hai perso la partita contro " + codeAndInformation.getInformation() + ". Non abbatterti!");
                         break;
                     }
                 }

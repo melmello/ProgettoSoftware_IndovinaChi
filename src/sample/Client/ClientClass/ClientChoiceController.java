@@ -74,6 +74,7 @@ public class ClientChoiceController implements Initializable {
         setListViewHeight(clientInGameList, clientInGameListView);
     }
 
+    // TODO: 24/01/2016 VEDERE REFRESH LEADERBOARD!
     public void displayPersonalLeaderboard(ArrayList<String> personalMatchWon, ArrayList<String> personalMatchLost) {
         ObservableList<String> personalMatchWonObs = FXCollections.observableArrayList(personalMatchWon);
         ObservableList<String> personalMatchLostObs = FXCollections.observableArrayList(personalMatchLost);

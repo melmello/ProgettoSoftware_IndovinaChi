@@ -47,7 +47,7 @@ public class ServerThread extends Thread{
                 System.out.println(codeAndInformation.getCode() + " -> CODE");
                 switch (codeAndInformation.getCode()){
                     //Il client manda il segnale che si è disconesso.
-                    case (CLIENT_DISCONNECTING):{
+                    case (CLIENT_DISCONNECTING_FROM_CHOICE_SCREEN):{
                         serverStart.removeClientDisconnected(user.getUserUsername());
                         break;
                     }
@@ -101,6 +101,12 @@ public class ServerThread extends Thread{
                     }
                     case (CLIENT_GIVES_QUERY_FOR_STICKER):{
                         readyToKnowQuerySticker(codeAndInformation.getInformation());
+                        break;
+                    }
+                    case (CLIENT_DISCONNECTING_FROM_GAME_SCREEN):{
+                        serverStart.removeClientInGame(codeAndInformation.getInformation());
+                        serverStart.removeClientDisconnected(codeAndInformation.getInformation());
+                        System.out.println("Per essere precisi, " + codeAndInformation.getInformation() + " ha quittato");
                         break;
                     }
                 }

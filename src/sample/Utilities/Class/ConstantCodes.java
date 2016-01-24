@@ -3,7 +3,7 @@ package sample.Utilities.Class;
 public final class ConstantCodes {
 
     //from client to server
-    public static final String CLIENT_DISCONNECTING = "CLIENT_DISCONNECTING";
+    public static final String CLIENT_DISCONNECTING_FROM_CHOICE_SCREEN = "CLIENT_DISCONNECTING_FROM_CHOICE_SCREEN";
     public static final String CLIENT_DISCONNECTING_FROM_LOGIN_SCREEN = "CLIENT_DISCONNECTING_FROM_LOGIN_SCREEN";
     public static final String CLIENT_WANTS_TO_LOGIN = "CLIENT_WANTS_TO_LOGIN";
     public static final String CLIENT_WANTS_TO_SIGNUP = "CLIENT_WANTS_TO_SIGNUP";
@@ -16,6 +16,7 @@ public final class ConstantCodes {
     public static final String CLIENT_SAYS_OK_FOR_PLAYING = "CLIENT_SAYS_OK_FOR_PLAYING";
     public static final String CLIENT_SAYS_NO_FOR_PLAYING = "CLIENT_SAYS_NO_FOR_PLAYING";
     public static final String CLIENT_GIVES_QUERY_FOR_STICKER = "CLIENT_GIVES_QUERY_FOR_STICKER";
+    public static final String CLIENT_DISCONNECTING_FROM_GAME_SCREEN = "CLIENT_DISCONNECTING_FROM_GAME_SCREEN";
 
     //from server to client
     public static final String SERVER_CLIENT_SUCCESSFUL_LOGIN = "SERVER_CLIENT_SUCCESSFUL_LOGIN";
