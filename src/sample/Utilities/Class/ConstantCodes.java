@@ -34,6 +34,8 @@ public final class ConstantCodes {
     public static final String SERVER_REFRESHES_IN_GAME_CLIENT = "SERVER_REFRESHES_IN_GAME_CLIENT";
     public static final String SERVER_HAPPY_FOR_YOUR_WIN = "SERVER_HAPPY_FOR_YOUR_WIN";
     public static final String SERVER_SAD_FOR_YOUR_DEFEAT = "SERVER_SAD_FOR_YOUR_DEFEAT";
+    public static final String SERVER_REFRESHES_PERSONAL_LEADERBOARD = "SERVER_REFRESHES_PERSONAL_LEADERBOARD";
+    public static final String SERVER_REFRESHES_WORLD_LEADERBOARD = "SERVER_REFRESHES_WORLD_LEADERBOARD";
 
     //costanti stringhe per primo e secondo parametro nelle query
     public static final String NAME_FOR_QUERY = "name";
@@ -81,6 +83,10 @@ public final class ConstantCodes {
     //costanti stringhe per database user
     public static final String USERNAME_FOR_QUERY = "username";
     public static final String PASSWORD_FOR_QUERY = "password";
+
+    //costanti stringhe per database leaderboard
+    public static final String WINNER_FOR_QUERY = "WINNER_FOR_QUERY";
+    public static final String LOSER_FOR_QUERY = "LOSER_FOR_QUERY";
 
     //path client
     public static final String LOGINSCREEN_FXML = "/sample/Client/ClientFXML/ClientLoginScreen.fxml";

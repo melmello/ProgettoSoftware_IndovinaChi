@@ -32,7 +32,8 @@ public class ClientChoiceController implements Initializable {
     private Utilities utilities = new Utilities();
     private ClientMain main;
     @FXML AnchorPane anchorPane;
-    @FXML JFXListView<String> personalScoreboardListView;
+    @FXML JFXListView<String> personalScoreboardWonListView;
+    @FXML JFXListView<String> personalScoreboardLostListView;
     @FXML JFXListView<String> worldScoreboardListView;
     @FXML JFXListView<String> clientConnectedListView;
     @FXML JFXListView<String> clientInGameListView;
@@ -42,7 +43,8 @@ public class ClientChoiceController implements Initializable {
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        personalScoreboardListView.setVisible(false);
+        personalScoreboardWonListView.setVisible(false);
+        personalScoreboardLostListView.setVisible(false);
         worldScoreboardListView.setVisible(false);
         clientConnectedListView.setVisible(false);
         clientInGameListView.setVisible(false);
@@ -52,12 +54,6 @@ public class ClientChoiceController implements Initializable {
     //metodo che serve per far conoscere main e controller
     public void setMain(ClientMain main) {
         this.main = main;
-    }
-
-    public void displayClientInGame(ArrayList<String> clientInGameList){
-        ObservableList<String> clientInGameObs = FXCollections.observableArrayList(clientInGameList);
-        clientInGameListView.setItems(clientInGameObs);
-        setListViewHeight(clientInGameList, clientInGameListView);
     }
 
     public void displayClientConnected(ArrayList<String> clientConnectedList) {
@@ -70,6 +66,27 @@ public class ClientChoiceController implements Initializable {
         ObservableList<String> clientConnectedObsWithoutMe = FXCollections.observableArrayList(clientConnectedListWithoutMe);
         clientConnectedListView.setItems(clientConnectedObsWithoutMe);
         setListViewHeight(clientConnectedListWithoutMe, clientConnectedListView);
+    }
+
+    public void displayClientInGame(ArrayList<String> clientInGameList){
+        ObservableList<String> clientInGameObs = FXCollections.observableArrayList(clientInGameList);
+        clientInGameListView.setItems(clientInGameObs);
+        setListViewHeight(clientInGameList, clientInGameListView);
+    }
+
+    public void displayPersonalLeaderboard(ArrayList<String> personalMatchWon, ArrayList<String> personalMatchLost) {
+        ObservableList<String> personalMatchWonObs = FXCollections.observableArrayList(personalMatchWon);
+        ObservableList<String> personalMatchLostObs = FXCollections.observableArrayList(personalMatchLost);
+        personalScoreboardWonListView.setItems(personalMatchWonObs);
+        personalScoreboardLostListView.setItems(personalMatchLostObs);
+        setListViewHeight(personalMatchWon, personalScoreboardWonListView);
+        setListViewHeight(personalMatchLost, personalScoreboardLostListView);
+    }
+
+    public void displayWorldLeaderboard(ArrayList<String> worldLeaderboard) {
+        ObservableList<String> worldLeaderboardObs = FXCollections.observableArrayList(worldLeaderboard);
+        worldScoreboardListView.setItems(worldLeaderboardObs);
+        setListViewHeight(worldLeaderboard, worldScoreboardListView);
     }
 
     private void setListViewHeight(ArrayList<String> clientConnectedListWithoutMe, ListView<String> listView) {
@@ -130,7 +147,8 @@ public class ClientChoiceController implements Initializable {
             }
             case (IMAGE_PERSONALSCOREBOARD):{
                 utilities.playSomeSound(GOAL_SOUND);
-                seeImageContext(personalScoreboardListView, anchorPane.lookup(IMAGE_PERSONALSCOREBOARD));
+                seeImageContext(personalScoreboardWonListView, anchorPane.lookup(IMAGE_PERSONALSCOREBOARD));
+                seeImageContext(personalScoreboardLostListView, anchorPane.lookup(IMAGE_PERSONALSCOREBOARD));
                 break;
             }
         }

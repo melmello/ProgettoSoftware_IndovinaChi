@@ -1,10 +1,8 @@
 package sample.Server.ServerClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
-import sample.Utilities.Class.CodeAndInformation;
-import sample.Utilities.Class.Sticker;
-import sample.Utilities.Class.StickerQuery;
-import sample.Utilities.Class.User;
+
+import sample.Utilities.Class.*;
 import com.google.gson.Gson;
 import java.io.*;
 import java.net.Socket;

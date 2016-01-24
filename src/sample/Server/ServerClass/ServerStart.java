@@ -5,6 +5,7 @@ import static sample.Utilities.Class.SecurityClass.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.concurrent.Task;
+import sample.Utilities.Class.ChoiceListView;
 import sample.Utilities.Class.CodeAndInformation;
 import sample.Utilities.Class.Game;
 import sample.Utilities.Class.Sticker;
@@ -106,41 +107,78 @@ public class ServerStart extends Task {
     }
 
     public void refreshClientConnectedForTheFirstTime(String information) {
-        for (int cont = 0; cont < threadsArrayList.size(); cont++) {
-            String
-            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(information)) {
-                gson = new Gson();
-                String clientConnectedGson = gson.toJson(listOfClientConnected);
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT_FOR_THE_FIRST_TIME, clientConnectedGson));
-                gson = new Gson();
-                String clientInGameGson = gson.toJson(threadsPlaying);
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, clientInGameGson));
-                try {
-                    Statement statement = connection.createStatement();
-                    ResultSet resultSet = statement.executeQuery("SELECT * FROM leaderboard WHERE winner = '" + information + "' OR loser = '" + information + "'");//faccio la query con il nome ricevuto per creare la figurina
-                    while (resultSet.next()){
-                        setNameOfSticker(resultSet.getString(NAME_FOR_QUERY));
-                        System.out.println("ciao");
-                        System.out.println("altrociao");
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
+        ArrayList<String> personalMatchWon = new ArrayList<>();
+        ArrayList<String> personalMatchLost = new ArrayList<>();
+        ArrayList<String> worldMatch = new ArrayList<>();
+        String personalMatchString = null;
+        String worldMatchString = null;
+        gson = new Gson();
+        String clientConnectedGson = gson.toJson(listOfClientConnected);
+        gson = new Gson();
+        String clientInGameGson = gson.toJson(threadsPlaying);
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM leaderboard WHERE winner = '" + information + "' OR loser = '" + information + "'");//faccio la query con il nome ricevuto per creare la figurina
+            while (resultSet.next()){
+                if (information.equals(resultSet.getString(WINNER_FOR_QUERY))){
+                    personalMatchWon.add(resultSet.getString(LOSER_FOR_QUERY));
+                } else if (information.equals(resultSet.getString(LOSER_FOR_QUERY))){
+                    personalMatchLost.add(resultSet.getString(WINNER_FOR_QUERY));
                 }
-
+            }
+            gson = new Gson();
+            String personalMatchWonString = gson.toJson(personalMatchWon);
+            gson = new Gson();
+            String personalMatchLostString = gson.toJson(personalMatchLost);
+            ArrayList<String> personalMatchArray = new ArrayList<>();
+            personalMatchArray.add(personalMatchWonString);
+            personalMatchArray.add(personalMatchLostString);
+            gson = new Gson();
+            personalMatchString = gson.toJson(personalMatchArray);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT winner, COUNT(*) AS CONTATORE FROM leaderboard GROUP BY winner ORDER BY CONTATORE DESC");
+            while (resultSet.next()){
+                worldMatch.add(resultSet.getString(WINNER_FOR_QUERY));
+            }
+            gson = new Gson();
+            worldMatchString = gson.toJson(worldMatch);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        for (int cont = 0; cont < threadsArrayList.size(); cont++) {
+            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(information)) {
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT_FOR_THE_FIRST_TIME, clientConnectedGson));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, clientInGameGson));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_PERSONAL_LEADERBOARD, personalMatchString));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_WORLD_LEADERBOARD, worldMatchString));
             }
         }
     }
 
+    /*
+    public void refreshAll(ChoiceListView choiceListView, String information) {
+        gson = new Gson();
+        String listViewInformationString = gson.toJson(choiceListView);
+        for (int cont = 0; cont < threadsArrayList.size(); cont++) {
+            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(information)) {
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_ALL, listViewInformationString));
+            }
+        }
+    }
+    */
+
     public void sendRating(Double clientRating, String clientUsername) {
         final String username = googleMail;
         final String password = googlePassword;
-
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
-
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {

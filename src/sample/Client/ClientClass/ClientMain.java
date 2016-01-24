@@ -236,6 +236,31 @@ public class ClientMain extends Application {
         });
     }
 
+    public void displayPersonalLeaderboard(String information) {
+        gson = new Gson();
+        ArrayList<String> personalMatch = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
+        gson = new Gson();
+        ArrayList<String> personalMatchWon = gson.fromJson(personalMatch.get(0), new TypeToken<ArrayList<String>>() {}.getType());
+        ArrayList<String> personalMatchLost = gson.fromJson(personalMatch.get(1), new TypeToken<ArrayList<String>>() {}.getType());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                clientChoiceController.displayPersonalLeaderboard(personalMatchWon, personalMatchLost);
+            }
+        });
+    }
+
+    public void displayWorldLeaderboard(String information) {
+        gson = new Gson();
+        ArrayList<String> worldLeaderboard = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                clientChoiceController.displayWorldLeaderboard(worldLeaderboard);
+            }
+        });
+    }
+
     public void notificationForNewUser() {
         Platform.runLater(new Runnable() {
             @Override

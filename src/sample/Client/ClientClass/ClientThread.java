@@ -93,6 +93,14 @@ public class ClientThread extends Thread {
                         main.displayClientInGame(codeAndInformation.getInformation());
                         break;
                     }
+                    case (SERVER_REFRESHES_PERSONAL_LEADERBOARD):{
+                        main.displayPersonalLeaderboard(codeAndInformation.getInformation());
+                        break;
+                    }
+                    case (SERVER_REFRESHES_WORLD_LEADERBOARD):{
+                        main.displayWorldLeaderboard(codeAndInformation.getInformation());
+                        break;
+                    }
                     case (SERVER_HAPPY_FOR_YOUR_WIN):{
                         main.continueOnChoiceScreen();
                         break;
