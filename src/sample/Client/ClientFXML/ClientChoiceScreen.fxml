@@ -40,7 +40,7 @@
                         <Image url="@../ClientImage/PlayAGame.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="242.0" fitWidth="219.0" layoutX="289.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="goalKeeper" fitHeight="242.0" fitWidth="219.0" layoutX="289.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../ClientImage/GoalKeeperStandBy.png" />
                      </image>

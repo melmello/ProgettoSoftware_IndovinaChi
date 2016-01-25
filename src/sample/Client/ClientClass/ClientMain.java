@@ -83,7 +83,9 @@ public class ClientMain extends Application {
                     FXMLLoader loaderClientChoiceScreen = new FXMLLoader(getClass().getResource(CHOICESCREEN_FXML));//carico .fxml
                     Parent screenChoice = loaderClientChoiceScreen.load();//creo un nuovo Parent
                     clientChoiceController = loaderClientChoiceScreen.getController(); //bindo il Controller
-                    gamingStage = new Stage(); //uso un nuovo stage che mi servirà in futuro (infatti è attributo della classe) siccome manterrò la stessa finestra
+                    if (gamingStage == null) {
+                        gamingStage = new Stage(); //uso un nuovo stage che mi servirà in futuro (infatti è attributo della classe) siccome manterrò la stessa finestra
+                    }
                     gamingStage.getIcons().add(new Image(CHOICESCREEN_ICON));//icona della finestra
                     gamingStage.setTitle("IN GIOCO");//titolo finestra
                     Scene choiceScene = new Scene(screenChoice, 1850, 1000);

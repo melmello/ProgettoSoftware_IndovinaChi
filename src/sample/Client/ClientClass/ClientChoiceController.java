@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.ArcTo;
@@ -38,6 +39,7 @@ public class ClientChoiceController implements Initializable {
     @FXML JFXListView<String> clientConnectedListView;
     @FXML JFXListView<String> clientInGameListView;
     @FXML ImageView ballImage;
+    @FXML ImageView goalKeeper;
     @FXML Rating ratingBox;
 
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
@@ -126,6 +128,15 @@ public class ClientChoiceController implements Initializable {
         pathTransition.playFromStart();
         utilities.fadeTransitionEffect(imageChoosen, 1, 0.3f, 1000);
         utilities.scaleTransition(ballImage, 0.5f, 0.5f, 1000);
+        new Timer().schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperStandBy.png"));;
+                    }
+                },
+                2000
+        );
     }
 
     private void selectionOfClient(String idOfImage) {
@@ -133,23 +144,27 @@ public class ClientChoiceController implements Initializable {
             case (IMAGE_RATING):{
                 utilities.playSomeSound(GOAL_SOUND);
                 seeImageContext(ratingBox, anchorPane.lookup(IMAGE_RATING));
+                goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingRight.png"));
                 break;
             }
             case (IMAGE_PLAYAGAME):{
                 utilities.playSomeSound(GOAL_SOUND);
                 seeImageContext(clientConnectedListView, anchorPane.lookup(IMAGE_PLAYAGAME));
                 seeImageContext(clientInGameListView, anchorPane.lookup(IMAGE_PLAYAGAME));
+                goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingLeft.png"));
                 break;
             }
             case (IMAGE_WORLDSCOREBOARD):{
                 utilities.playSomeSound(GOAL_SOUND);
                 seeImageContext(worldScoreboardListView, anchorPane.lookup(IMAGE_WORLDSCOREBOARD));
+                goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingRight.png"));
                 break;
             }
             case (IMAGE_PERSONALSCOREBOARD):{
                 utilities.playSomeSound(GOAL_SOUND);
                 seeImageContext(personalScoreboardWonListView, anchorPane.lookup(IMAGE_PERSONALSCOREBOARD));
                 seeImageContext(personalScoreboardLostListView, anchorPane.lookup(IMAGE_PERSONALSCOREBOARD));
+                goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingLeft.png"));
                 break;
             }
         }
