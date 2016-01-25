@@ -149,7 +149,7 @@ public class ClientMain extends Application {
         user = new User(textWithUsername, textWithPassword);//istanzio un oggetto User
         String userString = gson.toJson(user);  //serializzo i campi dello User
         System.out.println(userString + " -> userString");
-        if (login == true) {
+        if (login) {
             codeToSend = CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_LOGIN, userString);
         } else {
             codeToSend = CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_SIGNUP, userString);
@@ -165,16 +165,12 @@ public class ClientMain extends Application {
     }
 
     //metodo che dice al Server che il client è pronto per mandare la query
-    public void clientWantsToQuery(){
+    public void clientWantsToQuery(String firstParameter, String secondParameter){
         gson = new Gson();
+        stickerQuery = new StickerQuery(firstParameter, secondParameter);
+        System.out.println(stickerQuery);
         String stickerQueryString = gson.toJson(stickerQuery);
         writer.println(CodeAndInformation.serializeToJson(CLIENT_GIVES_QUERY, stickerQueryString));
-    }
-
-    //getter dell'oggetto stickerQuery
-    public StickerQuery getStickerQuery() {
-        stickerQuery = new StickerQuery(clientGameController.getFirstParameter() , clientGameController.getSecondParameter());
-        return stickerQuery;
     }
 
     //funzione che serve per collegare thread e controller in modo che gli sticker vengano eliminati

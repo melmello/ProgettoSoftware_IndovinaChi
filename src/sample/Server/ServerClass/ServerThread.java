@@ -2,6 +2,7 @@ package sample.Server.ServerClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
 
+import com.google.gson.reflect.TypeToken;
 import sample.Utilities.Class.*;
 import com.google.gson.Gson;
 import java.io.*;
@@ -89,6 +90,7 @@ public class ServerThread extends Thread{
                     }
                     case (CLIENT_SAYS_OK_FOR_PLAYING):{
                         serverStart.createTheGame(codeAndInformation.getInformation());
+                        matchNumber(codeAndInformation.getInformation());
                         break;
                     }
                     case (CLIENT_SAYS_NO_FOR_PLAYING):{
@@ -116,6 +118,13 @@ public class ServerThread extends Thread{
         }
     }
 
+    private void matchNumber(String information) {
+        gson = new Gson();
+        ArrayList<String> userAndNumber = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
+        positionInArrayList = Integer.parseInt(userAndNumber.get(1));
+        System.out.println(positionInArrayList + " -> POSITION!!!!");
+    }
+
 
     private void readyToReceiveOtherClientName(String information) {
         serverStart.sendingRequest(information, getUser().getUserUsername());
@@ -136,7 +145,9 @@ public class ServerThread extends Thread{
     private void readyToKnowQuery(String information) {
         gson = new Gson();
         Boolean choice;
+        System.out.println("RICEVUTO");
         StickerQuery stickerQuery = gson.fromJson(information, StickerQuery.class);
+        System.out.println(stickerQuery);
         switch (stickerQuery.getFirstParameter()) {
             //switch con case(primo parametro passato) e all'interno controllo se corrisponde o no il secondo parametro allo sticker scelto
             case (HAIRCOLORBROWN_FOR_QUERY): {
@@ -389,8 +400,8 @@ public class ServerThread extends Thread{
                 mySticker.setBeardLengthOfSticker(resultSet.getString(BEARDLENGTH_FOR_QUERY));
             }
             System.out.println(mySticker + " -> mySticker");
-            serverStart.setOpponentSticker(mySticker, positionInArrayList);
-            changeFirstPlayerInGame();
+            serverStart.setOpponentSticker(mySticker, positionInArrayList, user.getUserUsername());
+            changeFirstPlayerInGame(positionInArrayList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -461,11 +472,11 @@ public class ServerThread extends Thread{
         }
     }
 
-    public void changeFirstPlayerInGame(){
-        if (mySticker != null && opponentSticker != null) {
+    public void changeFirstPlayerInGame(int positionInArrayList){
+        if (serverStart.getGameArrayList().get(positionInArrayList).getSticker1() != null && serverStart.getGameArrayList().get(positionInArrayList).getSticker2() != null) {
             Random randomNumber = new Random();
             boolean numberOfFirstPlayer = randomNumber.nextBoolean();
-            serverStart.startGameWithRandomChoice(numberOfFirstPlayer);
+            serverStart.startGameWithRandomChoice(numberOfFirstPlayer, positionInArrayList);
         }
     }
 
@@ -484,4 +495,15 @@ public class ServerThread extends Thread{
 
     public void setUser(User user) {this.user = user;}
 
+    public void setPositionInArrayList(int positionInArrayList) {
+        this.positionInArrayList = positionInArrayList;
+    }
+
+    public int getPositionInArrayList() {
+        return positionInArrayList;
+    }
+
+    public Sticker getOpponentSticker() {
+        return opponentSticker;
+    }
 }

@@ -139,6 +139,7 @@ public class ClientChoiceController implements Initializable {
         );
     }
 
+    // TODO: 25/01/2016 fare spostamento portiere
     private void selectionOfClient(String idOfImage) {
         switch (idOfImage) {
             case (IMAGE_RATING):{

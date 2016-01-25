@@ -30,226 +30,226 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ImageView id="Baggio" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="Baggio" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker">
                <image>
                   <Image url="@../../Utilities/Stickers/Baggio.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Beckham" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+            <ImageView id="Beckham" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Beckham.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Bergkamp" fitHeight="216.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+            <ImageView id="Bergkamp" fitHeight="216.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="2">
                <image>
                   <Image url="@../../Utilities/Stickers/Bergkamp.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Best" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+            <ImageView id="Best" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="3">
                <image>
                   <Image url="@../../Utilities/Stickers/Best.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Cantona" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+            <ImageView id="Cantona" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="4">
                <image>
                   <Image url="@../../Utilities/Stickers/Cantona.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Carlos" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
+            <ImageView id="Carlos" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="5">
                <image>
                   <Image url="@../../Utilities/Stickers/Carlos.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Charlton" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
+            <ImageView id="Charlton" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="6">
                <image>
                   <Image url="@../../Utilities/Stickers/Charlton.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Cruijff" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
+            <ImageView id="Cruijff" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="7">
                <image>
                   <Image url="@../../Utilities/Stickers/Cruijff.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Davids" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8">
+            <ImageView id="Davids" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="8">
                <image>
                   <Image url="@../../Utilities/Stickers/Davids.jpg" />
                </image>
             </ImageView>
-            <ImageView id="DelPiero" fitHeight="216.0" fitWidth="150.0" layoutX="1210.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9">
+            <ImageView id="DelPiero" fitHeight="216.0" fitWidth="150.0" layoutX="1210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="9">
                <image>
                   <Image url="@../../Utilities/Stickers/DelPiero.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Deschamps" fitHeight="216.0" fitWidth="150.0" layoutX="1060.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+            <ImageView id="Deschamps" fitHeight="216.0" fitWidth="150.0" layoutX="1060.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Deschamps.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Figo" fitHeight="216.0" fitWidth="150.0" layoutX="910.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ImageView id="Figo" fitHeight="216.0" fitWidth="150.0" layoutX="910.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Figo.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Francescoli" fitHeight="216.0" fitWidth="150.0" layoutX="610.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <ImageView id="Francescoli" fitHeight="216.0" fitWidth="150.0" layoutX="610.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Francescoli.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Gattuso" fitHeight="216.0" fitWidth="150.0" layoutX="460.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <ImageView id="Gattuso" fitHeight="216.0" fitWidth="150.0" layoutX="460.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Gattuso.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Gerrard" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <ImageView id="Gerrard" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Gerrard.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Giggs" fitHeight="216.0" fitWidth="150.0" layoutX="1360.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <ImageView id="Giggs" fitHeight="216.0" fitWidth="150.0" layoutX="1360.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Giggs.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Guardiola" fitHeight="216.0" fitWidth="150.0" layoutX="760.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <ImageView id="Guardiola" fitHeight="216.0" fitWidth="150.0" layoutX="760.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Guardiola.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Gullit" fitHeight="216.0" fitWidth="150.0" layoutX="1210.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="1">
+            <ImageView id="Gullit" fitHeight="216.0" fitWidth="150.0" layoutX="1210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="7" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Gullit.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Henry" fitHeight="216.0" fitWidth="150.0" layoutX="310.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="1">
+            <ImageView id="Henry" fitHeight="216.0" fitWidth="150.0" layoutX="310.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="8" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Henry.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Hierro" fitHeight="216.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="1">
+            <ImageView id="Hierro" fitHeight="216.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="9" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Hierro.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Juninho" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+            <ImageView id="Juninho" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../Utilities/Stickers/Juninho.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Keane" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <ImageView id="Keane" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../Utilities/Stickers/Keane.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Klinsmann" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <ImageView id="Klinsmann" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../Utilities/Stickers/Klinsmann.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Lampard" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <ImageView id="Lampard" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../Utilities/Stickers/Lampard.jpg" />
                </image></ImageView>
-            <ImageView id="Maldini" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <ImageView id="Maldini" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../Utilities/Stickers/Maldini.jpg" />
                </image></ImageView>
-            <ImageView id="Maradona" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+            <ImageView id="Maradona" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../Utilities/Stickers/Maradona.jpg" />
                </image></ImageView>
-            <ImageView id="Nakata" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
+            <ImageView id="Nakata" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../Utilities/Stickers/Nakata.jpg" />
                </image></ImageView>
-            <ImageView id="Papin" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="2">
+            <ImageView id="Papin" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="7" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../Utilities/Stickers/Papin.jpg" />
                </image></ImageView>
-            <ImageView id="Pelè" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="2">
+            <ImageView id="Pelè" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="8" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../Utilities/Stickers/Pelè.jpg" />
                </image></ImageView>
-            <ImageView id="Pirlo" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="2">
+            <ImageView id="Pirlo" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="9" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../Utilities/Stickers/Pirlo.jpg" />
                </image></ImageView>
-            <ImageView id="Platini" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+            <ImageView id="Platini" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../Utilities/Stickers/Platini.jpg" />
                </image></ImageView>
-            <ImageView id="Puyol" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ImageView id="Puyol" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../Utilities/Stickers/Puyol.jpg" />
                </image></ImageView>
-            <ImageView id="Raul" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <ImageView id="Raul" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../Utilities/Stickers/Raul.jpg" />
                </image></ImageView>
-            <ImageView id="Redondo" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <ImageView id="Redondo" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../Utilities/Stickers/Redondo.jpg" />
                </image></ImageView>
-            <ImageView id="Rijkaard" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <ImageView id="Rijkaard" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../Utilities/Stickers/Rijkaard.jpg" />
                </image></ImageView>
-            <ImageView id="Riquelme" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <ImageView id="Riquelme" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../Utilities/Stickers/Riquelme.jpg" />
                </image></ImageView>
-            <ImageView id="Rivaldo" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="3">
+            <ImageView id="Rivaldo" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../Utilities/Stickers/Rivaldo.jpg" />
                </image></ImageView>
-            <ImageView id="Romario" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="3">
+            <ImageView id="Romario" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="7" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../Utilities/Stickers/Romario.jpg" />
                </image></ImageView>
-            <ImageView id="Ronaldinho" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="3">
+            <ImageView id="Ronaldinho" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="8" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../Utilities/Stickers/Ronaldinho.jpg" />
                </image></ImageView>
-            <ImageView id="Ronaldo" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="3">
+            <ImageView id="Ronaldo" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="9" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../Utilities/Stickers/Ronaldo.jpg" />
                </image></ImageView>
-            <ImageView id="Scholes" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4">
+            <ImageView id="Scholes" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.rowIndex="4">
                <image>
                   <Image url="@../../Utilities/Stickers/Scholes.jpg" />
                </image></ImageView>
-            <ImageView id="Sevcenko" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <ImageView id="Sevcenko" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <image>
                   <Image url="@../../Utilities/Stickers/Sevcenko.jpg" />
                </image></ImageView>
-            <ImageView id="Socrates" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <ImageView id="Socrates" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <image>
                   <Image url="@../../Utilities/Stickers/Socrates.jpg" />
                </image></ImageView>
-            <ImageView id="Suker" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <ImageView id="Suker" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <image>
                   <Image url="@../../Utilities/Stickers/Suker.jpg" />
                </image></ImageView>
-            <ImageView id="Totti" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <ImageView id="Totti" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <image>
                   <Image url="@../../Utilities/Stickers/Totti.jpg" />
                </image></ImageView>
-            <ImageView id="Valderrama" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="4">
+            <ImageView id="Valderrama" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <image>
                   <Image url="@../../Utilities/Stickers/Valderrama.jpg" />
                </image></ImageView>
-            <ImageView id="VanBasten" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="4">
+            <ImageView id="VanBasten" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <image>
                   <Image url="@../../Utilities/Stickers/VanBasten.jpg" />
                </image></ImageView>
-            <ImageView id="VanNistelrooij" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="4">
+            <ImageView id="VanNistelrooij" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="7" GridPane.rowIndex="4">
                <image>
                   <Image url="@../../Utilities/Stickers/VanNistelrooij.jpg" />
                </image></ImageView>
-            <ImageView id="Xavi" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="4">
+            <ImageView id="Xavi" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="8" GridPane.rowIndex="4">
                <image>
                   <Image url="@../../Utilities/Stickers/Xavi.jpg" />
                </image></ImageView>
-            <ImageView id="Zidane" fitHeight="216.0" fitWidth="150.0" onMouseClicked="#chooseYourSticker" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="4">
+            <ImageView id="Zidane" fitHeight="216.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="9" GridPane.rowIndex="4">
                <image>
                   <Image url="@../../Utilities/Stickers/Zidane.jpg" />
                </image></ImageView>

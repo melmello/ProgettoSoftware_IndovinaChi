@@ -4,15 +4,15 @@ import static sample.Utilities.Class.ConstantCodes.*;
 import com.jfoenix.controls.JFXListView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.MaskerPane;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -23,6 +23,7 @@ import java.util.*;
 
 public class ClientGameController implements Initializable {
 
+    private Boolean enable = true;
     private ClientMain main;
     private Scene gamingScene;
     private String imagePath;
@@ -63,6 +64,7 @@ public class ClientGameController implements Initializable {
         accessoriesComboBox.setItems(accessoriesPossibility);
         informationComboBox.setItems(informationPossibility);
         comboBoxInitialization();
+        imageInitialization(enable);
         maskerPaneWaitingOtherPlayerChoice.setVisible(false);
     }
 
@@ -74,18 +76,22 @@ public class ClientGameController implements Initializable {
 
     public void clientWantsToQuery() {
         int indexToTakeSqlParameter = -1;
-        if (questionCanBeChoosenArray.contains(questionThatCouldBeChoosen.getSelectionModel().getSelectedItems())) {
-            ArrayList<String> temporaryArrayFromList = new ArrayList<String>();
+        System.out.println(questionCanBeChoosenArray);
+        System.out.println(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem());
+        if (questionCanBeChoosenArray.contains(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem())) {
+            ArrayList<String> temporaryArrayFromList = new ArrayList<>();
             temporaryArrayFromList.addAll(questionCanBeChoosenArray);
-            for (int i = 0; i < questionCanBeChoosenArray.size(); i++) {
-                if (temporaryArrayFromList.get(i).equals(questionThatCouldBeChoosen.getSelectionModel().getSelectedItems())) {
-                    indexToTakeSqlParameter = i;
+            System.out.println(temporaryArrayFromList + " TEMPORARY!!!!!");
+            System.out.println(questionThatCouldBeChoosen.getSelectionModel().getSelectedItems() + " UTILE");
+            for(int cont = 0; cont < questionCanBeChoosenArray.size(); cont++) {
+                if (temporaryArrayFromList.get(cont).equals(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem())) {
+                    indexToTakeSqlParameter = cont;
+                    System.out.println(cont + " CONTTTTTTTTT");
                 }
             }
             if (indexToTakeSqlParameter != -1) {
                 secondParameter = questionToSendToServer.get(indexToTakeSqlParameter);
-                main.clientWantsToQuery();
-            } else {
+                main.clientWantsToQuery(firstParameter, secondParameter);
             }
         } else {
             System.out.println("ERRORE");
@@ -100,6 +106,54 @@ public class ClientGameController implements Initializable {
         informationComboBox.setValue(null);
         questionCanBeChoosenArray.clear();
         questionToSendToServer.clear();
+    }
+
+    private void imageInitialization(Boolean enable) {
+        if (enable) {
+            Set<Node> set = anchorPane.lookupAll(".ImageSticker");
+            Object[] arrayNode = set.toArray();
+            for (int cont = 0; cont < set.size(); cont++) {
+                ImageView imageView = (ImageView) arrayNode[cont];
+                imageView.setOnDragDetected(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        stickerImage = (ImageView) event.getTarget();
+                        Dragboard db = stickerImage.startDragAndDrop(TransferMode.ANY);
+                        ClipboardContent content = new ClipboardContent();
+                        content.putString(stickerImage.getId());
+                        db.setContent(content);
+                        event.consume();
+                    }
+                });
+            }
+            myStickerImage.setOnDragOver(new EventHandler<DragEvent>() {
+                @Override
+                public void handle(DragEvent event) {
+                    myStickerImage = (ImageView) event.getTarget();
+                    if (event.getGestureSource() != myStickerImage && event.getDragboard().hasString()) {
+                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                    }
+                    event.consume();
+                }
+            });
+            myStickerImage.setOnDragDropped(new EventHandler<DragEvent>() {
+                @Override
+                public void handle(DragEvent event) {
+                    Dragboard db = event.getDragboard();
+                    boolean success = false;
+                    if (db.hasString()) {
+                        success = true;
+                        myStickerImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
+                        imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
+                        main.settingMySticker();
+                        System.out.println("Hai scelto il personaggio");
+                    }
+                    event.setDropCompleted(success);
+                    event.consume();
+                }
+            });
+        }
+        enable = false;
     }
 
     private void comboBoxInitialization() {
@@ -342,103 +396,6 @@ public class ClientGameController implements Initializable {
                 }
             }
         });
-    }
-
-
-
-    public void chooseYourSticker(Event event) {
-        stickerImage = (ImageView) event.getTarget();
-        stickerImage.setOnDragDetected(new EventHandler<MouseEvent>() {
-        public void handle(MouseEvent event) {
-            /* drag was detected, start drag-and-drop gesture*/
-            System.out.println("onDragDetected");
-
-            /* allow any transfer mode */
-            Dragboard db = stickerImage.startDragAndDrop(TransferMode.ANY);
-
-            /* put a string on dragboard */
-            ClipboardContent content = new ClipboardContent();
-            db.setContent(content);
-
-            event.consume();
-            }
-        });
-        myStickerImage.setOnDragOver(new EventHandler <DragEvent>() {
-            public void handle(DragEvent event) {
-                /* data is dragged over the target */
-                System.out.println("onDragOver");
-
-                /* accept it only if it is  not dragged from the same node
-                 * and if it has a string data */
-                if (event.getGestureSource() != myStickerImage &&
-                        event.getDragboard().hasString()) {
-                    /* allow for both copying and moving, whatever user chooses */
-                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                }
-
-                event.consume();
-            }
-        });
-        myStickerImage.setOnDragEntered(new EventHandler <DragEvent>() {
-            public void handle(DragEvent event) {
-                /* the drag-and-drop gesture entered the target */
-                System.out.println("onDragEntered");
-                /* show to the user that it is an actual gesture target */
-                if (event.getGestureSource() != myStickerImage &&
-                        event.getDragboard().hasString()) {
-                }
-                event.consume();
-            }
-        });
-        myStickerImage.setOnDragExited(new EventHandler <DragEvent>() {
-            public void handle(DragEvent event) {
-                /* mouse moved away, remove the graphical cues */
-                event.consume();
-            }
-        });
-        myStickerImage.setOnDragDropped(new EventHandler <DragEvent>() {
-            public void handle(DragEvent event) {
-                /* data dropped */
-                System.out.println("onDragDropped");
-                /* if there is a string data on dragboard, read it and use it */
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasString()) {
-                    success = true;
-                }
-                /* let the source know whether the string was successfully
-                 * transferred and used */
-                event.setDropCompleted(success);
-
-                event.consume();
-            }
-        });
-        stickerImage.setOnDragDone(new EventHandler <DragEvent>() {
-            public void handle(DragEvent event) {
-                /* the drag-and-drop gesture ended */
-                System.out.println("onDragDone");
-                /* if the data was successfully moved, clear it */
-                if (event.getTransferMode() == TransferMode.MOVE) {
-                }
-
-                event.consume();
-            }
-        });
-
-    }
-
-    private void confirmSticker() {
-        imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
-        main.settingMySticker();
-        System.out.println("Hai scelto il personaggio");
-    }
-
-    //metodo che permettere di scegliere il proprio Sticker con cui giocare
-    public void chooseYourStickerFirstVersion(Event event) {
-        stickerImage = (ImageView) event.getTarget();
-        myStickerImage.setImage(stickerImage.getImage());
-        stickerImage = (ImageView) event.getTarget();
-        myStickerImage.setImage(stickerImage.getImage());
     }
 
     //metodo che serve per rimuovere gli sticker dalla mio schermata del client

@@ -8,6 +8,8 @@ import javafx.concurrent.Task;
 import sample.Utilities.Class.CodeAndInformation;
 import sample.Utilities.Class.Game;
 import sample.Utilities.Class.Sticker;
+import sample.Utilities.Class.User;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -64,17 +66,23 @@ public class ServerStart extends Task {
         threadsArrayList.get((positionInArrayList + 1) % 2).getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
     }
 
-    public void setOpponentSticker(Sticker mySticker, int positionInArrayList) {
-        threadsArrayList.get((positionInArrayList + 1) % 2).setOpponentSticker(mySticker);
+    public void setOpponentSticker(Sticker mySticker, int positionInArrayList, String username) {
+        System.out.println(positionInArrayList + " -> POSITION SERVERSTART");
+        if (username.equals(gameArrayList.get(positionInArrayList).getPlayer1().getUser().getUserUsername())) {
+            gameArrayList.get(positionInArrayList).setSticker1(mySticker);
+            gameArrayList.get(positionInArrayList).getPlayer2().setOpponentSticker(mySticker);
+        } else if (username.equals(gameArrayList.get(positionInArrayList).getPlayer2().getUser().getUserUsername())){
+            gameArrayList.get(positionInArrayList).setSticker2(mySticker);
+            gameArrayList.get(positionInArrayList).getPlayer2().setOpponentSticker(mySticker);
+        }
     }
 
-    public void startGameWithRandomChoice(boolean numberOfFirstPlayer) {
-        threadsArrayList.get(castingBooleanToInt(numberOfFirstPlayer)).getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
-    }
-
-    public int castingBooleanToInt(Boolean myBoolean){
-        int myInt = (myBoolean) ? 1 : 0;
-        return myInt;
+    public void startGameWithRandomChoice(boolean numberOfFirstPlayer, int position) {
+        if (numberOfFirstPlayer){
+            gameArrayList.get(position).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
+        } else if (!numberOfFirstPlayer){
+            gameArrayList.get(position).getPlayer2().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
+        }
     }
 
     public void insertNameInArrayList(String userSQLName) {
@@ -273,6 +281,7 @@ public class ServerStart extends Task {
             }
             if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userRequest)){
                 gameArrayList.add(new Game(threadsArrayList.get(cont), null));
+                threadsArrayList.get(cont).setPositionInArrayList(matchNumber);
             }
         }
     }
@@ -348,4 +357,7 @@ public class ServerStart extends Task {
         return listOfClientConnected;
     }
 
+    public ArrayList<Game> getGameArrayList() {
+        return gameArrayList;
+    }
 }
