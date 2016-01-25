@@ -125,7 +125,6 @@ public class ServerThread extends Thread{
         System.out.println(positionInArrayList + " -> POSITION!!!!");
     }
 
-
     private void readyToReceiveOtherClientName(String information) {
         serverStart.sendingRequest(information, getUser().getUserUsername());
     }
@@ -335,7 +334,7 @@ public class ServerThread extends Thread{
         gson = new Gson();
         String nicknameGson = gson.toJson(sqlNicknameToBeRemoved);
         writer.println(CodeAndInformation.serializeToJson(SERVER_SENDS_STICKER_MUST_BE_REMOVED, nicknameGson));
-        serverStart.changingRoundOfClient(positionInArrayList);
+        serverStart.changingRoundOfClient(positionInArrayList, user.getUserUsername(), mySticker);
     }
 
     //creo la query con due parametri, uno stringa e uno booleano e cerco = o ! non più in questo metodo ma nella chiamata
@@ -354,6 +353,7 @@ public class ServerThread extends Thread{
         gson = new Gson();
         String nicknameGson = gson.toJson(sqlNicknameToBeRemoved);
         writer.println(CodeAndInformation.serializeToJson(SERVER_SENDS_STICKER_MUST_BE_REMOVED, nicknameGson));
+        serverStart.changingRoundOfClient(positionInArrayList, user.getUserUsername(), mySticker);
     }
 
     //metodo di casting da Stringa a Boolean
@@ -505,5 +505,13 @@ public class ServerThread extends Thread{
 
     public Sticker getOpponentSticker() {
         return opponentSticker;
+    }
+
+    public Sticker getMySticker() {
+        return mySticker;
+    }
+
+    public void setMySticker(Sticker mySticker) {
+        this.mySticker = mySticker;
     }
 }

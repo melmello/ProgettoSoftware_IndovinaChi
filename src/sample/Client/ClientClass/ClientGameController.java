@@ -411,7 +411,6 @@ public class ClientGameController implements Initializable {
 
     public void readyToAbilitateClientScreen() {
         disableForChangingRound(false);
-        //settingQuestionForSticker.setDisable(false);
     }
 
     public void abilitateMaskerPane() {
@@ -438,13 +437,6 @@ public class ClientGameController implements Initializable {
         questionThatCouldBeChoosen.setPrefHeight((questionCanBeChoosenArray.size()+4)*17);
     }
 
-    public String getFirstParameter() {
-        return firstParameter;
-    }
-
-    public String getSecondParameter() {
-        return secondParameter;
-    }
 
     public String getImagePath() {
         return imagePath;

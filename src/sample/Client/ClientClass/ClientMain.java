@@ -190,7 +190,7 @@ public class ClientMain extends Application {
             @Override
             public void run() {
                 notification("Sta a te!");
-                clientGameController.readyToAbilitateClientScreen();
+                clientGameController.disableForChangingRound(false);
             }
         });
     }

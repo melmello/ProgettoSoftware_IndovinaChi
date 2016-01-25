@@ -116,7 +116,7 @@ public class ClientChoiceController implements Initializable {
             LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - ballImage.getLayoutX() + anchorPane.getLayoutX() + imageChoosen.getFitWidth()/2, imageChoosen.getLayoutY() + - ballImage.getLayoutY() + anchorPane.getLayoutY() + imageChoosen.getFitHeight()/2);
             path.getElements().add(lineTo);
         }
-        selectionOfClient(imageChoosen.getId());
+        selectionOfClient(imageChoosen.getId(), imageChoosen);
         path.setStrokeWidth(1);
         final PathTransition pathTransition = PathTransitionBuilder.create()
                 .node(ballImage)
@@ -140,12 +140,17 @@ public class ClientChoiceController implements Initializable {
     }
 
     // TODO: 25/01/2016 fare spostamento portiere
-    private void selectionOfClient(String idOfImage) {
+    private void selectionOfClient(String idOfImage, ImageView imageChoosen) {
+        Path path = new Path();
+        path.getElements().add(new MoveTo(goalKeeper.getFitWidth() / 2, goalKeeper.getFitHeight() / 2));
         switch (idOfImage) {
             case (IMAGE_RATING):{
                 utilities.playSomeSound(GOAL_SOUND);
                 seeImageContext(ratingBox, anchorPane.lookup(IMAGE_RATING));
                 goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingRight.png"));
+                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - anchorPane.getLayoutX() + anchorPane.getWidth()/2, imageChoosen.getLayoutY() - anchorPane.getLayoutY() - anchorPane.getHeight()/2);
+                //LineTo lineTo = new LineTo(imageChoosen.getLayoutX() + 25 - goalKeeper.getLayoutX() + anchorPane.getLayoutX() + goalKeeper.getFitWidth()/2, imageChoosen.getLayoutY() + 25  - goalKeeper.getLayoutY() + anchorPane.getLayoutY() + goalKeeper.getFitHeight()/2);
+                path.getElements().add(lineTo);
                 break;
             }
             case (IMAGE_PLAYAGAME):{
@@ -153,12 +158,16 @@ public class ClientChoiceController implements Initializable {
                 seeImageContext(clientConnectedListView, anchorPane.lookup(IMAGE_PLAYAGAME));
                 seeImageContext(clientInGameListView, anchorPane.lookup(IMAGE_PLAYAGAME));
                 goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingLeft.png"));
+                ArcTo arcTo = new ArcTo(50, 50, 100, 150 - goalKeeper.getLayoutX() + anchorPane.getLayoutX() + goalKeeper.getFitWidth()/2, 200  - goalKeeper.getLayoutY() + anchorPane.getLayoutY() + goalKeeper.getFitHeight()/2, false, true);
+                path.getElements().add(arcTo);
                 break;
             }
             case (IMAGE_WORLDSCOREBOARD):{
                 utilities.playSomeSound(GOAL_SOUND);
                 seeImageContext(worldScoreboardListView, anchorPane.lookup(IMAGE_WORLDSCOREBOARD));
                 goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingRight.png"));
+                ArcTo arcTo = new ArcTo(50, 50, 100, 150 - goalKeeper.getLayoutX() + anchorPane.getLayoutX() + goalKeeper.getFitWidth()/2, 200  - goalKeeper.getLayoutY() + anchorPane.getLayoutY() + goalKeeper.getFitHeight()/2, false, true);
+                path.getElements().add(arcTo);
                 break;
             }
             case (IMAGE_PERSONALSCOREBOARD):{
@@ -166,9 +175,20 @@ public class ClientChoiceController implements Initializable {
                 seeImageContext(personalScoreboardWonListView, anchorPane.lookup(IMAGE_PERSONALSCOREBOARD));
                 seeImageContext(personalScoreboardLostListView, anchorPane.lookup(IMAGE_PERSONALSCOREBOARD));
                 goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingLeft.png"));
+                ArcTo arcTo = new ArcTo(50, 50, 100, 150 - goalKeeper.getLayoutX() + anchorPane.getLayoutX() + goalKeeper.getFitWidth()/2, 200  - goalKeeper.getLayoutY() + anchorPane.getLayoutY() + goalKeeper.getFitHeight()/2, false, true);
+                path.getElements().add(arcTo);
                 break;
             }
         }
+        path.setStrokeWidth(1);
+        final PathTransition pathTransition = PathTransitionBuilder.create()
+                .node(goalKeeper)
+                .path(path)
+                .duration(Duration.millis(1000))
+                .orientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT)
+                .cycleCount(1)
+                .build();
+        pathTransition.playFromStart();
     }
 
     private void seeImageContext(Node node, Node nodeSelected) {

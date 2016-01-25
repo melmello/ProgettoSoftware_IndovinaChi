@@ -62,8 +62,14 @@ public class ServerStart extends Task {
     }
 
     //metodo per il cambio di turno
-    public void changingRoundOfClient(int positionInArrayList){
-        threadsArrayList.get((positionInArrayList + 1) % 2).getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
+    public void changingRoundOfClient(int positionInArrayList, String usernameToChange, Sticker mySticker){
+        if (gameArrayList.get(positionInArrayList).getPlayer1().getUser().getUserUsername().equals(usernameToChange)){
+            gameArrayList.get(positionInArrayList).getPlayer2().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
+            gameArrayList.get(positionInArrayList).getPlayer2().setOpponentSticker(mySticker);
+        } else if (gameArrayList.get(positionInArrayList).getPlayer2().getUser().getUserUsername().equals(usernameToChange)) {
+            gameArrayList.get(positionInArrayList).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
+            gameArrayList.get(positionInArrayList).getPlayer1().setOpponentSticker(mySticker);
+        }
     }
 
     public void setOpponentSticker(Sticker mySticker, int positionInArrayList, String username) {
@@ -73,7 +79,7 @@ public class ServerStart extends Task {
             gameArrayList.get(positionInArrayList).getPlayer2().setOpponentSticker(mySticker);
         } else if (username.equals(gameArrayList.get(positionInArrayList).getPlayer2().getUser().getUserUsername())){
             gameArrayList.get(positionInArrayList).setSticker2(mySticker);
-            gameArrayList.get(positionInArrayList).getPlayer2().setOpponentSticker(mySticker);
+            gameArrayList.get(positionInArrayList).getPlayer1().setOpponentSticker(mySticker);
         }
     }
 
