@@ -162,6 +162,7 @@ public class ClientMain extends Application {
         writer.println(CodeAndInformation.serializeToJson(CLIENT_GIVES_STICKER_INFO, clientGameController.getImagePath()));
         notification("Hai scelto il personaggio!");
         clientGameController.abilitateMaskerPane();
+        clientGameController.changeDragAndDrop(clientGameController.getHisStickerImage());
     }
 
     //metodo che dice al Server che il client è pronto per mandare la query

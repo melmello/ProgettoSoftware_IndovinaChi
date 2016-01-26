@@ -146,7 +146,8 @@ public class ServerThread extends Thread{
         Boolean choice;
         System.out.println("RICEVUTO");
         StickerQuery stickerQuery = gson.fromJson(information, StickerQuery.class);
-        System.out.println(stickerQuery);
+        System.out.println(stickerQuery + " -> STICKER QUERY");
+        System.out.println(opponentSticker + " -> OPPONENT STICKER");
         switch (stickerQuery.getFirstParameter()) {
             //switch con case(primo parametro passato) e all'interno controllo se corrisponde o no il secondo parametro allo sticker scelto
             case (HAIRCOLORBROWN_FOR_QUERY): {
@@ -168,10 +169,12 @@ public class ServerThread extends Thread{
                 break;
             }
             case (BEARDCOLORBROWN_FOR_QUERY): {
-                if (opponentSticker.isBeardColorBrownOfSticker() == stringToBool(stickerQuery.getSecondParameter())) {
-                    settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
-                } else {
-                    settingQueryBooleanType(stickerQuery.getFirstParameter(), !stringToBool(stickerQuery.getSecondParameter()));
+                if (opponentSticker.isBeardColorBrownOfSticker() == null) {
+                    settingQueryInvertType(stickerQuery.getFirstParameter(), !stringToBoolean(stickerQuery.getSecondParameter()));
+                } else if (opponentSticker.isBeardColorBrownOfSticker() == stringToBoolean(stickerQuery.getSecondParameter())) {
+                    settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBoolean(stickerQuery.getSecondParameter()));
+                } else if (opponentSticker.isBeardColorBrownOfSticker() != stringToBoolean(stickerQuery.getSecondParameter())){
+                    settingQueryBooleanType(stickerQuery.getFirstParameter(), !stringToBoolean(stickerQuery.getSecondParameter()));
                 }
                 break;
             }
@@ -294,10 +297,12 @@ public class ServerThread extends Thread{
                 break;
             }
             case (HAIRTYPESTRAIGHT_FOR_QUERY): {
-                if (opponentSticker.isHairTypeStraightOfSticker() == stringToBool(stickerQuery.getSecondParameter())) {
-                    settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
-                } else {
-                    settingQueryBooleanType(stickerQuery.getFirstParameter(), !stringToBool(stickerQuery.getSecondParameter()));
+                if (opponentSticker.isHairTypeStraightOfSticker() == null){
+                    settingQueryInvertType(stickerQuery.getFirstParameter(), !stringToBoolean(stickerQuery.getSecondParameter()));
+                } else if (opponentSticker.isHairTypeStraightOfSticker() == stringToBoolean(stickerQuery.getSecondParameter())) {
+                    settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBoolean(stickerQuery.getSecondParameter()));
+                } else if (opponentSticker.isHairTypeStraightOfSticker() != stringToBoolean(stickerQuery.getSecondParameter())){
+                    settingQueryBooleanType(stickerQuery.getFirstParameter(), !stringToBoolean(stickerQuery.getSecondParameter()));
                 }
                 break;
             }
@@ -312,6 +317,24 @@ public class ServerThread extends Thread{
                 break;
             }
         }
+    }
+
+    private void settingQueryInvertType(String firstParameter, Boolean secondParameter) {
+        ResultSet resultSet;
+        try {
+            Statement statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM stickers WHERE " + firstParameter + " != '" + secondParameter + "'");//faccio la query con il nome ricevuto per creare la figurina
+            while (resultSet.next()){
+                sqlNicknameToBeRemoved.add(resultSet.getString(NICKNAME_FOR_QUERY));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        System.out.println(sqlNicknameToBeRemoved + " -> sqlNicknameToBeRemoved");
+        gson = new Gson();
+        String nicknameGson = gson.toJson(sqlNicknameToBeRemoved);
+        writer.println(CodeAndInformation.serializeToJson(SERVER_SENDS_STICKER_MUST_BE_REMOVED, nicknameGson));
+        serverStart.changingRoundOfClient(positionInArrayList, user.getUserUsername(), mySticker);
     }
 
     //creo la query con due parametri di tipo stringa in cui all'interno cerco = o != a seconda della scelta passata
@@ -365,6 +388,16 @@ public class ServerThread extends Thread{
         throw new IllegalArgumentException(stringConvertion + " non è booleano");
     }
 
+    private static Boolean stringToBoolean(String stringConvertion){
+        if (stringConvertion.equals(TRUEANSWER_FOR_QUERY))
+            return true;
+        if (stringConvertion.equals(FALSEANSWER_FOR_QUERY))
+            return false;
+        if (stringConvertion.equals(null))
+            return null;
+        throw new IllegalArgumentException(stringConvertion + " non è Booleano");
+    }
+
     //metodo che serve per sapere che sticker ha scelto l'utente
     private void readyToKnowStickerInfo(String information) {
         try {
@@ -382,6 +415,10 @@ public class ServerThread extends Thread{
                 mySticker.setHairColorBrownOfSticker(resultSet.getBoolean(HAIRCOLORBROWN_FOR_QUERY));
                 mySticker.setHairLengthOfSticker(resultSet.getString(HAIRLENGTH_FOR_QUERY));
                 mySticker.setBeardColorBrownOfSticker(resultSet.getBoolean(BEARDCOLORBROWN_FOR_QUERY));
+                if (resultSet.wasNull()) {
+                    mySticker.setBeardColorBrownOfSticker(null);
+                    System.out.println(mySticker.isBeardColorBrownOfSticker() + " BEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEARD");
+                }
                 mySticker.setEyesColorBrownOfSticker(resultSet.getBoolean(EYESCOLORBROWN_FOR_QUERY));
                 mySticker.setComplexionBrownOfSticker(resultSet.getBoolean(COMPLEXIONBROWN_FOR_QUERY));
                 mySticker.setEarringsOfSticker(resultSet.getBoolean(EARRINGS_FOR_QUERY));
@@ -397,6 +434,10 @@ public class ServerThread extends Thread{
                 mySticker.setNoseDimensionBigOfSticker(resultSet.getBoolean(NOSEDIMENSIONBIG_FOR_QUERY));
                 mySticker.setSmileOfSticker(resultSet.getBoolean(SMILE_FOR_QUERY));
                 mySticker.setHairTypeStraightOfSticker(resultSet.getBoolean(HAIRTYPESTRAIGHT_FOR_QUERY));
+                if (resultSet.wasNull()) {
+                    mySticker.setHairTypeStraightOfSticker(null);
+                    System.out.println(mySticker.isHairTypeStraightOfSticker() + " HAIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIR");
+                }
                 mySticker.setBeardLengthOfSticker(resultSet.getString(BEARDLENGTH_FOR_QUERY));
             }
             System.out.println(mySticker + " -> mySticker");

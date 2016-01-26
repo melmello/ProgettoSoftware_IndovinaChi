@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
@@ -23,7 +24,6 @@ import java.util.*;
 
 public class ClientGameController implements Initializable {
 
-    private Boolean enable = true;
     private ClientMain main;
     private Scene gamingScene;
     private String imagePath;
@@ -38,6 +38,8 @@ public class ClientGameController implements Initializable {
     public static final ObservableList facePossibility = FXCollections.observableArrayList();
     public static final ObservableList accessoriesPossibility = FXCollections.observableArrayList();
     public static final ObservableList informationPossibility = FXCollections.observableArrayList();
+    public static final ObservableList questionAsked = FXCollections.observableArrayList();
+    @FXML ToolBar toolBar;
     @FXML ImageView stickerImage;
     @FXML ImageView myStickerImage;
     @FXML ImageView hisStickerImage;
@@ -48,6 +50,7 @@ public class ClientGameController implements Initializable {
     @FXML JFXComboBox<String> informationComboBox;
     @FXML MaskerPane maskerPaneWaitingOtherPlayerChoice;
     @FXML JFXListView<String> questionThatCouldBeChoosen;
+    @FXML JFXListView<String> questionChoosenListView;
     @FXML AnchorPane anchorPane;
 
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
@@ -64,7 +67,9 @@ public class ClientGameController implements Initializable {
         accessoriesComboBox.setItems(accessoriesPossibility);
         informationComboBox.setItems(informationPossibility);
         comboBoxInitialization();
-        imageInitialization(enable);
+        imageInitialization();
+        toolBar.setDisable(true);
+        questionThatCouldBeChoosen.setDisable(true);
         maskerPaneWaitingOtherPlayerChoice.setVisible(false);
     }
 
@@ -81,12 +86,15 @@ public class ClientGameController implements Initializable {
         if (questionCanBeChoosenArray.contains(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem())) {
             ArrayList<String> temporaryArrayFromList = new ArrayList<>();
             temporaryArrayFromList.addAll(questionCanBeChoosenArray);
-            System.out.println(temporaryArrayFromList + " TEMPORARY!!!!!");
-            System.out.println(questionThatCouldBeChoosen.getSelectionModel().getSelectedItems() + " UTILE");
             for(int cont = 0; cont < questionCanBeChoosenArray.size(); cont++) {
-                if (temporaryArrayFromList.get(cont).equals(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem())) {
+                if (temporaryArrayFromList.get(cont).equals(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem())) {// TODO: 26/01/2016
                     indexToTakeSqlParameter = cont;
-                    System.out.println(cont + " CONTTTTTTTTT");
+                    questionAsked.add(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem());
+                    questionChoosenListView.setItems(questionAsked);
+                    ObservableList<String> obs = FXCollections.(questionAsked.toArray());
+
+                    questionAsked.toArray()
+                    setListViewHeight(questionChoosenListView, questionAsked);
                 }
             }
             if (indexToTakeSqlParameter != -1) {
@@ -108,52 +116,62 @@ public class ClientGameController implements Initializable {
         questionToSendToServer.clear();
     }
 
-    private void imageInitialization(Boolean enable) {
-        if (enable) {
-            Set<Node> set = anchorPane.lookupAll(".ImageSticker");
-            Object[] arrayNode = set.toArray();
-            for (int cont = 0; cont < set.size(); cont++) {
-                ImageView imageView = (ImageView) arrayNode[cont];
-                imageView.setOnDragDetected(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        stickerImage = (ImageView) event.getTarget();
-                        Dragboard db = stickerImage.startDragAndDrop(TransferMode.ANY);
-                        ClipboardContent content = new ClipboardContent();
-                        content.putString(stickerImage.getId());
-                        db.setContent(content);
-                        event.consume();
-                    }
-                });
-            }
-            myStickerImage.setOnDragOver(new EventHandler<DragEvent>() {
+    private void imageInitialization() {
+        Set<Node> set = anchorPane.lookupAll(".ImageSticker");
+        Object[] arrayNode = set.toArray();
+        for (int cont = 0; cont < set.size(); cont++) {
+            ImageView imageView = (ImageView) arrayNode[cont];
+            imageView.setOnDragDetected(new EventHandler<MouseEvent>() {
                 @Override
-                public void handle(DragEvent event) {
-                    myStickerImage = (ImageView) event.getTarget();
-                    if (event.getGestureSource() != myStickerImage && event.getDragboard().hasString()) {
-                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                    }
-                    event.consume();
-                }
-            });
-            myStickerImage.setOnDragDropped(new EventHandler<DragEvent>() {
-                @Override
-                public void handle(DragEvent event) {
-                    Dragboard db = event.getDragboard();
-                    boolean success = false;
-                    if (db.hasString()) {
-                        success = true;
-                        myStickerImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
-                        imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
-                        main.settingMySticker();
-                        System.out.println("Hai scelto il personaggio");
-                    }
-                    event.setDropCompleted(success);
+                public void handle(MouseEvent event) {
+                    stickerImage = (ImageView) event.getTarget();
+                    Dragboard db = stickerImage.startDragAndDrop(TransferMode.ANY);
+                    ClipboardContent content = new ClipboardContent();
+                    content.putString(stickerImage.getId());
+                    db.setContent(content);
                     event.consume();
                 }
             });
         }
-        enable = false;
+        changeDragAndDrop(myStickerImage);
+    }
+
+    public void changeDragAndDrop(ImageView targetImage) {
+        if (targetImage.equals(hisStickerImage)){
+            myStickerImage.setOnDragOver(null);
+            myStickerImage.setOnDragDropped(null);
+        }
+        targetImage.setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                hisStickerImage = (ImageView) event.getTarget();
+                if (event.getGestureSource() != hisStickerImage && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                }
+                event.consume();
+            }
+        });
+        targetImage.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+                    success = true;
+                    if (targetImage.equals(myStickerImage)) {
+                        targetImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
+                        imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
+                        main.settingMySticker();
+                        System.out.println("Hai scelto il personaggio");
+                    } else if (targetImage.equals(hisStickerImage)){
+                        targetImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
+                        main.clientWantsToQuerySticker(targetImage.getId());
+                    }
+                }
+                event.setDropCompleted(success);
+                event.consume();
+            }
+        });
     }
 
     private void comboBoxInitialization() {
@@ -409,23 +427,16 @@ public class ClientGameController implements Initializable {
         disableForChangingRound(true);
     }
 
-    public void readyToAbilitateClientScreen() {
-        disableForChangingRound(false);
-    }
-
     public void abilitateMaskerPane() {
         maskerPaneWaitingOtherPlayerChoice.setVisible(true);
         disableForChangingRound(true);
     }
 
-    // TODO: 23/01/2016 fare parte movimento con set image e set id
-    public void clientWantsToQuerySticker(){
-        main.clientWantsToQuerySticker(hisStickerImage.getId());
-    }
-
     public void disableForChangingRound(Boolean bool){
         maskerPaneWaitingOtherPlayerChoice.setVisible(bool);
+        questionChoosenListView.setDisable(bool);
         questionThatCouldBeChoosen.setDisable(bool);
+        toolBar.setDisable(bool);
         hairComboBox.setDisable(bool);
         beardComboBox.setDisable(bool);
         faceComboBox.setDisable(bool);
@@ -437,9 +448,11 @@ public class ClientGameController implements Initializable {
         questionThatCouldBeChoosen.setPrefHeight((questionCanBeChoosenArray.size()+4)*17);
     }
 
-
     public String getImagePath() {
         return imagePath;
     }
 
+    public ImageView getHisStickerImage() {
+        return hisStickerImage;
+    }
 }

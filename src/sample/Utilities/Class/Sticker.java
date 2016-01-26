@@ -9,7 +9,7 @@ public class Sticker implements Serializable{
     private String surnameOfSticker;
     private boolean hairColorBrownOfSticker;
     private String hairLengthOfSticker;
-    private boolean beardColorBrownOfSticker;
+    private Boolean beardColorBrownOfSticker;
     private boolean eyesColorBrownOfSticker;
     private boolean complexionBrownOfSticker;
     private boolean earringsOfSticker;
@@ -24,14 +24,14 @@ public class Sticker implements Serializable{
     private boolean captainBandOfSticker;
     private boolean noseDimensionBigOfSticker;
     private boolean smileOfSticker;
-    private boolean hairTypeStraightOfSticker;
+    private Boolean hairTypeStraightOfSticker;
     private String beardLengthOfSticker;
 
     public Sticker(String nickname) {
         this.nicknameOfSticker = nicknameOfSticker;
     }
 
-    public Sticker(String name, String nickname, String surname, boolean hairColorBrown, String hairLength, boolean beardColorBrown, boolean eyesColorBrown, boolean complexionBrown, boolean earrings, boolean glasses, boolean headband, boolean mole, String beardType, boolean freeckles, boolean nationalShirt, String continent, String championship, boolean captainBand, boolean noseDimensionBig, boolean smile, boolean hairTypeStraight, String beardLength) {
+    public Sticker(String name, String nickname, String surname, boolean hairColorBrown, String hairLength, Boolean beardColorBrown, boolean eyesColorBrown, boolean complexionBrown, boolean earrings, boolean glasses, boolean headband, boolean mole, String beardType, boolean freeckles, boolean nationalShirt, String continent, String championship, boolean captainBand, boolean noseDimensionBig, boolean smile, Boolean hairTypeStraight, String beardLength) {
         this.nameOfSticker = name;
         this.nicknameOfSticker = nickname;
         this.surnameOfSticker = surname;
@@ -104,7 +104,7 @@ public class Sticker implements Serializable{
         return hairLengthOfSticker;
     }
 
-    public boolean isBeardColorBrownOfSticker() {
+    public Boolean isBeardColorBrownOfSticker() {
         return beardColorBrownOfSticker;
     }
 
@@ -162,7 +162,7 @@ public class Sticker implements Serializable{
         return smileOfSticker;
     }
 
-    public boolean isHairTypeStraightOfSticker() {
+    public Boolean isHairTypeStraightOfSticker() {
         return hairTypeStraightOfSticker;
     }
 
@@ -190,7 +190,7 @@ public class Sticker implements Serializable{
         this.hairLengthOfSticker = hairLengthOfSticker;
     }
 
-    public void setBeardColorBrownOfSticker(boolean beardColorBrownOfSticker) {
+    public void setBeardColorBrownOfSticker(Boolean beardColorBrownOfSticker) {
         this.beardColorBrownOfSticker = beardColorBrownOfSticker;
     }
 
@@ -250,7 +250,7 @@ public class Sticker implements Serializable{
         this.smileOfSticker = smile;
     }
 
-    public void setHairTypeStraightOfSticker(boolean hairTypeStraightOfSticker) {
+    public void setHairTypeStraightOfSticker(Boolean hairTypeStraightOfSticker) {
         this.hairTypeStraightOfSticker = hairTypeStraightOfSticker;
     }
 

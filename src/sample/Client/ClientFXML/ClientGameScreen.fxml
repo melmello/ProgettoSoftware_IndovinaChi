@@ -256,7 +256,7 @@
          </children>
       </GridPane>
       <ImageView fx:id="myStickerImage" fitHeight="216.0" fitWidth="150.0" layoutX="1506.0" layoutY="717.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="hisStickerImage" fitHeight="216.0" fitWidth="150.0" layoutX="1686.0" layoutY="767.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="hisStickerImage" fitHeight="216.0" fitWidth="150.0" layoutX="1677.0" layoutY="763.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Utilities/Stickers/Question.png" />
          </image></ImageView>
@@ -274,7 +274,5 @@
       <JFXListView fx:id="questionThatCouldBeChoosen" layoutX="1525.0" layoutY="450.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clientWantsToQuery" prefHeight="195.0" prefWidth="265.0" style="-fx-background-color: transparent;" />
       <MaskerPane fx:id="maskerPaneWaitingOtherPlayerChoice" layoutX="1586.0" layoutY="481.0" />
       <JFXListView fx:id="questionChoosenListView" layoutX="1534.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="265.0" style="-fx-background-color: transparent;" />
-      <JFXButton fx:id="confirmMyStickerButton" layoutX="1576.0" layoutY="933.0" text="CONFIRM" />
-      <JFXButton fx:id="confirmHisStickerButton" layoutX="1751.0" layoutY="926.0" text="CONFIRM" />
    </children>
 </AnchorPane>
