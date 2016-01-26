@@ -57,27 +57,60 @@
                   <Image url="@../ClientImage/FootballPlayerDark.png" />
                </image>
             </ImageView>
-            <AnchorPane layoutX="1502.0" layoutY="75.0">
+            <AnchorPane fx:id="anchorRating" layoutX="1408.0" layoutY="67.0" prefHeight="435.0" prefWidth="388.0">
                <children>
-                  <Rating fx:id="ratingBox" layoutX="26.0" onMouseClicked="#ratingGame" updateOnHover="true" />
-                  <TextArea layoutY="72.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Rating fx:id="ratingBox" layoutX="106.0" layoutY="14.0" updateOnHover="true" />
+                  <TextArea fx:id="textRating" layoutX="28.0" layoutY="138.0" prefHeight="216.0" prefWidth="332.0" promptText="Fai una recensione.." />
+                  <TextField fx:id="titleRating" alignment="CENTER" layoutX="101.0" layoutY="80.0" promptText="TITOLO" />
+                  <JFXButton layoutX="154.0" layoutY="366.0" onAction="#ratingGame" text="SEND">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font></JFXButton>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="1403.0" layoutY="653.0">
+            <AnchorPane fx:id="anchorWorld" layoutX="1413.0" layoutY="562.0" prefHeight="417.0" prefWidth="388.0">
                <children>
-                  <JFXListView fx:id="worldScoreboardListView" prefHeight="326.0" prefWidth="398.0" style="-fx-background-color: transparent;" />
+                  <JFXListView fx:id="worldScoreboardListView" layoutY="91.0" prefHeight="326.0" prefWidth="398.0" style="-fx-background-color: transparent;" />
+                  <Label layoutX="72.0" layoutY="14.0" text="LEADERBOARD MONDIALE">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font></Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="45.0" layoutY="46.0">
+            <AnchorPane fx:id="anchorPlayer" layoutX="45.0" layoutY="39.0" prefHeight="417.0" prefWidth="486.0">
                <children>
-                  <JFXListView fx:id="clientConnectedListView" onMouseClicked="#clientWantsToPlayAGameWith" prefHeight="326.0" prefWidth="243.0" style="-fx-background-color: transparent;" />
-                  <JFXListView fx:id="clientInGameListView" layoutX="243.0" onMouseClicked="#clientWantsToPlayAGameWith" prefHeight="326.0" prefWidth="243.0" style="-fx-background-color: transparent;" />
+                  <JFXListView fx:id="clientConnectedListView" layoutY="91.0" onMouseClicked="#clientWantsToPlayAGameWith" prefHeight="326.0" prefWidth="243.0" style="-fx-background-color: transparent;" />
+                  <JFXListView fx:id="clientInGameListView" layoutX="243.0" layoutY="91.0" onMouseClicked="#clientWantsToPlayAGameWith" prefHeight="326.0" prefWidth="243.0" style="-fx-background-color: transparent;" />
+                  <Label layoutX="206.0" layoutY="14.0" text="ONLINE">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font></Label>
+                  <Label layoutX="56.0" layoutY="56.0" text="Pronti per giocare">
+                     <font>
+                        <Font name="System Italic" size="17.0" />
+                     </font></Label>
+                  <Label layoutX="336.0" layoutY="56.0" text="In gioco">
+                     <font>
+                        <Font name="System Italic" size="17.0" />
+                     </font></Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="45.0" layoutY="653.0">
+            <AnchorPane fx:id="anchorPersonal" layoutX="45.0" layoutY="562.0" prefHeight="417.0" prefWidth="486.0">
                <children>
-                  <JFXListView fx:id="personalScoreboardWonListView" prefHeight="326.0" prefWidth="243.0" style="-fx-background-color: transparent;" />
-                  <JFXListView fx:id="personalScoreboardLostListView" layoutX="243.0" prefHeight="326.0" prefWidth="243.0" style="-fx-background-color: transparent;" />
+                  <JFXListView fx:id="personalScoreboardWonListView" layoutY="91.0" prefHeight="326.0" prefWidth="243.0" style="-fx-background-color: transparent;" />
+                  <JFXListView fx:id="personalScoreboardLostListView" layoutX="243.0" layoutY="91.0" prefHeight="326.0" prefWidth="243.0" style="-fx-background-color: transparent;" />
+                  <Label layoutX="131.0" layoutY="14.0" text="LE TUE ULTIME PARTITE">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font></Label>
+                  <Label layoutX="97.0" layoutY="70.0" text="Vittorie">
+                     <font>
+                        <Font name="System Italic" size="17.0" />
+                     </font></Label>
+                  <Label layoutX="335.0" layoutY="70.0" text="Sconfitte">
+                     <font>
+                        <Font name="System Italic" size="17.0" />
+                     </font></Label>
                </children>
             </AnchorPane>
          </children>

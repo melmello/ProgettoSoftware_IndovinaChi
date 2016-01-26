@@ -9,9 +9,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -32,7 +30,18 @@ public class ClientChoiceController implements Initializable {
     private String opponentChoosen;
     private Utilities utilities = new Utilities();
     private ClientMain main;
+    private ImageView oldImage = new ImageView();
+    private boolean timerOnWorld = false;
+    private boolean timerOnPersonal = false;
+    private boolean timerOnRating = false;
+    private boolean timerOnClient = false;
     @FXML AnchorPane anchorPane;
+    @FXML AnchorPane anchorRating;
+    @FXML AnchorPane anchorWorld;
+    @FXML AnchorPane anchorPersonal;
+    @FXML AnchorPane anchorPlayer;
+    @FXML TextField titleRating;
+    @FXML TextArea textRating;
     @FXML JFXListView<String> personalScoreboardWonListView;
     @FXML JFXListView<String> personalScoreboardLostListView;
     @FXML JFXListView<String> worldScoreboardListView;
@@ -45,12 +54,10 @@ public class ClientChoiceController implements Initializable {
     //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        personalScoreboardWonListView.setVisible(false);
-        personalScoreboardLostListView.setVisible(false);
-        worldScoreboardListView.setVisible(false);
-        clientConnectedListView.setVisible(false);
-        clientInGameListView.setVisible(false);
-        ratingBox.setVisible(false);
+        anchorRating.setVisible(false);
+        anchorWorld.setVisible(false);
+        anchorPersonal.setVisible(false);
+        anchorPlayer.setVisible(false);
     }
 
     //metodo che serve per far conoscere main e controller
@@ -93,7 +100,11 @@ public class ClientChoiceController implements Initializable {
     }
 
     private void setListViewHeight(ArrayList<String> clientConnectedListWithoutMe, ListView<String> listView) {
-        listView.setPrefHeight((clientConnectedListWithoutMe.size()+4)*17);
+        if (listView.getHeight() < 300){
+            listView.setPrefHeight((clientConnectedListWithoutMe.size()+4)*17);
+        } else {
+            listView.setPrefHeight((7+4)*17);
+        }
     }
 
     public void clientWantsToPlayAGameWith(){
@@ -106,6 +117,7 @@ public class ClientChoiceController implements Initializable {
         utilities.playSomeSound(BALLSHOT_SOUND);
         ballImage.setScaleX(1);
         ballImage.setScaleY(1);
+        utilities.fadeTransitionEffect(oldImage, 0.3f, 1f, 1000);
         ImageView imageChoosen = (ImageView) event.getTarget();
         Path path = new Path();
         path.getElements().add(new MoveTo(ballImage.getFitWidth() / 2, ballImage.getFitHeight() / 2));
@@ -128,55 +140,43 @@ public class ClientChoiceController implements Initializable {
         pathTransition.playFromStart();
         utilities.fadeTransitionEffect(imageChoosen, 1, 0.3f, 1000);
         utilities.scaleTransition(ballImage, 0.5f, 0.5f, 1000);
-        new Timer().schedule(
-                new TimerTask() {
-                    @Override
-                    public void run() {
-                        goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperStandBy.png"));;
-                    }
-                },
-                2000
-        );
+        oldImage = imageChoosen;
     }
 
-    // TODO: 25/01/2016 fare spostamento portiere
     private void selectionOfClient(String idOfImage, ImageView imageChoosen) {
         Path path = new Path();
         path.getElements().add(new MoveTo(goalKeeper.getFitWidth() / 2, goalKeeper.getFitHeight() / 2));
         switch (idOfImage) {
             case (IMAGE_RATING):{
-                utilities.playSomeSound(GOAL_SOUND);
-                seeImageContext(ratingBox, anchorPane.lookup(IMAGE_RATING));
-                goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingRight.png"));
-                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - anchorPane.getLayoutX() + anchorPane.getWidth()/2, imageChoosen.getLayoutY() - anchorPane.getLayoutY() - anchorPane.getHeight()/2);
-                //LineTo lineTo = new LineTo(imageChoosen.getLayoutX() + 25 - goalKeeper.getLayoutX() + anchorPane.getLayoutX() + goalKeeper.getFitWidth()/2, imageChoosen.getLayoutY() + 25  - goalKeeper.getLayoutY() + anchorPane.getLayoutY() + goalKeeper.getFitHeight()/2);
-                path.getElements().add(lineTo);
+                if (!timerOnRating) {
+                    seeImageContext(anchorRating, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
+                    goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingRight.png"));
+                    LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth() / 2, imageChoosen.getLayoutY() - goalKeeper.getLayoutY() + imageChoosen.getFitHeight() / 2 + 100);
+                    path.getElements().add(lineTo);
+                }
                 break;
             }
             case (IMAGE_PLAYAGAME):{
-                utilities.playSomeSound(GOAL_SOUND);
-                seeImageContext(clientConnectedListView, anchorPane.lookup(IMAGE_PLAYAGAME));
-                seeImageContext(clientInGameListView, anchorPane.lookup(IMAGE_PLAYAGAME));
-                goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingLeft.png"));
-                ArcTo arcTo = new ArcTo(50, 50, 100, 150 - goalKeeper.getLayoutX() + anchorPane.getLayoutX() + goalKeeper.getFitWidth()/2, 200  - goalKeeper.getLayoutY() + anchorPane.getLayoutY() + goalKeeper.getFitHeight()/2, false, true);
-                path.getElements().add(arcTo);
+                if (!timerOnClient) {
+                    seeImageContext(anchorPlayer, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
+                    goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingLeft.png"));
+                    LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth() / 2 + 200, imageChoosen.getLayoutY() - goalKeeper.getLayoutY() + imageChoosen.getFitHeight() / 2 + 100);
+                    path.getElements().add(lineTo);
+                }
                 break;
             }
             case (IMAGE_WORLDSCOREBOARD):{
-                utilities.playSomeSound(GOAL_SOUND);
-                seeImageContext(worldScoreboardListView, anchorPane.lookup(IMAGE_WORLDSCOREBOARD));
+                seeImageContext(anchorWorld, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
                 goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingRight.png"));
-                ArcTo arcTo = new ArcTo(50, 50, 100, 150 - goalKeeper.getLayoutX() + anchorPane.getLayoutX() + goalKeeper.getFitWidth()/2, 200  - goalKeeper.getLayoutY() + anchorPane.getLayoutY() + goalKeeper.getFitHeight()/2, false, true);
-                path.getElements().add(arcTo);
+                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth()/2, 200);
+                path.getElements().add(lineTo);
                 break;
             }
             case (IMAGE_PERSONALSCOREBOARD):{
-                utilities.playSomeSound(GOAL_SOUND);
-                seeImageContext(personalScoreboardWonListView, anchorPane.lookup(IMAGE_PERSONALSCOREBOARD));
-                seeImageContext(personalScoreboardLostListView, anchorPane.lookup(IMAGE_PERSONALSCOREBOARD));
+                seeImageContext(anchorPersonal, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
                 goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingLeft.png"));
-                ArcTo arcTo = new ArcTo(50, 50, 100, 150 - goalKeeper.getLayoutX() + anchorPane.getLayoutX() + goalKeeper.getFitWidth()/2, 200  - goalKeeper.getLayoutY() + anchorPane.getLayoutY() + goalKeeper.getFitHeight()/2, false, true);
-                path.getElements().add(arcTo);
+                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth()/2 + 200, 200);
+                path.getElements().add(lineTo);
                 break;
             }
         }
@@ -185,7 +185,7 @@ public class ClientChoiceController implements Initializable {
                 .node(goalKeeper)
                 .path(path)
                 .duration(Duration.millis(1000))
-                .orientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT)
+                .orientation(PathTransition.OrientationType.NONE)
                 .cycleCount(1)
                 .build();
         pathTransition.playFromStart();
@@ -198,23 +198,45 @@ public class ClientChoiceController implements Initializable {
                 new TimerTask() {
                     @Override
                     public void run() {
-                        disableImageContext(node, nodeSelected);
+                        /*
+                        switch (nodeSelected.getId()) {
+                            case (IMAGE_WORLDSCOREBOARD): {
+                                timerOnWorld = true;
+                                break;
+                            }
+                            case (IMAGE_PERSONALSCOREBOARD): {
+                                timerOnPersonal = true;
+                                break;
+                            }
+                            case (IMAGE_PLAYAGAME): {
+                                timerOnClient = true;
+                                break;
+                            }
+                            case (IMAGE_RATING): {
+                                timerOnRating = true;
+                                break;
+                            }
+                        }
+                        */
+                        utilities.fadeTransitionEffect(node, 1, 0, 3000);
                     }
                 },
-                3000
+                5000
         );
-    }
-
-    private void disableImageContext(Node nodeToHide, Node nodeToScreen){
-        utilities.fadeTransitionEffect(nodeToHide, 1, 0, 3000);
-        utilities.fadeTransitionEffect(nodeToScreen, 0.3f, 1, 1000);
+        timerOnWorld = false;
+        timerOnRating = false;
+        timerOnClient = false;
+        timerOnPersonal = false;
     }
 
     //metodo che permette di comunicare il voto dell'applicazione
     public void ratingGame() {
         clientRating = ratingBox.getRating();
         System.out.println(clientRating + " -> CLIENT RATING");
-        main.clientWantsToSendRating(clientRating);
+        main.clientWantsToSendRating(clientRating, titleRating.getText(), textRating.getText());
+        main.notification("Recensione inviata con successo");
+        titleRating.setText("");
+        textRating.setText("");
     }
 
     public void playGameRequest(ArrayList<String> userAndNumber) {

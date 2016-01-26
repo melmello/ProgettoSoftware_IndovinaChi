@@ -130,8 +130,10 @@ public class ServerThread extends Thread{
     }
 
     private void communicateClientRating(String information) {
-        System.out.println(information + " è il voto dello user " + getUser().getUserUsername());
-        serverStart.sendRating(Double.parseDouble(information), getUser().getUserUsername());
+        gson = new Gson();
+        ArrayList<String> voteTitleText = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
+        System.out.println(voteTitleText.get(0) + " è il voto dello user " + getUser().getUserUsername());
+        serverStart.sendRating(Double.parseDouble(voteTitleText.get(0)), voteTitleText.get(1), voteTitleText.get(2), getUser().getUserUsername());
     }
 
     private void readyToKnowQuerySticker(String information) {

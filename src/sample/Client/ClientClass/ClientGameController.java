@@ -91,10 +91,11 @@ public class ClientGameController implements Initializable {
                     indexToTakeSqlParameter = cont;
                     questionAsked.add(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem());
                     questionChoosenListView.setItems(questionAsked);
-                    ObservableList<String> obs = FXCollections.(questionAsked.toArray());
-
-                    questionAsked.toArray()
-                    setListViewHeight(questionChoosenListView, questionAsked);
+                    if (questionAsked.size() < 6) {
+                        questionChoosenListView.setPrefHeight((questionAsked.size() + 4) * 17);
+                    } else {
+                        questionChoosenListView.setPrefHeight((7 + 4) * 17);
+                    }
                 }
             }
             if (indexToTakeSqlParameter != -1) {
@@ -442,10 +443,12 @@ public class ClientGameController implements Initializable {
         faceComboBox.setDisable(bool);
         accessoriesComboBox.setDisable(bool);
         informationComboBox.setDisable(bool);
+        reinitializeComboBox();
+        questionThatCouldBeChoosen.setItems(null);
     }
 
-    private void setListViewHeight(JFXListView<String> questionThatCouldBeChoosen, Set<String> questionCanBeChoosenArray) {
-        questionThatCouldBeChoosen.setPrefHeight((questionCanBeChoosenArray.size()+4)*17);
+    private void setListViewHeight(JFXListView<String> questionThatCouldBeChoosenList, Set<String> questionCanBeChoosenArrayList) {
+        questionThatCouldBeChoosenList.setPrefHeight((questionCanBeChoosenArrayList.size()+4)*17);
     }
 
     public String getImagePath() {

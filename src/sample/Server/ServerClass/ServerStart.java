@@ -246,7 +246,7 @@ public class ServerStart extends Task {
     }
     */
 
-    public void sendRating(Double clientRating, String clientUsername) {
+    public void sendRating(Double clientRating, String title, String text, String clientUsername) {
         final String username = googleMail;
         final String password = googlePassword;
         Properties props = new Properties();
@@ -266,12 +266,13 @@ public class ServerStart extends Task {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(googleTrueMail));
             message.setSubject("RATING PROGETTO SOFTWARE");
-            message.setText("Ciao, il tuo voto ricevuto è: " + clientRating + " \nInviato da user: " + clientUsername);
+            message.setText("Ciao, il tuo voto ricevuto è: " + clientRating + " \nInviato da user: " + clientUsername + "\nLa sua recensione è stata:\nTitolo - \t" + title + "\nTesto - \t" + text);
             Transport.send(message);
             System.out.println("Messaggio inviato");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public void sendingRequest(String opponent, String userRequest) {

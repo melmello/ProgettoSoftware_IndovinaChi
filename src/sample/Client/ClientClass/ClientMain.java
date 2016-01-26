@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ClientMain extends Application {
 
@@ -271,8 +272,12 @@ public class ClientMain extends Application {
         });
     }
 
-    public void clientWantsToSendRating(Double clientRating) {
-        writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_SEND_RATING, Double.toString(clientRating)));
+    public void clientWantsToSendRating(Double clientRating, String title, String text) {
+        gson = new Gson();
+        ArrayList<String> voteTitleText = new ArrayList<>();
+        voteTitleText.addAll(Arrays.asList(Double.toString(clientRating), title, text));
+        String voteTitleTextString = gson.toJson(voteTitleText);
+        writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_SEND_RATING, voteTitleTextString));
     }
 
     //metodo che informa il server che il client vuole giocare una partita con questo utente
