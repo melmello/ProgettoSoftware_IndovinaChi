@@ -91,10 +91,9 @@ public class ClientGameController implements Initializable {
                     indexToTakeSqlParameter = cont;
                     questionAsked.add(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem());
                     questionChoosenListView.setItems(questionAsked);
-                    ObservableList<String> obs = FXCollections.(questionAsked.toArray());
-
-                    questionAsked.toArray()
-                    setListViewHeight(questionChoosenListView, questionAsked);
+                    if (questionChoosenListView.getPrefHeight() < 200) {
+                        questionChoosenListView.setPrefHeight((questionAsked.size() + 4) * 17);
+                    }
                 }
             }
             if (indexToTakeSqlParameter != -1) {
