@@ -198,7 +198,6 @@ public class ClientChoiceController implements Initializable {
                 new TimerTask() {
                     @Override
                     public void run() {
-
                         switch (nodeSelected.getId()) {
                             case (IMAGE_WORLDSCOREBOARD): {
                                 timerOnWorld = true;
@@ -217,8 +216,6 @@ public class ClientChoiceController implements Initializable {
                                 break;
                             }
                         }
-sfga
-        sout
                         utilities.fadeTransitionEffect(node, 1, 0, 3000);
                     }
                 },
