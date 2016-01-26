@@ -1,5 +1,6 @@
 package sample.Client.ClientClass;
 
+import static sample.Utilities.Class.ExtendTimerTask.*;
 import static sample.Utilities.Class.ConstantCodes.*;
 import com.jfoenix.controls.JFXListView;
 import javafx.animation.*;
@@ -19,6 +20,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import org.controlsfx.control.Rating;
+import sample.Utilities.Class.ExtendTimerTask;
 import sample.Utilities.Class.Utilities;
 import java.net.URL;
 import java.sql.Array;
@@ -31,10 +33,8 @@ public class ClientChoiceController implements Initializable {
     private Utilities utilities = new Utilities();
     private ClientMain main;
     private ImageView oldImage = new ImageView();
-    private boolean timerOnWorld = false;
-    private boolean timerOnPersonal = false;
-    private boolean timerOnRating = false;
-    private boolean timerOnClient = false;
+    private int timeDuration = 7500;
+    private Timer timer = new Timer();
     @FXML AnchorPane anchorPane;
     @FXML AnchorPane anchorRating;
     @FXML AnchorPane anchorWorld;
@@ -114,13 +114,12 @@ public class ClientChoiceController implements Initializable {
     }
 
     public void ballMovement(Event event){
-        utilities.playSomeSound(BALLSHOT_SOUND);
         ballImage.setScaleX(1);
         ballImage.setScaleY(1);
         utilities.fadeTransitionEffect(oldImage, 0.3f, 1f, 1000);
         ImageView imageChoosen = (ImageView) event.getTarget();
         Path path = new Path();
-        path.getElements().add(new MoveTo(ballImage.getFitWidth() / 2, ballImage.getFitHeight() / 2));
+        path.getElements().add(new MoveTo(ballImage.getFitWidth()/2, ballImage.getFitHeight()/2));
         if (imageChoosen.getId().equals(IMAGE_PLAYAGAME) || imageChoosen.getId().equals(IMAGE_RATING)) {
             ArcTo arcTo = new ArcTo(50, 50, 100, imageChoosen.getLayoutX() - ballImage.getLayoutX() + anchorPane.getLayoutX() + imageChoosen.getFitWidth() / 2, imageChoosen.getLayoutY() + -ballImage.getLayoutY() + anchorPane.getLayoutY() + imageChoosen.getFitHeight() / 2, false, false);
             path.getElements().add(arcTo);
@@ -130,6 +129,7 @@ public class ClientChoiceController implements Initializable {
         }
         selectionOfClient(imageChoosen.getId(), imageChoosen);
         path.setStrokeWidth(1);
+        utilities.playSomeSound(BALLSHOT_SOUND);
         final PathTransition pathTransition = PathTransitionBuilder.create()
                 .node(ballImage)
                 .path(path)
@@ -148,37 +148,33 @@ public class ClientChoiceController implements Initializable {
         path.getElements().add(new MoveTo(goalKeeper.getFitWidth() / 2, goalKeeper.getFitHeight() / 2));
         switch (idOfImage) {
             case (IMAGE_RATING):{
-                if (!timerOnRating) {
-                    seeImageContext(anchorRating, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
-                    goalKeeper.setImage(new Image(GOALKEEPER_JUMPING_RIGHT));
-                    goalKeeper.setRotate(0);
-                    LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth() / 2, imageChoosen.getLayoutY() - goalKeeper.getLayoutY() + imageChoosen.getFitHeight() / 2 + 100);
-                    path.getElements().add(lineTo);
-                }
+                seeImageContext(anchorRating, anchorPane.lookup("#" + IMAGE_RATING), timeDuration*4);
+                goalKeeper.setImage(new Image(GOALKEEPER_JUMPING_RIGHT));
+                goalKeeper.setRotate(0);
+                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth() / 2, imageChoosen.getLayoutY() - goalKeeper.getLayoutY() + imageChoosen.getFitHeight() / 2 + 100);
+                path.getElements().add(lineTo);
                 break;
             }
             case (IMAGE_PLAYAGAME):{
-                if (!timerOnClient) {
-                    seeImageContext(anchorPlayer, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
-                    goalKeeper.setImage(new Image(GOALKEEPER_JUMPING_LEFT));
-                    goalKeeper.setRotate(0);
-                    LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth() / 2 + 200, imageChoosen.getLayoutY() - goalKeeper.getLayoutY() + imageChoosen.getFitHeight() / 2 + 100);
-                    path.getElements().add(lineTo);
-                }
+                seeImageContext(anchorPlayer, anchorPane.lookup("#" + IMAGE_PLAYAGAME), timeDuration);
+                goalKeeper.setImage(new Image(GOALKEEPER_JUMPING_LEFT));
+                goalKeeper.setRotate(0);
+                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth() / 2 + 200, imageChoosen.getLayoutY() - goalKeeper.getLayoutY() + imageChoosen.getFitHeight() / 2 + 100);
+                path.getElements().add(lineTo);
                 break;
             }
             case (IMAGE_WORLDSCOREBOARD):{
-                seeImageContext(anchorWorld, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
+                seeImageContext(anchorWorld, anchorPane.lookup("#" + IMAGE_WORLDSCOREBOARD), timeDuration);
                 goalKeeper.setImage(new Image(GOALKEEPER_JUMPING_RIGHT));
-                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth()/2 - 50, 200);
+                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth() / 2 - 50, 200);
                 goalKeeper.setRotate(25);
                 path.getElements().add(lineTo);
                 break;
             }
             case (IMAGE_PERSONALSCOREBOARD):{
-                seeImageContext(anchorPersonal, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
+                seeImageContext(anchorPersonal, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD), timeDuration);
                 goalKeeper.setImage(new Image(GOALKEEPER_JUMPING_LEFT));
-                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth()/2 + 250, 200);
+                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth() / 2 + 250, 200);
                 goalKeeper.setRotate(-25);
                 path.getElements().add(lineTo);
                 break;
@@ -195,40 +191,16 @@ public class ClientChoiceController implements Initializable {
         pathTransition.playFromStart();
     }
 
-    private void seeImageContext(Node node, Node nodeSelected) {
+    private void seeImageContext(Node node, Node nodeSelected, int duration) {
         utilities.fadeTransitionEffect(node, 0, 1, 1000);
         node.setVisible(true);
-        new Timer().schedule(
-                new TimerTask() {
-                    @Override
-                    public void run() {
-                        switch (nodeSelected.getId()) {
-                            case (IMAGE_WORLDSCOREBOARD): {
-                                timerOnWorld = true;
-                                break;
-                            }
-                            case (IMAGE_PERSONALSCOREBOARD): {
-                                timerOnPersonal = true;
-                                break;
-                            }
-                            case (IMAGE_PLAYAGAME): {
-                                timerOnClient = true;
-                                break;
-                            }
-                            case (IMAGE_RATING): {
-                                timerOnRating = true;
-                                break;
-                            }
-                        }
-                        utilities.fadeTransitionEffect(node, 1, 0, 3000);
-                    }
-                },
-                5000
-        );
-        timerOnWorld = false;
-        timerOnRating = false;
-        timerOnClient = false;
-        timerOnPersonal = false;
+        boolean goOn = true;
+        if (oldImage.equals(nodeSelected)){
+            duration*=2;
+            goOn = false;
+        }
+        timer = new Timer();
+        timer.schedule(new ExtendTimerTask(goOn, node),0);
     }
 
     //metodo che permette di comunicare il voto dell'applicazione

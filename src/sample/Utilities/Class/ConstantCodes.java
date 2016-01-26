@@ -148,7 +148,7 @@ public final class ConstantCodes {
     public static final String IMAGE_PERSONALSCOREBOARD = "imagePersonalScoreboard";
     public static final String IMAGE_WORLDSCOREBOARD = "imageWorldScoreboard";
     public static final String GOALKEEPER_JUMPING_LEFT = "/sample/Client/ClientImage/GoalKeeperJumpingLeft.png";
-    public static final String GOALKEEPER_JUMPING_RIGHT = "/sample/Client/ClientImage/GoalKeeperJumpingLeft.png";
+    public static final String GOALKEEPER_JUMPING_RIGHT = "/sample/Client/ClientImage/GoalKeeperJumpingRight.png";
 
     //metodo costruito per le eccezioni
     private ConstantCodes(){
