@@ -217,7 +217,7 @@ public class ClientChoiceController implements Initializable {
                                 break;
                             }
                         }
-
+sfga
                         utilities.fadeTransitionEffect(node, 1, 0, 3000);
                     }
                 },
