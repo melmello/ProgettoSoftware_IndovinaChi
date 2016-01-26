@@ -150,7 +150,8 @@ public class ClientChoiceController implements Initializable {
             case (IMAGE_RATING):{
                 if (!timerOnRating) {
                     seeImageContext(anchorRating, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
-                    goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingRight.png"));
+                    goalKeeper.setImage(new Image(GOALKEEPER_JUMPING_RIGHT));
+                    goalKeeper.setRotate(0);
                     LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth() / 2, imageChoosen.getLayoutY() - goalKeeper.getLayoutY() + imageChoosen.getFitHeight() / 2 + 100);
                     path.getElements().add(lineTo);
                 }
@@ -159,7 +160,8 @@ public class ClientChoiceController implements Initializable {
             case (IMAGE_PLAYAGAME):{
                 if (!timerOnClient) {
                     seeImageContext(anchorPlayer, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
-                    goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingLeft.png"));
+                    goalKeeper.setImage(new Image(GOALKEEPER_JUMPING_LEFT));
+                    goalKeeper.setRotate(0);
                     LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth() / 2 + 200, imageChoosen.getLayoutY() - goalKeeper.getLayoutY() + imageChoosen.getFitHeight() / 2 + 100);
                     path.getElements().add(lineTo);
                 }
@@ -167,15 +169,17 @@ public class ClientChoiceController implements Initializable {
             }
             case (IMAGE_WORLDSCOREBOARD):{
                 seeImageContext(anchorWorld, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
-                goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingRight.png"));
-                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth()/2, 200);
+                goalKeeper.setImage(new Image(GOALKEEPER_JUMPING_RIGHT));
+                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth()/2 - 50, 200);
+                goalKeeper.setRotate(25);
                 path.getElements().add(lineTo);
                 break;
             }
             case (IMAGE_PERSONALSCOREBOARD):{
                 seeImageContext(anchorPersonal, anchorPane.lookup("#" + IMAGE_PERSONALSCOREBOARD));
-                goalKeeper.setImage(new Image("/sample/Client/ClientImage/GoalKeeperJumpingLeft.png"));
-                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth()/2 + 200, 200);
+                goalKeeper.setImage(new Image(GOALKEEPER_JUMPING_LEFT));
+                LineTo lineTo = new LineTo(imageChoosen.getLayoutX() - goalKeeper.getLayoutX() - imageChoosen.getFitWidth()/2 + 250, 200);
+                goalKeeper.setRotate(-25);
                 path.getElements().add(lineTo);
                 break;
             }
