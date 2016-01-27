@@ -1,6 +1,5 @@
 package sample.Client.ClientClass;
 
-import static sample.Utilities.Class.ExtendTimerTask.*;
 import static sample.Utilities.Class.ConstantCodes.*;
 import com.jfoenix.controls.JFXListView;
 import javafx.animation.*;
@@ -20,10 +19,8 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import org.controlsfx.control.Rating;
-import sample.Utilities.Class.ExtendTimerTask;
 import sample.Utilities.Class.Utilities;
 import java.net.URL;
-import java.sql.Array;
 import java.util.*;
 
 public class ClientChoiceController implements Initializable {
@@ -194,13 +191,18 @@ public class ClientChoiceController implements Initializable {
     private void seeImageContext(Node node, Node nodeSelected, int duration) {
         utilities.fadeTransitionEffect(node, 0, 1, 1000);
         node.setVisible(true);
-        boolean goOn = true;
         if (oldImage.equals(nodeSelected)){
             duration*=2;
-            goOn = false;
+            timer.cancel();
+            timer.purge();
         }
         timer = new Timer();
-        timer.schedule(new ExtendTimerTask(goOn, node),0);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                utilities.fadeTransitionEffect(node, 1, 0, 3000);
+            }
+        }, duration);
     }
 
     //metodo che permette di comunicare il voto dell'applicazione

@@ -139,6 +139,8 @@ public class ServerThread extends Thread{
     private void readyToKnowQuerySticker(String information) {
         if(opponentSticker.getNicknameOfSticker().equals(information)){
             serverStart.swapGameArrayList(user.getUserUsername());
+        } else {
+            serverStart.changingRoundOfClient(positionInArrayList, user.getUserUsername(), mySticker);
         }
     }
 
@@ -419,7 +421,6 @@ public class ServerThread extends Thread{
                 mySticker.setBeardColorBrownOfSticker(resultSet.getBoolean(BEARDCOLORBROWN_FOR_QUERY));
                 if (resultSet.wasNull()) {
                     mySticker.setBeardColorBrownOfSticker(null);
-                    System.out.println(mySticker.isBeardColorBrownOfSticker() + " BEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEARD");
                 }
                 mySticker.setEyesColorBrownOfSticker(resultSet.getBoolean(EYESCOLORBROWN_FOR_QUERY));
                 mySticker.setComplexionBrownOfSticker(resultSet.getBoolean(COMPLEXIONBROWN_FOR_QUERY));
@@ -438,7 +439,6 @@ public class ServerThread extends Thread{
                 mySticker.setHairTypeStraightOfSticker(resultSet.getBoolean(HAIRTYPESTRAIGHT_FOR_QUERY));
                 if (resultSet.wasNull()) {
                     mySticker.setHairTypeStraightOfSticker(null);
-                    System.out.println(mySticker.isHairTypeStraightOfSticker() + " HAIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIR");
                 }
                 mySticker.setBeardLengthOfSticker(resultSet.getString(BEARDLENGTH_FOR_QUERY));
             }
@@ -449,6 +449,7 @@ public class ServerThread extends Thread{
             e.printStackTrace();
         }
     }
+    sp
 
     //metodo che serve per la creazione di un nuovo utente
     private void readyToCreateNewUser(String information) {

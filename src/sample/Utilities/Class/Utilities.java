@@ -1,5 +1,6 @@
 package sample.Utilities.Class;
 
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
@@ -41,6 +42,19 @@ public class Utilities {
         scaleTransition.setToX(toValueX);
         scaleTransition.setToY(toValueY);
         scaleTransition.playFromStart();
+    }
+
+    public Animation scaleTransitionEffectCycle (Node node, float toValueX, float toValueY, int duration){
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(duration), node);
+        scaleTransition.setCycleCount(1);
+        scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
+        scaleTransition.setFromX(node.getScaleX());
+        scaleTransition.setFromY(node.getScaleY());
+        scaleTransition.setToX(toValueX);
+        scaleTransition.setToY(toValueY);
+        scaleTransition.setCycleCount(10);
+        scaleTransition.playFromStart();
+        return scaleTransition;
     }
 
 }

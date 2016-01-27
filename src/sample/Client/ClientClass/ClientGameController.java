@@ -2,6 +2,7 @@ package sample.Client.ClientClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
 import com.jfoenix.controls.JFXListView;
+import javafx.animation.Animation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -24,6 +25,7 @@ import java.util.*;
 
 public class ClientGameController implements Initializable {
 
+    private boolean myOrHis;
     private ClientMain main;
     private Scene gamingScene;
     private String imagePath;
@@ -31,6 +33,7 @@ public class ClientGameController implements Initializable {
     private String secondParameter;
     private Utilities utilities = new Utilities();
     private String[] questionCanBeChoosen = {};
+    private Animation animation;
     private Set<String> questionCanBeChoosenArray = new HashSet<>(Arrays.asList(questionCanBeChoosen));
     private ArrayList<String> questionToSendToServer = new ArrayList<>();
     public static final ObservableList hairPossibility = FXCollections.observableArrayList();
@@ -130,6 +133,11 @@ public class ClientGameController implements Initializable {
                     ClipboardContent content = new ClipboardContent();
                     content.putString(stickerImage.getId());
                     db.setContent(content);
+                    if (!myOrHis){
+                        animation = utilities.scaleTransitionEffectCycle(hisStickerImage, 1, 1, 1000);
+                    } else if (myOrHis){
+                        animation = utilities.scaleTransitionEffectCycle(myStickerImage, 1, 1, 1000);
+                    }
                     event.consume();
                 }
             });
@@ -145,8 +153,7 @@ public class ClientGameController implements Initializable {
         targetImage.setOnDragOver(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
-                hisStickerImage = (ImageView) event.getTarget();
-                if (event.getGestureSource() != hisStickerImage && event.getDragboard().hasString()) {
+                if (event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
                 event.consume();
@@ -160,17 +167,22 @@ public class ClientGameController implements Initializable {
                 if (db.hasString()) {
                     success = true;
                     if (targetImage.equals(myStickerImage)) {
+                        animation.stop();
                         targetImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
                         imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
                         main.settingMySticker();
                         System.out.println("Hai scelto il personaggio");
                     } else if (targetImage.equals(hisStickerImage)){
+                        animation.stop();
                         targetImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
-                        main.clientWantsToQuerySticker(targetImage.getId());
+                        main.clientWantsToQuerySticker(db.getString());
                     }
                 }
                 event.setDropCompleted(success);
                 event.consume();
+                if (targetImage.equals(myStickerImage)){
+                    changeDragAndDrop(hisStickerImage);
+                }
             }
         });
     }
@@ -445,6 +457,12 @@ public class ClientGameController implements Initializable {
         informationComboBox.setDisable(bool);
         reinitializeComboBox();
         questionThatCouldBeChoosen.setItems(null);
+        if (bool){
+            hisStickerImage.setOnDragOver(null);
+            hisStickerImage.setOnDragDropped(null);
+        } else if (!bool){
+            changeDragAndDrop(hisStickerImage);
+        }
     }
 
     private void setListViewHeight(JFXListView<String> questionThatCouldBeChoosen, Set<String> questionCanBeChoosenArray) {
