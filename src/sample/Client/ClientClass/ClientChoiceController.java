@@ -55,6 +55,7 @@ public class ClientChoiceController implements Initializable {
         anchorWorld.setVisible(false);
         anchorPersonal.setVisible(false);
         anchorPlayer.setVisible(false);
+        clientConnectedListView.setDisable(false);
     }
 
     //metodo che serve per far conoscere main e controller
@@ -108,6 +109,7 @@ public class ClientChoiceController implements Initializable {
         opponentChoosen = clientConnectedListView.getSelectionModel().getSelectedItem();
         System.out.println(opponentChoosen + " -> opponentChoosen");
         main.clientWantsToPlayAGameWith(opponentChoosen);
+        clientConnectedListView.setDisable(true);
     }
 
     public void ballMovement(Event event){
@@ -216,6 +218,7 @@ public class ClientChoiceController implements Initializable {
     }
 
     public void playGameRequest(ArrayList<String> userAndNumber) {
+        clientConnectedListView.setDisable(true);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("ACCETTA LA SFIDA");
         alert.setHeaderText(null);

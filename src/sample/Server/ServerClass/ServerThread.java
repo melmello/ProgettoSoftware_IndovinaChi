@@ -174,7 +174,7 @@ public class ServerThread extends Thread{
             }
             case (BEARDCOLORBROWN_FOR_QUERY): {
                 if (opponentSticker.isBeardColorBrownOfSticker() == null) {
-                    settingQueryInvertType(stickerQuery.getFirstParameter(), !stringToBoolean(stickerQuery.getSecondParameter()));
+                    settingQueryInvertTypeBoolean(stickerQuery.getFirstParameter(), !stringToBoolean(stickerQuery.getSecondParameter()));
                 } else if (opponentSticker.isBeardColorBrownOfSticker() == stringToBoolean(stickerQuery.getSecondParameter())) {
                     settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBoolean(stickerQuery.getSecondParameter()));
                 } else if (opponentSticker.isBeardColorBrownOfSticker() != stringToBoolean(stickerQuery.getSecondParameter())){
@@ -231,12 +231,16 @@ public class ServerThread extends Thread{
                 break;
             }
             case (BEARDTYPE_FOR_QUERY): {
-                if (opponentSticker.getBeardTypeOfSticker().equals(stickerQuery.getSecondParameter())) {
-                    choice = true;
-                    settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                if (opponentSticker.getBeardTypeOfSticker() == null) {
+                    settingQueryInvertTypeString(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter());
                 } else {
-                    choice = false;
-                    settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    if (opponentSticker.getBeardTypeOfSticker().equals(stickerQuery.getSecondParameter())) {
+                        choice = true;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    } else {
+                        choice = false;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    }
                 }
                 break;
             }
@@ -257,23 +261,31 @@ public class ServerThread extends Thread{
                 break;
             }
             case (CONTINENT_FOR_QUERY): {
-                if (opponentSticker.getContinentOfSticker().equals(stickerQuery.getSecondParameter())) {
-                    choice = true;
-                    settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                if (opponentSticker.getContinentOfSticker() == null) {
+                    settingQueryInvertTypeString(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter());
                 } else {
-                    choice = false;
-                    settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    if (opponentSticker.getContinentOfSticker().equals(stickerQuery.getSecondParameter())) {
+                        choice = true;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    } else {
+                        choice = false;
+                        settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                    }
                 }
                 break;
             }
             case (CHAMPIONSHIP_FOR_QUERY): {
-                if (opponentSticker.getChampionshipOfSticker().equals(stickerQuery.getSecondParameter())) {
-                    choice = true;
-                    settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                if (opponentSticker.getChampionshipOfSticker() == null){
+                    settingQueryInvertTypeString(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter());
                 } else {
-                    choice = false;
-                    settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
-                }
+                    if (opponentSticker.getChampionshipOfSticker().equals(stickerQuery.getSecondParameter())) {
+                            choice = true;
+                            settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                        } else {
+                            choice = false;
+                            settingQueryStringType(stickerQuery.getFirstParameter(), stickerQuery.getSecondParameter(), choice);
+                        }
+                    }
                 break;
             }
             case (CAPTAINBAND_FOR_QUERY): {
@@ -302,7 +314,7 @@ public class ServerThread extends Thread{
             }
             case (HAIRTYPESTRAIGHT_FOR_QUERY): {
                 if (opponentSticker.isHairTypeStraightOfSticker() == null){
-                    settingQueryInvertType(stickerQuery.getFirstParameter(), !stringToBoolean(stickerQuery.getSecondParameter()));
+                    settingQueryInvertTypeBoolean(stickerQuery.getFirstParameter(), !stringToBoolean(stickerQuery.getSecondParameter()));
                 } else if (opponentSticker.isHairTypeStraightOfSticker() == stringToBoolean(stickerQuery.getSecondParameter())) {
                     settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBoolean(stickerQuery.getSecondParameter()));
                 } else if (opponentSticker.isHairTypeStraightOfSticker() != stringToBoolean(stickerQuery.getSecondParameter())){
@@ -323,7 +335,25 @@ public class ServerThread extends Thread{
         }
     }
 
-    private void settingQueryInvertType(String firstParameter, Boolean secondParameter) {
+    private void settingQueryInvertTypeString(String firstParameter, String secondParameter) {
+        ResultSet resultSet;
+        try {
+            Statement statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM stickers WHERE " + firstParameter + " = '" + secondParameter + "'");//faccio la query con il nome ricevuto per creare la figurina
+            while (resultSet.next()){
+                sqlNicknameToBeRemoved.add(resultSet.getString(NICKNAME_FOR_QUERY));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        System.out.println(sqlNicknameToBeRemoved + " -> sqlNicknameToBeRemoved");
+        gson = new Gson();
+        String nicknameGson = gson.toJson(sqlNicknameToBeRemoved);
+        writer.println(CodeAndInformation.serializeToJson(SERVER_SENDS_STICKER_MUST_BE_REMOVED, nicknameGson));
+        serverStart.changingRoundOfClient(positionInArrayList, user.getUserUsername(), mySticker);
+    }
+
+    private void settingQueryInvertTypeBoolean(String firstParameter, Boolean secondParameter) {
         ResultSet resultSet;
         try {
             Statement statement = connection.createStatement();
@@ -428,11 +458,17 @@ public class ServerThread extends Thread{
                 mySticker.setGlassesOfSticker(resultSet.getBoolean(GLASSES_FOR_QUERY));
                 mySticker.setHeadbandOfSticker(resultSet.getBoolean(HEADBAND_FOR_QUERY));
                 mySticker.setMoleOfSticker(resultSet.getBoolean(MOLE_FOR_QUERY));
-                mySticker.setBeardTypeOfSticker(resultSet.getString(BEARDTYPE_FOR_QUERY));
+                if (resultSet.wasNull()) {
+                    mySticker.setBeardTypeOfSticker(resultSet.getString(BEARDTYPE_FOR_QUERY));
+                }
                 mySticker.setFreecklesOfSticker(resultSet.getBoolean(FRECKLES_FOR_QUERY));
                 mySticker.setNationalShirtOfSticker(resultSet.getBoolean(NATIONALSHIRT_FOR_QUERY));
-                mySticker.setContinentOfSticker(resultSet.getString(CONTINENT_FOR_QUERY));
-                mySticker.setChampionshipOfSticker(resultSet.getString(CHAMPIONSHIP_FOR_QUERY));
+                if (resultSet.wasNull()) {
+                    mySticker.setContinentOfSticker(resultSet.getString(CONTINENT_FOR_QUERY));
+                }
+                if (resultSet.wasNull()) {
+                    mySticker.setChampionshipOfSticker(resultSet.getString(CHAMPIONSHIP_FOR_QUERY));
+                }
                 mySticker.setCaptainBandOfSticker(resultSet.getBoolean(CAPTAINBAND_FOR_QUERY));
                 mySticker.setNoseDimensionBigOfSticker(resultSet.getBoolean(NOSEDIMENSIONBIG_FOR_QUERY));
                 mySticker.setSmileOfSticker(resultSet.getBoolean(SMILE_FOR_QUERY));
@@ -459,7 +495,7 @@ public class ServerThread extends Thread{
             user = gson.fromJson(information, User.class);
             System.out.println(user);
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE username='" + user.getUserUsername() + "'");//query per verificare se un utente è già presente
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE username = '" + user.getUserUsername() + "'");//query per verificare se un utente è già presente
             while(resultSet.next()){
                 userSQLName = resultSet.getString(USERNAME_FOR_QUERY);
                 userSQLPassword = resultSet.getString(PASSWORD_FOR_QUERY);

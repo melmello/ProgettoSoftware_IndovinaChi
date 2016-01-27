@@ -32,9 +32,8 @@ public class ClientGameController implements Initializable {
     private String firstParameter;
     private String secondParameter;
     private Utilities utilities = new Utilities();
-    private String[] questionCanBeChoosen = {};
+    private ArrayList<String> questionCanBeChoosen = new ArrayList<>();
     private Animation animation;
-    private Set<String> questionCanBeChoosenArray = new HashSet<>(Arrays.asList(questionCanBeChoosen));
     private ArrayList<String> questionToSendToServer = new ArrayList<>();
     public static final ObservableList hairPossibility = FXCollections.observableArrayList();
     public static final ObservableList beardPossibility = FXCollections.observableArrayList();
@@ -84,12 +83,12 @@ public class ClientGameController implements Initializable {
 
     public void clientWantsToQuery() {
         int indexToTakeSqlParameter = -1;
-        System.out.println(questionCanBeChoosenArray);
+        System.out.println(questionCanBeChoosen);
         System.out.println(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem());
-        if (questionCanBeChoosenArray.contains(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem())) {
+        if (questionCanBeChoosen.contains(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem())) {
             ArrayList<String> temporaryArrayFromList = new ArrayList<>();
-            temporaryArrayFromList.addAll(questionCanBeChoosenArray);
-            for(int cont = 0; cont < questionCanBeChoosenArray.size(); cont++) {
+            temporaryArrayFromList.addAll(questionCanBeChoosen);
+            for(int cont = 0; cont < questionCanBeChoosen.size(); cont++) {
                 if (temporaryArrayFromList.get(cont).equals(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem())) {// TODO: 26/01/2016
                     indexToTakeSqlParameter = cont;
                     questionAsked.add(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem());
@@ -116,7 +115,7 @@ public class ClientGameController implements Initializable {
         faceComboBox.setValue(null);
         accessoriesComboBox.setValue(null);
         informationComboBox.setValue(null);
-        questionCanBeChoosenArray.clear();
+        questionCanBeChoosen.clear();
         questionToSendToServer.clear();
     }
 
@@ -194,32 +193,32 @@ public class ClientGameController implements Initializable {
                 if (observable.getValue().intValue() != -1) {
                     switch (hairPossibility.get(observable.getValue().intValue()).toString()) {
                         case (LENGTH_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Ha i capelli lunghi?", "Ha i capelli corti?", "E' pelato?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Ha i capelli lunghi?", "Ha i capelli corti?", "E' pelato?"));
                             questionToSendToServer.addAll(Arrays.asList(LONGANSWER_FOR_QUERY, SHORTANSWER_FOR_QUERY, BALDANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = HAIRLENGTH_FOR_QUERY;
                             break;
                         }
                         case (COLOR_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Ha i capelli scuri?", "Ha i capelli chiari?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Ha i capelli scuri?", "Ha i capelli chiari?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = HAIRCOLORBROWN_FOR_QUERY;
                             break;
                         }
                         case (TYPE_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Ha i capelli mossi?", "Ha i capelli lisci?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Ha i capelli mossi?", "Ha i capelli lisci?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = HAIRTYPESTRAIGHT_FOR_QUERY;
                             break;
                         }
@@ -234,32 +233,32 @@ public class ClientGameController implements Initializable {
                 if (observable.getValue().intValue() != -1) {
                     switch (beardPossibility.get(observable.getValue().intValue()).toString()) {
                         case (LENGTH_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Ha la barba lunga?", "Ha la barba corta?", "E' rasato?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Ha la barba lunga?", "Ha la barba corta?", "E' rasato?"));
                             questionToSendToServer.addAll(Arrays.asList(LONGANSWER_FOR_QUERY, SHORTANSWER_FOR_QUERY, SHAVEDANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = BEARDLENGTH_FOR_QUERY;
                             break;
                         }
                         case (COLOR_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Ha la barba scura?", "Ha la barba chiara?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Ha la barba scura?", "Ha la barba chiara?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = BEARDCOLORBROWN_FOR_QUERY;
                             break;
                         }
                         case (TYPE_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Ha il pizzetto?", "Ha i baffi?", "E' completamente barbuto?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Ha il pizzetto?", "Ha i baffi?", "E' completamente barbuto?"));
                             questionToSendToServer.addAll(Arrays.asList(GOATEEANSWER_FOR_QUERY, MUSTACHEANSWER_FOR_QUERY, WHOLEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = BEARDTYPE_FOR_QUERY;
                             break;
                         }
@@ -274,42 +273,42 @@ public class ClientGameController implements Initializable {
                 if (observable.getValue().intValue() != -1) {
                     switch (facePossibility.get(observable.getValue().intValue()).toString()) {
                         case (EYESCOLOR_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Ha gli occhi scuri?", "Ha gli occhi chiari?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Ha gli occhi scuri?", "Ha gli occhi chiari?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = EYESCOLORBROWN_FOR_QUERY;
                             break;
                         }
                         case (NOSEDIMENSION_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Ha il naso grosso?", "Ha il naso piccolo?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Ha il naso grosso?", "Ha il naso piccolo?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = NOSEDIMENSIONBIG_FOR_QUERY;
                             break;
                         }
                         case (SMILE_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Sta sorridendo?", "E' serio?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Sta sorridendo?", "E' serio?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = SMILE_FOR_QUERY;
                             break;
                         }
                         case (COMPLEXION_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("E' scuro di carnagione?", "E' chiaro di carnagione?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("E' scuro di carnagione?", "E' chiaro di carnagione?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = COMPLEXIONBROWN_FOR_QUERY;
                             break;
                         }
@@ -324,52 +323,52 @@ public class ClientGameController implements Initializable {
                 if (observable.getValue().intValue() != -1) {
                     switch (accessoriesPossibility.get(observable.getValue().intValue()).toString()) {
                         case (EARRINGS_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Porta almeno un orecchino?", "Non indossa orecchini?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Porta almeno un orecchino?", "Non indossa orecchini?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = EARRINGS_FOR_QUERY;
                             break;
                         }
                         case (GLASSES_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Porta gli occhiali?", "Non indossa gli occhiali?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Porta gli occhiali?", "Non indossa gli occhiali?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = GLASSES_FOR_QUERY;
                             break;
                         }
                         case (HEADBAND_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Indossa una fascia in testa?", "Non porta una fascia in testa?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Indossa una fascia in testa?", "Non porta una fascia in testa?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = HEADBAND_FOR_QUERY;
                             break;
                         }
                         case (MOLE_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Ha almeno un neo?", "Non ha nei?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Ha almeno un neo?", "Non ha nei?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = MOLE_FOR_QUERY;
                             break;
                         }
                         case (FRECKLES_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Ha le lentiggini?", "Non ha le lentiggini?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Ha le lentiggini?", "Non ha le lentiggini?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = FRECKLES_FOR_QUERY;
                             break;
                         }
@@ -384,42 +383,42 @@ public class ClientGameController implements Initializable {
                 if (observable.getValue().intValue() != -1) {
                     switch (informationPossibility.get(observable.getValue().intValue()).toString()) {
                         case (NATIONALSHIRT_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Indossa la maglia della nazionale?", "Indossa la maglia di un club?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Indossa la maglia della nazionale?", "Indossa la maglia di un club?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = NATIONALSHIRT_FOR_QUERY;
                             break;
                         }
                         case (CONTINENT_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("E' europea la nazionale in cui ha giocato?", "E' americana la nazionale in cui ha giocato?", "E' asiatica la nazionale in cui ha giocato?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("E' europea la nazionale in cui ha giocato?", "E' americana la nazionale in cui ha giocato?", "E' asiatica la nazionale in cui ha giocato?"));
                             questionToSendToServer.addAll(Arrays.asList(EUROPEANSWER_FOR_QUERY, AMERICAANSWER_FOR_QUERY, ASIAANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = CONTINENT_FOR_QUERY;
                             break;
                         }
                         case (CHAMPIONSHIP_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("E' della Serie A il club con cui giocava?", "E' della Premier League il club con cui giocava?", "E' della Ligue il club con cui giocava?", "E' della BBVA il club con cui giocava?", "E' della Liga Argentina il club con cui giocava?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("E' della Serie A il club con cui giocava?", "E' della Premier League il club con cui giocava?", "E' della Ligue il club con cui giocava?", "E' della BBVA il club con cui giocava?", "E' della Liga Argentina il club con cui giocava?"));
                             questionToSendToServer.addAll(Arrays.asList(SERIEAANSWER_FOR_QUERY, PREMIERANSWER_FOR_QUERY, LIGUEANSWER_FOR_QUERY, BBVAANSWER_FOR_QUERY, LIGAANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = CHAMPIONSHIP_FOR_QUERY;
                             break;
                         }
                         case (CAPTAINBAND_COMBO_BOX): {
-                            questionCanBeChoosenArray.clear();
+                            questionCanBeChoosen.clear();
                             questionToSendToServer.clear();
-                            questionCanBeChoosenArray.addAll(Arrays.asList("Indossa la fascia da capitano?", "Non indossa la fascia da capitano?"));
+                            questionCanBeChoosen.addAll(Arrays.asList("Indossa la fascia da capitano?", "Non indossa la fascia da capitano?"));
                             questionToSendToServer.addAll(Arrays.asList(TRUEANSWER_FOR_QUERY, FALSEANSWER_FOR_QUERY));
-                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosenArray));
-                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosenArray);
+                            questionThatCouldBeChoosen.setItems(FXCollections.observableArrayList(questionCanBeChoosen));
+                            setListViewHeight(questionThatCouldBeChoosen, questionCanBeChoosen);
                             firstParameter = CAPTAINBAND_FOR_QUERY;
                             break;
                         }
@@ -461,7 +460,7 @@ public class ClientGameController implements Initializable {
         hisStickerImage.setImage(null);
     }
 
-    private void setListViewHeight(JFXListView<String> questionThatCouldBeChoosen, Set<String> questionCanBeChoosenArray) {
+    private void setListViewHeight(JFXListView<String> questionThatCouldBeChoosen, ArrayList<String> questionCanBeChoosenArray) {
         questionThatCouldBeChoosen.setPrefHeight((questionCanBeChoosenArray.size()+4)*17);
     }
 

@@ -305,7 +305,6 @@ public class ClientMain extends Application {
         userAndNumber.set(0, user.getUserUsername());
         gson = new Gson();
         String information = gson.toJson(userAndNumber);
-        System.out.println(information + " INFORMATIONNNNNNNNNNNNNNNNNNNn");
         writer.println(CodeAndInformation.serializeToJson(CLIENT_SAYS_NO_FOR_PLAYING, information));
     }
 
