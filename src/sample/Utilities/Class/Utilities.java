@@ -44,8 +44,8 @@ public class Utilities {
         scaleTransition.playFromStart();
     }
 
-    public Animation scaleTransitionEffectCycle (Node node, float toValueX, float toValueY, int duration){
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(duration), node);
+    public Animation scaleTransitionEffectCycle (Node node, float toValueX, float toValueY){
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.INDEFINITE, node);
         scaleTransition.setCycleCount(1);
         scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
         scaleTransition.setFromX(node.getScaleX());

@@ -10,10 +10,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.*;
+import sample.Utilities.Class.CodeAndInformation;
+
 import java.io.IOException;
 
 public class ServerMain extends Application {
 
+    private ServerStart serverStart = new ServerStart(this);
     private ServerStartingController serverStartingController;
     private ServerClientCounterController serverClientCounterController;
 

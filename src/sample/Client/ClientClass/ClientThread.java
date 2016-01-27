@@ -2,6 +2,7 @@ package sample.Client.ClientClass;
 
 import static sample.Utilities.Class.ConstantCodes.*;
 import com.google.gson.Gson;
+import javafx.application.Platform;
 import sample.Utilities.Class.CodeAndInformation;
 import java.io.*;
 import java.net.Socket;
@@ -111,6 +112,9 @@ public class ClientThread extends Thread {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Platform.exit();
+            System.exit(0);
+            System.out.println("SERVER CRASHATO");
         }
     }
 

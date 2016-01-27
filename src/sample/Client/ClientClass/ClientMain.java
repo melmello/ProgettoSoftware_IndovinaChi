@@ -162,7 +162,7 @@ public class ClientMain extends Application {
     public void settingMySticker(){
         writer.println(CodeAndInformation.serializeToJson(CLIENT_GIVES_STICKER_INFO, clientGameController.getImagePath()));
         notification("Hai scelto il personaggio!");
-        clientGameController.abilitateMaskerPane();
+        clientGameController.disableForChangingRound(true);
         clientGameController.changeDragAndDrop(clientGameController.getHisStickerImage());
     }
 

@@ -8,8 +8,6 @@ import javafx.concurrent.Task;
 import sample.Utilities.Class.CodeAndInformation;
 import sample.Utilities.Class.Game;
 import sample.Utilities.Class.Sticker;
-import sample.Utilities.Class.User;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -366,5 +364,9 @@ public class ServerStart extends Task {
 
     public ArrayList<Game> getGameArrayList() {
         return gameArrayList;
+    }
+
+    public ArrayList<ServerThread> getThreadsArrayList() {
+        return threadsArrayList;
     }
 }

@@ -449,7 +449,6 @@ public class ServerThread extends Thread{
             e.printStackTrace();
         }
     }
-    sp
 
     //metodo che serve per la creazione di un nuovo utente
     private void readyToCreateNewUser(String information) {
