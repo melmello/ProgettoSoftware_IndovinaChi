@@ -119,7 +119,7 @@ public class ServerStart extends Task {
                 threadsPlaying.remove(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername());
                 threadsPlaying.remove(information);
                 gameArrayList.remove(cont);
-            } else if (gameArrayList.get(cont).getPlayer2().equals(information)){
+            } else if (gameArrayList.get(cont).getPlayer2().getUser().getUserUsername().equals(information)){
                 insertNewMatchInLeaderboard(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername(), information);
                 gameArrayList.get(cont).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, information));
                 refreshLeaderboardSearchingUsername();
@@ -351,10 +351,10 @@ public class ServerStart extends Task {
         ArrayList<String> userAndNumber = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
         for(int cont = 0; cont < threadsArrayList.size(); cont++){
             if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userAndNumber.get(0))) {
+                gameArrayList.get(Integer.parseInt(userAndNumber.get(1))).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_FORBIDS_THE_GAME, null));
                 gameArrayList.remove(Integer.parseInt(userAndNumber.get(1)));
             }
         }
-        gameArrayList.get(Integer.parseInt(userAndNumber.get(1))).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_FORBIDS_THE_GAME, null));
     }
 
     //getter

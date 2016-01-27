@@ -134,10 +134,9 @@ public class ClientGameController implements Initializable {
                     content.putString(stickerImage.getId());
                     db.setContent(content);
                     if (!myOrHis){
-                        animation = utilities.scaleTransitionEffectCycle(hisStickerImage, 1, 1);
+                        animation = utilities.scaleTransitionEffectCycle(hisStickerImage, 1.3f, 1.3f);
                     } else if (myOrHis){
-                        animation = utilities.scaleTransitionEffectCycle(myStickerImage, 1, 1);
-                        myOrHis = false;
+                        animation = utilities.scaleTransitionEffectCycle(myStickerImage, 1.3f, 1.3f);
                     }
                     event.consume();
                 }
@@ -147,10 +146,6 @@ public class ClientGameController implements Initializable {
     }
 
     public void changeDragAndDrop(ImageView targetImage) {
-        if (targetImage.equals(hisStickerImage)){
-            myStickerImage.setOnDragOver(null);
-            myStickerImage.setOnDragDropped(null);
-        }
         targetImage.setOnDragOver(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
@@ -168,11 +163,17 @@ public class ClientGameController implements Initializable {
                 if (db.hasString()) {
                     success = true;
                     if (targetImage.equals(myStickerImage)) {
-                        animation.stop();
+                        //animation.stop();
                         targetImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
                         imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
                         main.settingMySticker();
+                        disableForChangingRound(true);
                         System.out.println("Hai scelto il personaggio");
+                        if (targetImage.equals(hisStickerImage)){
+                            myStickerImage.setOnDragOver(null);
+                            myStickerImage.setOnDragDropped(null);
+                        }
+                        myOrHis = false;
                     } else if (targetImage.equals(hisStickerImage)){
                         animation.stop();
                         targetImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
@@ -182,9 +183,6 @@ public class ClientGameController implements Initializable {
                 }
                 event.setDropCompleted(success);
                 event.consume();
-                if (targetImage.equals(myStickerImage)){
-                    changeDragAndDrop(hisStickerImage);
-                }
             }
         });
     }
@@ -474,5 +472,5 @@ public class ClientGameController implements Initializable {
     public ImageView getHisStickerImage() {
         return hisStickerImage;
     }
-    
+
 }

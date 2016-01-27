@@ -216,14 +216,17 @@ public class ClientChoiceController implements Initializable {
     }
 
     public void playGameRequest(ArrayList<String> userAndNumber) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("ACCETTA LA SFIDA");
         alert.setHeaderText(null);
-        alert.setContentText("Il giocatore " + userAndNumber.get(0) + " ti ha inviato una richiesta di gioco.");
+        alert.setContentText("Il giocatore " + userAndNumber.get(0) + " ti ha inviato una richiesta di gioco.\nVuoi accettarla?");
+        ButtonType buttonYes = new ButtonType("Accetta la sfida");
+        ButtonType buttonNo = new ButtonType("Annulla");
+        alert.getButtonTypes().setAll(buttonYes, buttonNo);
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
+        if (result.get() == buttonYes){
             main.sendServerOkForPlaying(userAndNumber);
-        } else {
+        } else if (result.get() == buttonNo){
             main.sendServerNoForPlaying(userAndNumber);
         }
     }

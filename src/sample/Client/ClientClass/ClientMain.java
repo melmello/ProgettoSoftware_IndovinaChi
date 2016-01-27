@@ -162,8 +162,6 @@ public class ClientMain extends Application {
     public void settingMySticker(){
         writer.println(CodeAndInformation.serializeToJson(CLIENT_GIVES_STICKER_INFO, clientGameController.getImagePath()));
         notification("Hai scelto il personaggio!");
-        clientGameController.disableForChangingRound(true);
-        clientGameController.changeDragAndDrop(clientGameController.getHisStickerImage());
     }
 
     //metodo che dice al Server che il client è pronto per mandare la query
@@ -307,6 +305,7 @@ public class ClientMain extends Application {
         userAndNumber.set(0, user.getUserUsername());
         gson = new Gson();
         String information = gson.toJson(userAndNumber);
+        System.out.println(information + " INFORMATIONNNNNNNNNNNNNNNNNNNn");
         writer.println(CodeAndInformation.serializeToJson(CLIENT_SAYS_NO_FOR_PLAYING, information));
     }
 
