@@ -18,6 +18,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
+import org.controlsfx.control.InfoOverlay;
 import org.controlsfx.control.Rating;
 import sample.Utilities.Class.Utilities;
 import java.net.URL;

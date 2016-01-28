@@ -100,7 +100,7 @@
                   <Image url="@../../Utilities/Stickers/Gattuso.jpg" />
                </image>
             </ImageView>
-            <ImageView id="Gerrard" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <ImageView id="Gerrard" fitHeight="216.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseEntered="#zoomInSticker" onMouseExited="#zoomOutSticker" pickOnBounds="true" preserveRatio="true" styleClass="ImageSticker" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../Utilities/Stickers/Gerrard.jpg" />
                </image>

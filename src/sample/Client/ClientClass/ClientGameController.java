@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXListView;
 import javafx.animation.Animation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ToolBar;
@@ -26,6 +27,7 @@ import java.util.*;
 public class ClientGameController implements Initializable {
 
     private boolean myOrHis = true;
+    private boolean isItFirstTimeYouEnter = true;
     private ClientMain main;
     private Scene gamingScene;
     private String imagePath;
@@ -45,6 +47,7 @@ public class ClientGameController implements Initializable {
     @FXML ImageView stickerImage;
     @FXML ImageView myStickerImage;
     @FXML ImageView hisStickerImage;
+    @FXML ImageView targetImage = myStickerImage;
     @FXML Image questionMarkImage = new Image(QUESTION_MARK_PATH);
     @FXML JFXComboBox<String> hairComboBox;
     @FXML JFXComboBox<String> beardComboBox;
@@ -133,20 +136,40 @@ public class ClientGameController implements Initializable {
                     ClipboardContent content = new ClipboardContent();
                     content.putString(stickerImage.getId());
                     db.setContent(content);
-                    if (!myOrHis){
+                    if (!myOrHis) {
                         animation = utilities.scaleTransitionEffectCycle(hisStickerImage, 1.3f, 1.3f);
-                    } else if (myOrHis){
+                    } else if (myOrHis) {
                         animation = utilities.scaleTransitionEffectCycle(myStickerImage, 1.3f, 1.3f);
                     }
                     event.consume();
+                }
+            });
+            imageView.setOnDragDone(new EventHandler<DragEvent>() {
+                @Override
+                public void handle(DragEvent event) {
+                    animation.stop();
+                    myStickerImage.setScaleX(hisStickerImage.getScaleX());
+                    myStickerImage.setScaleY(hisStickerImage.getScaleY());
+                }
+            });
+            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    zoomInSticker(event);
+                }
+            });
+            imageView.setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    zoomOutSticker(event);
                 }
             });
         }
         changeDragAndDrop(myStickerImage);
     }
 
-    public void changeDragAndDrop(ImageView targetImage) {
-        targetImage.setOnDragOver(new EventHandler<DragEvent>() {
+    public void changeDragAndDrop(ImageView imageToTargetOnDrag) {
+        imageToTargetOnDrag.setOnDragOver(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
                 if (event.getDragboard().hasString()) {
@@ -155,30 +178,31 @@ public class ClientGameController implements Initializable {
                 event.consume();
             }
         });
-        targetImage.setOnDragDropped(new EventHandler<DragEvent>() {
+        imageToTargetOnDrag.setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
                     success = true;
-                    if (targetImage.equals(myStickerImage)) {
+                    if (imageToTargetOnDrag.equals(myStickerImage)) {
                         animation.stop();
-                        targetImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
+                        imageToTargetOnDrag.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
+                        imageToTargetOnDrag.setFitWidth(hisStickerImage.getFitWidth());
+                        imageToTargetOnDrag.setFitHeight(hisStickerImage.getFitHeight());
                         imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
                         main.settingMySticker();
                         disableForChangingRound(true);
                         System.out.println("Hai scelto il personaggio");
-                        if (targetImage.equals(hisStickerImage)){
-                            myStickerImage.setOnDragOver(null);
-                            myStickerImage.setOnDragDropped(null);
-                        }
                         myOrHis = false;
-                    } else if (targetImage.equals(hisStickerImage)){
+                        targetImage = hisStickerImage;
+                    } else if (imageToTargetOnDrag.equals(hisStickerImage)){
                         animation.stop();
-                        targetImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
-                        targetImage.setFitWidth(myStickerImage.getFitWidth());
-                        targetImage.setFitHeight(myStickerImage.getFitHeight());
+                        imageToTargetOnDrag.setScaleX(1);
+                        imageToTargetOnDrag.setScaleY(1);
+                        imageToTargetOnDrag.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
+                        imageToTargetOnDrag.setFitWidth(myStickerImage.getFitWidth());
+                        imageToTargetOnDrag.setFitHeight(myStickerImage.getFitHeight());
                         main.clientWantsToQuerySticker(db.getString());
                         disableForChangingRound(true);
                     }
@@ -442,6 +466,19 @@ public class ClientGameController implements Initializable {
         disableForChangingRound(true);
     }
 
+    public void zoomInSticker(Event event){
+        ImageView imageOver = (ImageView) event.getTarget();
+        imageOver.toFront();
+        utilities.scaleTransition(imageOver, 1.3f, 1.3f, 250);
+    }
+
+    public void zoomOutSticker(Event event){
+        ImageView imageOver = (ImageView) event.getTarget();
+        imageOver.toFront();
+        utilities.scaleTransition(imageOver, 1.0f, 1.0f, 250);
+    }
+
+
     public void disableForChangingRound(Boolean bool){
         maskerPaneWaitingOtherPlayerChoice.setVisible(bool);
         questionChoosenListView.setDisable(bool);
@@ -455,8 +492,27 @@ public class ClientGameController implements Initializable {
         reinitializeComboBox();
         questionThatCouldBeChoosen.setItems(null);
         if (bool){
+            if (isItFirstTimeYouEnter){
+                Set<Node> set = anchorPane.lookupAll(".ImageSticker");
+                Object[] arrayNode = set.toArray();
+                for (int cont = 0; cont < set.size(); cont++) {
+                    ImageView imageView = (ImageView) arrayNode[cont];
+                    imageView.setOnDragDone(new EventHandler<DragEvent>() {
+                        @Override
+                        public void handle(DragEvent event) {
+                            animation.stop();
+                            hisStickerImage.setScaleX(hisStickerImage.getScaleX());
+                            hisStickerImage.setScaleY(hisStickerImage.getScaleY());
+                        }
+                    });
+                }
+                isItFirstTimeYouEnter = false;
+            }
+            myStickerImage.setOnDragOver(null);
+            myStickerImage.setOnDragDropped(null);
             hisStickerImage.setOnDragOver(null);
             hisStickerImage.setOnDragDropped(null);
+            targetImage = hisStickerImage;
             utilities.fadeTransitionEffect(hisStickerImage, 1, 0, 1000);
         } else if (!bool){
             changeDragAndDrop(hisStickerImage);
