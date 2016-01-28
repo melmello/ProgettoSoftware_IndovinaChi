@@ -122,7 +122,6 @@ public class ServerThread extends Thread{
         gson = new Gson();
         ArrayList<String> userAndNumber = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
         positionInArrayList = Integer.parseInt(userAndNumber.get(1));
-        System.out.println(positionInArrayList + " -> POSITION!!!!");
     }
 
     private void readyToReceiveOtherClientName(String information) {
@@ -148,7 +147,6 @@ public class ServerThread extends Thread{
     private void readyToKnowQuery(String information) {
         gson = new Gson();
         Boolean choice;
-        System.out.println("RICEVUTO");
         StickerQuery stickerQuery = gson.fromJson(information, StickerQuery.class);
         System.out.println(stickerQuery + " -> STICKER QUERY");
         System.out.println(opponentSticker + " -> OPPONENT STICKER");
@@ -336,6 +334,7 @@ public class ServerThread extends Thread{
     }
 
     private void settingQueryInvertTypeString(String firstParameter, String secondParameter) {
+        sqlNicknameToBeRemoved.clear();
         ResultSet resultSet;
         try {
             Statement statement = connection.createStatement();
@@ -354,10 +353,11 @@ public class ServerThread extends Thread{
     }
 
     private void settingQueryInvertTypeBoolean(String firstParameter, Boolean secondParameter) {
+        sqlNicknameToBeRemoved.clear();
         ResultSet resultSet;
         try {
             Statement statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM stickers WHERE " + firstParameter + " != '" + secondParameter + "'");//faccio la query con il nome ricevuto per creare la figurina
+            resultSet = statement.executeQuery("SELECT * FROM stickers WHERE " + firstParameter + " = '" + secondParameter + "'");//faccio la query con il nome ricevuto per creare la figurina
             while (resultSet.next()){
                 sqlNicknameToBeRemoved.add(resultSet.getString(NICKNAME_FOR_QUERY));
             }
@@ -373,11 +373,12 @@ public class ServerThread extends Thread{
 
     //creo la query con due parametri di tipo stringa in cui all'interno cerco = o != a seconda della scelta passata
     private void settingQueryStringType(String firstParameter, String secondParameter, Boolean choice) {
+        sqlNicknameToBeRemoved.clear();
         ResultSet resultSet;
         try {
             Statement statement = connection.createStatement();
             if (choice) {
-                resultSet = statement.executeQuery("SELECT * FROM stickers WHERE " + firstParameter + " != '" + secondParameter + "'");//faccio la query con il nome ricevuto per creare la figurina
+                resultSet = statement.executeQuery("SELECT * FROM stickers WHERE " + firstParameter + " != '" + secondParameter + "' || " + firstParameter + " IS NULL ");//faccio la query con il nome ricevuto per creare la figurina
             } else {
                 resultSet = statement.executeQuery("SELECT * FROM stickers WHERE " + firstParameter + " = '" + secondParameter + "'");//faccio la query con il nome ricevuto per creare la figurina
             }
@@ -396,6 +397,7 @@ public class ServerThread extends Thread{
 
     //creo la query con due parametri, uno stringa e uno booleano e cerco = o ! non più in questo metodo ma nella chiamata
     private void settingQueryBooleanType(String firstParameter, Boolean secondParameter){
+        sqlNicknameToBeRemoved.clear();
         try {
             System.out.println(secondParameter + " -> secondParameter");
             Statement statement = connection.createStatement();
@@ -458,17 +460,11 @@ public class ServerThread extends Thread{
                 mySticker.setGlassesOfSticker(resultSet.getBoolean(GLASSES_FOR_QUERY));
                 mySticker.setHeadbandOfSticker(resultSet.getBoolean(HEADBAND_FOR_QUERY));
                 mySticker.setMoleOfSticker(resultSet.getBoolean(MOLE_FOR_QUERY));
-                if (resultSet.wasNull()) {
-                    mySticker.setBeardTypeOfSticker(resultSet.getString(BEARDTYPE_FOR_QUERY));
-                }
+                mySticker.setBeardTypeOfSticker(resultSet.getString(BEARDTYPE_FOR_QUERY));
                 mySticker.setFreecklesOfSticker(resultSet.getBoolean(FRECKLES_FOR_QUERY));
                 mySticker.setNationalShirtOfSticker(resultSet.getBoolean(NATIONALSHIRT_FOR_QUERY));
-                if (resultSet.wasNull()) {
-                    mySticker.setContinentOfSticker(resultSet.getString(CONTINENT_FOR_QUERY));
-                }
-                if (resultSet.wasNull()) {
-                    mySticker.setChampionshipOfSticker(resultSet.getString(CHAMPIONSHIP_FOR_QUERY));
-                }
+                mySticker.setContinentOfSticker(resultSet.getString(CONTINENT_FOR_QUERY));
+                mySticker.setChampionshipOfSticker(resultSet.getString(CHAMPIONSHIP_FOR_QUERY));
                 mySticker.setCaptainBandOfSticker(resultSet.getBoolean(CAPTAINBAND_FOR_QUERY));
                 mySticker.setNoseDimensionBigOfSticker(resultSet.getBoolean(NOSEDIMENSIONBIG_FOR_QUERY));
                 mySticker.setSmileOfSticker(resultSet.getBoolean(SMILE_FOR_QUERY));

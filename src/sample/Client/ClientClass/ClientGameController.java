@@ -45,6 +45,7 @@ public class ClientGameController implements Initializable {
     @FXML ImageView stickerImage;
     @FXML ImageView myStickerImage;
     @FXML ImageView hisStickerImage;
+    @FXML Image questionMarkImage = new Image(QUESTION_MARK_PATH);
     @FXML JFXComboBox<String> hairComboBox;
     @FXML JFXComboBox<String> beardComboBox;
     @FXML JFXComboBox<String> faceComboBox;
@@ -162,7 +163,7 @@ public class ClientGameController implements Initializable {
                 if (db.hasString()) {
                     success = true;
                     if (targetImage.equals(myStickerImage)) {
-                        //animation.stop();
+                        animation.stop();
                         targetImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
                         imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
                         main.settingMySticker();
@@ -176,6 +177,8 @@ public class ClientGameController implements Initializable {
                     } else if (targetImage.equals(hisStickerImage)){
                         animation.stop();
                         targetImage.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
+                        targetImage.setFitWidth(myStickerImage.getFitWidth());
+                        targetImage.setFitHeight(myStickerImage.getFitHeight());
                         main.clientWantsToQuerySticker(db.getString());
                         disableForChangingRound(true);
                     }
@@ -454,10 +457,12 @@ public class ClientGameController implements Initializable {
         if (bool){
             hisStickerImage.setOnDragOver(null);
             hisStickerImage.setOnDragDropped(null);
+            utilities.fadeTransitionEffect(hisStickerImage, 1, 0, 1000);
         } else if (!bool){
             changeDragAndDrop(hisStickerImage);
+            hisStickerImage.setImage(questionMarkImage);
+            utilities.fadeTransitionEffect(hisStickerImage, 0, 1, 1000);
         }
-        hisStickerImage.setImage(null);
     }
 
     private void setListViewHeight(JFXListView<String> questionThatCouldBeChoosen, ArrayList<String> questionCanBeChoosenArray) {
@@ -466,10 +471,6 @@ public class ClientGameController implements Initializable {
 
     public String getImagePath() {
         return imagePath;
-    }
-
-    public ImageView getHisStickerImage() {
-        return hisStickerImage;
     }
 
 }

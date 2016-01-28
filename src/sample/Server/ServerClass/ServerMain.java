@@ -16,7 +16,6 @@ import java.io.IOException;
 
 public class ServerMain extends Application {
 
-    private ServerStart serverStart = new ServerStart(this);
     private ServerStartingController serverStartingController;
     private ServerClientCounterController serverClientCounterController;
 

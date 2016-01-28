@@ -318,19 +318,22 @@ public class ServerStart extends Task {
         String winner = null;
         String loser = null;
         for(int cont = 0; cont < gameArrayList.size(); cont++){
-            if (gameArrayList.get(cont).getPlayer1().equals(usernameWhoWin) || gameArrayList.get(cont).getPlayer2().equals(usernameWhoWin)){
+            if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(usernameWhoWin) || gameArrayList.get(cont).getPlayer2().getUser().getUserUsername().equals(usernameWhoWin)){
                 threadsArrayList.add(gameArrayList.get(cont).getPlayer1());
                 threadsArrayList.add(gameArrayList.get(cont).getPlayer2());
-                if (gameArrayList.get(cont).getPlayer1().equals(usernameWhoWin)){
-                    winner = gameArrayList.get(cont).getPlayer1().getName();
-                    loser = gameArrayList.get(cont).getPlayer2().getName();
+                if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(usernameWhoWin)){
+                    winner = gameArrayList.get(cont).getPlayer1().getUser().getUserUsername();
+                    loser = gameArrayList.get(cont).getPlayer2().getUser().getUserUsername();
                 } else {
-                    loser = gameArrayList.get(cont).getPlayer1().getName();
-                    winner = gameArrayList.get(cont).getPlayer2().getName();
+                    loser = gameArrayList.get(cont).getPlayer1().getUser().getUserUsername();
+                    winner = gameArrayList.get(cont).getPlayer2().getUser().getUserUsername();
                 }
                 gameArrayList.remove(cont);
             }
         }
+
+        System.out.println("THE WINNER IS " + winner);
+        System.out.println("THE LOSER IS " + loser);
         try {
             Statement statement = connection.createStatement();
             statement.execute("INSERT INTO leaderboard(winner, loser) VALUES ('" + winner + "','" + loser + "')");
@@ -339,10 +342,10 @@ public class ServerStart extends Task {
         }
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
             if(threadsArrayList.get(cont).getUser().getUserUsername().equals(winner)){
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, null));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, loser));
                 refreshLeaderboardSearchingUsername();
             } else if (threadsArrayList.get(cont).getUser().getUserUsername().equals(loser)){
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_SAD_FOR_YOUR_DEFEAT, null));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_SAD_FOR_YOUR_DEFEAT, winner));
             }
         }
     }
@@ -366,7 +369,4 @@ public class ServerStart extends Task {
         return gameArrayList;
     }
 
-    public ArrayList<ServerThread> getThreadsArrayList() {
-        return threadsArrayList;
-    }
 }
