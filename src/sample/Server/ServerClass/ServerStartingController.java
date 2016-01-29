@@ -39,7 +39,6 @@ public class ServerStartingController implements Initializable{//così posso imp
 
     //metodo per quando clicco il Button che voglio connettere il server su quella porta e mostrare IP e popup con client connessi
     public void clickButton () {
-        utilities.playSomeSound(BUTTONCLICK_SOUND);
         if (textWithServerPort.getText().isEmpty()) {//se il testo è vuoto
             System.out.println("Errore: porta non inserita");
             labelDescription.setVisible(false);
