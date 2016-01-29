@@ -114,7 +114,7 @@ public final class ConstantCodes {
 
     //server utility
     public static final int ASSIGNED_PORT_SOCKET = 8080;
-    public static final String ASSIGNED_IP_SOCKET = "localhost";
+    public static final String ASSIGNED_IP_SOCKET = "server.clockmusic.it";
 
     //comboBox utility
     public static final String LENGTH_COMBO_BOX = "Lunghezza";

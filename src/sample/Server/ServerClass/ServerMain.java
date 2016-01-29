@@ -21,7 +21,13 @@ public class ServerMain extends Application {
 
     //main che parte in caso la grafica non vada
     public static void main(String[] args){
-        launch(args);
+        if (args.length>0 && args[0].equals("withoutInterface")){
+            System.out.println("Server partito senza interfaccia");
+            ServerMain serverMain = new ServerMain();
+            serverMain.startingServer();
+        } else {
+            launch(args);
+        }
     }
 
     //metodo main per la grafica
