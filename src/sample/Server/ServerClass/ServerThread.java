@@ -518,7 +518,7 @@ public class ServerThread extends Thread{
             user = gson.fromJson(information, User.class);
             System.out.println(user + " -> user");
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE username='" + user.getUserUsername() + "' AND password='" + user.getUserPassword() + "'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE BINARY username='" + user.getUserUsername() + "' AND BINARY password='" + user.getUserPassword() + "'");
             while (resultSet.next()) {
                 userSQLName = resultSet.getString(USERNAME_FOR_QUERY);
                 userSQLPassword = resultSet.getString(PASSWORD_FOR_QUERY);
