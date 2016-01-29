@@ -11,7 +11,7 @@
 
 <AnchorPane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1850.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Client.ClientClass.ClientChoiceController">
    <children>
-      <Pane prefHeight="1000.0" prefWidth="1850.0">
+      <Pane fx:id="anchorPaneExternal" prefHeight="1000.0" prefWidth="1850.0">
          <children>
             <AnchorPane fx:id="anchorPane" layoutX="580.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="763.0">
                <children>

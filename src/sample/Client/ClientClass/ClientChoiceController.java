@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -31,8 +32,10 @@ public class ClientChoiceController implements Initializable {
     private Utilities utilities = new Utilities();
     private ClientMain main;
     private ImageView oldImage = new ImageView();
+    private ArrayList<Node> transitionOn = new ArrayList<>();
     private int timeDuration = 7500;
     private Timer timer = new Timer();
+    @FXML Pane anchorPaneExternal;
     @FXML AnchorPane anchorPane;
     @FXML AnchorPane anchorRating;
     @FXML AnchorPane anchorWorld;
@@ -194,16 +197,19 @@ public class ClientChoiceController implements Initializable {
     private void seeImageContext(Node node, Node nodeSelected, int duration) {
         utilities.fadeTransitionEffect(node, 0, 1, 1000);
         node.setVisible(true);
-        if (oldImage.equals(nodeSelected)){
+        if (oldImage.equals(nodeSelected) || transitionOn.contains(nodeSelected)){
             duration*=2;
             timer.cancel();
             timer.purge();
+            transitionOn.remove(nodeSelected);
         }
+        transitionOn.add(nodeSelected);
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 utilities.fadeTransitionEffect(node, 1, 0, 3000);
+                transitionOn.remove(nodeSelected);
             }
         }, duration);
     }
@@ -230,8 +236,11 @@ public class ClientChoiceController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonYes){
             main.sendServerOkForPlaying(userAndNumber);
+            clientConnectedListView.setDisable(false);
+
         } else if (result.get() == buttonNo){
             main.sendServerNoForPlaying(userAndNumber);
+            clientConnectedListView.setDisable(false);
         }
     }
 

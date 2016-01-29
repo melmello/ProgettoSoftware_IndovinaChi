@@ -28,6 +28,8 @@ public class ClientGameController implements Initializable {
 
     private boolean myOrHis = true;
     private boolean isItFirstTimeYouEnter = true;
+    private double hSticker;
+    private double wSticker;
     private ClientMain main;
     private Scene gamingScene;
     private String imagePath;
@@ -77,6 +79,8 @@ public class ClientGameController implements Initializable {
         toolBar.setDisable(true);
         questionThatCouldBeChoosen.setDisable(true);
         maskerPaneWaitingOtherPlayerChoice.setVisible(false);
+        wSticker = myStickerImage.getFitWidth();
+        hSticker = myStickerImage.getFitHeight();
     }
 
     //metodo che serve per far conoscere main e controller
@@ -187,9 +191,15 @@ public class ClientGameController implements Initializable {
                     success = true;
                     if (imageToTargetOnDrag.equals(myStickerImage)) {
                         animation.stop();
+                        imageToTargetOnDrag.setScaleX(1);
+                        imageToTargetOnDrag.setScaleY(1);
+                        imageToTargetOnDrag.setFitWidth(wSticker);
+                        imageToTargetOnDrag.setFitHeight(hSticker);
                         imageToTargetOnDrag.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
-                        imageToTargetOnDrag.setFitWidth(hisStickerImage.getFitWidth());
-                        imageToTargetOnDrag.setFitHeight(hisStickerImage.getFitHeight());
+                        //imageToTargetOnDrag.setFitWidth(hisStickerImage.getFitWidth());
+                        //imageToTargetOnDrag.setFitHeight(hisStickerImage.getFitHeight());
+                        //imageToTargetOnDrag.setFitWidth(wSticker);
+                        //imageToTargetOnDrag.setFitHeight(hSticker);
                         imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
                         main.settingMySticker();
                         disableForChangingRound(true);
@@ -200,9 +210,9 @@ public class ClientGameController implements Initializable {
                         animation.stop();
                         imageToTargetOnDrag.setScaleX(1);
                         imageToTargetOnDrag.setScaleY(1);
+                        imageToTargetOnDrag.setFitWidth(wSticker);
+                        imageToTargetOnDrag.setFitHeight(hSticker);
                         imageToTargetOnDrag.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
-                        imageToTargetOnDrag.setFitWidth(myStickerImage.getFitWidth());
-                        imageToTargetOnDrag.setFitHeight(myStickerImage.getFitHeight());
                         main.clientWantsToQuerySticker(db.getString());
                         disableForChangingRound(true);
                     }
