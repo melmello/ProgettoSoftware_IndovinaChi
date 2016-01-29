@@ -1,5 +1,11 @@
 package sample.Utilities.Class;
 
+/** @author Giulio Melloni
+ * Questa classe è una classe costante e viene usata soprattutto per lo scambio di informazioni tra client e server e viceversa.
+ * Troviamo infatti tutti i codici utilizzati con relativo valore.
+ * Tuttavia, in questa classe, ci sono anche tutti i parametri del database (primo e secondo parametro: ad esempio beardLengh long) e anche i relativi path di DBUrl, ServerPort, fxml,css,immagini e suoni.
+ */
+
 public final class ConstantCodes {
 
     //from client to server
@@ -114,7 +120,7 @@ public final class ConstantCodes {
 
     //server utility
     public static final int ASSIGNED_PORT_SOCKET = 8080;
-    public static final String ASSIGNED_IP_SOCKET = "server.clockmusic.it";
+    public static final String ASSIGNED_IP_SOCKET = "localhost";
 
     //comboBox utility
     public static final String LENGTH_COMBO_BOX = "Lunghezza";
@@ -139,7 +145,6 @@ public final class ConstantCodes {
 
     //path per i suoni
     public static final String BUTTONCLICK_SOUND = "/sample/Utilities/Sound/ButtonClick.wav";
-    public static final String GOAL_SOUND = "/sample/Utilities/Sound/Goal.wav";
     public static final String BALLSHOT_SOUND = "/sample/Utilities/Sound/BallShot.wav";
 
     //nomi immagini
@@ -151,11 +156,15 @@ public final class ConstantCodes {
     public static final String GOALKEEPER_JUMPING_RIGHT = "/sample/Client/ClientImage/GoalKeeperJumpingRight.png";
     public static final String QUESTION_MARK_PATH = "/sample/Client/ClientImage/QuestionMark.png";
 
-    //metodo costruito per le eccezioni
+    /** Metodo costruito per le eccezioni.
+     */
     private ConstantCodes(){
         throw new AssertionError();
     }
 
+    /** toString della classe (usato per la serializzazione col gson).
+     * @return ritorna la serialzzazione.
+     */
     @Override
     public String toString() {
         return "ConstantCodes{}";

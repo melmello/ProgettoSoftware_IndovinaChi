@@ -1,7 +1,12 @@
 package sample.Server.ServerClass;
 
-import static sample.Utilities.Class.ConstantCodes.*;
+/** @author Giulio Melloni
+ * Classe che rappresenta il thread del client nel server. Questa è la classe fondamentale che serve come ponte di comunicazione tra server e client.
+ * E' qui che si ricevono i vari codici con tutte le azioni prefissate. E' qui che avviene l'assegnazione dello sticker personale, la query del client verso l'avversario.
+ * In questa classe avviene, quindi, lo scambio di informazioni tra server e client singolo.
+ */
 
+import static sample.Utilities.Class.ConstantCodes.*;
 import com.google.gson.reflect.TypeToken;
 import sample.Utilities.Class.*;
 import com.google.gson.Gson;
@@ -28,7 +33,12 @@ public class ServerThread extends Thread{
     private ArrayList<String> sqlNicknameToBeRemoved = new ArrayList<>();
     private User user;
 
-    //costruttore
+    /** Costruttore di ServerThread.
+     * @param socket gli passo il socket su cui avverrà la comunicazione.
+     * @param serverStart è il modo con cui posso legare il suo main col thread.
+     * @param connection è la connessione al dbmysql.
+     * @param positionInArrayList è la posizione nell'arrayList utile per il cambio di turno.
+     */
     public ServerThread(Socket socket, ServerStart serverStart, Connection connection, int positionInArrayList){
         this.socket = socket;
         this.serverIP = socket.getInetAddress().getHostAddress();
@@ -37,9 +47,21 @@ public class ServerThread extends Thread{
         this.positionInArrayList = positionInArrayList;
     }
 
+    /** Metodo che permette l'esecuzione vera e propria del thread creato dopo lo start().
+     * Questo metodo è il cuore del server. In questo campo vengono ricevuti i segnali mandati dal client.
+     * La comunicazione avviene quindi su un socket comune in cui tramite il writer e il reader ci si scrive o ci si legge.
+     * La codifica usata per questo progetto è la seguente: il codice che arriva viene subito deserializzato in un oggetto di tipo CodeAndInformation.
+     * Questo oggetto ha due parti:
+     * - code: un codice costante in maiuscolo specificato nella classe ConstantCode
+     * - information: una stringa che ha l'informazione che può servire. Se ho bisogno di passare un oggetto o un arraylist ho bisogno quindi di una ulteriore serializzazione.
+     * In questo while (true) quindi il mio thread rimane sempre e verifica leggendo dal socket il codice ricevuto; va quindi nel case rispettivo e svolge determinate azioni.
+     * @see #reader istanzio e creo il reader passandogli il socket su cui scriverò.
+     * @see #writer istanzio il writer passandogli sempre il socket su cui scriverò.
+     * @see #gson istanzio il gson che mi serve per serializzare codice ed informazione.
+     */
     public void run(){
         try{
-            reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));//input sul socket
+            reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             writer = new PrintWriter(this.socket.getOutputStream(),true);//output sul socket
             while (true) {
                 gson = new Gson();
@@ -47,11 +69,12 @@ public class ServerThread extends Thread{
                 codeAndInformation = gson.fromJson(code, CodeAndInformation.class);
                 System.out.println(codeAndInformation.getCode() + " -> CODE");
                 switch (codeAndInformation.getCode()){
-                    //Il client manda il segnale che si è disconesso.
+                    //Il client manda il segnale che si è disconesso dalla schermata di choice
                     case (CLIENT_DISCONNECTING_FROM_CHOICE_SCREEN):{
                         serverStart.removeClientDisconnected(user.getUserUsername());
                         break;
                     }
+                    //Il client manda il segnale che si è disconnesso prima di loggarsi
                     case (CLIENT_DISCONNECTING_FROM_LOGIN_SCREEN):{
                         serverStart.removeClientDisconnectedFromLoginScreen();
                         break;
@@ -85,7 +108,7 @@ public class ServerThread extends Thread{
                         break;
                     }
                     case (CLIENT_WANTS_TO_PLAY):{
-                        readyToReceiveOtherClientName(codeAndInformation.getInformation());
+                        serverStart.sendingRequest(codeAndInformation.getInformation(), getUser().getUserUsername());
                         break;
                     }
                     case (CLIENT_SAYS_OK_FOR_PLAYING):{
@@ -118,16 +141,18 @@ public class ServerThread extends Thread{
         }
     }
 
+    /** Metodo che serve per creare il gioco inizializzando la posizione nell'arraylist.
+     * @param information è un arraylist con in prima posizione il nome dell'utente e in seconda la password.
+     */
     private void matchNumber(String information) {
         gson = new Gson();
         ArrayList<String> userAndNumber = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
         positionInArrayList = Integer.parseInt(userAndNumber.get(1));
     }
 
-    private void readyToReceiveOtherClientName(String information) {
-        serverStart.sendingRequest(information, getUser().getUserUsername());
-    }
-
+    /** Metodo che serve per la comunicazione del rating del client. In questo modo deserializzo le informazioni e le mando a serverStart.
+     * @param information è un arrayList che contiene il voto, il titolo, il testo della recensione.
+     */
     private void communicateClientRating(String information) {
         gson = new Gson();
         ArrayList<String> voteTitleText = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
@@ -135,6 +160,9 @@ public class ServerThread extends Thread{
         serverStart.sendRating(Double.parseDouble(voteTitleText.get(0)), voteTitleText.get(1), voteTitleText.get(2), getUser().getUserUsername());
     }
 
+    /** Metodo che serve per la comunicazione della query sullo sticker, ovvero chiedere se è lo sticker scelto (metodo usato per vincere la partita) da parte dell'utente.
+     * @param information è il nickname dello sticker scelto.
+     */
     private void readyToKnowQuerySticker(String information) {
         if(opponentSticker.getNicknameOfSticker().equals(information)){
             serverStart.swapGameArrayList(user.getUserUsername());
@@ -143,7 +171,12 @@ public class ServerThread extends Thread{
         }
     }
 
-    //il server è pronto per ricevere la query dal client (il gson con parametri)
+    /** Metodo che serve per la comunicazione della query dal client (il gson con parametri).
+     * Con questi parametri potrò costruire la query con cui posso trovare gli sticker da rimuovere nel client che ha fatto la domanda.
+     * Ho quindi diversi casi di information. Ho il caso in cui il secondo parametro di StickerQuery sia un booleano, oppure sia una stringa, oppure sia un Booleano (ossia un booleano con in più la possibilità che sia null).
+     * In ogni caso, l'azione svolta è quella di una chiamata di funzione che svolga la query {@link #settingQueryBooleanType(String, Boolean)}{@link #settingQueryStringType(String, String, Boolean)}{@link #settingQueryInvertTypeBoolean(String, Boolean)}{@link #settingQueryInvertTypeString(String, String)}.
+     * @param information è un gson che al suo interno ha il primo e il secondo parametro per la query del db.
+     */
     private void readyToKnowQuery(String information) {
         gson = new Gson();
         Boolean choice;
@@ -243,7 +276,7 @@ public class ServerThread extends Thread{
                 break;
             }
             case (FRECKLES_FOR_QUERY): {
-                if (opponentSticker.isFreecklesOfSticker() == stringToBool(stickerQuery.getSecondParameter())) {
+                if (opponentSticker.isFrecklesOfSticker() == stringToBool(stickerQuery.getSecondParameter())) {
                     settingQueryBooleanType(stickerQuery.getFirstParameter(), stringToBool(stickerQuery.getSecondParameter()));
                 } else {
                     settingQueryBooleanType(stickerQuery.getFirstParameter(), !stringToBool(stickerQuery.getSecondParameter()));
@@ -333,6 +366,11 @@ public class ServerThread extends Thread{
         }
     }
 
+    /** Metodo che serve per la creazione della query nel caso in cui lo sticker scelto abbia parametri null.
+     * Viene fatta una query all'interno del database e restituito l'array con i nomi da rimuovere nella schermata del client che ha posto la domanda.
+     * @param firstParameter nome della colonna su cui far la query.
+     * @param secondParameter nome del parametro della colonna.
+     */
     private void settingQueryInvertTypeString(String firstParameter, String secondParameter) {
         sqlNicknameToBeRemoved.clear();
         ResultSet resultSet;
@@ -352,6 +390,11 @@ public class ServerThread extends Thread{
         serverStart.changingRoundOfClient(positionInArrayList, user.getUserUsername(), mySticker);
     }
 
+    /** Metodo che serve per la creazione della query nel caso in cui lo sticker scelto abbia parametri null.
+     * Viene fatta una query all'interno del database e restituito l'array con i nomi da rimuovere nella schermata del client che ha posto la domanda.
+     * @param firstParameter nome della colonna su cui far la query.
+     * @param secondParameter nome del parametro della colonna.
+     */
     private void settingQueryInvertTypeBoolean(String firstParameter, Boolean secondParameter) {
         sqlNicknameToBeRemoved.clear();
         ResultSet resultSet;
@@ -371,7 +414,12 @@ public class ServerThread extends Thread{
         serverStart.changingRoundOfClient(positionInArrayList, user.getUserUsername(), mySticker);
     }
 
-    //creo la query con due parametri di tipo stringa in cui all'interno cerco = o != a seconda della scelta passata
+    /** Creo la query con due parametri di tipo stringa in cui all'interno cerco = o != a seconda della scelta passata.
+     * Viene fatta una query all'interno del database e restituito l'array con i nomi da rimuovere nella schermata del client che ha posto la domanda.
+     * @param firstParameter nome della colonna su cui far la query.
+     * @param secondParameter nome del parametro della colonna.
+     * @param choice è la scelta, ossia se ho fatto una domanda e il server risponde GIUSTO oppure se ho fatto una domanda e il server mi risponde SBAGLIATO.
+     */
     private void settingQueryStringType(String firstParameter, String secondParameter, Boolean choice) {
         sqlNicknameToBeRemoved.clear();
         ResultSet resultSet;
@@ -395,7 +443,11 @@ public class ServerThread extends Thread{
         serverStart.changingRoundOfClient(positionInArrayList, user.getUserUsername(), mySticker);
     }
 
-    //creo la query con due parametri, uno stringa e uno booleano e cerco = o ! non più in questo metodo ma nella chiamata
+    /** Creo la query con due parametri, uno stringa e uno booleano e cerco = o ! non più in questo metodo ma nella chiamata.
+     * Viene fatta una query all'interno del database e restituito l'array con i nomi da rimuovere nella schermata del client che ha posto la domanda.
+     * @param firstParameter nome della colonna su cui far la query.
+     * @param secondParameter nome del parametro della colonna.
+     */
     private void settingQueryBooleanType(String firstParameter, Boolean secondParameter){
         sqlNicknameToBeRemoved.clear();
         try {
@@ -415,7 +467,10 @@ public class ServerThread extends Thread{
         serverStart.changingRoundOfClient(positionInArrayList, user.getUserUsername(), mySticker);
     }
 
-    //metodo di casting da Stringa a Boolean
+    /** Metodo che serve per castare una stringa a boolean.
+     * @param stringConvertion stringa convertire.
+     * @return stringa castata in booleano.
+     */
     private static boolean stringToBool(String stringConvertion) {
         if (stringConvertion.equals(TRUEANSWER_FOR_QUERY))
             return true;
@@ -424,6 +479,10 @@ public class ServerThread extends Thread{
         throw new IllegalArgumentException(stringConvertion + " non è booleano");
     }
 
+    /** Metodo che serve per castare una stringa a Boolean (booleano ma con anche la possibilità di avere un valore NULL).
+     * @param stringConvertion stringa convertire.
+     * @return stringa castata in Booleano.
+     */
     private static Boolean stringToBoolean(String stringConvertion){
         if (stringConvertion.equals(TRUEANSWER_FOR_QUERY))
             return true;
@@ -434,7 +493,11 @@ public class ServerThread extends Thread{
         throw new IllegalArgumentException(stringConvertion + " non è Booleano");
     }
 
-    //metodo che serve per sapere che sticker ha scelto l'utente
+    /** Metodo che serve per istanziare la variabile mySticker con i campi da cercare nel database.
+     * In questo metodo taglio il path ricevuto dal client e ricerco nel database un elemento con quel nickname e setto ciò che ho trovato in mysticker.
+     * Inoltre chiamo {@link #changeFirstPlayerInGame(int)} e setto il mio sticker come stickerOpponent dell'avversario.
+     * @param information è il path dell'immagine scelta dal client.
+     */
     private void readyToKnowStickerInfo(String information) {
         try {
             System.out.println(information + " -> information");
@@ -442,7 +505,7 @@ public class ServerThread extends Thread{
             stickerName = FilenameUtils.removeExtension(stickerName);//tolgo l'estensione
             System.out.println(stickerName + " -> stickerName");
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM stickers WHERE nickname='" + stickerName + "'");//faccio la query con il nome ricevuto per creare la figurina
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM stickers WHERE nickname = '" + stickerName + "'");//faccio la query con il nome ricevuto per creare la figurina
             mySticker = new Sticker(null);//creo un elemento sticker vuoto
             while (resultSet.next()) {//popolo il mio oggetto mySticker con i campi che ho trovato nel database con chiave quella passata dal client
                 mySticker.setNameOfSticker(resultSet.getString(NAME_FOR_QUERY));
@@ -461,7 +524,7 @@ public class ServerThread extends Thread{
                 mySticker.setHeadbandOfSticker(resultSet.getBoolean(HEADBAND_FOR_QUERY));
                 mySticker.setMoleOfSticker(resultSet.getBoolean(MOLE_FOR_QUERY));
                 mySticker.setBeardTypeOfSticker(resultSet.getString(BEARDTYPE_FOR_QUERY));
-                mySticker.setFreecklesOfSticker(resultSet.getBoolean(FRECKLES_FOR_QUERY));
+                mySticker.setFrecklesOfSticker(resultSet.getBoolean(FRECKLES_FOR_QUERY));
                 mySticker.setNationalShirtOfSticker(resultSet.getBoolean(NATIONALSHIRT_FOR_QUERY));
                 mySticker.setContinentOfSticker(resultSet.getString(CONTINENT_FOR_QUERY));
                 mySticker.setChampionshipOfSticker(resultSet.getString(CHAMPIONSHIP_FOR_QUERY));
@@ -482,7 +545,10 @@ public class ServerThread extends Thread{
         }
     }
 
-    //metodo che serve per la creazione di un nuovo utente
+    /** Metodo che serve per la creazione di un nuovo utente non nel database.
+     * Verifico che non sia già presente un utente con lo stesso nome e lo inserisco tramite una INSERT nel database.
+     * @param information è il gson di user, con nomeUtente e passwordUtente.
+     */
     private void readyToCreateNewUser(String information) {
         gson = new Gson();
         String userSQLName = null;//username tratto dalla query
@@ -508,7 +574,11 @@ public class ServerThread extends Thread{
         }
     }
 
-    //metodo che serve per verificare se ho già un utente con tal nome e password nel db
+    /** Metodo che serve per verificare se ho già un utente con tal nome e password nel db.
+     * Faccio quindi una query all'interno del database. Se trovo un utente simile mando OK, altrimenti mando NOT_FOUND.
+     * Se un client inoltre è già connesso allora non può entrare.
+     * @param information è il gson di user, con nomeUtente e passwordUtente.
+     */
     public void readyToVerifyUser(String information) {
         gson = new Gson();
         String userSQLName = null;
@@ -518,7 +588,7 @@ public class ServerThread extends Thread{
             user = gson.fromJson(information, User.class);
             System.out.println(user + " -> user");
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE BINARY username='" + user.getUserUsername() + "' AND BINARY password='" + user.getUserPassword() + "'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE BINARY username = '" + user.getUserUsername() + "' AND BINARY password = '" + user.getUserPassword() + "'");
             while (resultSet.next()) {
                 userSQLName = resultSet.getString(USERNAME_FOR_QUERY);
                 userSQLPassword = resultSet.getString(PASSWORD_FOR_QUERY);
@@ -547,6 +617,9 @@ public class ServerThread extends Thread{
         }
     }
 
+    /** Metodo utilizzato per dare il via al gioco e scegliere il primo giocatore con un random booleano.
+     * @param positionInArrayList è la posizone all'interno dell'array di Game.
+     */
     public void changeFirstPlayerInGame(int positionInArrayList){
         if (serverStart.getGameArrayList().get(positionInArrayList).getSticker1() != null && serverStart.getGameArrayList().get(positionInArrayList).getSticker2() != null) {
             Random randomNumber = new Random();
@@ -555,38 +628,46 @@ public class ServerThread extends Thread{
         }
     }
 
-    //getter and setter
+    /** getter
+     * @return reader è il reader del server
+     */
     public BufferedReader getReader() {return reader;}
 
+    /** setter
+     * @param reader è il reader del server
+     */
     public void setReader(BufferedReader reader) {this.reader = reader;}
 
+    /** getter
+     * @return writer è il writer del server
+     */
     public PrintWriter getWriter() {return writer;}
 
+    /** setter
+     * @param writer è il writer del server
+     */
     public void setWriter(PrintWriter writer) {this.writer = writer;}
 
+    /** setter
+     * @param opponentSticker è lo sticker avversario
+     */
     public void setOpponentSticker(Sticker opponentSticker) {this.opponentSticker = opponentSticker;}
 
+    /** getter
+     * @return user è l'user che sta provando a registrarsi o loggare
+     */
     public User getUser() {return user;}
 
+    /** setter
+     * @param user è l'user che sta provando a registrarsi o loggare
+     */
     public void setUser(User user) {this.user = user;}
 
+    /** setter
+     * @param positionInArrayList è la posizione nell'array di Game
+     */
     public void setPositionInArrayList(int positionInArrayList) {
         this.positionInArrayList = positionInArrayList;
     }
 
-    public int getPositionInArrayList() {
-        return positionInArrayList;
-    }
-
-    public Sticker getOpponentSticker() {
-        return opponentSticker;
-    }
-
-    public Sticker getMySticker() {
-        return mySticker;
-    }
-
-    public void setMySticker(Sticker mySticker) {
-        this.mySticker = mySticker;
-    }
 }
