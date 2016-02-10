@@ -45,8 +45,7 @@ public class ClientMain extends Application {
 
     /** Metodo main, lanciato in caso in cui l'interfaccia non parta.
      * Non è specificato in quanto l'interfaccia per questo gioco è fondamentale.
-     *
-     * @param args
+     * @param args sono gli argomenti passati al main.
      */
     public static void main(String[] args) {
         launch(args);
@@ -133,7 +132,7 @@ public class ClientMain extends Application {
     }
 
     /** Metodo che prosegue la schermata da choiseScreen a gameScreen (dove si gioca davvero).
-     * La differenza tra il passaggio start() -> choiceScreen() e questo è che qui rimango nella stessa finestra, infatti lo stage non cambia, e neanche la scene.
+     * La differenza tra il passaggio da start() a choiceScreen() e questo è che qui rimango nella stessa finestra, infatti lo stage non cambia, e neanche la scene.
      * Tuttavia, come sempre, carico un nuovo .fxml e un nuovo .css, creando, difatti, una nuova interfaccia anche se nella stessa finestra.
      */
     public void continueOnGameScreen() {
@@ -288,7 +287,7 @@ public class ClientMain extends Application {
 
     /** Metodo che aggiorna la personal Leaderboard.
      * Information è serializzato e suddiviso in due arraylist, i match vinti e i match persi (serializzati anche loro).
-     * @param information
+     * @param information è l'informazione in cui ho gli arraylist con match vinti e persi.
      */
     public void displayPersonalLeaderboard(String information) {
         gson = new Gson();

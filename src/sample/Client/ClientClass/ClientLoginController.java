@@ -53,7 +53,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
     }
 
     /** Metodo che serve per collegare main e controller passandogli l'istanza.
-     * @param main
+     * @param main è l'istanza del ClientMain
      */
     public void setMain(ClientMain main) {
         this.main = main;
