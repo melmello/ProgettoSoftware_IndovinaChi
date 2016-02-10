@@ -1,5 +1,10 @@
 package sample.Client.ClientClass;
 
+/** @author Giulio Melloni
+ * Questa classe è il controller che gestisce la prima interfaccia visibile: quella in cui si possono verificare le proprie credenziali oppure si può creare un nuovo utente.
+ * Qui avviene quindi la comunicazione tra main e controller grazie alle modifiche apportate all'interfaccia dal client, come la compilazione dei campi USERNAME e PASSWORD e come il click su Login.
+ */
+
 import static sample.Utilities.Class.ConstantCodes.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -27,7 +32,10 @@ public class ClientLoginController implements Initializable {//serve per avere l
     @FXML   JFXButton buttonUserScreen;
     @FXML   JFXButton buttonToContinue;
 
-    //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
+    /** Metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere.
+     * @param location null se la location non è nota (come in questo caso).
+     * @param resources null se il root object non è localizzato (come in questo caso).
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loginVBox.setVisible(false);
@@ -44,12 +52,15 @@ public class ClientLoginController implements Initializable {//serve per avere l
         });
     }
 
-    //metodo che serve per far conoscere main e controller
+    /** Metodo che serve per collegare main e controller passandogli l'istanza.
+     * @param main
+     */
     public void setMain(ClientMain main) {
         this.main = main;
     }
 
-    //metodo che permette di proseguire e vedere la schermata di login cliccando sul background
+    /** Metodo che permette di proseguire e vedere la schermata di login aspettando tre secondi e il tempo della transizione.
+     */
     public void loginScreenShow(){
         new Timer().schedule(
                 new TimerTask() {
@@ -64,7 +75,8 @@ public class ClientLoginController implements Initializable {//serve per avere l
         );
     }
 
-    //metodo per creare un nuovo account
+    /** Metodo usato per accreditarsi nel gioco, in cui si verifica che entrambi i campi siano compilati.
+     */
     public void confirmLoginScreen(){
         utilities.playSomeSound(BUTTONCLICK_SOUND);
         if (textWithUsername.getText().isEmpty() || textWithPassword.getText().isEmpty()){ //se ho lasciato qualche campo vuoto mi fermo
@@ -74,7 +86,9 @@ public class ClientLoginController implements Initializable {//serve per avere l
         }
     }
 
-    //metodo che permette ad un utente nuovo di creare il proprio account
+    /** Metodo utilizzato per creare un nuovo utente, in cui si verifica che i campi siano compilati e le password corrispondenti.
+     *
+     */
     public void newUserLogin (){
         utilities.playSomeSound(BUTTONCLICK_SOUND);
         if (textWithUsername.getText().isEmpty() || textWithPassword.getText().isEmpty()) { //se ho lasciato qualche campo vuoto mi fermo
@@ -88,7 +102,8 @@ public class ClientLoginController implements Initializable {//serve per avere l
         }
     }
 
-    //metodo per settare la schermata di login nel caso in cui sia NEW USER o LOGIN
+    /** Metodo per settare la schermata di login nel caso in cui sia NEW USER o LOGIN a seconda di quando si clicca il button HAI GIA' UN ACCOUNT o SEI UN NUOVO UTENTE.
+     */
     public void setNewUserScreen(){
         utilities.playSomeSound(BUTTONCLICK_SOUND);
         if(loginNewUser==true){
@@ -123,7 +138,9 @@ public class ClientLoginController implements Initializable {//serve per avere l
         textWithPasswordConfirm.setText("");
     }
 
-    //setter
+    /** setter.
+     * @param loginNewUser è il boolean che se è true è Login, false è SignUp
+     */
     public void setLoginNewUser(boolean loginNewUser) {
         this.loginNewUser = loginNewUser;
     }

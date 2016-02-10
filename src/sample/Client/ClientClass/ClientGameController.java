@@ -1,5 +1,9 @@
 package sample.Client.ClientClass;
 
+/** @author Giulio Melloni
+ * Questa classe è il controller della schermata di gioco. E' questo il ponte tra l'azione del client in gioco e la comunicazione tra client e server. E' qui dove si capisce che sticker è stato scelto, che domanda è stata fatta.
+ */
+
 import static sample.Utilities.Class.ConstantCodes.*;
 import com.jfoenix.controls.JFXListView;
 import javafx.animation.Animation;
@@ -61,7 +65,10 @@ public class ClientGameController implements Initializable {
     @FXML JFXListView<String> questionChoosenListView;
     @FXML AnchorPane anchorPane;
 
-    //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
+    /** Metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
+     * @param location null se la location non è nota (come in questo caso).
+     * @param resources null se il root object non è localizzato (come in questo caso).
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         hairPossibility.addAll(LENGTH_COMBO_BOX, COLOR_COMBO_BOX, TYPE_COMBO_BOX);
@@ -83,12 +90,17 @@ public class ClientGameController implements Initializable {
         hSticker = myStickerImage.getFitHeight();
     }
 
-    //metodo che serve per far conoscere main e controller
+    /** Metodo che serve per collegare main e controller.
+     * @param main è l'istanza di ClientMain.
+     * @param gamingScene è la scene che mi tornerà utile per il lookUp.
+     */
     public void setMain(ClientMain main, Scene gamingScene) {
         this.main = main;
         this.gamingScene = gamingScene;
     }
 
+    /** Metodo che serve per comunicare la query scelta dall'utente, aggiungerla alla listview di query fatte e inviarla al ClientMain tradotta da una domanda italiana in firstParameter e secondParameter.
+     */
     public void clientWantsToQuery() {
         int indexToTakeSqlParameter = -1;
         System.out.println(questionCanBeChoosen);
@@ -97,7 +109,7 @@ public class ClientGameController implements Initializable {
             ArrayList<String> temporaryArrayFromList = new ArrayList<>();
             temporaryArrayFromList.addAll(questionCanBeChoosen);
             for(int cont = 0; cont < questionCanBeChoosen.size(); cont++) {
-                if (temporaryArrayFromList.get(cont).equals(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem())) {// TODO: 26/01/2016
+                if (temporaryArrayFromList.get(cont).equals(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem())) {
                     indexToTakeSqlParameter = cont;
                     questionAsked.add(questionThatCouldBeChoosen.getSelectionModel().getSelectedItem());
                     questionChoosenListView.setItems(questionAsked);
@@ -117,6 +129,8 @@ public class ClientGameController implements Initializable {
         }
     }
 
+    /** Metodo che reinizializza le comboBox una volta deselezionate oppure passato il turno.
+     */
     public void reinitializeComboBox(){
         hairComboBox.setValue(null);
         beardComboBox.setValue(null);
@@ -127,6 +141,9 @@ public class ClientGameController implements Initializable {
         questionToSendToServer.clear();
     }
 
+    /** Metodo chiamato al momento dell'inizializzazione in cui viene settata per ogni immagine l'azione di onDragDetected., onDragDone, onMouseEntered e onMouseExited.
+     * Viene chiamato inoltre {@link #changeDragAndDrop(ImageView)}.
+     */
     private void imageInitialization() {
         Set<Node> set = anchorPane.lookupAll(".ImageSticker");
         Object[] arrayNode = set.toArray();
@@ -172,6 +189,9 @@ public class ClientGameController implements Initializable {
         changeDragAndDrop(myStickerImage);
     }
 
+    /** Metodo con cui setto nel immagine target l'onDragOver e l'OnDragDropped.
+     * @param imageToTargetOnDrag immagine su cui settare questi metodi. Inizialmente sarà l'immagine del mio sticker, ed una volta scelto sarà lo sticker avversario.
+     */
     public void changeDragAndDrop(ImageView imageToTargetOnDrag) {
         imageToTargetOnDrag.setOnDragOver(new EventHandler<DragEvent>() {
             @Override
@@ -196,10 +216,6 @@ public class ClientGameController implements Initializable {
                         imageToTargetOnDrag.setFitWidth(wSticker);
                         imageToTargetOnDrag.setFitHeight(hSticker);
                         imageToTargetOnDrag.setImage(new Image("/sample/Utilities/Stickers/" + db.getString() + ".jpg"));
-                        //imageToTargetOnDrag.setFitWidth(hisStickerImage.getFitWidth());
-                        //imageToTargetOnDrag.setFitHeight(hisStickerImage.getFitHeight());
-                        //imageToTargetOnDrag.setFitWidth(wSticker);
-                        //imageToTargetOnDrag.setFitHeight(hSticker);
                         imagePath = stickerImage.getImage().impl_getUrl();//salvo il path
                         main.settingMySticker();
                         disableForChangingRound(true);
@@ -223,6 +239,8 @@ public class ClientGameController implements Initializable {
         });
     }
 
+    /** Metodo che mi serve per popolare le comboBox con relative domande su cui fare le query, e per ogni caso avere possibili firstParameter e secondParameter per le query differenti e corrispondenti a una relativa domanda in italiano.
+     */
     private void comboBoxInitialization() {
         hairComboBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -465,7 +483,9 @@ public class ClientGameController implements Initializable {
         });
     }
 
-    //metodo che serve per rimuovere gli sticker dalla mio schermata del client
+    /** Metodo che serve per rimuovere gli sticker ricevuti in seguito ad una mia query dalla mio schermata del client.
+     * @param newStickers è l'array con i nomi degli sticker che van rimossi.
+     */
     public void modifySticker(ArrayList<String> newStickers) {
         for (int i = 0; i < newStickers.size(); i++) {
             ImageView stickerToBeRemovedImage = (ImageView) gamingScene.lookup("#" + newStickers.get(i));
@@ -476,19 +496,29 @@ public class ClientGameController implements Initializable {
         disableForChangingRound(true);
     }
 
+    /** Metodo stilistico che aumenta la scale degli sticker quando passo sopra col mouse.
+     * @param event è l'immagine su cui sono.
+     */
     public void zoomInSticker(Event event){
         ImageView imageOver = (ImageView) event.getTarget();
         imageOver.toFront();
         utilities.scaleTransition(imageOver, 1.3f, 1.3f, 250);
     }
 
+    /** Metodo stilistico che diminusce la scale degli sticker quando passo sopra col mouse.
+     * @param event è l'immagine da cui sto per spostarmi.
+     */
     public void zoomOutSticker(Event event){
         ImageView imageOver = (ImageView) event.getTarget();
         imageOver.toFront();
         utilities.scaleTransition(imageOver, 1.0f, 1.0f, 250);
     }
 
-
+    /** E' il metodo che disabilita il turno o abilita a seconda del booleano passato.
+     * Se disabilitato, disabilito la possibilità di fare query sia tramite la comboBox che tramite il dragAndDrop.
+     * Se abilitato, abilito tutto e setto l'onDragDone per ogni immagine.
+     * @param bool è il booleano che se è true vuol dire che passo il turno, altrimenti false vuol dire che è il mio turno.
+     */
     public void disableForChangingRound(Boolean bool){
         maskerPaneWaitingOtherPlayerChoice.setVisible(bool);
         questionChoosenListView.setDisable(bool);
@@ -531,10 +561,17 @@ public class ClientGameController implements Initializable {
         }
     }
 
+    /** Modifica l'altezza della listView
+     * @param questionThatCouldBeChoosen listView su cui modifico l'altezza.
+     * @param questionCanBeChoosenArray arraylist che popola la mia listView.
+     */
     private void setListViewHeight(JFXListView<String> questionThatCouldBeChoosen, ArrayList<String> questionCanBeChoosenArray) {
         questionThatCouldBeChoosen.setPrefHeight((questionCanBeChoosenArray.size()+4)*17);
     }
 
+    /** getter.
+     * @return il path dell'immagine.
+     */
     public String getImagePath() {
         return imagePath;
     }

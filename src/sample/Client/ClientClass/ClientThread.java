@@ -1,5 +1,11 @@
 package sample.Client.ClientClass;
 
+/** @author Giulio Melloni
+ * Questa classe è quella che fa da ponte tra il client e il server. Classe speculare rispetto a ServerThread, questa è quella che riceve i codici dal Server e in base ad ognuno di esso compie un'azione specifica.
+ * La gestione del codice è, ovviamente, identica a quella del server e quindi è specificata nel ServerThread {@link sample.Server.ServerClass.ServerThread}.
+ * L'importanza di questa classe è quindi notevole: se prima nel server la classe Thread era quella che eseguiva azioni in base alle azioni del client sulla propria interfaccia, ora nel client è ciò che collega il controller alle modifiche apportate dal server.
+ */
+
 import static sample.Utilities.Class.ConstantCodes.*;
 import com.google.gson.Gson;
 import javafx.application.Platform;
@@ -17,13 +23,20 @@ public class ClientThread extends Thread {
     private PrintWriter writer;
     private Gson gson;
 
-    //costruttore
+    /** Costruttore di ClientThread
+     * @param clientSocket è il socket del Client su cui avviene la comunicazione
+     * @param main è ClientMain con cui posso collegarmi per arrivare al controller
+     */
     public ClientThread(Socket clientSocket, ClientMain main) {
         this.clientSocket = clientSocket;
         this.main = main;
         this.clientIp = clientSocket.getInetAddress().getHostAddress();
     }
 
+    /** Metodo cuore del Thread. In questo metodo il thread accetta i segnali inviati dal Server.
+     * Qui viene inoltre istanziato un nuovo reader e un nuovo writer che servono per leggere e scrivere sul socket.
+     * Ad ogni Code di CodeAndInformation inviato quindi viene eseguita una tal azione specificata nello switch, inserito in un while(true), abilitato fino a quando un client segnala con un handle la propria uscita.
+     */
     public void run() {
         try {
             reader = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));//input sul socket

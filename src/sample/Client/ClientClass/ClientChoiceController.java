@@ -1,5 +1,14 @@
 package sample.Client.ClientClass;
 
+/** @author Giulio Melloni
+ * Classe in cui si gestisce il controller della seconda schermata, ossia la schermata di choice. In questa schermata si possono scegliere varie azioni calciando nel relativo angolo dove vi è l'icona:
+ * - Vedere la propria scoreboard con le ultime partite vinte e perse aggiornate in tempo reale.
+ * - Vedere la leaderboard mondiale e quindi il nostro posizionamento all'interno di essa, aggiornato in tempo reale.
+ * - Fare una recensione inviando un voto e un commento.
+ * - Giocare contro un client online e disponibile e vedere i client in gioco, anche questo aggiornato in tempo reale.
+ * Come gli altri controller, quindi, questo è il ponte tra l'azione del client e il main del client in cui comunico tramite writer col server.
+ */
+
 import static sample.Utilities.Class.ConstantCodes.*;
 import com.jfoenix.controls.JFXListView;
 import javafx.animation.*;
@@ -19,7 +28,6 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
-import org.controlsfx.control.InfoOverlay;
 import org.controlsfx.control.Rating;
 import sample.Utilities.Class.Utilities;
 import java.net.URL;
@@ -52,7 +60,10 @@ public class ClientChoiceController implements Initializable {
     @FXML ImageView goalKeeper;
     @FXML Rating ratingBox;
 
-    //metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere
+    /** Metodo che inizializza a false/true le cose che non si dovranno o si dovranno vedere.
+     * @param location null se la location non è nota (come in questo caso).
+     * @param resources null se il root object non è localizzato (come in questo caso).
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         anchorRating.setVisible(false);
@@ -62,11 +73,16 @@ public class ClientChoiceController implements Initializable {
         clientConnectedListView.setDisable(false);
     }
 
-    //metodo che serve per far conoscere main e controller
+    /** Metodo usato per collegare main e controller passando l'istanza.
+     * @param main è l'istanza di ClientMain
+     */
     public void setMain(ClientMain main) {
         this.main = main;
     }
 
+    /** Metodo che quando chiamato prende clientConnectedList e popola la listView dei client connessi.
+     * @param clientConnectedList array di stringhe con i nomi dei client connessi
+     */
     public void displayClientConnected(ArrayList<String> clientConnectedList) {
         ArrayList<String> clientConnectedListWithoutMe = new ArrayList<>();
         for (int cont = 0; cont < clientConnectedList.size(); cont++){
@@ -79,13 +95,19 @@ public class ClientChoiceController implements Initializable {
         setListViewHeight(clientConnectedListWithoutMe, clientConnectedListView);
     }
 
+    /** Metodo che quando chiamato prende clientInaGameList e popola la listView dei client in gioco.
+     * @param clientInGameList array di stringhe con i nomi dei client in gioco.
+     */
     public void displayClientInGame(ArrayList<String> clientInGameList){
         ObservableList<String> clientInGameObs = FXCollections.observableArrayList(clientInGameList);
         clientInGameListView.setItems(clientInGameObs);
         setListViewHeight(clientInGameList, clientInGameListView);
     }
 
-    // TODO: 24/01/2016 VEDERE REFRESH LEADERBOARD!
+    /** Metodo che prende due array, i match vinti e i match persi e con essi popola le due list view relative aggiorando i valori.
+     * @param personalMatchWon array di stringhe con le partite vinte.
+     * @param personalMatchLost array di stringhe con le partite perse.
+     */
     public void displayPersonalLeaderboard(ArrayList<String> personalMatchWon, ArrayList<String> personalMatchLost) {
         ObservableList<String> personalMatchWonObs = FXCollections.observableArrayList(personalMatchWon);
         ObservableList<String> personalMatchLostObs = FXCollections.observableArrayList(personalMatchLost);
@@ -95,20 +117,29 @@ public class ClientChoiceController implements Initializable {
         setListViewHeight(personalMatchLost, personalScoreboardLostListView);
     }
 
+    /** Metodo che prende in ingresso l'array con la classifica mondiale e con esso popola la relativa listView.
+     * @param worldLeaderboard array ordinato in ordine decrescente con la classifica mondiale.
+     */
     public void displayWorldLeaderboard(ArrayList<String> worldLeaderboard) {
         ObservableList<String> worldLeaderboardObs = FXCollections.observableArrayList(worldLeaderboard);
         worldScoreboardListView.setItems(worldLeaderboardObs);
         setListViewHeight(worldLeaderboard, worldScoreboardListView);
     }
 
-    private void setListViewHeight(ArrayList<String> clientConnectedListWithoutMe, ListView<String> listView) {
+    /** Metodo stilistico che setta l'altezza della listview che nel caso in cui abbia meno di 7 elementi è in un modo, altrimenti in un altro.
+     * @param objectInList lista degli oggetti.
+     * @param listView listView su cui modifico l'altezza.
+     */
+    private void setListViewHeight(ArrayList<String> objectInList, ListView<String> listView) {
         if (listView.getHeight() < 300){
-            listView.setPrefHeight((clientConnectedListWithoutMe.size()+4)*17);
+            listView.setPrefHeight((objectInList.size()+4)*17);
         } else {
             listView.setPrefHeight((7+4)*17);
         }
     }
 
+    /** Il client seleziona un altro client dalla lista dei client connessi perchè vuole giocarci. Qui disabilito la possibilità che possa sceglierne un altro nel frattempo.
+     */
     public void clientWantsToPlayAGameWith(){
         opponentChoosen = clientConnectedListView.getSelectionModel().getSelectedItem();
         System.out.println(opponentChoosen + " -> opponentChoosen");
@@ -116,6 +147,9 @@ public class ClientChoiceController implements Initializable {
         clientConnectedListView.setDisable(true);
     }
 
+    /** Metodo che serve per spostare la palla secondo una determinata funzione matematica e spostarla sull'immagine scelta.
+     * @param event è l'evento, ossia l'immagine che ho scelto. Viene chiamato {@link #selectionOfClient(String, ImageView)}.
+     */
     public void ballMovement(Event event){
         ballImage.setScaleX(1);
         ballImage.setScaleY(1);
@@ -146,6 +180,10 @@ public class ClientChoiceController implements Initializable {
         oldImage = imageChoosen;
     }
 
+    /** A seconda dell'immagine scelta il portiere si tuffa e un determinato pane si mostra per una frazione di tempo. Viene chiamato {@link #seeImageContext(Node, Node, int)}.
+     * @param idOfImage è l'id dell'immagine scelta.
+     * @param imageChoosen è l'immagine scelta.
+     */
     private void selectionOfClient(String idOfImage, ImageView imageChoosen) {
         Path path = new Path();
         path.getElements().add(new MoveTo(goalKeeper.getFitWidth() / 2, goalKeeper.getFitHeight() / 2));
@@ -194,6 +232,11 @@ public class ClientChoiceController implements Initializable {
         pathTransition.playFromStart();
     }
 
+    /** Viene reso visibile il pane relativo e viene attivato il timer con relativa duration (per la recensione la duration sarà ovviamente maggiore).
+     * @param node è il pane da mostrare.
+     * @param nodeSelected è l'immagine selezionata.
+     * @param duration è la durata.
+     */
     private void seeImageContext(Node node, Node nodeSelected, int duration) {
         utilities.fadeTransitionEffect(node, 0, 1, 1000);
         node.setVisible(true);
@@ -214,7 +257,8 @@ public class ClientChoiceController implements Initializable {
         }, duration);
     }
 
-    //metodo che permette di comunicare il voto dell'applicazione
+    /** Metodo che comunica al main voto, testo e titolo della recensione dell'applicazione.
+     */
     public void ratingGame() {
         clientRating = ratingBox.getRating();
         System.out.println(clientRating + " -> CLIENT RATING");
@@ -224,6 +268,9 @@ public class ClientChoiceController implements Initializable {
         textRating.setText("");
     }
 
+    /** Metodo che mostra il popup quando un giocatore ci sfida. In questo caso viene disabilitata la possibilità di mandare nel frattempo una richiesta ad un altro client.
+     * @param userAndNumber è l'array con in posizione 0 l'utente e in posizione 1 il numero del match.
+     */
     public void playGameRequest(ArrayList<String> userAndNumber) {
         clientConnectedListView.setDisable(true);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

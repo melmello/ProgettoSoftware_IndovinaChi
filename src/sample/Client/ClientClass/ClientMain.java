@@ -1,5 +1,11 @@
 package sample.Client.ClientClass;
 
+/** @author Giulio Melloni
+ * Classe Main del Client, ossia quello dove avvengono le modifiche all'interfaccia, dove vengono caricati gli fxml, create le scene.
+ * Mentre nel server abbiamo un ServerStart e un ServerMain per differenziare i ruoli di gestione dei client e dell'interfaccia, qui non ne ho bisogno e posso condensare tutto in un'unica classe.
+ * E' qui che ho tutti i metodi che eseguo a seconda del segnale ricevuto dal Server nel while(true) di ClientThread.
+ */
+
 import static sample.Utilities.Class.ConstantCodes.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,11 +43,22 @@ public class ClientMain extends Application {
     private StickerQuery stickerQuery;
     private Gson gson;
 
-    //main che parte in caso la grafica non vada
+    /** Metodo main, lanciato in caso in cui l'interfaccia non parta.
+     * Non è specificato in quanto l'interfaccia per questo gioco è fondamentale.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /** Il main grafico. E' qui dove carico l'fxml, il css, dove creo un nuovo stage, dove creo una nuova scene, dove accoppio il controller e dove passo al main l'istanza.
+     * Oltre alla parte grafica, come specificato all'inizio, in questo start si svolgono anche le azioni di:
+     * - creazione di un nuovo socket sulla porta e sull'ip specificato.
+     * - gestione dell'uscita con tanto di segnale inviato al server per aggiornare gli utenti connessi.
+     * @param loginStage è lo stage primario iniziale.
+     * @throws Exception è la gestione sulle eccezioni grafiche possibili.
+     */
     @Override
     public void start(Stage loginStage) throws Exception {
         this.loginStage = loginStage;
@@ -57,7 +74,7 @@ public class ClientMain extends Application {
         loginScene.getStylesheets().add(getClass().getResource(LOGINSCREEN_CSS).toExternalForm());//collegare il .css (ad esempio) per l'aggiunta del background
         loginStage.show();//mostra
         try {
-            clientSocket = new Socket(ASSIGNED_IP_SOCKET, ASSIGNED_PORT_SOCKET);//TODO localhost -> ip
+            clientSocket = new Socket(ASSIGNED_IP_SOCKET, ASSIGNED_PORT_SOCKET);
             ClientThread clientThread = new ClientThread(clientSocket, this);//creazione di un Thread sul socket passandogli l'istanza
             clientThread.start();//lo faccio partire
         } catch (IOException e) {
@@ -75,7 +92,10 @@ public class ClientMain extends Application {
         });
     }
 
-    //metodo che mi permette di cambiare schermata passando dal login al choiseScreen
+    /** Metodo che mi permette di cambiare schermata passando dal login al choiceScreen.
+     * Metodo pressochè identico allo start(), cambia solo che creo una nuova finestra e nascondo la precedente. Infatti lo stage e la scene cambiano.
+     * Inoltre carico un nuovo .fxml, un nuovo .css, accoppio un nuovo controller a cui passo la mia istanza.
+     */
     public void continueOnChoiceScreen() {
         Platform.runLater(new Runnable() {//metodo che mi permette di aprire una nuova finestra sfruttando la concorrenza dei Thread
             @Override
@@ -112,7 +132,10 @@ public class ClientMain extends Application {
         });
     }
 
-    //metodo che prosegue la schermata da choiseScreen a gameScreen (dove si gioca davvero) e rimango nella stessa finestra siccome gamingStage è lo stesso
+    /** Metodo che prosegue la schermata da choiseScreen a gameScreen (dove si gioca davvero).
+     * La differenza tra il passaggio start() -> choiceScreen() e questo è che qui rimango nella stessa finestra, infatti lo stage non cambia, e neanche la scene.
+     * Tuttavia, come sempre, carico un nuovo .fxml e un nuovo .css, creando, difatti, una nuova interfaccia anche se nella stessa finestra.
+     */
     public void continueOnGameScreen() {
         Platform.runLater(new Runnable() {
             @Override
@@ -143,7 +166,12 @@ public class ClientMain extends Application {
         });
     }
 
-    //metodo che comunica che i campi sono compilati, invio il segnale al Server che voglio inviargli il gson
+    /** Metodo che comunica che voglio provare ad indentificarmi o a creare un nuovo utente nel gioco.
+     * Invio quindi al server un gson con i miei dati.
+     * @param textWithUsername username.
+     * @param textWithPassword password.
+     * @param login true se è login, false se è signup.
+     */
     public void loginOrNewUser(String textWithUsername, String textWithPassword, Boolean login) {
         String codeToSend;
         gson = new Gson(); //creo un oggetto gson per serializzare e deserializzare
@@ -158,13 +186,17 @@ public class ClientMain extends Application {
         writer.println(codeToSend);  //Mando segnale login e aspetto che ServerThread nel while(true) lo riceva
     }
 
-    //metodo che comunica al server che il Client ha scelto lo sticker e vuole mandargli quale
+    /** Metodo che comunica al server lo sticker scelto dal Client.
+     */
     public void settingMySticker(){
         writer.println(CodeAndInformation.serializeToJson(CLIENT_GIVES_STICKER_INFO, clientGameController.getImagePath()));
         notification("Hai scelto il personaggio!");
     }
 
-    //metodo che dice al Server che il client è pronto per mandare la query
+    /** Metodo che scrive al Server la query che il client ha scelto di fare.
+     * @param firstParameter attributo del database su cui il client vuole fare la query.
+     * @param secondParameter tuple del database su cui il client vuole fare la query.
+     */
     public void clientWantsToQuery(String firstParameter, String secondParameter){
         gson = new Gson();
         stickerQuery = new StickerQuery(firstParameter, secondParameter);
@@ -173,7 +205,16 @@ public class ClientMain extends Application {
         writer.println(CodeAndInformation.serializeToJson(CLIENT_GIVES_QUERY, stickerQueryString));
     }
 
-    //funzione che serve per collegare thread e controller in modo che gli sticker vengano eliminati
+    /** Metodo con la quale il client fa una query sullo sticker mandando al server l'id.
+     * @param id è l'id dell'immagine scelta, nonchè nickname nel database.
+     */
+    public void clientWantsToQuerySticker(String id) {
+        writer.println(CodeAndInformation.serializeToJson(CLIENT_GIVES_QUERY_FOR_STICKER, id));
+    }
+
+    /** Funzione che serve per collegare thread e controller in modo che gli sticker vengano eliminati. Svolge quindi una funzione di bridge ricevendo dal Thread l'arraylist di nomi da cancellare e passandola al controller.
+     * @param information è l'array serializzato con i nomi degli sticker da rimuovere.
+     */
     public void modifySticker(String information) {
         ArrayList<String> newStickers = gson.fromJson(information, new TypeToken<ArrayList<String>>(){}.getType());//deserializzo il gson in un ArrayList
         System.out.println(newStickers + " -> newStickers");
@@ -185,6 +226,8 @@ public class ClientMain extends Application {
         });
     }
 
+    /** Metodo che, ricevuto il segnale che è il mio turno, modifica il controller mettendo a false i disable.
+     */
     public void readyToAbilitateClientScreen() {
         Platform.runLater(new Runnable() {
             @Override
@@ -195,7 +238,9 @@ public class ClientMain extends Application {
         });
     }
 
-    //metodo che chiama la notifica
+    /** Metodo di notifica, ossia quando viene chiamato in basso a destra spunta una notifica che dopo 3 secondi sparisce.
+     * @param messageOfTheMoment è il testo che sarà stampato a video nella notifica.
+     */
     public void notification(String messageOfTheMoment){
         Platform.runLater(new Runnable() {
             @Override
@@ -210,6 +255,10 @@ public class ClientMain extends Application {
         });
     }
 
+    /** Metodo che aggiorna i client connessi nella schermata di Choice.
+     * E' quindi anche questo un metodo bridge.
+     * @param information è l'array serializzato con i client connessi.
+     */
     public void displayClientConnected(String information) {
         gson = new Gson();
         ArrayList<String> clientConnected = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
@@ -222,6 +271,9 @@ public class ClientMain extends Application {
         });
     }
 
+    /** Metodo identico a {@link #displayClientConnected(String)} solo che qui mostro i client in gioco.
+     * @param information è l'array serializzato con i client in gioco.
+     */
     public void displayClientInGame(String information) {
         gson = new Gson();
         ArrayList<String> clientInGame = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
@@ -234,6 +286,10 @@ public class ClientMain extends Application {
         });
     }
 
+    /** Metodo che aggiorna la personal Leaderboard.
+     * Information è serializzato e suddiviso in due arraylist, i match vinti e i match persi (serializzati anche loro).
+     * @param information
+     */
     public void displayPersonalLeaderboard(String information) {
         gson = new Gson();
         ArrayList<String> personalMatch = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
@@ -248,6 +304,9 @@ public class ClientMain extends Application {
         });
     }
 
+    /** Metodo identico a {@link #displayPersonalLeaderboard(String)}, soltanto che qui information è serializzato e contiene l'array ordinato per la leaderboard mondiale.
+     * @param information è l'array serializzato e ordinato con la world leaderboard.
+     */
     public void displayWorldLeaderboard(String information) {
         gson = new Gson();
         ArrayList<String> worldLeaderboard = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
@@ -259,6 +318,9 @@ public class ClientMain extends Application {
         });
     }
 
+    /** Metodo che notifica al nuovo utente la creazione avvenuta con successo.
+     * Cambia schermata e lo manda su login.
+     */
     public void notificationForNewUser() {
         Platform.runLater(new Runnable() {
             @Override
@@ -270,6 +332,11 @@ public class ClientMain extends Application {
         });
     }
 
+    /** Metodo che invia al Server le informazioni della recensione del client serializzate in un arraylist.
+     * @param clientRating è il voto dato.
+     * @param title è il titolo della recensione.
+     * @param text è il commento della recensione.
+     */
     public void clientWantsToSendRating(Double clientRating, String title, String text) {
         gson = new Gson();
         ArrayList<String> voteTitleText = new ArrayList<>();
@@ -278,11 +345,16 @@ public class ClientMain extends Application {
         writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_SEND_RATING, voteTitleTextString));
     }
 
-    //metodo che informa il server che il client vuole giocare una partita con questo utente
+    /** Metodo che informa il server che il client vuole giocare una partita con l'utente opponentChoosen.
+     * @param opponentChoosen è il nome dell'utente contro cui si vuole giocare.
+     */
     public void clientWantsToPlayAGameWith(String opponentChoosen) {
         writer.println(CodeAndInformation.serializeToJson(CLIENT_WANTS_TO_PLAY, opponentChoosen));
     }
 
+    /** Metodo che fa da bridge. Un utente ha inviato una richiesta di gioco e nel controller mostrerò un popup con ACCETTA o RIFIUTA la sfida.
+     * @param information è un array in cui in prima posizione ho il nome dell'utente che vuole giocare, in seconda il numero del match che ha creato l'altro client quando ha mandato la richiesta.
+     */
     public void playGameRequest(String information) {
         gson = new Gson();
         ArrayList<String> userAndNumber = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
@@ -294,6 +366,9 @@ public class ClientMain extends Application {
         });
     }
 
+    /** Metodo che informa il server che il client ha accettato la richiesta e vuole giocare.
+     * @param userAndNumber è l'arrayList che contiene in prima posizione l'user che ha accettato e in seconda il matchNumber inerente alla partita creata
+     */
     public void sendServerOkForPlaying(ArrayList<String> userAndNumber) {
         userAndNumber.set(0, user.getUserUsername());
         gson = new Gson();
@@ -301,6 +376,10 @@ public class ClientMain extends Application {
         writer.println(CodeAndInformation.serializeToJson(CLIENT_SAYS_OK_FOR_PLAYING, information));
     }
 
+    /** Metodo duale di {@link #sendServerOkForPlaying(ArrayList)} solo che qui non si accetta.
+     * Il comportamento tuttavia è uguale.
+     @param userAndNumber è l'arrayList che contiene in prima posizione l'user che ha accettato e in seconda il matchNumber inerente alla partita creata
+     */
     public void sendServerNoForPlaying(ArrayList<String> userAndNumber) {
         userAndNumber.set(0, user.getUserUsername());
         gson = new Gson();
@@ -308,15 +387,16 @@ public class ClientMain extends Application {
         writer.println(CodeAndInformation.serializeToJson(CLIENT_SAYS_NO_FOR_PLAYING, information));
     }
 
-    public void clientWantsToQuerySticker(String id) {
-        writer.println(CodeAndInformation.serializeToJson(CLIENT_GIVES_QUERY_FOR_STICKER, id));
-    }
-
-    //getter & setter
+    /** getter.
+     * @return l'utente.
+     */
     public User getUser() {
         return user;
     }
 
+    /** setter
+     * @param user l'utente.
+     */
     public void setUser(User user) {
         this.user = user;
     }
