@@ -417,7 +417,6 @@ public class ServerStart extends Task {
                 gameArrayList.remove(cont);
             }
         }
-
         System.out.println("THE WINNER IS " + winner);
         System.out.println("THE LOSER IS " + loser);
         try {
@@ -426,10 +425,10 @@ public class ServerStart extends Task {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        refreshLeaderboardSearchingUsername();
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
             if(threadsArrayList.get(cont).getUser().getUserUsername().equals(winner)){
                 threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, loser));
-                refreshLeaderboardSearchingUsername();
             } else if (threadsArrayList.get(cont).getUser().getUserUsername().equals(loser)){
                 threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_SAD_FOR_YOUR_DEFEAT, winner));
             }
