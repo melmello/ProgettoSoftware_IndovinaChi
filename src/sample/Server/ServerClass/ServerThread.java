@@ -67,7 +67,7 @@ public class ServerThread extends Thread{
                 gson = new Gson();
                 String code = reader.readLine();
                 codeAndInformation = gson.fromJson(code, CodeAndInformation.class);
-                System.out.println(codeAndInformation.getCode() + " -> CODE");
+                System.out.println(codeAndInformation.getCode() + " -> CODE" );
                 switch (codeAndInformation.getCode()){
                     //Il client manda il segnale che si è disconesso dalla schermata di choice
                     case (CLIENT_DISCONNECTING_FROM_CHOICE_SCREEN):{

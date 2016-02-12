@@ -291,4 +291,10 @@ public class ClientChoiceController implements Initializable {
         }
     }
 
+    /** getter.
+     * @return listView con i client connessi.
+     */
+    public JFXListView<String> getClientConnectedListView() {
+        return clientConnectedListView;
+    }
 }

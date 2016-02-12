@@ -22,6 +22,7 @@ import java.util.*;
 public class ClientLoginController implements Initializable {//serve per avere l'implementazione del metodo initialize
 
     private boolean loginNewUser;
+    private boolean fromServer = false;
     private ClientMain main;
     private Utilities utilities;
     @FXML   VBox loginVBox;
@@ -105,7 +106,9 @@ public class ClientLoginController implements Initializable {//serve per avere l
     /** Metodo per settare la schermata di login nel caso in cui sia NEW USER o LOGIN a seconda di quando si clicca il button HAI GIA' UN ACCOUNT o SEI UN NUOVO UTENTE.
      */
     public void setNewUserScreen(){
-        utilities.playSomeSound(BUTTONCLICK_SOUND);
+        if (!fromServer) {
+            utilities.playSomeSound(BUTTONCLICK_SOUND);
+        }
         if(loginNewUser==true){
             labelLoginTitle.setText("NEW USER");
             buttonUserScreen.setText("HAI GIA' UN ACCOUNT?");
@@ -136,6 +139,7 @@ public class ClientLoginController implements Initializable {//serve per avere l
         textWithPassword.setText(""); //quando cambio schermata azzero i tre campi
         textWithUsername.setText("");
         textWithPasswordConfirm.setText("");
+        fromServer = false;
     }
 
     /** setter.
@@ -143,6 +147,13 @@ public class ClientLoginController implements Initializable {//serve per avere l
      */
     public void setLoginNewUser(boolean loginNewUser) {
         this.loginNewUser = loginNewUser;
+    }
+
+    /** setter.
+     * @param fromServer setto se è dal server l'azione.
+     */
+    public void setFromServer(boolean fromServer) {
+        this.fromServer = fromServer;
     }
 
 }

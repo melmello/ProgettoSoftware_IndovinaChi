@@ -158,6 +158,7 @@ public class ServerStart extends Task {
                 gameArrayList.get(cont).getPlayer2().getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, information));
                 refreshLeaderboardSearchingUsername();
                 threadsArrayList.add(gameArrayList.get(cont).getPlayer2());
+                listOfClientConnected.add(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername());
                 threadsPlaying.remove(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername());
                 threadsPlaying.remove(information);
                 gameArrayList.get(cont).setPlayer1(null);
@@ -170,6 +171,7 @@ public class ServerStart extends Task {
                 gameArrayList.get(cont).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, information));
                 refreshLeaderboardSearchingUsername();
                 threadsArrayList.add(gameArrayList.get(cont).getPlayer1());
+                listOfClientConnected.add(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername());
                 threadsPlaying.remove(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername());
                 threadsPlaying.remove(information);
                 gameArrayList.get(cont).setPlayer1(null);
@@ -179,6 +181,63 @@ public class ServerStart extends Task {
                 gameArrayList.remove(cont);
             }
         }
+        main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
+    }
+
+    /** Metodo che serve per rimettere i giocatori in gioco nei giocatori connessi ed eliminare la partita in corso. Viene anche fatto l'inserimento della partita nel database e comunicato ai giocatori chi ha vinto e chi ha perso.
+     * Ricerco quindi grazie all'username di chi ha vinto la partita, setto i campi winner e loser e rimetto i Thread nell'array di client connessi e li tolgo dall'array di thread in gioco e dall'array di partite.
+     * Faccio, quindi, una INSERT nel database con cui aggiorno con l'ultimo risultato la leaderboard. Mando quindi a tutti di refreshare le leaderboard e ai due sfidanti mando il segnale WIN or LOSE a seconda dell'esito.
+     * @param usernameWhoWin utente che ha vinto la partita.
+     */
+    public void swapGameArrayList(String usernameWhoWin) {
+        String winner = null;
+        String loser = null;
+        for(int cont = 0; cont < gameArrayList.size(); cont++){
+            if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(usernameWhoWin) || gameArrayList.get(cont).getPlayer2().getUser().getUserUsername().equals(usernameWhoWin)){
+                threadsArrayList.add(gameArrayList.get(cont).getPlayer1());
+                threadsArrayList.add(gameArrayList.get(cont).getPlayer2());
+                listOfClientConnected.add(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername());
+                listOfClientConnected.add(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername());
+                if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(usernameWhoWin)){
+                    winner = gameArrayList.get(cont).getPlayer1().getUser().getUserUsername();
+                    loser = gameArrayList.get(cont).getPlayer2().getUser().getUserUsername();
+                } else {
+                    loser = gameArrayList.get(cont).getPlayer1().getUser().getUserUsername();
+                    winner = gameArrayList.get(cont).getPlayer2().getUser().getUserUsername();
+                }
+                threadsPlaying.remove(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername());
+                threadsPlaying.remove(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername());
+                gameArrayList.get(cont).setPlayer1(null);
+                gameArrayList.get(cont).setPlayer2(null);
+                gameArrayList.get(cont).setSticker1(null);
+                gameArrayList.get(cont).setSticker2(null);
+                gameArrayList.remove(cont);
+            }
+        }
+        System.out.println("THE WINNER IS " + winner);
+        System.out.println("THE LOSER IS " + loser);
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute("INSERT INTO leaderboard(winner, loser) VALUES ('" + winner + "','" + loser + "')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        gson = new Gson();
+        String clientConnectedGson = gson.toJson(listOfClientConnected);
+        gson = new Gson();
+        String clientInGameGson = gson.toJson(threadsPlaying);
+        refreshLeaderboardSearchingUsername();
+        for (int cont = 0; cont < threadsArrayList.size(); cont++){
+            if(threadsArrayList.get(cont).getUser().getUserUsername().equals(winner)){
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, loser));
+            } else if (threadsArrayList.get(cont).getUser().getUserUsername().equals(loser)){
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_SAD_FOR_YOUR_DEFEAT, winner));
+            } else {
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT, clientConnectedGson));
+                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, clientInGameGson));
+            }
+        }
+        main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
     }
 
     /** Metodo che invia a qualsiasi altro client connesso di refreshare la schermata coi client connessi e i client in game, ovviamente a tutti tranne all'username in questione.
@@ -236,6 +295,7 @@ public class ServerStart extends Task {
                 threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_WORLD_LEADERBOARD, leaderboardArray.get(1)));
             }
         }
+        main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
     }
 
     /** Metodo che mi serve per aggiornare il database con l'ultima vittoria e sconfitta di questi giocatori.
@@ -366,6 +426,7 @@ public class ServerStart extends Task {
     public void createTheGame(String information) {
         ArrayList<String> userAndNumber = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
         int currentMatchNumber = Integer.parseInt(userAndNumber.get(1));
+        System.out.println(currentMatchNumber + " E' LA PARTITA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         for(int cont = 0; cont < threadsArrayList.size(); cont++){
             if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userAndNumber.get(0))) {
                 gameArrayList.get(currentMatchNumber).setPlayer2(threadsArrayList.get(cont));
@@ -375,64 +436,34 @@ public class ServerStart extends Task {
         gameArrayList.get(currentMatchNumber).getPlayer2().getWriter().println(CodeAndInformation.serializeToJson(SERVER_ALLOWS_TO_GO_ON_GAME_SCREEN, null));
         threadsPlaying.add(gameArrayList.get(currentMatchNumber).getPlayer1().getUser().getUserUsername());
         threadsPlaying.add(gameArrayList.get(currentMatchNumber).getPlayer2().getUser().getUserUsername());
+        listOfClientConnected.remove(gameArrayList.get(currentMatchNumber).getPlayer1().getUser().getUserUsername());
+        listOfClientConnected.remove(gameArrayList.get(currentMatchNumber).getPlayer2().getUser().getUserUsername());
+        gson = new Gson();
         String threadsPlayingString = gson.toJson(threadsPlaying);
         gson = new Gson();
         String clientConnectedGson = gson.toJson(listOfClientConnected);
+        int positionThreadMustBeRemoved[] = {-1, -1};
         for(int cont = 0; cont < threadsArrayList.size(); cont++){
-            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(gameArrayList.get(currentMatchNumber).getPlayer1().getUser().getUserUsername()) || threadsArrayList.get(cont).getUser().getUserUsername().equals(gameArrayList.get(currentMatchNumber).getPlayer2().getUser().getUserUsername())){
-                threadsArrayList.remove(cont);
+            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(gameArrayList.get(currentMatchNumber).getPlayer1().getUser().getUserUsername())){
+                positionThreadMustBeRemoved[0] = cont;
+            } else if (threadsArrayList.get(cont).getUser().getUserUsername().equals(gameArrayList.get(currentMatchNumber).getPlayer2().getUser().getUserUsername())) {
+                positionThreadMustBeRemoved[1] = cont;
             } else {
                 threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT, clientConnectedGson));
                 threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, threadsPlayingString));
             }
         }
-        refreshClientConnected(null);
-    }
-
-    /** Metodo che serve per rimettere i giocatori in gioco nei giocatori connessi ed eliminare la partita in corso. Viene anche fatto l'inserimento della partita nel database e comunicato ai giocatori chi ha vinto e chi ha perso.
-     * Ricerco quindi grazie all'username di chi ha vinto la partita, setto i campi winner e loser e rimetto i Thread nell'array di client connessi e li tolgo dall'array di thread in gioco e dall'array di partite.
-     * Faccio, quindi, una INSERT nel database con cui aggiorno con l'ultimo risultato la leaderboard. Mando quindi a tutti di refreshare le leaderboard e ai due sfidanti mando il segnale WIN or LOSE a seconda dell'esito.
-     * @param usernameWhoWin utente che ha vinto la partita.
-     */
-    public void swapGameArrayList(String usernameWhoWin) {
-        String winner = null;
-        String loser = null;
-        for(int cont = 0; cont < gameArrayList.size(); cont++){
-            if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(usernameWhoWin) || gameArrayList.get(cont).getPlayer2().getUser().getUserUsername().equals(usernameWhoWin)){
-                threadsArrayList.add(gameArrayList.get(cont).getPlayer1());
-                threadsArrayList.add(gameArrayList.get(cont).getPlayer2());
-                if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(usernameWhoWin)){
-                    winner = gameArrayList.get(cont).getPlayer1().getUser().getUserUsername();
-                    loser = gameArrayList.get(cont).getPlayer2().getUser().getUserUsername();
-                } else {
-                    loser = gameArrayList.get(cont).getPlayer1().getUser().getUserUsername();
-                    winner = gameArrayList.get(cont).getPlayer2().getUser().getUserUsername();
-                }
-                threadsPlaying.remove(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername());
-                threadsPlaying.remove(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername());
-                gameArrayList.get(cont).setPlayer1(null);
-                gameArrayList.get(cont).setPlayer2(null);
-                gameArrayList.get(cont).setSticker1(null);
-                gameArrayList.get(cont).setSticker2(null);
-                gameArrayList.remove(cont);
-            }
-        }
-        System.out.println("THE WINNER IS " + winner);
-        System.out.println("THE LOSER IS " + loser);
-        try {
-            Statement statement = connection.createStatement();
-            statement.execute("INSERT INTO leaderboard(winner, loser) VALUES ('" + winner + "','" + loser + "')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        refreshLeaderboardSearchingUsername();
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
-            if(threadsArrayList.get(cont).getUser().getUserUsername().equals(winner)){
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, loser));
-            } else if (threadsArrayList.get(cont).getUser().getUserUsername().equals(loser)){
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_SAD_FOR_YOUR_DEFEAT, winner));
-            }
+            System.out.println(threadsArrayList.get(cont).getUser().getUserUsername() + " SHEHEHSJEHF");
         }
+        if (positionThreadMustBeRemoved[0] > positionThreadMustBeRemoved [1]) {
+            threadsArrayList.remove(positionThreadMustBeRemoved[0]);
+            threadsArrayList.remove(positionThreadMustBeRemoved[1]);
+        } else {
+            threadsArrayList.remove(positionThreadMustBeRemoved[1]);
+            threadsArrayList.remove(positionThreadMustBeRemoved[0]);
+        }
+        refreshClientConnected(null);
     }
 
     /** Metodo chiamato quando un utente non accetta la sfida di un altro giocatore.

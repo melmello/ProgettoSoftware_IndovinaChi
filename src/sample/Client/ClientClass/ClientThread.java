@@ -45,7 +45,7 @@ public class ClientThread extends Thread {
                 gson = new Gson();
                 String code = reader.readLine();
                 codeAndInformation = gson.fromJson(code, CodeAndInformation.class);
-                System.out.println(codeAndInformation.getCode() + " -> CODE");
+                System.out.println(codeAndInformation.getCode() + " -> CODE FROM SERVER");
                 switch (codeAndInformation.getCode()) {
                     //Il Server risponde che l'autenticazione è avvenuta con successo e si può proseguire cambiando schermata
                     case (SERVER_CLIENT_SUCCESSFUL_LOGIN):{
@@ -92,7 +92,7 @@ public class ClientThread extends Thread {
                         break;
                     }
                     case (SERVER_FORBIDS_THE_GAME):{
-                        main.notification("L'utente non ha accettato la tua proposta");
+                        main.serverForbids();
                         break;
                     }
                     case (SERVER_REFRESHES_CONNECTED_CLIENT_FOR_THE_FIRST_TIME):{

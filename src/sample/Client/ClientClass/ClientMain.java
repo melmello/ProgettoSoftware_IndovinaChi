@@ -326,6 +326,7 @@ public class ClientMain extends Application {
             public void run() {
                 notification("Registrazione avvenuta con successo " + user.getUserUsername());
                 clientLoginController.setLoginNewUser(false);
+                clientLoginController.setFromServer(true);
                 clientLoginController.setNewUserScreen();
             }
         });
@@ -365,6 +366,13 @@ public class ClientMain extends Application {
         });
     }
 
+    /** Metodo usato per riabilitare la possibilità di chiedere di giocare.
+     */
+    public void serverForbids() {
+        notification("L'utente non ha accettato la tua proposta");
+        clientChoiceController.getClientConnectedListView().setDisable(false);
+    }
+
     /** Metodo che informa il server che il client ha accettato la richiesta e vuole giocare.
      * @param userAndNumber è l'arrayList che contiene in prima posizione l'user che ha accettato e in seconda il matchNumber inerente alla partita creata
      */
@@ -393,7 +401,7 @@ public class ClientMain extends Application {
         return user;
     }
 
-    /** setter
+    /** setter.
      * @param user l'utente.
      */
     public void setUser(User user) {
