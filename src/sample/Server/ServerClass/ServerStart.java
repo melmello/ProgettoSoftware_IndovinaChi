@@ -139,7 +139,7 @@ public class ServerStart extends Task {
     public void removeClientDisconnected(String information) {
         listOfClientConnected.remove(information);
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
-            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(information)){
+            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(information)){
                 threadsArrayList.remove(cont);
             }
         }
@@ -227,14 +227,16 @@ public class ServerStart extends Task {
         gson = new Gson();
         String clientInGameGson = gson.toJson(threadsPlaying);
         refreshLeaderboardSearchingUsername();
-        for (int cont = 0; cont < threadsArrayList.size(); cont++){
-            if(threadsArrayList.get(cont).getUser().getUserUsername().equals(winner)){
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, loser));
-            } else if (threadsArrayList.get(cont).getUser().getUserUsername().equals(loser)){
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_SAD_FOR_YOUR_DEFEAT, winner));
-            } else {
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT, clientConnectedGson));
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, clientInGameGson));
+        for (int cont = 0; cont < threadsArrayList.size(); cont++) {
+            if (threadsArrayList.get(cont).getUser() != null) {
+                if (threadsArrayList.get(cont).getUser().getUserUsername().equals(winner)) {
+                    threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_HAPPY_FOR_YOUR_WIN, loser));
+                } else if (threadsArrayList.get(cont).getUser().getUserUsername().equals(loser)) {
+                    threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_SAD_FOR_YOUR_DEFEAT, winner));
+                } else {
+                    threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT, clientConnectedGson));
+                    threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, clientInGameGson));
+                }
             }
         }
         main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
@@ -261,7 +263,9 @@ public class ServerStart extends Task {
      */
     public void refreshLeaderboardSearchingUsername(){
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
-            refreshLeaderboard(threadsArrayList.get(cont).getUser().getUserUsername());
+            if (threadsArrayList.get(cont).getUser() != null) {
+                refreshLeaderboard(threadsArrayList.get(cont).getUser().getUserUsername());
+            }
         }
     }
 
@@ -403,7 +407,7 @@ public class ServerStart extends Task {
     public void sendingRequest(String opponent, String userRequest) {
         int matchNumber = gameArrayList.size();
         for (int cont = 0; cont < threadsArrayList.size(); cont++){
-            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(opponent)){
+            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(opponent)){
                 gson = new Gson();
                 ArrayList<String> arrayListToSend = new ArrayList<>();
                 arrayListToSend.add(userRequest);
@@ -411,7 +415,7 @@ public class ServerStart extends Task {
                 String userAndMatchNumber = gson.toJson(arrayListToSend);
                 threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_RECEIVED_GAME_REQUEST, userAndMatchNumber));
             }
-            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userRequest)){
+            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(userRequest)){
                 gameArrayList.add(new Game(threadsArrayList.get(cont), null));
                 threadsArrayList.get(cont).setPositionInArrayList(matchNumber);
             }
@@ -428,7 +432,7 @@ public class ServerStart extends Task {
         int currentMatchNumber = Integer.parseInt(userAndNumber.get(1));
         System.out.println(currentMatchNumber + " E' LA PARTITA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         for(int cont = 0; cont < threadsArrayList.size(); cont++){
-            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(userAndNumber.get(0))) {
+            if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(userAndNumber.get(0))) {
                 gameArrayList.get(currentMatchNumber).setPlayer2(threadsArrayList.get(cont));
             }
         }
@@ -444,17 +448,16 @@ public class ServerStart extends Task {
         String clientConnectedGson = gson.toJson(listOfClientConnected);
         int positionThreadMustBeRemoved[] = {-1, -1};
         for(int cont = 0; cont < threadsArrayList.size(); cont++){
-            if (threadsArrayList.get(cont).getUser().getUserUsername().equals(gameArrayList.get(currentMatchNumber).getPlayer1().getUser().getUserUsername())){
-                positionThreadMustBeRemoved[0] = cont;
-            } else if (threadsArrayList.get(cont).getUser().getUserUsername().equals(gameArrayList.get(currentMatchNumber).getPlayer2().getUser().getUserUsername())) {
-                positionThreadMustBeRemoved[1] = cont;
-            } else {
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT, clientConnectedGson));
-                threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, threadsPlayingString));
+            if (threadsArrayList.get(cont).getUser() != null) {
+                if (threadsArrayList.get(cont).getUser().getUserUsername().equals(gameArrayList.get(currentMatchNumber).getPlayer1().getUser().getUserUsername())) {
+                    positionThreadMustBeRemoved[0] = cont;
+                } else if (threadsArrayList.get(cont).getUser().getUserUsername().equals(gameArrayList.get(currentMatchNumber).getPlayer2().getUser().getUserUsername())) {
+                    positionThreadMustBeRemoved[1] = cont;
+                } else {
+                    threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_CONNECTED_CLIENT, clientConnectedGson));
+                    threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_IN_GAME_CLIENT, threadsPlayingString));
+                }
             }
-        }
-        for (int cont = 0; cont < threadsArrayList.size(); cont++){
-            System.out.println(threadsArrayList.get(cont).getUser().getUserUsername() + " SHEHEHSJEHF");
         }
         if (positionThreadMustBeRemoved[0] > positionThreadMustBeRemoved [1]) {
             threadsArrayList.remove(positionThreadMustBeRemoved[0]);

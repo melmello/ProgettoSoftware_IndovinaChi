@@ -13,6 +13,6 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Text>
-      <JFXTextField fx:id="textWithClientNumber" alignment="CENTER" editable="false" layoutX="110.0" layoutY="82.0" maxWidth="85.0" minWidth="52.0" prefHeight="37.0" prefWidth="72.0" unFocusColor="WHITE" />
+      <JFXTextField fx:id="textWithClientNumber" alignment="CENTER" editable="false" layoutX="110.0" layoutY="82.0" maxWidth="85.0" minWidth="52.0" prefHeight="37.0" prefWidth="72.0" text="0" unFocusColor="WHITE" />
    </children>
 </Pane>
