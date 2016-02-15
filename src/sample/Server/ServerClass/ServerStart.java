@@ -113,6 +113,7 @@ public class ServerStart extends Task {
     /** Metodo che sceglie (casualmente) chi è il primo a partire e manda al giocatore scelto che è il suo turno.
      * @param numberOfFirstPlayer player scelto (o il numero 0, quindi Player1 o il numero 1 quindi Player2).
      * @param positionInArrayList posizione all'interno della gameArrayList, utile per ritrovare in fretta, senza bisogno di un for, la partita in corso.
+     * @param myUsernameGiven è l'username dello user.
      */
     public void startGameWithRandomChoice(boolean numberOfFirstPlayer, int positionInArrayList, String myUsernameGiven) {
         for (int cont = 0; cont < gameArrayList.size(); cont++) {
