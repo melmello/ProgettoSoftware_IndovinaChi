@@ -37,6 +37,8 @@ public class ClientMain extends Application {
     private Stage gamingStage;
     private PrintWriter writer;
     private User user;
+    private Parent screenGame;
+    private Scene gamingScene;
     private ClientGameController clientGameController;
     private ClientChoiceController clientChoiceController;
     private ClientLoginController clientLoginController;
@@ -140,12 +142,17 @@ public class ClientMain extends Application {
             @Override
             public void run() {
                 try {
-                    FXMLLoader loaderClientGameScreen = new FXMLLoader(getClass().getResource(GAMESCREEN_FXML));//carico .fxml
-                    Parent screenGame = loaderClientGameScreen.load();//creo un nuovo Parent
-                    clientGameController = loaderClientGameScreen.getController(); //bindo il Controller
+                    if (gamingScene == null) {
+                        FXMLLoader loaderClientGameScreen = new FXMLLoader(getClass().getResource(GAMESCREEN_FXML));//carico .fxml
+                        screenGame = loaderClientGameScreen.load();//creo un nuovo Parent
+                        clientGameController = loaderClientGameScreen.getController(); //bindo il Controller
+                        gamingScene = new Scene(screenGame, 1850, 1000);
+                    } else if (gamingScene != null) {
+                        clientGameController.configureScreen();
+                        clientGameController.initialize(null, null);
+                    }
                     gamingStage.getIcons().add(new Image(GAMESCREEN_ICON));//icona della finestra
                     gamingStage.setTitle("INDOVINA CHI");//titolo finestra
-                    Scene gamingScene = new Scene(screenGame, 1850, 1000);
                     gamingStage.setScene(gamingScene);
                     clientGameController.setMain(ClientMain.this, gamingScene);//collegare main e controller
                     gamingStage.setResizable(false);

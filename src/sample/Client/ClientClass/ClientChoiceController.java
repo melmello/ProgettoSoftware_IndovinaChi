@@ -131,10 +131,10 @@ public class ClientChoiceController implements Initializable {
      * @param listView listView su cui modifico l'altezza.
      */
     private void setListViewHeight(ArrayList<String> objectInList, ListView<String> listView) {
-        if (listView.getHeight() < 300){
-            listView.setPrefHeight((objectInList.size()+4)*17);
+        if (objectInList.size() < 8){
+            listView.setPrefHeight((objectInList.size()+4)*18.2f);
         } else {
-            listView.setPrefHeight((7+4)*17);
+            listView.setPrefHeight((8+4)*18.2f);
         }
     }
 

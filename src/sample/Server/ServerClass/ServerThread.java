@@ -621,10 +621,12 @@ public class ServerThread extends Thread{
      * @param positionInArrayList è la posizone all'interno dell'array di Game.
      */
     public void changeFirstPlayerInGame(int positionInArrayList){
-        if (serverStart.getGameArrayList().get(positionInArrayList).getSticker1() != null && serverStart.getGameArrayList().get(positionInArrayList).getSticker2() != null) {
-            Random randomNumber = new Random();
-            boolean numberOfFirstPlayer = randomNumber.nextBoolean();
-            serverStart.startGameWithRandomChoice(numberOfFirstPlayer, positionInArrayList);
+        for (int cont = 0; cont < serverStart.getGameArrayList().size(); cont++) {
+            if (serverStart.getGameArrayList().get(cont).getSticker1() != null && serverStart.getGameArrayList().get(cont).getSticker2() != null) {
+                Random randomNumber = new Random();
+                boolean numberOfFirstPlayer = randomNumber.nextBoolean();
+                serverStart.startGameWithRandomChoice(numberOfFirstPlayer, positionInArrayList, user.getUserUsername());
+            }
         }
     }
 

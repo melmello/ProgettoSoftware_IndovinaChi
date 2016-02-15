@@ -269,9 +269,9 @@
          <items>
             <JFXComboBox fx:id="hairComboBox" onMouseClicked="#reinitializeComboBox" prefHeight="31.0" prefWidth="250.0" promptText="Capelli" />
             <JFXComboBox fx:id="beardComboBox" onMouseClicked="#reinitializeComboBox" prefHeight="31.0" prefWidth="250.0" promptText="Barba" />
-            <JFXComboBox fx:id="faceComboBox" layoutX="10.0" layoutY="10.0" prefHeight="31.0" prefWidth="250.0" promptText="Viso" />
-            <JFXComboBox fx:id="accessoriesComboBox" layoutX="10.0" layoutY="82.0" prefHeight="31.0" prefWidth="250.0" promptText="Accessori" />
-            <JFXComboBox fx:id="informationComboBox" layoutX="10.0" layoutY="118.0" prefHeight="31.0" prefWidth="250.0" promptText="Informazioni" />
+            <JFXComboBox fx:id="faceComboBox" layoutX="10.0" layoutY="10.0" onMouseClicked="#reinitializeComboBox" prefHeight="31.0" prefWidth="250.0" promptText="Viso" />
+            <JFXComboBox fx:id="accessoriesComboBox" layoutX="10.0" layoutY="82.0" onMouseClicked="#reinitializeComboBox" prefHeight="31.0" prefWidth="250.0" promptText="Accessori" />
+            <JFXComboBox fx:id="informationComboBox" layoutX="10.0" layoutY="118.0" onMouseClicked="#reinitializeComboBox" prefHeight="31.0" prefWidth="250.0" promptText="Informazioni" />
          </items>
       </ToolBar>
       <JFXListView fx:id="questionThatCouldBeChoosen" layoutX="1525.0" layoutY="450.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clientWantsToQuery" prefHeight="195.0" prefWidth="265.0" style="-fx-background-color: transparent;" />

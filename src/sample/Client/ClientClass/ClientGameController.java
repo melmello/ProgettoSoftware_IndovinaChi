@@ -99,6 +99,31 @@ public class ClientGameController implements Initializable {
         this.gamingScene = gamingScene;
     }
 
+    /** Metodo chiamato quando si ricarica il foglio fxml per una seconda partita in modo da reinizializzare tutti gli oggetti già presenti.
+     */
+    public void configureScreen(){
+        hairPossibility.clear();
+        beardPossibility.clear();
+        facePossibility.clear();
+        accessoriesPossibility.clear();
+        informationPossibility.clear();
+        Set<Node> set = anchorPane.lookupAll(".ImageSticker");
+        Object[] arrayNode = set.toArray();
+        for (int cont = 0; cont < set.size(); cont++) {
+            ImageView imageView = (ImageView) arrayNode[cont];
+            imageView.setScaleX(1);
+            imageView.setScaleY(1);
+            imageView.setVisible(true);
+        }
+        myStickerImage.setImage(questionMarkImage);
+        hisStickerImage.setImage(questionMarkImage);
+        hisStickerImage.setVisible(true);
+        utilities.fadeTransitionEffect(hisStickerImage, 0, 1, 1);
+        questionChoosenListView.setItems(null);
+        myOrHis = true;
+        isItFirstTimeYouEnter = true;
+    }
+
     /** Metodo che serve per comunicare la query scelta dall'utente, aggiungerla alla listview di query fatte e inviarla al ClientMain tradotta da una domanda italiana in firstParameter e secondParameter.
      */
     public void clientWantsToQuery() {
@@ -139,6 +164,7 @@ public class ClientGameController implements Initializable {
         informationComboBox.setValue(null);
         questionCanBeChoosen.clear();
         questionToSendToServer.clear();
+        questionThatCouldBeChoosen.setItems(null);
     }
 
     /** Metodo chiamato al momento dell'inizializzazione in cui viene settata per ogni immagine l'azione di onDragDetected., onDragDone, onMouseEntered e onMouseExited.
@@ -171,6 +197,12 @@ public class ClientGameController implements Initializable {
                     animation.stop();
                     myStickerImage.setScaleX(hisStickerImage.getScaleX());
                     myStickerImage.setScaleY(hisStickerImage.getScaleY());
+                    hisStickerImage.setScaleX(myStickerImage.getScaleX());
+                    hisStickerImage.setScaleX(myStickerImage.getScaleY());
+                    hisStickerImage.setScaleX(1);
+                    hisStickerImage.setScaleY(1);
+                    hisStickerImage.setFitWidth(wSticker);
+                    hisStickerImage.setFitHeight(hSticker);
                 }
             });
             imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -541,8 +573,12 @@ public class ClientGameController implements Initializable {
                         @Override
                         public void handle(DragEvent event) {
                             animation.stop();
-                            hisStickerImage.setScaleX(hisStickerImage.getScaleX());
-                            hisStickerImage.setScaleY(hisStickerImage.getScaleY());
+                            hisStickerImage.setScaleX(myStickerImage.getScaleX());
+                            hisStickerImage.setScaleX(myStickerImage.getScaleY());
+                            hisStickerImage.setScaleX(1);
+                            hisStickerImage.setScaleY(1);
+                            hisStickerImage.setFitWidth(wSticker);
+                            hisStickerImage.setFitHeight(hSticker);
                         }
                     });
                 }
@@ -566,7 +602,7 @@ public class ClientGameController implements Initializable {
      * @param questionCanBeChoosenArray arraylist che popola la mia listView.
      */
     private void setListViewHeight(JFXListView<String> questionThatCouldBeChoosen, ArrayList<String> questionCanBeChoosenArray) {
-        questionThatCouldBeChoosen.setPrefHeight((questionCanBeChoosenArray.size()+4)*17);
+        questionThatCouldBeChoosen.setPrefHeight((questionCanBeChoosenArray.size()+4)*18.2);
     }
 
     /** getter.

@@ -62,7 +62,7 @@ public class ServerStart extends Task {
             assignedIp = Inet4Address.getLocalHost().getHostAddress();//ricavo l'IP globale del Server per stamparlo poi
             main.initialConfiguration(assignedIp); //chiamo il metodo che mi permette di collegarmi al Controller
             System.out.println("Sono il Server.\nIl mio indirizzo IP è: " + assignedIp + "\nLa mia porta è: " + ASSIGNED_PORT_SOCKET);
-            main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
+            main.printNumberOfClient(Integer.toString(listOfClientConnected.size() + threadsPlaying.size()));
             while (true) {//while true del Thread in cui istanzia un thread per ogni client che si connette
                 Socket serverSocket = socketExchange.accept();
                 threadsArrayList.add(new ServerThread(serverSocket, this, connection, threadsArrayList.size()));//ogni volta che creo un Thread lo inserisco nell'ultimo posto dell'array
@@ -81,12 +81,14 @@ public class ServerStart extends Task {
      * @param mySticker sticker del giocatore che ha finito il turno e passa.
      */
     public void changingRoundOfClient(int positionInArrayList, String usernameToChange, Sticker mySticker){
-        if (gameArrayList.get(positionInArrayList).getPlayer1().getUser().getUserUsername().equals(usernameToChange)){
-            gameArrayList.get(positionInArrayList).getPlayer2().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
-            gameArrayList.get(positionInArrayList).getPlayer2().setOpponentSticker(mySticker);
-        } else if (gameArrayList.get(positionInArrayList).getPlayer2().getUser().getUserUsername().equals(usernameToChange)) {
-            gameArrayList.get(positionInArrayList).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
-            gameArrayList.get(positionInArrayList).getPlayer1().setOpponentSticker(mySticker);
+        for (int cont = 0; cont < gameArrayList.size() ; cont++) {
+            if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(usernameToChange)) {
+                gameArrayList.get(cont).getPlayer2().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
+                gameArrayList.get(cont).getPlayer2().setOpponentSticker(mySticker);
+            } else if (gameArrayList.get(cont).getPlayer2().getUser().getUserUsername().equals(usernameToChange)) {
+                gameArrayList.get(cont).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
+                gameArrayList.get(cont).getPlayer1().setOpponentSticker(mySticker);
+            }
         }
     }
 
@@ -97,12 +99,14 @@ public class ServerStart extends Task {
      */
     public void setOpponentSticker(Sticker mySticker, int positionInArrayList, String usernameToChange) {
         System.out.println(positionInArrayList + " -> POSITION SERVERSTART");
-        if (usernameToChange.equals(gameArrayList.get(positionInArrayList).getPlayer1().getUser().getUserUsername())) {
-            gameArrayList.get(positionInArrayList).setSticker1(mySticker);
-            gameArrayList.get(positionInArrayList).getPlayer2().setOpponentSticker(mySticker);
-        } else if (usernameToChange.equals(gameArrayList.get(positionInArrayList).getPlayer2().getUser().getUserUsername())){
-            gameArrayList.get(positionInArrayList).setSticker2(mySticker);
-            gameArrayList.get(positionInArrayList).getPlayer1().setOpponentSticker(mySticker);
+        for (int cont = 0; cont < gameArrayList.size(); cont++){
+            if (usernameToChange.equals(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername())) {
+                gameArrayList.get(cont).setSticker1(mySticker);
+                gameArrayList.get(cont).getPlayer2().setOpponentSticker(mySticker);
+            } else if (usernameToChange.equals(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername())){
+                gameArrayList.get(cont).setSticker2(mySticker);
+                gameArrayList.get(cont).getPlayer1().setOpponentSticker(mySticker);
+            }
         }
     }
 
@@ -110,11 +114,15 @@ public class ServerStart extends Task {
      * @param numberOfFirstPlayer player scelto (o il numero 0, quindi Player1 o il numero 1 quindi Player2).
      * @param positionInArrayList posizione all'interno della gameArrayList, utile per ritrovare in fretta, senza bisogno di un for, la partita in corso.
      */
-    public void startGameWithRandomChoice(boolean numberOfFirstPlayer, int positionInArrayList) {
-        if (numberOfFirstPlayer){
-            gameArrayList.get(positionInArrayList).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
-        } else if (!numberOfFirstPlayer){
-            gameArrayList.get(positionInArrayList).getPlayer2().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
+    public void startGameWithRandomChoice(boolean numberOfFirstPlayer, int positionInArrayList, String myUsernameGiven) {
+        for (int cont = 0; cont < gameArrayList.size(); cont++) {
+            if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(myUsernameGiven) || gameArrayList.get(cont).getPlayer2().getUser().getUserUsername().equals(myUsernameGiven)) {
+                if (numberOfFirstPlayer) {
+                    gameArrayList.get(cont).getPlayer1().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
+                } else if (!numberOfFirstPlayer) {
+                    gameArrayList.get(cont).getPlayer2().getWriter().println(CodeAndInformation.serializeToJson(SERVER_CHANGES_ROUND, null));
+                }
+            }
         }
     }
 
@@ -181,7 +189,7 @@ public class ServerStart extends Task {
                 gameArrayList.remove(cont);
             }
         }
-        main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
+        main.printNumberOfClient(Integer.toString(listOfClientConnected.size() + threadsPlaying.size()));
     }
 
     /** Metodo che serve per rimettere i giocatori in gioco nei giocatori connessi ed eliminare la partita in corso. Viene anche fatto l'inserimento della partita nel database e comunicato ai giocatori chi ha vinto e chi ha perso.
@@ -193,25 +201,27 @@ public class ServerStart extends Task {
         String winner = null;
         String loser = null;
         for(int cont = 0; cont < gameArrayList.size(); cont++){
-            if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(usernameWhoWin) || gameArrayList.get(cont).getPlayer2().getUser().getUserUsername().equals(usernameWhoWin)){
-                threadsArrayList.add(gameArrayList.get(cont).getPlayer1());
-                threadsArrayList.add(gameArrayList.get(cont).getPlayer2());
-                listOfClientConnected.add(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername());
-                listOfClientConnected.add(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername());
-                if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(usernameWhoWin)){
-                    winner = gameArrayList.get(cont).getPlayer1().getUser().getUserUsername();
-                    loser = gameArrayList.get(cont).getPlayer2().getUser().getUserUsername();
-                } else {
-                    loser = gameArrayList.get(cont).getPlayer1().getUser().getUserUsername();
-                    winner = gameArrayList.get(cont).getPlayer2().getUser().getUserUsername();
+            if (gameArrayList.get(cont).getPlayer1().getUser() != null && gameArrayList.get(cont).getPlayer2().getUser() != null && gameArrayList.get(cont).getPlayer1().getUser().getUserUsername() != null && gameArrayList.get(cont).getPlayer2().getUser().getUserUsername() != null) {
+                if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(usernameWhoWin) || gameArrayList.get(cont).getPlayer2().getUser().getUserUsername().equals(usernameWhoWin)) {
+                    threadsArrayList.add(gameArrayList.get(cont).getPlayer1());
+                    threadsArrayList.add(gameArrayList.get(cont).getPlayer2());
+                    listOfClientConnected.add(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername());
+                    listOfClientConnected.add(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername());
+                    if (gameArrayList.get(cont).getPlayer1().getUser().getUserUsername().equals(usernameWhoWin)) {
+                        winner = gameArrayList.get(cont).getPlayer1().getUser().getUserUsername();
+                        loser = gameArrayList.get(cont).getPlayer2().getUser().getUserUsername();
+                    } else {
+                        loser = gameArrayList.get(cont).getPlayer1().getUser().getUserUsername();
+                        winner = gameArrayList.get(cont).getPlayer2().getUser().getUserUsername();
+                    }
+                    threadsPlaying.remove(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername());
+                    threadsPlaying.remove(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername());
+                    gameArrayList.get(cont).setPlayer1(null);
+                    gameArrayList.get(cont).setPlayer2(null);
+                    gameArrayList.get(cont).setSticker1(null);
+                    gameArrayList.get(cont).setSticker2(null);
+                    gameArrayList.remove(cont);
                 }
-                threadsPlaying.remove(gameArrayList.get(cont).getPlayer1().getUser().getUserUsername());
-                threadsPlaying.remove(gameArrayList.get(cont).getPlayer2().getUser().getUserUsername());
-                gameArrayList.get(cont).setPlayer1(null);
-                gameArrayList.get(cont).setPlayer2(null);
-                gameArrayList.get(cont).setSticker1(null);
-                gameArrayList.get(cont).setSticker2(null);
-                gameArrayList.remove(cont);
             }
         }
         System.out.println("THE WINNER IS " + winner);
@@ -239,14 +249,14 @@ public class ServerStart extends Task {
                 }
             }
         }
-        main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
+        main.printNumberOfClient(Integer.toString(listOfClientConnected.size() + threadsPlaying.size()));
     }
 
     /** Metodo che invia a qualsiasi altro client connesso di refreshare la schermata coi client connessi e i client in game, ovviamente a tutti tranne all'username in questione.
      * @param usernameDisconnected è il nome del client che si è disconnesso.
      */
     public void refreshClientConnected(String usernameDisconnected) {
-        main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
+        main.printNumberOfClient(Integer.toString(listOfClientConnected.size() + threadsPlaying.size()));
         gson = new Gson();
         String clientConnectedGson = gson.toJson(listOfClientConnected);
         gson = new Gson();
@@ -299,7 +309,7 @@ public class ServerStart extends Task {
                 threadsArrayList.get(cont).getWriter().println(CodeAndInformation.serializeToJson(SERVER_REFRESHES_WORLD_LEADERBOARD, leaderboardArray.get(1)));
             }
         }
-        main.printNumberOfClient(Integer.toString(listOfClientConnected.size()));
+        main.printNumberOfClient(Integer.toString(listOfClientConnected.size() + threadsPlaying.size()));
     }
 
     /** Metodo che mi serve per aggiornare il database con l'ultima vittoria e sconfitta di questi giocatori.
@@ -430,7 +440,7 @@ public class ServerStart extends Task {
     public void createTheGame(String information) {
         ArrayList<String> userAndNumber = gson.fromJson(information, new TypeToken<ArrayList<String>>() {}.getType());
         int currentMatchNumber = Integer.parseInt(userAndNumber.get(1));
-        System.out.println(currentMatchNumber + " E' LA PARTITA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(currentMatchNumber + " E' LA PARTITA");
         for(int cont = 0; cont < threadsArrayList.size(); cont++){
             if (threadsArrayList.get(cont).getUser() != null && threadsArrayList.get(cont).getUser().getUserUsername().equals(userAndNumber.get(0))) {
                 gameArrayList.get(currentMatchNumber).setPlayer2(threadsArrayList.get(cont));
@@ -483,15 +493,15 @@ public class ServerStart extends Task {
         }
     }
 
-    /** getter
-     * @return lista dei client Connessi
+    /** getter.
+     * @return lista dei client Connessi.
      */
     public ArrayList<String> getListOfClientConnected() {
         return listOfClientConnected;
     }
 
-    /** getter
-     * @return l'array di partite
+    /** getter.
+     * @return l'array di partite.
      */
     public ArrayList<Game> getGameArrayList() {
         return gameArrayList;
