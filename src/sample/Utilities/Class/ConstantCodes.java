@@ -119,8 +119,8 @@ public final class ConstantCodes {
     public static final String CONNECTION_URL_MYSQL = "jdbc:mysql://localhost:3306/indovinachi?useSSL=false";
 
     //server utility
-    public static final int ASSIGNED_PORT_SOCKET = 8080;
-    public static final String ASSIGNED_IP_SOCKET = "localhost";
+    public static final int ASSIGNED_PORT_SOCKET = 2424;
+    public static final String ASSIGNED_IP_SOCKET = "giuliomelloni.noip.me";
 
     //comboBox utility
     public static final String LENGTH_COMBO_BOX = "Lunghezza";
